@@ -1,26 +1,59 @@
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
-#relative_permalinks: true
+# Site Info
+title:        Ringsterz Log # 블로그 제목
+tagline:      'Log for everything' # 페이지 제목 옆에 나타나는 설명 글
+description:  'A Jekyll theme adapted from <a href="http://lanyon.getpoole.com/" target="_blank">Lanyon</a>. Made by <a href="http://codinfox.github.io" target="_blank">@codinfox</a>.'
+baseurl:      ''
+url:          https://minyoungjung.github.io/
+logo:         '/public/logo.png'
 
-# Setup
-title:               Ringsterz Log # 블로그 제목
-tagline:             'Log for everything' # 페이지 제목 옆에 나타나는 설명 글
-description:         '궁금한 것, 배운 것, 알게된 것 등을 정리하기 위한 블로그입니다.' # 사이드바 상단에 나타나는 블로그 설명
-url:                 https://minyoungjung.github.io/
-baseurl:             ''
-paginate:            5
+# Site configurations
+gems:
+  - jekyll-paginate
+markdown: kramdown
+kramdown:
+  input: GFM
+excerpt_separator: "<!-- more -->"
+sass:
+  style: compressed
+  sass_dir: _scss
+paginate: 5
+paginate_path: '/blog/page:num'
+permalink: pretty
+
+# Custom vars
+version: 1.0.0
 
 # About/contact
 author:
-  name:              Minyoung Jung
-  url:               https://MinyoungJung.github.io
-  email:             minyoungjung84@gmail.com
+  name: Minyoung Jung
+  description: '하루를 정리하는 데일리 로그 ' # 블로그 설명
+  gravatar: 78abf09c8af4042796ff9379143da32f # md5 hash of your email address
+  contact:
+    #linkedin:  https://www.linkedin.com/in/lizhihao
+    github:    https://github.com/minyoungjung
+    # facebook:  <hide>
+    #twitter:   https://twitter.com/Li_Zhihao
+    #weibo:     http://weibo.com/41173780
+    email:    minyoungjung84@gmail.com
 
-# Custom vars
-version:             1.0.0
+# Navigation (2nd level links supported)
+nav:
+  Home:
+    - '/'
+  Blog:
+    - '/blog/'
+    - { Categories: '/blog/categories/' }
+    - { Tags: '/blog/tags/' }
 
-# Pagination
-gems: [jekyll-paginate]
-paginate_path: "page:num"
+# Where are tags and categories displayed
+tag_page: '/blog/tags/'
+category_page: '/blog/categories/'
+
+hero:
+  image: /public/img/we_will_be_giants_by_yalestewart.jpg
+  caption: Original Artwork &copy; <a href="http://yalestewart.deviantart.com/art/We-Will-Be-Giants-370176475">Yale Stewart</a>
+
+# Puglins
+mathjax: true # whether support mathjax
+google_analytics_token: 'UA-67856795-3' # leave blank if you don't want google analytics
+disqus_short_name: 'ringsterz' # leave blank if you don't want disqus

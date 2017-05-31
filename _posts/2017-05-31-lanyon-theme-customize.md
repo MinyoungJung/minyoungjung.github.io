@@ -1,6 +1,8 @@
 ---
 layout: post
-title: Jekyll과 Laynon을 이용한 블로깅 및 테마 편집 방법
+title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
+category: [환경설정]
+tags: [Github, Blog, Jekyll]
 ---
 
 
@@ -14,7 +16,7 @@ title: Jekyll과 Laynon을 이용한 블로깅 및 테마 편집 방법
 Jekyll 및 테마를 설치하고 `Jekyll serve` 명령을 실행하니
 `Build Warning: Layout 'home' requested in index.md does not exist.`
 라는 warning과 함께 빈 화면이 출력되었다.  
-이는 Laynon 테마 설치 이후 `index.html`을 생성하는 마크다운인 `index.md`에
+이는 Lanyon 테마 설치 이후 `index.html`을 생성하는 마크다운인 `index.md`에
 `layout: home`이 설정되어 있으나, home이라는 레이아웃이 존재하지 않기 때문에 일어난다.
 
 - 해결방법 1 : `index.md`를 삭제해서 `index.html`이 알아서 처리하게 한다.
@@ -66,12 +68,12 @@ HTML 빌드 시 사이드바에 자동으로 추가되며 주소는 `base_url/ti
 ```
 ---
 layout: post
-title: Jekyll과 Laynon을 이용한 블로깅 및 테마 편집 방법
+title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
 ---
 이곳에 포스트 내용 작성
 ```
-`2017-05-31-laynon-theme-customize.md`로 생성한 포스트의 주소는  
-`base_url/2017/05/31/laynon-theme-customize/`가 된다.
+`2017-05-31-lanyon-theme-customize.md`로 생성한 포스트의 주소는  
+`base_url/2017/05/31/lanyon-theme-customize/`가 된다.
 
 
 <br>

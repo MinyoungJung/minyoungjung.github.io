@@ -13,5 +13,5 @@ Github 프로젝트나 개발 관련 배운 것들을 틈틈히 정리하는 용
 
 
 ## Jekyll 및 Laynon 설정하기
-[블로그 링크](https://minyoungjung.github.io/2017/05/31/laynon-theme-customize/)
+[블로그 링크](https://minyoungjung.github.io/2017/05/31/lanyon-theme-customize/)
 
