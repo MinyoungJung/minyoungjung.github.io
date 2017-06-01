@@ -1,7 +1,7 @@
 # Site Info
 title:        Ringsterz Log # 블로그 제목
 tagline:      'Log for everything' # 페이지 제목 옆에 나타나는 설명 글
-description:  'A Jekyll theme adapted from <a href="http://lanyon.getpoole.com/" target="_blank">Lanyon</a>. Made by <a href="http://codinfox.github.io" target="_blank">@codinfox</a>.'
+description:  '하루를 정리하는 데일리 로그 ' # 블로그 설명
 baseurl:      ''
 url:          https://minyoungjung.github.io/
 logo:         '/public/logo.png'
@@ -9,6 +9,7 @@ logo:         '/public/logo.png'
 # Site configurations
 gems:
   - jekyll-paginate
+  - jekyll-seo-tag
 markdown: kramdown
 kramdown:
   input: GFM
@@ -26,7 +27,7 @@ version: 1.0.0
 # About/contact
 author:
   name: Minyoung Jung
-  description: '하루를 정리하는 데일리 로그 ' # 블로그 설명
+  description: '원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.' # 저자 설명
   gravatar: 78abf09c8af4042796ff9379143da32f # md5 hash of your email address
   contact:
     #linkedin:  https://www.linkedin.com/in/lizhihao
