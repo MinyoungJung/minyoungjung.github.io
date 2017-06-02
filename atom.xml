@@ -4,13 +4,112 @@
  <title>Ringsterz Log</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-06-02T19:14:03+09:00</updated>
+ <updated>2017-06-02T21:01:27+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</title>
+   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"/>
+   <updated>2017-06-02T00:00:00+09:00</updated>
+   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github</id>
+   <content type="html">&lt;h1 id=&quot;발단&quot;&gt;발단&lt;/h1&gt;
+&lt;p class=&quot;message&quot;&gt; Jekyll로 구성한 블로그 디자인을 수정하며 조금씩 구색을 맞추기 시작했다.&lt;br /&gt; 
+사이트맵을 추가해 구글에서 검색되지 않는 부분도 수정하고, &amp;nbsp;&lt;a href=&quot;http://tech.kakao.com/2016/07/07/tech-blog-story/&quot; target=&quot;_blank&quot;&gt;Kakao Tech 참고자료&lt;/a&gt;&lt;br /&gt;
+어날리틱스 &amp;amp; 서치콘솔 연동과 같은 소소한 부분도 처리했다. &lt;br /&gt; 
+&quot;블로그 자체에 큰 노력을 들이지 않고 컨텐츠에 집중해 매일 무엇인가 정리해보자&quot;는 취지도 이때까지는&lt;br /&gt; 맞는듯 했다... &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;하지만 데일리 로그라는 명목하에, 블로그 첫 게시일로부터 며칠이 지났고, 며칠째 포스팅을 이어가고 있는지 표시하고 싶다는 생각이 들었다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;커스텀-플러그인-개발&quot;&gt;커스텀 플러그인 개발&lt;/h1&gt;
+&lt;p&gt;Jekyll 환경변수, Liquid 템플릿 태그 등을 확인해 보았는데 마땅한 방법이 보이지 않았다.&lt;br /&gt;
+어딘가에 있을법한 기능인데도 찾기가 쉽지 않아 기존 플러그인 몇 개의 소스를 들여다 보고 자체 제작하기로 했다.&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Jekyll&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RenderTotalBloggingDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Liquid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tag&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;site&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;registers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:site&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strptime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;posts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;docs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'%Y-%m-%d'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%Y-%m-%d'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;liquid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;register_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'total_blogging_date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RenderTotalBloggingDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;루비는 예전에 간단히 레일스를 만져볼때 빼고는 다뤄본적이 없어, 라이브러리나 문법등이 기억이 나지 않았다.&lt;br /&gt;
+다행히 플러그인 구조가 간단하기에 큰 문제가 되지는 않았다.&lt;/p&gt;
+
+&lt;h2 id=&quot;플러그인-구조&quot;&gt;플러그인 구조&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Jekyll 모듈에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Liquid::Tag&lt;/code&gt;를 상속받은 클래스를 생성한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;render(context)&lt;/code&gt;함수를 오버라이딩 한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;liquid::Template.register_tag('태그이름', Jekyll:: 태그 클래스 이름)&lt;/code&gt;과 같이 태그를 등록한다.&lt;/li&gt;
+  &lt;li&gt;등록된 태그는 템플릿에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;태그이름&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;과 같이 사용가능하다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;플러그인-적용&quot;&gt;플러그인 적용&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;블로그 경로에 &lt;code class=&quot;highlighter-rouge&quot;&gt;_plugins&lt;/code&gt; 폴더를 생성한다.&lt;/li&gt;
+  &lt;li&gt;원하는 곳에 태그를 넣는다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;github-page로-적용&quot;&gt;Github page로 적용?&lt;/h1&gt;
+&lt;p class=&quot;message&quot;&gt; 로컬에서 잘 동작하는 것을 확인하고, Github로 페이지를 푸쉬했다.&lt;br /&gt;그리고... &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-02/mail_from_github.png&quot; alt=&quot;깃허브에서 온 메일&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;color:red; font-weight:bold;&quot;&gt;빌드가 실패했다!&lt;/p&gt;
+
+&lt;h2 id=&quot;원인-분석&quot;&gt;원인 분석&lt;/h2&gt;
+&lt;p&gt;여전히 Tag가 인식되지 않는단다. 이유를 확인해보니, 보안상의 이유로 &lt;a href=&quot;https://github.com/github/pages-gem&quot;&gt;github/pages-gem&lt;/a&gt;을&lt;br /&gt;
+제외한 커스톰 plugin을 Github에서는 공식 사용할 수 없게 되어있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;해결방안&quot;&gt;해결방안&lt;/h2&gt;
+&lt;p&gt;다행히 Workaround가 존재한다. 자세한 것은 다른 분의 링크로 대체.
+&lt;a href=&quot;http://gumpcha.github.io/blog/github-pages-with-jekyll-custom-plugin/&quot; target=&quot;_blank&quot;&gt;링크&lt;/a&gt;
+간단히 요약하면,&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Jekyll이 생성하는 정적 페이지인 &lt;code class=&quot;highlighter-rouge&quot;&gt;_site&lt;/code&gt;폴더를 Github에 Master 브랜치로 등록한다.&lt;/li&gt;
+  &lt;li&gt;소스코드를 담은 기존 Master 브랜치는 Source 브랜치로 따로 딴 후, Source에서 동일하게 포스팅을 작성한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll serve&lt;/code&gt;를 실행하면 템플릿 태그는 전부 정적 리소스로 변경된다.&lt;/li&gt;
+  &lt;li&gt;정적 리소스만 포함한 마스터 브랜치(&lt;code class=&quot;highlighter-rouge&quot;&gt;_site&lt;/code&gt; 폴더)와 Source 브랜치를 모두 Github에 푸시한다.&lt;/li&gt;
+  &lt;li&gt;마스터 브랜치를 삭제한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
+&lt;p&gt;매번 포스팅 할때마다 브랜치를 새로 생성하고 Source에서 작업하고 다시 Master를 삭제하는 방법을 사용해야 한다.&lt;br /&gt;
+다행히 쉘 스크립트를 이용해서 간편하게 해결 가능하다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;publish.sh&lt;/code&gt;를 다음과 같이 블로그 폴더에 생성하고,&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+git checkout &lt;span class=&quot;nb&quot;&gt;source
+&lt;/span&gt;git branch -D master
+git checkout -b master 
+git filter-branch --subdirectory-filter _site/ -f
+git push --all
+git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;필요한 일련의 명령들을 하나로 모은다.&lt;/p&gt;
+
+&lt;p&gt;그 이후 블로그를 작성하는 방법은 아래와 같다.&lt;/p&gt;
+
+&lt;h1 id=&quot;블로그-퍼블리싱&quot;&gt;블로그 퍼블리싱&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; 폴더에 마크다운 작성&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(source) $ jekyll serve&lt;/code&gt; 로 정적 사이트 생성&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(source) $ git add .&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(source) $ git commit -m 'Commit message'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(source) $ ./publish.sh&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;느낀점&quot;&gt;느낀점&lt;/h2&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기</title>
@@ -54,9 +153,9 @@
  
  <entry>
    <title>Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/05/31/lanyon-theme-customize/"/>
+   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/"/>
    <updated>2017-05-31T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/05/31/lanyon-theme-customize</id>
+   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize</id>
    <content type="html">&lt;h2 id=&quot;jekyll이란&quot;&gt;Jekyll이란?&lt;/h2&gt;
 &lt;p&gt;정적 사이트 생성기.&lt;br /&gt;
 간단히 말하면 마크다운 언어&lt;strong&gt;(.md 등)&lt;/strong&gt;로 작성된 글을 알아서 HTML로 변경해준다.&lt;br /&gt;
