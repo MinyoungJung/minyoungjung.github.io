@@ -91,16 +91,17 @@ git checkout source
 [깃허브](https://github.com/MinyoungJung/jekyll-plugin-blogStreak)  
 
 ## 사용법
-1. _plugins 디렉토리를 생성한다.  
-2. 템플릿에 태그를 넣는다. {% raw %}`{% 태그이름 %}`{% endraw %}  
+1. 블로그 폴더 안에 `_plugins` 폴더를 생성한다.  
+2. `blog_streak.rb` 파일을 `_plugins` 폴더에 넣는다.
+3. 템플릿에 태그를 넣는다. {% raw %}`{% 태그이름 %}`{% endraw %} 
 
 ## 태그 종류
-1. {% raw %}`{% total_blogging_date %}`{% endraw %}  
-- 첫 포스팅부터 현재까지 지난 일 수
-2. {% raw %}`{% current_date_streak %}`{% endraw %}
-- 현재 연속 포스팅 일 수 (포스팅을 하지 않고 하루를 넘기면 초기화 됨)
-3. {% raw %}`{% longest_date_streak %}`{% endraw %}
-- 최장 연속 포스팅 일 수 (첫 포스팅부터 현재까지 최장 연속 포스팅 일 수)
+- {% raw %}`{% total_blogging_date %}`{% endraw %}  
+첫 포스팅부터 현재까지 지난 일 수
+- {% raw %}`{% current_date_streak %}`{% endraw %}  
+현재 연속 포스팅 일 수 (포스팅을 하지 않고 하루를 넘기면 초기화 됨)
+- {% raw %}`{% longest_date_streak %}`{% endraw %}  
+최장 연속 포스팅 일 수 (첫 포스팅부터 현재까지 최장 연속 포스팅 일 수)
 
 
 
