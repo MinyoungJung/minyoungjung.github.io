@@ -6,6 +6,10 @@
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">{{ site.description }}</span></p>
+      <div style="text-align:center;">
+        현재 <strong style="color:#FFC300;">{% current_date_streak %}</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">{% longest_date_streak %}</strong>일
+      </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
         <img src="http://www.gravatar.com/avatar/{{ site.author.gravatar }}?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
