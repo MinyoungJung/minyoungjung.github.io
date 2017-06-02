@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기
-category: [MAC 사용팁]
+category: [MAC Tips]
 tags: [Tag, Mac]
 ---
 
