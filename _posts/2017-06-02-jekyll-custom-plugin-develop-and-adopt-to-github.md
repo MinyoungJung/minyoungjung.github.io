@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 
-category: [Config, Blog]
+category: [환경설정, 블로그]
 tags: [Github, Blog, Jekyll, Tag]
 ---
 
@@ -87,7 +87,20 @@ git checkout source
 5. `(source) $ ./publish.sh`
 
 
-## 느낀점
-Jekyll 커스토마이징은 여기까지...
+# Plugin 링크
+[깃허브](https://github.com/MinyoungJung/jekyll-plugin-blogStreak)  
+
+## 사용법
+1. _plugins 디렉토리를 생성한다.  
+2. 템플릿에 태그를 넣는다. {% raw %}`{% 태그이름 %}`{% endraw %}  
+
+## 태그 종류
+1. {% raw %}`{% total_blogging_date %}`{% endraw %}  
+- 첫 포스팅부터 현재까지 지난 일 수
+2. {% raw %}`{% current_date_streak %}`{% endraw %}
+- 현재 연속 포스팅 일 수 (포스팅을 하지 않고 하루를 넘기면 초기화 됨)
+3. {% raw %}`{% longest_date_streak %}`{% endraw %}
+- 최장 연속 포스팅 일 수 (첫 포스팅부터 현재까지 최장 연속 포스팅 일 수)
+
 
 

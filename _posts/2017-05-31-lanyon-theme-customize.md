@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
-category: [Config, Blog]
+category: [환경설정, 블로그]
 tags: [Github, Blog, Jekyll]
 ---
 

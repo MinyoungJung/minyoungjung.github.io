@@ -181,7 +181,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/config/blog/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">
         Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기
       </a>
     </h1>
@@ -289,22 +289,47 @@ git checkout <span class="nb">source</span>
   <li><code class="highlighter-rouge">(source) $ ./publish.sh</code></li>
 </ol>
 
-<h2 id="느낀점">느낀점</h2>
-<p>Jekyll 커스토마이징은 여기까지…</p>
+<h1 id="plugin-링크">Plugin 링크</h1>
+<p><a href="https://github.com/MinyoungJung/jekyll-plugin-blogStreak">깃허브</a></p>
+
+<h2 id="사용법">사용법</h2>
+<ol>
+  <li>_plugins 디렉토리를 생성한다.</li>
+  <li>템플릿에 태그를 넣는다. <code class="highlighter-rouge"><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">태그이름</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code></li>
+</ol>
+
+<h2 id="태그-종류">태그 종류</h2>
+<ol>
+  <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">total_blogging_date</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code>
+    <ul>
+      <li>첫 포스팅부터 현재까지 지난 일 수</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">current_date_streak</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code>
+    <ul>
+      <li>현재 연속 포스팅 일 수 (포스팅을 하지 않고 하루를 넘기면 초기화 됨)</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">longest_date_streak</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code>
+    <ul>
+      <li>최장 연속 포스팅 일 수 (첫 포스팅부터 현재까지 최장 연속 포스팅 일 수)</li>
+    </ul>
+  </li>
+</ol>
 
 
     <article>
     <div class="post-more">
       
-      <a href="/config/blog/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
-      <a href="/config/blog/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/mac%20tips/2017/06/01/mac-finder-tagging-special-character/">
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/">
         Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기
       </a>
     </h1>
@@ -355,15 +380,15 @@ git checkout <span class="nb">source</span>
     <article>
     <div class="post-more">
       
-      <a href="/mac%20tips/2017/06/01/mac-finder-tagging-special-character/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
-      <a href="/mac%20tips/2017/06/01/mac-finder-tagging-special-character/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/config/blog/2017/05/31/lanyon-theme-customize/">
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/">
         Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
       </a>
     </h1>
@@ -486,9 +511,9 @@ title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
     <article>
     <div class="post-more">
       
-      <a href="/config/blog/2017/05/31/lanyon-theme-customize/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
-      <a href="/config/blog/2017/05/31/lanyon-theme-customize/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
