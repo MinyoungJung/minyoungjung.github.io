@@ -4,7 +4,7 @@
  <title>Ringsterz Log</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-06-02T21:01:27+09:00</updated>
+ <updated>2017-06-02T21:13:57+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Minyoung Jung</name>
@@ -107,6 +107,7 @@ git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;느낀점&quot;&gt;느낀점&lt;/h2&gt;
+&lt;p&gt;Jekyll 커스토마이징은 여기까지…&lt;/p&gt;
 
 </content>
  </entry>
