@@ -4,7 +4,7 @@
  <title>Ringsterz Log</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-06-02T21:13:57+09:00</updated>
+ <updated>2017-06-02T21:19:46+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Minyoung Jung</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"/>
+   <link href="http://localhost:4000/config/blog/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"/>
    <updated>2017-06-02T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github</id>
+   <id>http://localhost:4000/config/blog/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github</id>
    <content type="html">&lt;h1 id=&quot;발단&quot;&gt;발단&lt;/h1&gt;
 &lt;p class=&quot;message&quot;&gt; Jekyll로 구성한 블로그 디자인을 수정하며 조금씩 구색을 맞추기 시작했다.&lt;br /&gt; 
 사이트맵을 추가해 구글에서 검색되지 않는 부분도 수정하고, &amp;nbsp;&lt;a href=&quot;http://tech.kakao.com/2016/07/07/tech-blog-story/&quot; target=&quot;_blank&quot;&gt;Kakao Tech 참고자료&lt;/a&gt;&lt;br /&gt;
@@ -114,9 +114,9 @@ git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
  
  <entry>
    <title>Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기</title>
-   <link href="http://localhost:4000/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/"/>
+   <link href="http://localhost:4000/mac%20tips/2017/06/01/mac-finder-tagging-special-character/"/>
    <updated>2017-06-01T00:00:00+09:00</updated>
-   <id>http://localhost:4000/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character</id>
+   <id>http://localhost:4000/mac%20tips/2017/06/01/mac-finder-tagging-special-character</id>
    <content type="html">&lt;h2 id=&quot;mac-finder에서-tag를-이용해-파일-분류하기&quot;&gt;Mac Finder에서 Tag를 이용해 파일 분류하기&lt;/h2&gt;
 &lt;p&gt;Jekyll을 이용해 포스팅을 하려니 포스팅 폴더 접근이 귀찮았다.&lt;br /&gt;
 보통 이런 경우 Finder의 즐겨찾기에 작업 폴더를 추가하여 사용하는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; 폴더의 언더바가 마음에 거슬려 태그를 이용해 정리하기로 했다.&lt;/p&gt;
@@ -154,9 +154,9 @@ git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
  
  <entry>
    <title>Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/"/>
+   <link href="http://localhost:4000/config/blog/2017/05/31/lanyon-theme-customize/"/>
    <updated>2017-05-31T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize</id>
+   <id>http://localhost:4000/config/blog/2017/05/31/lanyon-theme-customize</id>
    <content type="html">&lt;h2 id=&quot;jekyll이란&quot;&gt;Jekyll이란?&lt;/h2&gt;
 &lt;p&gt;정적 사이트 생성기.&lt;br /&gt;
 간단히 말하면 마크다운 언어&lt;strong&gt;(.md 등)&lt;/strong&gt;로 작성된 글을 알아서 HTML로 변경해준다.&lt;br /&gt;
