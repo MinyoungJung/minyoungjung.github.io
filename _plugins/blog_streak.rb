@@ -1,25 +1,14 @@
 # Plugin Usage
 #
 # 1. Make a _plugins directory in your jekyll site, and put this class in a file there.
-# 2. In any of your pages, you can use the 'tag_name' liquid tag like so:
-#     {% total_blogging_date %}
+# 2. In anyone of your pages, you can use the 'tag_name' liquid tag like so:
+#     {% longest_date_streak %}
 # 3. Each Tags refer to:
-#
-#   total_blogging_date : Total blogging date from your first post date,
-#                         Counts from 1 to today
-#                         For example, 5/28(First posting date) ~ 5/31(Today) returns 4
-#   current_date_streak : Posting date streak including today(if it has, or including yesterday)
+#   current_date_streak : Posting date streak including latest post
 #   longest_date_streak : Longest date streak in whole blogging day
 #
 
 module Jekyll
-  class RenderTotalBloggingDate < Liquid::Tag
-    def render(context)
-      site = context.registers[:site]
-      (Date.today() - Date.strptime(site.posts.docs.first.date.strftime('%Y-%m-%d'), '%Y-%m-%d')).to_i+1
-    end
-  end
-
   def self.getStreak(context)
     date_arr = Array.new()
     site = context.registers[:site]
@@ -61,6 +50,5 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('total_blogging_date', Jekyll:: RenderTotalBloggingDate)
 Liquid::Template.register_tag('current_date_streak', Jekyll:: RenderCurrentDateStreak)
 Liquid::Template.register_tag('longest_date_streak', Jekyll:: RenderLongestDateStreak)

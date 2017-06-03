@@ -96,12 +96,14 @@ git checkout source
 3. 템플릿에 태그를 넣는다. {% raw %}`{% 태그이름 %}`{% endraw %} 
 
 ## 태그 종류
-- {% raw %}`{% total_blogging_date %}`{% endraw %}  
-첫 포스팅부터 현재까지 지난 일 수
+- ~~{% raw %}`{% total_blogging_date %}`{% endraw %}~~  
+~~첫 포스팅부터 현재까지 지난 일 수~~
 - {% raw %}`{% current_date_streak %}`{% endraw %}  
 현재 연속 포스팅 일 수 (포스팅을 하지 않고 하루를 넘기면 초기화 됨)
 - {% raw %}`{% longest_date_streak %}`{% endraw %}  
 최장 연속 포스팅 일 수 (첫 포스팅부터 현재까지 최장 연속 포스팅 일 수)
+
+[Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기(2)](/환경설정/블로그/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/)
 
 
 
