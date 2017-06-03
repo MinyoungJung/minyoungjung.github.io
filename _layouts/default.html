@@ -19,8 +19,7 @@
               <img class="masthead-logo" src="{{ site.baseurl }}{{ site.logo }}"/>
             </a>
 
-            {{ site.tagline }} - Day <div style="display:inline-"; id="dynamic_day"></div>
-
+            {{ site.tagline }} - Day <div style="display:inline"; id="dynamic_day"></div>
           </h3>
         </div>
       </div>
@@ -71,10 +70,20 @@ ga('send', 'pageview');
 
   <script>
     // Calculate total_blogging_date_dynamically
-    $( document ).ready(function() {
+    $(document).ready(function() {
       var date_str = "{{ site.posts.last.date }}"; // 2017-05-31 00:00:00 +0900
-      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; //
+      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
       $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "{{ site.posts.first.date }}";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
     });
   </script>
 </html>
