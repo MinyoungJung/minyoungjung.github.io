@@ -63,7 +63,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong style="color:#FFC300;">3</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">3</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">3</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -173,8 +173,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
               <img class="masthead-logo" src="/public/logo.png"/>
             </a>
 
-            Log for everything - Day <div style="display:inline-block"; id="dynamic_day"></div>
-
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
           </h3>
         </div>
       </div>
@@ -388,10 +387,20 @@ ga('send', 'pageview');
 
   <script>
     // Calculate total_blogging_date_dynamically
-    $( document ).ready(function() {
+    $(document).ready(function() {
       var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
-      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; //
+      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
       $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-02 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
     });
   </script>
 </html>
