@@ -19,10 +19,13 @@
               <img class="masthead-logo" src="{{ site.baseurl }}{{ site.logo }}"/>
             </a>
 
-            {{ site.tagline }} - Day {% total_blogging_date %}
+            {{ site.tagline }} - Day <div style="display:inline-"; id="dynamic_day"></div>
+
           </h3>
         </div>
       </div>
+
+
 
       <div class="container content">
         {{ content }}
@@ -62,4 +65,16 @@ ga('send', 'pageview');
   {% if site.disqus_short_name %}
   <script id="dsq-count-scr" src="//{{ site.disqus_short_name }}.disqus.com/count.js" async></script>
   {% endif %}
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $( document ).ready(function() {
+      var date_str = "{{ site.posts.last.date }}"; // 2017-05-31 00:00:00 +0900
+      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; //
+      $("#dynamic_day").text(total_date);
+    });
+  </script>
 </html>
