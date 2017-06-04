@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치 | Ringsterz Log</title>
+<meta property="og:title" content="Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="설치 파이썬3 가상환경 생성 $ virtualenv --system-site-packages -p python3 타겟폴더 이름 # Python3 기준 가상환경 실행 $ source ~/tensorflow/bin/activate 텐서플로 설치 $ pip3 install --upgrade tensorflow # CPU 버전, GPU 버전은 tensorflow-gpu로 설치 데모파일 작성 (demo.py) import tensorflow as tf node1 = tf.constant(3.0, tf.float32) node2 = tf.constant(4.0) # also tf.float32 implicitly print(node1, node2) 실행 결과 Tensor(&quot;Const:0&quot;, shape=(), dtype=float32) Tensor(&quot;Const_1:0&quot;, shape=(), dtype=float32) 위와 같이 출력되면 환경설정은 완료 공식 설치문서 주요개념 Tensor 3 # a rank 0 tensor; this is a scalar with shape [] [1. ,2., 3.] # a rank 1 tensor; this is a vector with shape [3] [[1., 2., 3.], [4., 5., 6.]] # a rank 2 tensor; a matrix with shape [2, 3] [[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3] Tensorflow의 기본 자료구조. 동적인 크기를 갖는 원시값의 다차원 데이터 배열이며 Tensor의 rank는 차원을 의미한다. Computational Graph 노드 그래프로 배열된 일련의 텐서플로우 오퍼레이션 모음. Tensorflow의 코어는 Computational Graph를 생성하고, 실행하는 각각의 부분으로 나뉜다. 그리하여 데모파일의 실행 결과가 각각의 노드값이 아닌 두개의 텐서가 출력된 것. Computational Graph 실행 Session을 생성하고 Session.run()을 실행 sess = tf.Session() print(sess.run([node1, node2])) 실행결과 2017-06-04 22:24:47.634630: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn&#39;t compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations. [3.0, 4.0] 워닝이 뜨기는 했지만 결과값은 제대로 출력되었다. 구글링해보니 로컬에서 소스코드를 빌드하지 않았을 경우 뜨는 오류라 한다. 해결방법 : 링크 기타 더 읽어볼거리 텐서플로우 문서 한글 번역본 텐서플로우 시작하기 텐서보드 사용법 최종목표 텐서플로우를 이용한 Android app 작성" />
+<meta property="og:description" content="설치 파이썬3 가상환경 생성 $ virtualenv --system-site-packages -p python3 타겟폴더 이름 # Python3 기준 가상환경 실행 $ source ~/tensorflow/bin/activate 텐서플로 설치 $ pip3 install --upgrade tensorflow # CPU 버전, GPU 버전은 tensorflow-gpu로 설치 데모파일 작성 (demo.py) import tensorflow as tf node1 = tf.constant(3.0, tf.float32) node2 = tf.constant(4.0) # also tf.float32 implicitly print(node1, node2) 실행 결과 Tensor(&quot;Const:0&quot;, shape=(), dtype=float32) Tensor(&quot;Const_1:0&quot;, shape=(), dtype=float32) 위와 같이 출력되면 환경설정은 완료 공식 설치문서 주요개념 Tensor 3 # a rank 0 tensor; this is a scalar with shape [] [1. ,2., 3.] # a rank 1 tensor; this is a vector with shape [3] [[1., 2., 3.], [4., 5., 6.]] # a rank 2 tensor; a matrix with shape [2, 3] [[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3] Tensorflow의 기본 자료구조. 동적인 크기를 갖는 원시값의 다차원 데이터 배열이며 Tensor의 rank는 차원을 의미한다. Computational Graph 노드 그래프로 배열된 일련의 텐서플로우 오퍼레이션 모음. Tensorflow의 코어는 Computational Graph를 생성하고, 실행하는 각각의 부분으로 나뉜다. 그리하여 데모파일의 실행 결과가 각각의 노드값이 아닌 두개의 텐서가 출력된 것. Computational Graph 실행 Session을 생성하고 Session.run()을 실행 sess = tf.Session() print(sess.run([node1, node2])) 실행결과 2017-06-04 22:24:47.634630: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn&#39;t compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations. [3.0, 4.0] 워닝이 뜨기는 했지만 결과값은 제대로 출력되었다. 구글링해보니 로컬에서 소스코드를 빌드하지 않았을 경우 뜨는 오류라 한다. 해결방법 : 링크 기타 더 읽어볼거리 텐서플로우 문서 한글 번역본 텐서플로우 시작하기 텐서보드 사용법 최종목표 텐서플로우를 이용한 Android app 작성" />
+<link rel="canonical" href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/" />
+<meta property="og:url" content="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-04T00:00:00+09:00","dateModified":"2017-06-04T00:00:00+09:00","description":"설치 파이썬3 가상환경 생성 $ virtualenv --system-site-packages -p python3 타겟폴더 이름 # Python3 기준 가상환경 실행 $ source ~/tensorflow/bin/activate 텐서플로 설치 $ pip3 install --upgrade tensorflow # CPU 버전, GPU 버전은 tensorflow-gpu로 설치 데모파일 작성 (demo.py) import tensorflow as tf node1 = tf.constant(3.0, tf.float32) node2 = tf.constant(4.0) # also tf.float32 implicitly print(node1, node2) 실행 결과 Tensor(&quot;Const:0&quot;, shape=(), dtype=float32) Tensor(&quot;Const_1:0&quot;, shape=(), dtype=float32) 위와 같이 출력되면 환경설정은 완료 공식 설치문서 주요개념 Tensor 3 # a rank 0 tensor; this is a scalar with shape [] [1. ,2., 3.] # a rank 1 tensor; this is a vector with shape [3] [[1., 2., 3.], [4., 5., 6.]] # a rank 2 tensor; a matrix with shape [2, 3] [[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3] Tensorflow의 기본 자료구조. 동적인 크기를 갖는 원시값의 다차원 데이터 배열이며 Tensor의 rank는 차원을 의미한다. Computational Graph 노드 그래프로 배열된 일련의 텐서플로우 오퍼레이션 모음. Tensorflow의 코어는 Computational Graph를 생성하고, 실행하는 각각의 부분으로 나뉜다. 그리하여 데모파일의 실행 결과가 각각의 노드값이 아닌 두개의 텐서가 출력된 것. Computational Graph 실행 Session을 생성하고 Session.run()을 실행 sess = tf.Session() print(sess.run([node1, node2])) 실행결과 2017-06-04 22:24:47.634630: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn&#39;t compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations. [3.0, 4.0] 워닝이 뜨기는 했지만 결과값은 제대로 출력되었다. 구글링해보니 로컬에서 소스코드를 빌드하지 않았을 경우 뜨는 오류라 한다. 해결방법 : 링크 기타 더 읽어볼거리 텐서플로우 문서 한글 번역본 텐서플로우 시작하기 텐서보드 사용법 최종목표 텐서플로우를 이용한 Android app 작성","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/"},"url":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">5</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">5</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치</h1>
+  <span class="post-date">04 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+  
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+  
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+  
+  
+  <article>
+    <h1 id="설치">설치</h1>
+
+<ol>
+  <li>파이썬3 가상환경 생성<br />
+<code class="highlighter-rouge">$ virtualenv --system-site-packages -p python3 타겟폴더 이름 # Python3 기준</code></li>
+  <li>가상환경 실행<br />
+<code class="highlighter-rouge">$ source ~/tensorflow/bin/activate</code></li>
+  <li>텐서플로 설치<br />
+<code class="highlighter-rouge">$ pip3 install --upgrade tensorflow</code> # CPU 버전, GPU 버전은 tensorflow-gpu로 설치</li>
+  <li>데모파일 작성 (<code class="highlighter-rouge">demo.py</code>)</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+
+<span class="n">node1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">node2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span> <span class="c"># also tf.float32 implicitly</span>
+<span class="k">print</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
+</code></pre>
+</div>
+<p><strong>실행 결과</strong><br />
+<code class="highlighter-rouge">Tensor("Const:0", shape=(), dtype=float32) Tensor("Const_1:0", shape=(), dtype=float32)</code><br />
+위와 같이 출력되면 환경설정은 완료</p>
+
+<p><a href="https://www.tensorflow.org/install/install_mac">공식 설치문서</a></p>
+
+<h1 id="주요개념">주요개념</h1>
+
+<h2 id="tensor">Tensor</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>3 # a rank 0 tensor; this is a scalar with shape []
+[1. ,2., 3.] # a rank 1 tensor; this is a vector with shape [3]
+[[1., 2., 3.], [4., 5., 6.]] # a rank 2 tensor; a matrix with shape [2, 3]
+[[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3]
+</code></pre>
+</div>
+<p>Tensorflow의 기본 자료구조.  <br />
+동적인 크기를 갖는 원시값의 다차원 데이터 배열이며 Tensor의 rank는 차원을 의미한다.</p>
+
+<h2 id="computational-graph">Computational Graph</h2>
+<p>노드 그래프로 배열된 일련의 텐서플로우 오퍼레이션 모음.<br />
+Tensorflow의 코어는 Computational Graph를 생성하고, 실행하는 각각의 부분으로 나뉜다.<br />
+그리하여 데모파일의 실행 결과가 각각의 노드값이 아닌 두개의 텐서가 출력된 것.</p>
+
+<h3 id="computational-graph-실행">Computational Graph 실행</h3>
+<ol>
+  <li>Session을 생성하고</li>
+  <li>Session.run()을 실행
+    <div class="highlighter-rouge"><pre class="highlight"><code>sess = tf.Session()
+print(sess.run([node1, node2]))
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+<p><strong>실행결과</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>2017-06-04 22:24:47.634630: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+[3.0, 4.0]
+</code></pre>
+</div>
+<p>워닝이 뜨기는 했지만 결과값은 제대로 출력되었다.<br />
+구글링해보니 로컬에서 소스코드를 빌드하지 않았을 경우 뜨는 오류라 한다.<br />
+해결방법 : <a href="http://www.kwangsiklee.com/ko/2017/04/%ED%85%90%EC%84%9C%ED%94%8C%EB%A1%9C%EC%9A%B0-%EA%B2%BD%EA%B3%A0%EB%A9%94%EC%84%B8%EC%A7%80-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-the-tensorflow-library-wasnt-compiled-to-use-sse3-instructions/">링크</a></p>
+
+<h2 id="기타-더-읽어볼거리">기타 더 읽어볼거리</h2>
+<p><a href="https://tensorflowkorea.gitbooks.io/tensorflow-kr/content/g3doc/get_started/basic_usage.html">텐서플로우 문서 한글 번역본</a><br />
+<a href="http://www.popit.kr/%ED%85%90%EC%84%9C%ED%94%8C%EB%A1%9C%EC%9A%B0tensorflow-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/">텐서플로우 시작하기</a><br />
+<a href="http://pythonkim.tistory.com/39">텐서보드 사용법</a></p>
+
+<h1 id="최종목표">최종목표</h1>
+<p>텐서플로우를 이용한 Android app 작성</p>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
+            Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
+            <small>03 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">
+            Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기
+            <small>02 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/">
+            Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기
+            <small>01 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-04 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
