@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/</loc>
+    
+    <lastmod>2017-06-05T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/</loc>
     
     <lastmod>2017-06-04T00:00:00+09:00</lastmod>
@@ -48,6 +57,8 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  
   
   
   
@@ -116,6 +127,18 @@
   
   <url>
     <loc>http://localhost:4000/blog/tags/#Tensorflow</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:4000/blog/tags/#Python</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:4000/blog/tags/#Python Calendar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

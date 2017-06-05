@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">5</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">5</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">6</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">6</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -305,6 +305,15 @@ title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/">
+            파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩
+            <small>05 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/">
             Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치
             <small>04 Jun 2017</small>
@@ -317,15 +326,6 @@ title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
           <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
             Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
             <small>03 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">
-            Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기
-            <small>02 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -403,7 +403,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-04 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-05 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

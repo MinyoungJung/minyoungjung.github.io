@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩 | Ringsterz Log</title>
+<meta property="og:title" content="파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="파이썬 오브젝트 소스 코드 보기 inspect 모듈 임포트 import inspect 살펴볼 오브젝트 임포트 from calendar import HTMLCalendar 소스코드를 보기좋은 형태로 출력 print(inspect.getsource(HTMLCalendar)) 스탠다드 라이브러리 메소드 오버라이딩 HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다. 0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다. print(calendar.HTMLCalendar(6).formatmonth(2017,6))과 같이 입력하면 아래의 달력이 출력된다. June 2017 SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp; 오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자. 파이썬 라이브러리 코드 def formatmonthname(self, theyear, themonth, withyear=True): &quot;&quot;&quot; Return a month name as a table row. &quot;&quot;&quot; if withyear: s = &#39;%s %s&#39; % (month_name[themonth], theyear) else: s = &#39;%s&#39; % month_name[themonth] return &#39;&lt;tr&gt;&lt;th colspan=&quot;7&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&lt;/tr&gt;&#39; % s 주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다. 해당 메소드를 바로 오버라이딩 하면 month_name[themonth] 구문에서 오류가 뜨는데, month_name은 calendar 모듈의 Data 속성이므로 from calendar import month_name를 해야한다. 오버라이딩한 메소드 from calendar import HTMLCalendar, month_name class ArrowCalendar(HTMLCalendar): def __init__(self, firstweekday): HTMLCalendar.__init__(self, firstweekday) def formatmonthname(self, year, month, withyear=True): if withyear: s = &#39;%s %s&#39; % (month_name[month], year) else: s = &#39;%s&#39; % month_name[month] return &#39;&lt;tr&gt;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &lt; &lt;/th&gt;&#39; \ &#39;&lt;th colspan=&quot;5&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&#39; \ &#39;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &gt; &lt;/th&gt;&lt;/tr&gt;&#39; % s 7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다. 이후 css 클래스를 적용해서 화살표를 정렬하면 완성 .month_arrow { text-align: center; } 완성된 달력 &lt; June 2017 &gt; SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp;" />
+<meta property="og:description" content="파이썬 오브젝트 소스 코드 보기 inspect 모듈 임포트 import inspect 살펴볼 오브젝트 임포트 from calendar import HTMLCalendar 소스코드를 보기좋은 형태로 출력 print(inspect.getsource(HTMLCalendar)) 스탠다드 라이브러리 메소드 오버라이딩 HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다. 0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다. print(calendar.HTMLCalendar(6).formatmonth(2017,6))과 같이 입력하면 아래의 달력이 출력된다. June 2017 SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp; 오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자. 파이썬 라이브러리 코드 def formatmonthname(self, theyear, themonth, withyear=True): &quot;&quot;&quot; Return a month name as a table row. &quot;&quot;&quot; if withyear: s = &#39;%s %s&#39; % (month_name[themonth], theyear) else: s = &#39;%s&#39; % month_name[themonth] return &#39;&lt;tr&gt;&lt;th colspan=&quot;7&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&lt;/tr&gt;&#39; % s 주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다. 해당 메소드를 바로 오버라이딩 하면 month_name[themonth] 구문에서 오류가 뜨는데, month_name은 calendar 모듈의 Data 속성이므로 from calendar import month_name를 해야한다. 오버라이딩한 메소드 from calendar import HTMLCalendar, month_name class ArrowCalendar(HTMLCalendar): def __init__(self, firstweekday): HTMLCalendar.__init__(self, firstweekday) def formatmonthname(self, year, month, withyear=True): if withyear: s = &#39;%s %s&#39; % (month_name[month], year) else: s = &#39;%s&#39; % month_name[month] return &#39;&lt;tr&gt;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &lt; &lt;/th&gt;&#39; \ &#39;&lt;th colspan=&quot;5&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&#39; \ &#39;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &gt; &lt;/th&gt;&lt;/tr&gt;&#39; % s 7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다. 이후 css 클래스를 적용해서 화살표를 정렬하면 완성 .month_arrow { text-align: center; } 완성된 달력 &lt; June 2017 &gt; SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp;" />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-05T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-05T00:00:00+09:00","dateModified":"2017-06-05T00:00:00+09:00","description":"파이썬 오브젝트 소스 코드 보기 inspect 모듈 임포트 import inspect 살펴볼 오브젝트 임포트 from calendar import HTMLCalendar 소스코드를 보기좋은 형태로 출력 print(inspect.getsource(HTMLCalendar)) 스탠다드 라이브러리 메소드 오버라이딩 HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다. 0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다. print(calendar.HTMLCalendar(6).formatmonth(2017,6))과 같이 입력하면 아래의 달력이 출력된다. June 2017 SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp; 오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자. 파이썬 라이브러리 코드 def formatmonthname(self, theyear, themonth, withyear=True): &quot;&quot;&quot; Return a month name as a table row. &quot;&quot;&quot; if withyear: s = &#39;%s %s&#39; % (month_name[themonth], theyear) else: s = &#39;%s&#39; % month_name[themonth] return &#39;&lt;tr&gt;&lt;th colspan=&quot;7&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&lt;/tr&gt;&#39; % s 주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다. 해당 메소드를 바로 오버라이딩 하면 month_name[themonth] 구문에서 오류가 뜨는데, month_name은 calendar 모듈의 Data 속성이므로 from calendar import month_name를 해야한다. 오버라이딩한 메소드 from calendar import HTMLCalendar, month_name class ArrowCalendar(HTMLCalendar): def __init__(self, firstweekday): HTMLCalendar.__init__(self, firstweekday) def formatmonthname(self, year, month, withyear=True): if withyear: s = &#39;%s %s&#39; % (month_name[month], year) else: s = &#39;%s&#39; % month_name[month] return &#39;&lt;tr&gt;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &lt; &lt;/th&gt;&#39; \\ &#39;&lt;th colspan=&quot;5&quot; class=&quot;month&quot;&gt;%s&lt;/th&gt;&#39; \\ &#39;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &gt; &lt;/th&gt;&lt;/tr&gt;&#39; % s 7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다. 이후 css 클래스를 적용해서 화살표를 정렬하면 완성 .month_arrow { text-align: center; } 완성된 달력 &lt; June 2017 &gt; SunMonTueWedThuFriSat &nbsp;&nbsp;&nbsp;&nbsp;123 45678910 11121314151617 18192021222324 252627282930&nbsp;","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">6</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">6</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩</h1>
+  <span class="post-date">05 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#python-calendar" class="post-tag">Python Calendar</a>
+  
+  
+  <article>
+    <h1 id="파이썬-오브젝트-소스-코드-보기">파이썬 오브젝트 소스 코드 보기</h1>
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">inspect</code> 모듈 임포트
+<code class="highlighter-rouge">import inspect</code></p>
+  </li>
+  <li>
+    <p>살펴볼 오브젝트 임포트
+<code class="highlighter-rouge">from calendar import HTMLCalendar</code></p>
+  </li>
+  <li>
+    <p>소스코드를 보기좋은 형태로 출력
+<code class="highlighter-rouge">print(inspect.getsource(HTMLCalendar))</code></p>
+  </li>
+</ol>
+
+<h1 id="스탠다드-라이브러리-메소드-오버라이딩">스탠다드 라이브러리 메소드 오버라이딩</h1>
+<p>HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다.<br />
+0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다.</p>
+
+<p><code class="highlighter-rouge">print(calendar.HTMLCalendar(6).formatmonth(2017,6))</code>과 같이 입력하면 아래의 달력이 출력된다.</p>
+
+<table border="0" cellpadding="0" cellspacing="0" class="month">
+<tr><th colspan="7" class="month">June 2017</th></tr>
+<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
+<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
+<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
+<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
+<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
+<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
+</table>
+
+<p>오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자.</p>
+
+<p><strong>파이썬 라이브러리 코드</strong></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="s">"""
+    Return a month name as a table row.
+    """</span>
+    <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">],</span> <span class="n">theyear</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="7" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
+</code></pre>
+</div>
+
+<p>주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다.<br />
+해당 메소드를 바로 오버라이딩 하면 <code class="highlighter-rouge">month_name[themonth]</code> 구문에서 오류가 뜨는데,<br />
+month_name은 calendar 모듈의 Data 속성이므로 <code class="highlighter-rouge">from calendar import month_name</code>를 해야한다.</p>
+
+<p><strong>오버라이딩한 메소드</strong></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">HTMLCalendar</span><span class="p">,</span> <span class="n">month_name</span>
+
+<span class="k">class</span> <span class="nc">ArrowCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">):</span>
+        <span class="n">HTMLCalendar</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">],</span> <span class="n">year</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="1" class="month_arrow"&gt; &lt; &lt;/th&gt;'</span> \
+            <span class="s">'&lt;th colspan="5" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;'</span> \
+            <span class="s">'&lt;th colspan="1" class="month_arrow"&gt; &gt; &lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
+</code></pre>
+</div>
+<p>7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다.<br />
+이후 css 클래스를 적용해서 화살표를 정렬하면 완성</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.month_arrow</span> <span class="p">{</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="완성된-달력">완성된 달력</h2>
+<table border="0" cellpadding="0" cellspacing="0" class="month">
+<tr><th colspan="1" class="month_arrow"> &lt; </th><th colspan="5" class="month">June 2017</th><th colspan="1" class="month_arrow"> &gt; </th></tr>
+<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
+<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
+<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
+<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
+<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
+<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
+</table>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/">
+            Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치
+            <small>04 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
+            Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
+            <small>03 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">
+            Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기
+            <small>02 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-05 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
