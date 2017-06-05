@@ -4,13 +4,110 @@
  <title>Ringsterz Log</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-06-04T23:35:10+09:00</updated>
+ <updated>2017-06-05T23:34:52+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩</title>
+   <link href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"/>
+   <updated>2017-06-05T00:00:00+09:00</updated>
+   <id>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library</id>
+   <content type="html">&lt;h1 id=&quot;파이썬-오브젝트-소스-코드-보기&quot;&gt;파이썬 오브젝트 소스 코드 보기&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inspect&lt;/code&gt; 모듈 임포트
+&lt;code class=&quot;highlighter-rouge&quot;&gt;import inspect&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;살펴볼 오브젝트 임포트
+&lt;code class=&quot;highlighter-rouge&quot;&gt;from calendar import HTMLCalendar&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;소스코드를 보기좋은 형태로 출력
+&lt;code class=&quot;highlighter-rouge&quot;&gt;print(inspect.getsource(HTMLCalendar))&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;스탠다드-라이브러리-메소드-오버라이딩&quot;&gt;스탠다드 라이브러리 메소드 오버라이딩&lt;/h1&gt;
+&lt;p&gt;HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다.&lt;br /&gt;
+0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;print(calendar.HTMLCalendar(6).formatmonth(2017,6))&lt;/code&gt;과 같이 입력하면 아래의 달력이 출력된다.&lt;/p&gt;
+
+&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;month&quot;&gt;
+&lt;tr&gt;&lt;th colspan=&quot;7&quot; class=&quot;month&quot;&gt;June 2017&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th class=&quot;sun&quot;&gt;Sun&lt;/th&gt;&lt;th class=&quot;mon&quot;&gt;Mon&lt;/th&gt;&lt;th class=&quot;tue&quot;&gt;Tue&lt;/th&gt;&lt;th class=&quot;wed&quot;&gt;Wed&lt;/th&gt;&lt;th class=&quot;thu&quot;&gt;Thu&lt;/th&gt;&lt;th class=&quot;fri&quot;&gt;Fri&lt;/th&gt;&lt;th class=&quot;sat&quot;&gt;Sat&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;1&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;2&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;4&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;5&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;6&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;7&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;8&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;9&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;11&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;12&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;13&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;14&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;15&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;16&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;17&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;18&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;19&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;20&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;21&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;22&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;23&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;24&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;25&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;26&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;27&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;28&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;29&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;30&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&amp;lt;,&amp;gt;)를 출력해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;파이썬 라이브러리 코드&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;formatmonthname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;themonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withyear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Return a month name as a table row.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;themonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;month_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;themonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;tr&amp;gt;&amp;lt;th colspan=&quot;7&quot; class=&quot;month&quot;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&amp;lt;/th&amp;gt;&amp;lt;/tr&amp;gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다.&lt;br /&gt;
+해당 메소드를 바로 오버라이딩 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;month_name[themonth]&lt;/code&gt; 구문에서 오류가 뜨는데,&lt;br /&gt;
+month_name은 calendar 모듈의 Data 속성이므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;from calendar import month_name&lt;/code&gt;를 해야한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;오버라이딩한 메소드&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;calendar&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HTMLCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;month_name&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrowCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HTMLCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstweekday&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;HTMLCalendar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstweekday&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;formatmonthname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withyear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;month_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;tr&amp;gt;&amp;lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&amp;gt; &amp;lt; &amp;lt;/th&amp;gt;'&lt;/span&gt; \
+            &lt;span class=&quot;s&quot;&gt;'&amp;lt;th colspan=&quot;5&quot; class=&quot;month&quot;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&amp;lt;/th&amp;gt;'&lt;/span&gt; \
+            &lt;span class=&quot;s&quot;&gt;'&amp;lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&amp;gt; &amp;gt; &amp;lt;/th&amp;gt;&amp;lt;/tr&amp;gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다.&lt;br /&gt;
+이후 css 클래스를 적용해서 화살표를 정렬하면 완성&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.month_arrow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;완성된-달력&quot;&gt;완성된 달력&lt;/h2&gt;
+&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;month&quot;&gt;
+&lt;tr&gt;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &amp;lt; &lt;/th&gt;&lt;th colspan=&quot;5&quot; class=&quot;month&quot;&gt;June 2017&lt;/th&gt;&lt;th colspan=&quot;1&quot; class=&quot;month_arrow&quot;&gt; &amp;gt; &lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th class=&quot;sun&quot;&gt;Sun&lt;/th&gt;&lt;th class=&quot;mon&quot;&gt;Mon&lt;/th&gt;&lt;th class=&quot;tue&quot;&gt;Tue&lt;/th&gt;&lt;th class=&quot;wed&quot;&gt;Wed&lt;/th&gt;&lt;th class=&quot;thu&quot;&gt;Thu&lt;/th&gt;&lt;th class=&quot;fri&quot;&gt;Fri&lt;/th&gt;&lt;th class=&quot;sat&quot;&gt;Sat&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;1&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;2&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;4&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;5&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;6&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;7&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;8&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;9&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;11&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;12&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;13&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;14&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;15&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;16&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;17&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;18&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;19&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;20&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;21&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;22&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;23&lt;/td&gt;&lt;td class=&quot;sat&quot;&gt;24&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class=&quot;sun&quot;&gt;25&lt;/td&gt;&lt;td class=&quot;mon&quot;&gt;26&lt;/td&gt;&lt;td class=&quot;tue&quot;&gt;27&lt;/td&gt;&lt;td class=&quot;wed&quot;&gt;28&lt;/td&gt;&lt;td class=&quot;thu&quot;&gt;29&lt;/td&gt;&lt;td class=&quot;fri&quot;&gt;30&lt;/td&gt;&lt;td class=&quot;noday&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치</title>
