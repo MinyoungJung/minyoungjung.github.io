@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Ringsterz Log</title>
- <link href="http://localhost:4000/atom.xml" rel="self"/>
- <link href="http://localhost:4000/"/>
- <updated>2017-06-07T00:46:25+09:00</updated>
- <id>http://localhost:4000</id>
+ <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
+ <link href="https://minyoungjung.github.io/"/>
+ <updated>2017-06-07T00:55:41+09:00</updated>
+ <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Python 가상환경 옮기기</title>
-   <link href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-07T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export</id>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export</id>
    <content type="html">&lt;h1 id=&quot;발단&quot;&gt;발단&lt;/h1&gt;
 &lt;p&gt;가상환경을 이용한 로컬 프로젝트에서 matplotlib을 임포트 하려니 임포트 에러가 발생했다.&lt;/p&gt;
 
@@ -54,9 +54,9 @@ RuntimeError: Python is not installed as a framework. The Mac OS X backend will 
  
  <entry>
    <title>Git Merge 충돌 해결 원인 파악하기</title>
-   <link href="http://localhost:4000/git/2017/06/06/git-conflic-solving/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-06T00:00:00+09:00</updated>
-   <id>http://localhost:4000/git/2017/06/06/git-conflic-solving</id>
+   <id>https://minyoungjung.github.io//git/2017/06/06/git-conflic-solving</id>
    <content type="html">&lt;h1 id=&quot;발단&quot;&gt;발단&lt;/h1&gt;
 
 &lt;p&gt;로컬의 프로젝트를 Github로 푸쉬하려는데 문제가 발생했다.&lt;/p&gt;
@@ -93,9 +93,9 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
  
  <entry>
    <title>파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩</title>
-   <link href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-05T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library</id>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library</id>
    <content type="html">&lt;h1 id=&quot;파이썬-오브젝트-소스-코드-보기&quot;&gt;파이썬 오브젝트 소스 코드 보기&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;
@@ -190,9 +190,9 @@ month_name은 calendar 모듈의 Data 속성이므로 &lt;code class=&quot;highl
  
  <entry>
    <title>Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-04T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo</id>
+   <id>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo</id>
    <content type="html">&lt;h1 id=&quot;설치&quot;&gt;설치&lt;/h1&gt;
 
 &lt;ol&gt;
@@ -268,9 +268,9 @@ print(sess.run([node1, node2]))
  
  <entry>
    <title>Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-03T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)</id>
+   <id>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)</id>
    <content type="html">&lt;h1 id=&quot;지난-포스팅&quot;&gt;지난 포스팅&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;/환경설정/블로그/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/&quot;&gt;Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기&lt;/a&gt;&lt;/p&gt;
@@ -318,9 +318,9 @@ print(sess.run([node1, node2]))
  
  <entry>
    <title>Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-02T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github</id>
+   <id>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github</id>
    <content type="html">&lt;h1 id=&quot;발단&quot;&gt;발단&lt;/h1&gt;
 &lt;p class=&quot;message&quot;&gt; Jekyll로 구성한 블로그 디자인을 수정하며 조금씩 구색을 맞추기 시작했다.&lt;br /&gt; 
 사이트맵을 추가해 구글에서 검색되지 않는 부분도 수정하고, &amp;nbsp;&lt;a href=&quot;http://tech.kakao.com/2016/07/07/tech-blog-story/&quot; target=&quot;_blank&quot;&gt;Kakao Tech 참고자료&lt;/a&gt;&lt;br /&gt;
@@ -437,9 +437,9 @@ git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
  
  <entry>
    <title>Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기</title>
-   <link href="http://localhost:4000/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-01T00:00:00+09:00</updated>
-   <id>http://localhost:4000/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character</id>
+   <id>https://minyoungjung.github.io//mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character</id>
    <content type="html">&lt;h2 id=&quot;mac-finder에서-tag를-이용해-파일-분류하기&quot;&gt;Mac Finder에서 Tag를 이용해 파일 분류하기&lt;/h2&gt;
 &lt;p&gt;Jekyll을 이용해 포스팅을 하려니 포스팅 폴더 접근이 귀찮았다.&lt;br /&gt;
 보통 이런 경우 Finder의 즐겨찾기에 작업 폴더를 추가하여 사용하는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; 폴더의 언더바가 마음에 거슬려 태그를 이용해 정리하기로 했다.&lt;/p&gt;
@@ -477,9 +477,9 @@ git checkout &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
  
  <entry>
    <title>Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법</title>
-   <link href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/"/>
+   <link href="https://minyoungjung.github.io/"/>
    <updated>2017-05-31T00:00:00+09:00</updated>
-   <id>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize</id>
+   <id>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize</id>
    <content type="html">&lt;h2 id=&quot;jekyll이란&quot;&gt;Jekyll이란?&lt;/h2&gt;
 &lt;p&gt;정적 사이트 생성기.&lt;br /&gt;
 간단히 말하면 마크다운 언어&lt;strong&gt;(.md 등)&lt;/strong&gt;로 작성된 글을 알아서 HTML로 변경해준다.&lt;br /&gt;
