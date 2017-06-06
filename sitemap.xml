@@ -5,7 +5,7 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/</loc>
+    <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/</loc>
     
     <lastmod>2017-06-07T00:00:00+09:00</lastmod>
     
@@ -14,7 +14,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/git/2017/06/06/git-conflic-solving/</loc>
+    <loc>https://minyoungjung.github.io//git/2017/06/06/git-conflic-solving/</loc>
     
     <lastmod>2017-06-06T00:00:00+09:00</lastmod>
     
@@ -23,7 +23,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/</loc>
+    <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/</loc>
     
     <lastmod>2017-06-05T00:00:00+09:00</lastmod>
     
@@ -32,7 +32,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/</loc>
+    <loc>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/</loc>
     
     <lastmod>2017-06-04T00:00:00+09:00</lastmod>
     
@@ -41,7 +41,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/</loc>
+    <loc>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/</loc>
     
     <lastmod>2017-06-03T00:00:00+09:00</lastmod>
     
@@ -50,7 +50,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/</loc>
+    <loc>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/</loc>
     
     <lastmod>2017-06-02T00:00:00+09:00</lastmod>
     
@@ -59,7 +59,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/</loc>
+    <loc>https://minyoungjung.github.io//mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/</loc>
     
     <lastmod>2017-06-01T00:00:00+09:00</lastmod>
     
@@ -68,7 +68,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/</loc>
+    <loc>https://minyoungjung.github.io//%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/</loc>
     
     <lastmod>2017-05-31T00:00:00+09:00</lastmod>
     
@@ -102,85 +102,85 @@
   
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Github</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Github</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Blog</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Blog</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Jekyll</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Jekyll</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Tag</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Tag</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Mac</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Mac</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Machine Learning</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Machine Learning</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#AI</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#AI</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Tensorflow</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Tensorflow</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Python</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Python</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Python Calendar</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Python Calendar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Git</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Git</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Venv</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Venv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Virtualenv</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Virtualenv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>http://localhost:4000/blog/tags/#Matplotlib</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Matplotlib</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
