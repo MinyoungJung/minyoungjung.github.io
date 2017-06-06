@@ -29,7 +29,22 @@ $(document).ready(function() {
   $("#dynamic_day").text(total_date);
 });
 ```
-결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.  
+~~결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.~~   
+며칠 후 갑자기 날짜가 맞지않아 생각해보니, 그냥 내림을 해서 계산하면 안된다...  
+결국 시간단위를 제외한 Date값을 연산하는 아래와 같은 방법으로 로직 수정하여 해결.  
+
+``` javascript
+$(document).ready(function() {
+  var date_str = "{{ site.posts.last.date }}"; // 2017-05-31 00:00:00 +0900
+  var today = new Date()
+  today.setHours(0,0,0,0)
+  var firstday = new Date(date_str.split(' ')[0])
+  firstday.setHours(0,0,0,0)
+  var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+  $("#dynamic_day").text(total_date);
+});
+```
+
 <br>
 마찬가지로 며칠째 포스팅을 이어가고 있는지도 마지막 빌드 이후 며칠이 지났는지 알수 없기에,
 ``` javascript
@@ -46,6 +61,12 @@ $(document).ready(function(){
 `current_date_streak` 태그 값을 0으로 덮어씌우도록 수정했다.
 
 
+# 추가 문제점
+sitemap이 정적페이지로 빌드하다보니, `site.url`값이 로컬이 반영된 값인 localhost가 들어가 버린다...  
+결국 사이트맵 내의 `site.url` 값을 github pages 주소로 하드코딩.
+
+
 # 마무리
 Github Plugin 코드 및 README를 업데이트 했다. [링크](https://github.com/MinyoungJung/jekyll-plugin-blogStreak)  
+
 

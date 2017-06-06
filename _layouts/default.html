@@ -71,7 +71,11 @@ ga('send', 'pageview');
     // Calculate total_blogging_date_dynamically
     $(document).ready(function() {
       var date_str = "{{ site.posts.last.date }}"; // 2017-05-31 00:00:00 +0900
-      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
       $("#dynamic_day").text(total_date);
     });
 

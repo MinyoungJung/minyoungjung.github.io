@@ -561,8 +561,23 @@ print(sess.run([node1, node2]))
 <span class="p">});</span>
 </code></pre>
 </div>
-<p>결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.<br />
-<br />
+<p><del>결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.</del> <br />
+며칠 후 갑자기 날짜가 맞지않아 생각해보니, 그냥 내림을 해서 계산하면 안된다…<br />
+결국 시간단위를 제외한 Date값을 연산하는 아래와 같은 방법으로 로직 수정하여 해결.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"2017-05-31 00:00:00 +0900"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
+  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+  <span class="nx">today</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">firstday</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="nx">firstday</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="p">((</span><span class="nx">today</span><span class="o">-</span><span class="nx">firstday</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><br />
 마찬가지로 며칠째 포스팅을 이어가고 있는지도 마지막 빌드 이후 며칠이 지났는지 알수 없기에,</p>
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="kd">var</span> <span class="nx">latest_post_date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.first.date }}"</span><span class="p">;</span>
@@ -576,6 +591,10 @@ print(sess.run([node1, node2]))
 </div>
 <p>위와 같이 템플릿에서 받아온 값을 마지막 포스팅의 날짜와 현재 날짜가 하루이상 지났을때,<br />
 <code class="highlighter-rouge">current_date_streak</code> 태그 값을 0으로 덮어씌우도록 수정했다.</p>
+
+<h1 id="추가-문제점">추가 문제점</h1>
+<p>sitemap이 정적페이지로 빌드하다보니, <code class="highlighter-rouge">site.url</code>값이 로컬이 반영된 값인 localhost가 들어가 버린다…<br />
+결국 사이트맵 내의 <code class="highlighter-rouge">site.url</code> 값을 github pages 주소로 하드코딩.</p>
 
 <h1 id="마무리">마무리</h1>
 <p>Github Plugin 코드 및 README를 업데이트 했다. <a href="https://github.com/MinyoungJung/jekyll-plugin-blogStreak">링크</a></p>
@@ -646,7 +665,11 @@ ga('send', 'pageview');
     // Calculate total_blogging_date_dynamically
     $(document).ready(function() {
       var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
-      var total_date = Math.floor((Date.now() - Date.parse(date_str.split(' ')[0])) / 86400000)+1; // calc datediff
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
       $("#dynamic_day").text(total_date);
     });
 
