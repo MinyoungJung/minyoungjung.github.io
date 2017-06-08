@@ -42,13 +42,13 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="구현 Todolist Django의 Generic view를 이용해 구현했다. TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다. Calendar Python standard library의 HTMLCalendar를 이용해 구현했다. 지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다. Stats id create_date workout_done owner_id workout_id duration workout_date PK 생성일 운동 수행여부 소유자 FK(List) 수행시간(분) 수행 날짜 Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다. 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고, 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정. Django 철학에도 있지않은가.. Simple is better than complex 이럴때 쓰란말은 아니지만… 여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다. 워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다. 로그인/관리자 기능 Django의 기본 Auth와 Admin을 이용했다. 혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다. 스크린샷 Todolist Calendar Stats 모바일 대응 메뉴 마무리 간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다. 하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고, 이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다. 일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다. 추후 계획 각종 버그 수정… (귀찮지 않다면…) 데이터 분석 및 그래프 기능 확장 데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..) 간단한 소셜 기능 (옵션) 서비스 링크 간단히 무료 Dyno를 통해 Heroku에 올려두었다. DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지.. https://workoutcal.herokuapp.com" />
 <meta property="og:description" content="구현 Todolist Django의 Generic view를 이용해 구현했다. TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다. Calendar Python standard library의 HTMLCalendar를 이용해 구현했다. 지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다. Stats id create_date workout_done owner_id workout_id duration workout_date PK 생성일 운동 수행여부 소유자 FK(List) 수행시간(분) 수행 날짜 Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다. 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고, 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정. Django 철학에도 있지않은가.. Simple is better than complex 이럴때 쓰란말은 아니지만… 여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다. 워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다. 로그인/관리자 기능 Django의 기본 Auth와 Admin을 이용했다. 혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다. 스크린샷 Todolist Calendar Stats 모바일 대응 메뉴 마무리 간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다. 하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고, 이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다. 일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다. 추후 계획 각종 버그 수정… (귀찮지 않다면…) 데이터 분석 및 그래프 기능 확장 데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..) 간단한 소셜 기능 (옵션) 서비스 링크 간단히 무료 Dyno를 통해 Heroku에 올려두었다. DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지.. https://workoutcal.herokuapp.com" />
-<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)/" />
-<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)/" />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-06-08T23:50:01+09:00" />
+<meta property="article:published_time" content="2017-06-09T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django를 이용한 스케쥴러 제작 (2) - 구현","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-08T23:50:01+09:00","dateModified":"2017-06-08T23:50:01+09:00","description":"구현 Todolist Django의 Generic view를 이용해 구현했다. TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다. Calendar Python standard library의 HTMLCalendar를 이용해 구현했다. 지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다. Stats id create_date workout_done owner_id workout_id duration workout_date PK 생성일 운동 수행여부 소유자 FK(List) 수행시간(분) 수행 날짜 Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다. 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고, 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정. Django 철학에도 있지않은가.. Simple is better than complex 이럴때 쓰란말은 아니지만… 여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다. 워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다. 로그인/관리자 기능 Django의 기본 Auth와 Admin을 이용했다. 혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다. 스크린샷 Todolist Calendar Stats 모바일 대응 메뉴 마무리 간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다. 하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고, 이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다. 일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다. 추후 계획 각종 버그 수정… (귀찮지 않다면…) 데이터 분석 및 그래프 기능 확장 데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..) 간단한 소셜 기능 (옵션) 서비스 링크 간단히 무료 Dyno를 통해 Heroku에 올려두었다. DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지.. https://workoutcal.herokuapp.com","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)/"}</script>
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django를 이용한 스케쥴러 제작 (2) - 구현","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-09T00:00:00+09:00","dateModified":"2017-06-09T00:00:00+09:00","description":"구현 Todolist Django의 Generic view를 이용해 구현했다. TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다. Calendar Python standard library의 HTMLCalendar를 이용해 구현했다. 지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다. Stats id create_date workout_done owner_id workout_id duration workout_date PK 생성일 운동 수행여부 소유자 FK(List) 수행시간(분) 수행 날짜 Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다. 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고, 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정. Django 철학에도 있지않은가.. Simple is better than complex 이럴때 쓰란말은 아니지만… 여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다. 워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다. 로그인/관리자 기능 Django의 기본 Auth와 Admin을 이용했다. 혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다. 스크린샷 Todolist Calendar Stats 모바일 대응 메뉴 마무리 간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다. 하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고, 이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다. 일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다. 추후 계획 각종 버그 수정… (귀찮지 않다면…) 데이터 분석 및 그래프 기능 확장 데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..) 간단한 소셜 기능 (옵션) 서비스 링크 간단히 무료 Dyno를 통해 Heroku에 올려두었다. DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지.. https://workoutcal.herokuapp.com","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">9</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">10</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">10</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -182,7 +182,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <div class="container content">
         <div class="post">
   <h1 class="post-title">Django를 이용한 스케쥴러 제작 (2) - 구현</h1>
-  <span class="post-date">08 Jun 2017</span>
+  <span class="post-date">09 Jun 2017</span>
    | 
   
     <a href="/blog/tags/#django" class="post-tag">Django</a>
@@ -288,15 +288,6 @@ DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠
     
       <li>
         <h3>
-          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-project-heroku/">
-            Django 프로젝트 Heroku에 릴리즈하기
-            <small>08 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
             Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
             <small>08 Jun 2017</small>
@@ -313,6 +304,15 @@ DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠
         </h3>
       </li>
     
+      <li>
+        <h3>
+          <a href="/git/2017/06/06/git-conflic-solving/">
+            Git Merge 충돌 해결 원인 파악하기
+            <small>06 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
   </ul>
 </div>
 
@@ -322,8 +322,8 @@ DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');
@@ -390,7 +390,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-08 23:50:01 +0900";
+      var latest_post_date_str = "2017-06-09 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
