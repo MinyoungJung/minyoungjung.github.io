@@ -4,7 +4,7 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-08T23:50:01+09:00</updated>
+ <updated>2017-06-09T00:15:32+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
@@ -15,8 +15,8 @@
  <entry>
    <title>Django를 이용한 스케쥴러 제작 (2) - 구현</title>
    <link href="https://minyoungjung.github.io/"/>
-   <updated>2017-06-08T23:50:01+09:00</updated>
-   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)</id>
+   <updated>2017-06-09T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)</id>
    <content type="html">&lt;h1 id=&quot;구현&quot;&gt;구현&lt;/h1&gt;
 &lt;h2 id=&quot;todolist&quot;&gt;Todolist&lt;/h2&gt;
 &lt;p&gt;Django의 Generic view를 이용해 구현했다.&lt;br /&gt;
@@ -97,102 +97,6 @@ Django 철학에도 있지않은가.. &lt;code class=&quot;highlighter-rouge&quo
 DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지..&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://workoutcal.herokuapp.com&quot;&gt;https://workoutcal.herokuapp.com&lt;/a&gt;&lt;/p&gt;
-
-</content>
- </entry>
- 
- <entry>
-   <title>Django 프로젝트 Heroku에 릴리즈하기</title>
-   <link href="https://minyoungjung.github.io/"/>
-   <updated>2017-06-08T20:12:26+09:00</updated>
-   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-project-heroku</id>
-   <content type="html">&lt;h1 id=&quot;기존-프로젝트-heroku에-릴리즈&quot;&gt;기존 프로젝트 Heroku에 릴리즈&lt;/h1&gt;
-
-&lt;h2 id=&quot;heroku-cli-설치&quot;&gt;Heroku CLI 설치&lt;/h2&gt;
-&lt;p&gt;https://devcenter.heroku.com/articles/heroku-cli&lt;/p&gt;
-
-&lt;h2 id=&quot;procfile-추가&quot;&gt;Procfile 추가&lt;/h2&gt;
-&lt;p&gt;루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;Procfile&lt;/code&gt;을 추가한다
-&lt;code class=&quot;highlighter-rouge&quot;&gt;web: gunicorn myproject.wsgi --log-file -&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;runtimetxt-추가&quot;&gt;runtime.txt 추가&lt;/h2&gt;
-&lt;p&gt;루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;runtime.txt&lt;/code&gt;를 추가한다.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;python-3.6.1&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;gunicorn을-추가한다&quot;&gt;gunicorn을 추가한다&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install gunicorn&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;dj-database-url을-추가한다&quot;&gt;dj-database-url을 추가한다.&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install dj-database-url&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;프로젝트의 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;파일에&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dj_database_url&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dj_database_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn_max_age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;추가한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;whitenoise를-추가한다&quot;&gt;whitenoise를 추가한다.&lt;/h2&gt;
-&lt;p&gt;장고는 기본적으로 프로덕션에서 스태틱 파일을 serving하지 않는다. 
-pip install whitenoise&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Simplified static file serving.&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# https://warehouse.python.org/project/whitenoise/&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;STATIC_ROOT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'staticfiles'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;STATICFILES_STORAGE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'whitenoise.django.GzipManifestStaticFilesStorage'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;wsgi.py&lt;/code&gt;
-from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise&lt;/p&gt;
-
-&lt;p&gt;application = get_wsgi_application()
-application = DjangoWhiteNoise(application)&lt;/p&gt;
-
-&lt;h1&gt;#&lt;/h1&gt;
-
-&lt;h2 id=&quot;heroku-login&quot;&gt;Heroku Login&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku login&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;heroku-create&quot;&gt;Heroku create&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku create&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;heroku create
-Creating app... done, ⬢ calm-basin-17299
-https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
-
-Git remote heroku added
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;heroku를-git-remote로-추가&quot;&gt;Heroku를 git remote로 추가&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git remote add heroku https://git.heroku.com/calm-basin-17299.git&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;heroku에-push&quot;&gt;Heroku에 push&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git push heroku master&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;아아-정말-오래-개고생했는데&quot;&gt;아아 정말 오래 개고생했는데…&lt;/h2&gt;
-
-&lt;p&gt;matplotlib때문에 일어난 문제였음..&lt;/p&gt;
-
-&lt;p&gt;import matplotlib
-matplotlib.use(‘Agg’)를 해주고,&lt;/p&gt;
-
-&lt;p&gt;heroku에 올리기 전에 db 생성해줘야함.. (production에서 db 생성이 안되어 있을경우…)&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku run python manage.py migrate&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;슈퍼유저 생성
-heroku run python manage.py createsuperuser&lt;/p&gt;
-
-&lt;p&gt;gunicorn 설정시 폴더구조는
-메인 -
-    |- 프로젝트
-    |- 다른 앱&lt;/p&gt;
 
 </content>
  </entry>
