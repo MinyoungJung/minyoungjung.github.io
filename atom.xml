@@ -4,13 +4,198 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-08T15:32:21+09:00</updated>
+ <updated>2017-06-08T23:50:01+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django를 이용한 스케쥴러 제작 (2) - 구현</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-08T23:50:01+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(2)</id>
+   <content type="html">&lt;h1 id=&quot;구현&quot;&gt;구현&lt;/h1&gt;
+&lt;h2 id=&quot;todolist&quot;&gt;Todolist&lt;/h2&gt;
+&lt;p&gt;Django의 Generic view를 이용해 구현했다.&lt;br /&gt;
+TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;calendar&quot;&gt;Calendar&lt;/h2&gt;
+&lt;p&gt;Python standard library의 HTMLCalendar를 이용해 구현했다.&lt;br /&gt;
+지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;stats&quot;&gt;Stats&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;id&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;create_date&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;workout_done&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;owner_id&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;workout_id&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;duration&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;workout_date&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PK&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;생성일&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;운동 수행여부&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;소유자&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;FK(List)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;수행시간(분)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;수행 날짜&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.&lt;br /&gt;
+별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,&lt;br /&gt;
+해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.&lt;br /&gt;
+Django 철학에도 있지않은가.. &lt;code class=&quot;highlighter-rouge&quot;&gt;Simple is better than complex&lt;/code&gt; &lt;del&gt;이럴때 쓰란말은 아니지만…&lt;/del&gt;
+&lt;br /&gt;
+여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다.&lt;br /&gt;
+워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;로그인관리자-기능&quot;&gt;로그인/관리자 기능&lt;/h2&gt;
+&lt;p&gt;Django의 기본 Auth와 Admin을 이용했다.&lt;br /&gt;
+혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;스크린샷&quot;&gt;스크린샷&lt;/h1&gt;
+&lt;h2 id=&quot;todolist-1&quot;&gt;Todolist&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-09/todolist.png&quot; alt=&quot;할일목록&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;calendar-1&quot;&gt;Calendar&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-09/calendar.png&quot; alt=&quot;캘린더&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;stats-1&quot;&gt;Stats&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-09/stats.png&quot; alt=&quot;그래프&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;모바일-대응-메뉴&quot;&gt;모바일 대응 메뉴&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-09/mobile-react.png&quot; alt=&quot;모바일 대응&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;마무리&quot;&gt;마무리&lt;/h1&gt;
+&lt;p&gt;간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다.&lt;br /&gt;
+하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고,&lt;br /&gt;
+이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다.&lt;br /&gt;
+일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;추후-계획&quot;&gt;추후 계획&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;각종 버그 수정… (귀찮지 않다면…)&lt;/li&gt;
+  &lt;li&gt;데이터 분석 및 그래프 기능 확장&lt;/li&gt;
+  &lt;li&gt;데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..)&lt;/li&gt;
+  &lt;li&gt;간단한 소셜 기능 (옵션)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;서비스-링크&quot;&gt;서비스 링크&lt;/h1&gt;
+&lt;p&gt;간단히 무료 Dyno를 통해 Heroku에 올려두었다.&lt;br /&gt;
+DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지..&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://workoutcal.herokuapp.com&quot;&gt;https://workoutcal.herokuapp.com&lt;/a&gt;&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Django 프로젝트 Heroku에 릴리즈하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-08T20:12:26+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-project-heroku</id>
+   <content type="html">&lt;h1 id=&quot;기존-프로젝트-heroku에-릴리즈&quot;&gt;기존 프로젝트 Heroku에 릴리즈&lt;/h1&gt;
+
+&lt;h2 id=&quot;heroku-cli-설치&quot;&gt;Heroku CLI 설치&lt;/h2&gt;
+&lt;p&gt;https://devcenter.heroku.com/articles/heroku-cli&lt;/p&gt;
+
+&lt;h2 id=&quot;procfile-추가&quot;&gt;Procfile 추가&lt;/h2&gt;
+&lt;p&gt;루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;Procfile&lt;/code&gt;을 추가한다
+&lt;code class=&quot;highlighter-rouge&quot;&gt;web: gunicorn myproject.wsgi --log-file -&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;runtimetxt-추가&quot;&gt;runtime.txt 추가&lt;/h2&gt;
+&lt;p&gt;루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;runtime.txt&lt;/code&gt;를 추가한다.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;python-3.6.1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;gunicorn을-추가한다&quot;&gt;gunicorn을 추가한다&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install gunicorn&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dj-database-url을-추가한다&quot;&gt;dj-database-url을 추가한다.&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install dj-database-url&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;프로젝트의 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;파일에&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dj_database_url&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dj_database_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn_max_age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;추가한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;whitenoise를-추가한다&quot;&gt;whitenoise를 추가한다.&lt;/h2&gt;
+&lt;p&gt;장고는 기본적으로 프로덕션에서 스태틱 파일을 serving하지 않는다. 
+pip install whitenoise&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Simplified static file serving.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://warehouse.python.org/project/whitenoise/&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;STATIC_ROOT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'staticfiles'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;STATICFILES_STORAGE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'whitenoise.django.GzipManifestStaticFilesStorage'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;wsgi.py&lt;/code&gt;
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise&lt;/p&gt;
+
+&lt;p&gt;application = get_wsgi_application()
+application = DjangoWhiteNoise(application)&lt;/p&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;h2 id=&quot;heroku-login&quot;&gt;Heroku Login&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku login&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;heroku-create&quot;&gt;Heroku create&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku create&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;heroku create
+Creating app... done, ⬢ calm-basin-17299
+https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
+
+Git remote heroku added
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heroku를-git-remote로-추가&quot;&gt;Heroku를 git remote로 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git remote add heroku https://git.heroku.com/calm-basin-17299.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;heroku에-push&quot;&gt;Heroku에 push&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git push heroku master&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;아아-정말-오래-개고생했는데&quot;&gt;아아 정말 오래 개고생했는데…&lt;/h2&gt;
+
+&lt;p&gt;matplotlib때문에 일어난 문제였음..&lt;/p&gt;
+
+&lt;p&gt;import matplotlib
+matplotlib.use(‘Agg’)를 해주고,&lt;/p&gt;
+
+&lt;p&gt;heroku에 올리기 전에 db 생성해줘야함.. (production에서 db 생성이 안되어 있을경우…)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku run python manage.py migrate&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;슈퍼유저 생성
+heroku run python manage.py createsuperuser&lt;/p&gt;
+
+&lt;p&gt;gunicorn 설정시 폴더구조는
+메인 -
+    |- 프로젝트
+    |- 다른 앱&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성</title>
@@ -111,6 +296,8 @@
 
 &lt;p&gt;전체적인 Look&amp;amp;Feel은 심플한 Material Design 형태로 가기로 하고, &lt;a href=&quot;http://materializecss.com/getting-started.html&quot;&gt;Materialize&lt;/a&gt;를 이용했다.&lt;br /&gt;
 그래프를 출력하기 위해서는 &lt;a href=&quot;https://github.com/plotly/plotly.py&quot;&gt;Plotly&lt;/a&gt;와 &lt;a href=&quot;https://matplotlib.org/gallery.html&quot;&gt;Matplotlib&lt;/a&gt;을 고민하다 최종적으로 matplotlib으로 결정하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/&quot;&gt;Django를 이용한 스케쥴러 제작 (2) - 구현&lt;/a&gt;&lt;/p&gt;
 
 </content>
  </entry>
