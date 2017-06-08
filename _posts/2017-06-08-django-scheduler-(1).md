@@ -53,4 +53,6 @@ App은 할일을 출력하는 todolist, 월별 목록을 출력하는 calendar,
 그래프를 출력하기 위해서는 [Plotly](https://github.com/plotly/plotly.py)와 [Matplotlib](https://matplotlib.org/gallery.html)을 고민하다 최종적으로 matplotlib으로 결정하였다.
 
 
+[Django를 이용한 스케쥴러 제작 (2) - 구현](https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/)
+
 
