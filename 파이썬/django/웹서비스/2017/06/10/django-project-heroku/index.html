@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Django 프로젝트 Heroku에 릴리즈하기 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Django 프로젝트 Heroku에 릴리즈하기 | Ringsterz Log</title>
+<meta property="og:title" content="Django 프로젝트 Heroku에 릴리즈하기" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
+<meta property="og:description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-10T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django 프로젝트 Heroku에 릴리즈하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-10T00:00:00+09:00","dateModified":"2017-06-10T00:00:00+09:00","description":"기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">11</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">11</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Django 프로젝트 Heroku에 릴리즈하기</h1>
+  <span class="post-date">10 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+  
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+  
+  
+  <article>
+    <h1 id="기존-django-프로젝트-heroku에-릴리즈">기존 Django 프로젝트 Heroku에 릴리즈</h1>
+
+<h2 id="heroku-cli-설치">Heroku CLI 설치</h2>
+<p><code class="highlighter-rouge">brew install heroku</code></p>
+
+<h2 id="gunicorn을-추가">gunicorn을 추가</h2>
+<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
+
+<p>gunicorn 설정시 폴더구조는<br />
+메인 -<br />
+       |- 프로젝트<br />
+       |- 다른 앱<br />
+폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다.</p>
+
+<h2 id="procfile-추가">Procfile 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 저장한다.<br />
+<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
+
+<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우)<br />
+<code class="highlighter-rouge">python-3.6.1</code></p>
+
+<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
+<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
+
+<p>이후 프로젝트의 <code class="highlighter-rouge">settings.py</code>파일에</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>를 추가한다.</p>
+
+<h2 id="whitenoise-추가">whitenoise 추가</h2>
+<p>장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다.<br />
+whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다.<br />
+<code class="highlighter-rouge">pip install whitenoise</code></p>
+
+<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Simplified static file serving.</span>
+<span class="c"># https://warehouse.python.org/project/whitenoise/</span>
+
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가한다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+</code></pre>
+</div>
+
+<h2 id="heroku에-로그인">Heroku에 로그인</h2>
+<p><code class="highlighter-rouge">heroku login</code></p>
+
+<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
+<p><code class="highlighter-rouge">heroku create</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>heroku create
+Creating app... done, ⬢ calm-basin-17299
+https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
+
+Git remote heroku added
+</code></pre>
+</div>
+
+<h2 id="heroku를-git-remote로-추가">Heroku를 git remote로 추가</h2>
+<p><code class="highlighter-rouge">git remote add heroku https://git.heroku.com/calm-basin-17299.git</code></p>
+
+<h2 id="db가-생성되어-있지-않다면-생성">db가 생성되어 있지 않다면 생성</h2>
+<p><code class="highlighter-rouge">heroku run python manage.py migrate</code><br />
+간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다.</p>
+
+<h1 id="슈퍼유저-생성">슈퍼유저 생성</h1>
+<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
+
+<h2 id="commit하고-heroku에-push">commit하고 Heroku에 push</h2>
+<p><code class="highlighter-rouge">git push heroku master</code></p>
+
+<h2 id="만약-matpolib을-쓴다면-헤로쿠와-충돌이-일어난다">만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import matplotlib
+matplotlib.use('Agg')
+</code></pre>
+</div>
+<p>를 <code class="highlighter-rouge">import matplotlib.pyplot as plt, mpld3</code> 전에 추가한다.</p>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">
+            Django를 이용한 스케쥴러 제작 (2) - 구현
+            <small>09 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
+            Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
+            <small>08 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/">
+            Python 가상환경 옮기기
+            <small>07 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-10 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>

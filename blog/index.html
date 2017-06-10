@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">10</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">10</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">11</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">11</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,128 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
+        Django 프로젝트 Heroku에 릴리즈하기
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+    
+    
+
+    <article>
+      <h1 id="기존-django-프로젝트-heroku에-릴리즈">기존 Django 프로젝트 Heroku에 릴리즈</h1>
+
+<h2 id="heroku-cli-설치">Heroku CLI 설치</h2>
+<p><code class="highlighter-rouge">brew install heroku</code></p>
+
+<h2 id="gunicorn을-추가">gunicorn을 추가</h2>
+<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
+
+<p>gunicorn 설정시 폴더구조는<br />
+메인 -<br />
+       |- 프로젝트<br />
+       |- 다른 앱<br />
+폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다.</p>
+
+<h2 id="procfile-추가">Procfile 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 저장한다.<br />
+<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
+
+<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우)<br />
+<code class="highlighter-rouge">python-3.6.1</code></p>
+
+<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
+<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
+
+<p>이후 프로젝트의 <code class="highlighter-rouge">settings.py</code>파일에</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>를 추가한다.</p>
+
+<h2 id="whitenoise-추가">whitenoise 추가</h2>
+<p>장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다.<br />
+whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다.<br />
+<code class="highlighter-rouge">pip install whitenoise</code></p>
+
+<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Simplified static file serving.</span>
+<span class="c"># https://warehouse.python.org/project/whitenoise/</span>
+
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가한다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+</code></pre>
+</div>
+
+<h2 id="heroku에-로그인">Heroku에 로그인</h2>
+<p><code class="highlighter-rouge">heroku login</code></p>
+
+<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
+<p><code class="highlighter-rouge">heroku create</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>heroku create
+Creating app... done, ⬢ calm-basin-17299
+https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
+
+Git remote heroku added
+</code></pre>
+</div>
+
+<h2 id="heroku를-git-remote로-추가">Heroku를 git remote로 추가</h2>
+<p><code class="highlighter-rouge">git remote add heroku https://git.heroku.com/calm-basin-17299.git</code></p>
+
+<h2 id="db가-생성되어-있지-않다면-생성">db가 생성되어 있지 않다면 생성</h2>
+<p><code class="highlighter-rouge">heroku run python manage.py migrate</code><br />
+간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다.</p>
+
+<h1 id="슈퍼유저-생성">슈퍼유저 생성</h1>
+<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
+
+<h2 id="commit하고-heroku에-push">commit하고 Heroku에 push</h2>
+<p><code class="highlighter-rouge">git push heroku master</code></p>
+
+<h2 id="만약-matpolib을-쓴다면-헤로쿠와-충돌이-일어난다">만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import matplotlib
+matplotlib.use('Agg')
+</code></pre>
+</div>
+<p>를 <code class="highlighter-rouge">import matplotlib.pyplot as plt, mpld3</code> 전에 추가한다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -546,122 +668,6 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/">
-        파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩
-      </a>
-    </h1>
-
-    <span class="post-date">05 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#python-calendar" class="post-tag">Python Calendar</a>
-    
-    
-
-    <article>
-      <h1 id="파이썬-오브젝트-소스-코드-보기">파이썬 오브젝트 소스 코드 보기</h1>
-<ol>
-  <li>
-    <p><code class="highlighter-rouge">inspect</code> 모듈 임포트
-<code class="highlighter-rouge">import inspect</code></p>
-  </li>
-  <li>
-    <p>살펴볼 오브젝트 임포트
-<code class="highlighter-rouge">from calendar import HTMLCalendar</code></p>
-  </li>
-  <li>
-    <p>소스코드를 보기좋은 형태로 출력
-<code class="highlighter-rouge">print(inspect.getsource(HTMLCalendar))</code></p>
-  </li>
-</ol>
-
-<h1 id="스탠다드-라이브러리-메소드-오버라이딩">스탠다드 라이브러리 메소드 오버라이딩</h1>
-<p>HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다.<br />
-0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다.</p>
-
-<p><code class="highlighter-rouge">print(calendar.HTMLCalendar(6).formatmonth(2017,6))</code>과 같이 입력하면 아래의 달력이 출력된다.</p>
-
-<table border="0" cellpadding="0" cellspacing="0" class="month">
-<tr><th colspan="7" class="month">June 2017</th></tr>
-<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
-<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
-<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
-<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
-<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
-<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
-</table>
-
-<p>오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자.</p>
-
-<p><strong>파이썬 라이브러리 코드</strong></p>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="s">"""
-    Return a month name as a table row.
-    """</span>
-    <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">],</span> <span class="n">theyear</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">]</span>
-    <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="7" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
-</code></pre>
-</div>
-
-<p>주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다.<br />
-해당 메소드를 바로 오버라이딩 하면 <code class="highlighter-rouge">month_name[themonth]</code> 구문에서 오류가 뜨는데,<br />
-month_name은 calendar 모듈의 Data 속성이므로 <code class="highlighter-rouge">from calendar import month_name</code>를 해야한다.</p>
-
-<p><strong>오버라이딩한 메소드</strong></p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">HTMLCalendar</span><span class="p">,</span> <span class="n">month_name</span>
-
-<span class="k">class</span> <span class="nc">ArrowCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">):</span>
-        <span class="n">HTMLCalendar</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">],</span> <span class="n">year</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">]</span>
-        <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="1" class="month_arrow"&gt; &lt; &lt;/th&gt;'</span> \
-            <span class="s">'&lt;th colspan="5" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;'</span> \
-            <span class="s">'&lt;th colspan="1" class="month_arrow"&gt; &gt; &lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
-</code></pre>
-</div>
-<p>7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다.<br />
-이후 css 클래스를 적용해서 화살표를 정렬하면 완성</p>
-
-<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.month_arrow</span> <span class="p">{</span>
-    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h2 id="완성된-달력">완성된 달력</h2>
-<table border="0" cellpadding="0" cellspacing="0" class="month">
-<tr><th colspan="1" class="month_arrow"> &lt; </th><th colspan="5" class="month">June 2017</th><th colspan="1" class="month_arrow"> &gt; </th></tr>
-<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
-<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
-<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
-<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
-<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
-<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
-</table>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -728,7 +734,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-09 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-10 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
