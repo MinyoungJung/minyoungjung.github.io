@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">10</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">10</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">11</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">11</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -237,6 +237,15 @@ RuntimeError: Python is not installed as a framework. The Mac OS X backend will 
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
+            Django 프로젝트 Heroku에 릴리즈하기
+            <small>10 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">
             Django를 이용한 스케쥴러 제작 (2) - 구현
             <small>09 Jun 2017</small>
@@ -249,15 +258,6 @@ RuntimeError: Python is not installed as a framework. The Mac OS X backend will 
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
             Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
             <small>08 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/git/2017/06/06/git-conflic-solving/">
-            Git Merge 충돌 해결 원인 파악하기
-            <small>06 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -339,7 +339,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-09 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-10 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
