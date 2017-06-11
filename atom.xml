@@ -4,13 +4,52 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-10T21:14:12+09:00</updated>
+ <updated>2017-06-11T23:29:38+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Phaser를 이용한 간단 인터랙션 제작</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-11T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//javascript/2017/06/11/phaser-interaction</id>
+   <content type="html">&lt;h1 id=&quot;phaser란&quot;&gt;Phaser란&lt;/h1&gt;
+&lt;p&gt;HTML5의 Canvas및 WebGL을 이용해 Web game을 제작할 수 있게 해주는 Javascript 라이브러리&lt;br /&gt;
+Phaser를 테스트 하기 위해서는 로컬 웹서버를 실행해야 한다.&lt;br /&gt;
+Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python -m SimpleHTTPServer&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;구조&quot;&gt;구조&lt;/h1&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;game&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Phaser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Phaser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AUTO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;preload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;preload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다.&lt;br /&gt;
+크게 preload, create, update의 세 메소드로 나뉘어져 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;preload&quot;&gt;Preload&lt;/h2&gt;
+&lt;p&gt;게임 실행전에 실행되는 메소드로 주로 이미지나 기타 자료의 로딩에 쓰인다.&lt;/p&gt;
+
+&lt;h2 id=&quot;create&quot;&gt;Create&lt;/h2&gt;
+&lt;p&gt;게임이 실제적으로 생성될때 실행되는 메소드로 로딩된 이미지를 출력하거나 리스너를 할당하거나 등의 작업을 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;update&quot;&gt;Update&lt;/h2&gt;
+&lt;p&gt;주기적으로 실행되는 메소드로 주로 키 이벤트를 할당하거나 게임의 개체들을 업데이트 하는 등의 작업을 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;간단한-결과물&quot;&gt;간단한 결과물&lt;/h1&gt;
+&lt;p&gt;사용자의 마우스 이벤트에 반응해서 이미지의 알파값을 변경시켜 출력 시켜주는 애니메이션 예제&lt;br /&gt;
+&lt;a href=&quot;http://minimi.surge.sh/&quot;&gt;Phaser로 제작한 간단한 결과물&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;추후-계획&quot;&gt;추후 계획&lt;/h1&gt;
+&lt;p&gt;주 1회 협업, 매번 간단한 인터렉션 제작 (장기적으로는 게임이 될 수도…)&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django 프로젝트 Heroku에 릴리즈하기</title>
