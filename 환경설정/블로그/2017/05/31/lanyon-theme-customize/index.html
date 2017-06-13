@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">13</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">13</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">14</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">14</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -305,6 +305,15 @@ title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/">
+            Pycharm Community 에디션에 Django 가상환경으로 세팅하기
+            <small>13 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/">
             Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획
             <small>12 Jun 2017</small>
@@ -317,15 +326,6 @@ title: Jekyll과 Lanyon을 이용한 블로깅 및 테마 편집 방법
           <a href="/javascript/2017/06/11/phaser-interaction/">
             Phaser를 이용한 간단 인터랙션 제작
             <small>11 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
-            Django 프로젝트 Heroku에 릴리즈하기
-            <small>10 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -407,7 +407,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-12 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-13 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
