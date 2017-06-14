@@ -4,13 +4,66 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-13T14:25:13+09:00</updated>
+ <updated>2017-06-15T01:35:15+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django를 이용한 건물주 평판 조회 서비스 제작 (2) - DB 구성, 외부 라이브러리</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-14T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)</id>
+   <content type="html">&lt;h1 id=&quot;db-구성&quot;&gt;DB 구성&lt;/h1&gt;
+&lt;h2 id=&quot;reputation-테이블&quot;&gt;Reputation 테이블&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;ID&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Longitude&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Latitude&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Description&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Created_date&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Primary Key&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;경도&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;위도&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;평판&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;레코드 생성 날짜&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;app-구성-및-외부-라이브러리&quot;&gt;App 구성 및 외부 라이브러리&lt;/h1&gt;
+&lt;h2 id=&quot;app-구성&quot;&gt;App 구성&lt;/h2&gt;
+&lt;p&gt;평판 조회/출력하는 단일 app으로 구성&lt;/p&gt;
+
+&lt;h2 id=&quot;주소검색-라이브러리&quot;&gt;주소검색 라이브러리&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.juso.go.kr/addrlink/main.do&quot;&gt;주소검색솔루션&lt;/a&gt;&lt;br /&gt;
+행정자치부에서 만든 솔루션이다.&lt;br /&gt;
+자체적으로 서버에 솔루션을 설치해야 하기에 간단히 제작한다는 취지에 너무 과하다는 생각이 들어 패스했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developers.naver.com/docs/map/javascriptv3/&quot;&gt;네이버맵스&lt;/a&gt;&lt;br /&gt;
+간단하고 쓰기편한 네이버 지도 API 선택.&lt;/p&gt;
+
+&lt;h2 id=&quot;프론트엔드-라이브러리&quot;&gt;프론트엔드 라이브러리&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://http://getbootstrap.com/&quot;&gt;부트스트랩&lt;/a&gt;&lt;br /&gt;
+프론트엔드는 그냥 고민없이 부트스트랩으로…&lt;/p&gt;
+
+&lt;h1 id=&quot;추후-일정&quot;&gt;추후 일정&lt;/h1&gt;
+&lt;p&gt;Generic View, Admin 기능 등.. 최대한 장고 자체의 기능을 이용해서 빨리빨리 MVP 구현.&lt;br /&gt;
+이후 저번 프로젝트와는 다른쪽에 중점을 두고 개선/확장 예정&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Pycharm Community 에디션에 Django 가상환경으로 세팅하기</title>
@@ -290,7 +343,7 @@ TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보�
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.&lt;br /&gt;
+&lt;p&gt;Workout 테이블에서 owner를 필터로 쿼리셋을 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.&lt;br /&gt;
 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,&lt;br /&gt;
 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.&lt;br /&gt;
 Django 철학에도 있지않은가.. &lt;code class=&quot;highlighter-rouge&quot;&gt;Simple is better than complex&lt;/code&gt; &lt;del&gt;이럴때 쓰란말은 아니지만…&lt;/del&gt;
