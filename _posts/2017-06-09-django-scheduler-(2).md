@@ -20,7 +20,7 @@ id|create_date|workout_done|owner_id|workout_id|duration|workout_date
 :-:|:-:|:-:|:-:|:-:|:-:|:-:
 PK|생성일|운동 수행여부|소유자|FK(List)|수행시간(분)|수행 날짜
 
-Workout 테이블에서 owner를 필터로 쿼리셋울 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.  
+Workout 테이블에서 owner를 필터로 쿼리셋을 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.  
 별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,  
 해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.  
 Django 철학에도 있지않은가.. `Simple is better than complex` ~~이럴때 쓰란말은 아니지만...~~
