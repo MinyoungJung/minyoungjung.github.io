@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Django를 이용한 포트폴리오 사이트 제작 (1) - 기획 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Django를 이용한 포트폴리오 사이트 제작 (1) - 기획 | Ringsterz Log</title>
+<meta property="og:title" content="Django를 이용한 포트폴리오 사이트 제작 (1) - 기획" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="발단 매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다. 미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데, 사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다. 1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고, 2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다. 기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다. 그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다. 3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다. 요구사항 최신 작업중인 작품을 보여주는 페이지 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 요구사항 정리 모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만.. (작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.) 그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다. 사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고, 이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다. 다음주 목표 기본적인 목업 사이트 틀 잡기 책 형식으로 작품 보여주는 기능 구현" />
+<meta property="og:description" content="발단 매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다. 미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데, 사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다. 1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고, 2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다. 기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다. 그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다. 3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다. 요구사항 최신 작업중인 작품을 보여주는 페이지 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 요구사항 정리 모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만.. (작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.) 그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다. 사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고, 이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다. 다음주 목표 기본적인 목업 사이트 틀 잡기 책 형식으로 작품 보여주는 기능 구현" />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-17T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django를 이용한 포트폴리오 사이트 제작 (1) - 기획","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-17T00:00:00+09:00","dateModified":"2017-06-17T00:00:00+09:00","description":"발단 매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다. 미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데, 사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다. 1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고, 2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다. 기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다. 그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다. 3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다. 요구사항 최신 작업중인 작품을 보여주는 페이지 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 요구사항 정리 모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만.. (작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.) 그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다. 사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고, 이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다. 다음주 목표 기본적인 목업 사이트 틀 잡기 책 형식으로 작품 보여주는 기능 구현","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">18</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">18</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Django를 이용한 포트폴리오 사이트 제작 (1) - 기획</h1>
+  <span class="post-date">17 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+  
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#portfolio" class="post-tag">Portfolio</a>
+  
+  
+  <article>
+    <h1 id="발단">발단</h1>
+<p>매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다.<br />
+미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데,<br />
+사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다.</p>
+
+<p>1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고,<br />
+2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다.</p>
+
+<p>기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다.<br />
+그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다.</p>
+
+<p>3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다.</p>
+
+<h1 id="요구사항">요구사항</h1>
+<ol>
+  <li>최신 작업중인 작품을 보여주는 페이지</li>
+  <li>간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)</li>
+  <li>기존 작품 목록
+    <ul>
+      <li>목록을 선택하면 <a href="https://issuu.com/">ISSUU</a>와 같은 책 형식으로 작품을 보여줄 수 있어야 함.</li>
+      <li>아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음</li>
+    </ul>
+  </li>
+  <li>사이드 프로젝트 목록
+    <ul>
+      <li>주 작업 외에 기타 작품들을 전시할 공간</li>
+    </ul>
+  </li>
+</ol>
+
+<h1 id="요구사항-정리">요구사항 정리</h1>
+<p>모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만..<br />
+(작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.)<br />
+그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다.<br />
+사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고,<br />
+이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다.</p>
+
+<h1 id="다음주-목표">다음주 목표</h1>
+<ol>
+  <li>기본적인 목업 사이트 틀 잡기</li>
+  <li>책 형식으로 작품 보여주는 기능 구현</li>
+</ol>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/">
+            Django를 이용한 건물주 평판 조회 서비스 제작 (4) - 구현 2일차
+            <small>16 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/">
+            Django를 이용한 건물주 평판 조회 서비스 제작 (3) - 구현 1일차
+            <small>15 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/">
+            Django를 이용한 건물주 평판 조회 서비스 제작 (2) - DB 구성, 외부 라이브러리
+            <small>14 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-17 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
