@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/</loc>
+    
+    <lastmod>2017-06-17T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/</loc>
     
     <lastmod>2017-06-16T00:00:00+09:00</lastmod>
@@ -348,6 +357,12 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Naver API</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Portfolio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
