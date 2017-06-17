@@ -4,13 +4,100 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-15T23:40:43+09:00</updated>
+ <updated>2017-06-17T11:38:28+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django를 이용한 건물주 평판 조회 서비스 제작 (4) - 구현 2일차</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-16T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)</id>
+   <content type="html">&lt;h1 id=&quot;구현-2일차&quot;&gt;구현 2일차&lt;/h1&gt;
+
+&lt;h2 id=&quot;평판-디테일-뷰&quot;&gt;평판 디테일 뷰&lt;/h2&gt;
+&lt;p&gt;검색한 위치에서 평판을 등록할 수 있게하고, 맵을 띄워주었다.&lt;br /&gt;
+지도를 선택해서 마커를 이동하면 해당 위치에서 평판을 등록할 수 있도록 했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;로그인로그아웃회원가입&quot;&gt;로그인/로그아웃/회원가입&lt;/h2&gt;
+&lt;p&gt;Django의 기본 Auth를 이용하여 제작했다.&lt;br /&gt;
+Django의 기능이 강력해서 구현 자체는 금방 끝났으나 UI를 다듬는대 생각보다 많은 시간이 걸렸다.&lt;br /&gt;
+여전히 Look이 마음에 들진 않는다…&lt;/p&gt;
+
+&lt;h1 id=&quot;스크린샷&quot;&gt;스크린샷&lt;/h1&gt;
+&lt;h2 id=&quot;홈&quot;&gt;홈&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/home.png&quot; alt=&quot;홈화면&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;검색결과-평판이-있을때-평판으로-이동할-수-있는-화면&quot;&gt;검색결과 (평판이 있을때 평판으로 이동할 수 있는 화면)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/list-without-repu.png&quot; alt=&quot;검색결과(평판없음)&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;검색결과-평판이-없을때-검색한-주소에-추가할-수-있는-화면&quot;&gt;검색결과 (평판이 없을때 검색한 주소에 추가할 수 있는 화면)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/list-without-repu.png&quot; alt=&quot;검색결과(평판없음)&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;로그인&quot;&gt;로그인&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/login.png&quot; alt=&quot;로그인&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;회원가입-에러-메시지-출력-화면&quot;&gt;회원가입 (에러 메시지 출력 화면)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/register-with-error.png&quot; alt=&quot;회원가입(에러)&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;맵뷰&quot;&gt;맵뷰&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-16/mapview.png&quot; alt=&quot;맵뷰&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;고생한-점&quot;&gt;고생한 점&lt;/h1&gt;
+&lt;p&gt;2일차 구현은 딱히 어려웠던 점은 없다. UI가 고쳐도 고쳐도 맘에 썩 들지 않는다는 점만 빼면…&lt;/p&gt;
+
+&lt;h1 id=&quot;진행률&quot;&gt;진행률&lt;/h1&gt;
+&lt;p&gt;기본적인 기능 구현은 전부 완료했다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;평판 등록/조회 기능&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;회원가입/로그인 기능&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;주소 검색 기능&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;더불어 지난주 계획도 얼추 완료했다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;del&gt;로그인/회원가입 등 구현&lt;/del&gt; &lt;strong&gt;완료&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;가입한 사용자만 정보를 등록할 수 있도록 구현&lt;/del&gt; &lt;strong&gt;완료&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;디테일뷰에서 DB에 평판 추가하는 부분 구현&lt;/del&gt; &lt;strong&gt;완료&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;UI/UX 개선&lt;/del&gt; &lt;strong&gt;완료&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;6/18일까지 MVP를 제작한다는 일정은 맞춘듯 하다.&lt;br /&gt;
+전체 프로젝트 목표까지는 아직 조금더 할일이 남긴 했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;다듬기&quot;&gt;다듬기&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;계정 생성시 간단한 인증코드 삽입&lt;/li&gt;
+  &lt;li&gt;테스트 코드 삽입
+    &lt;ul&gt;
+      &lt;li&gt;간단한 코드라도 테스트 코드 넣는 습관 들이자..&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;릴리즈용으로 코드 정리
+    &lt;ul&gt;
+      &lt;li&gt;Dev/Production 환경을 나누고 여러 키들 노출되지 않도록 처리할 것&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django를 이용한 건물주 평판 조회 서비스 제작 (3) - 구현 1일차</title>

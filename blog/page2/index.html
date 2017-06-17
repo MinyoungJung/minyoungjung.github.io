@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">16</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">16</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">17</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">17</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,68 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/javascript/2017/06/11/phaser-interaction/">
+        Phaser를 이용한 간단 인터랙션 제작
+      </a>
+    </h1>
+
+    <span class="post-date">11 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#javascript" class="post-tag">Javascript</a>
+    
+    <a href="/blog/tags/#phaser" class="post-tag">Phaser</a>
+    
+    <a href="/blog/tags/#html5" class="post-tag">HTML5</a>
+    
+    <a href="/blog/tags/#game" class="post-tag">Game</a>
+    
+    
+
+    <article>
+      <h1 id="phaser란">Phaser란</h1>
+<p>HTML5의 Canvas및 WebGL을 이용해 Web game을 제작할 수 있게 해주는 Javascript 라이브러리<br />
+Phaser를 테스트 하기 위해서는 로컬 웹서버를 실행해야 한다.<br />
+Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하다.</p>
+
+<p><code class="highlighter-rouge">python -m SimpleHTTPServer</code></p>
+
+<h1 id="구조">구조</h1>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">,</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> 
+        <span class="p">{</span> <span class="na">preload</span><span class="p">:</span> <span class="nx">preload</span><span class="p">,</span> <span class="na">create</span><span class="p">:</span> <span class="nx">create</span><span class="p">,</span> <span class="na">update</span><span class="p">:</span> <span class="nx">update</span> <span class="p">});</span>
+</code></pre>
+</div>
+<p>위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다.<br />
+크게 preload, create, update의 세 메소드로 나뉘어져 있다.</p>
+
+<h2 id="preload">Preload</h2>
+<p>게임 실행전에 실행되는 메소드로 주로 이미지나 기타 자료의 로딩에 쓰인다.</p>
+
+<h2 id="create">Create</h2>
+<p>게임이 실제적으로 생성될때 실행되는 메소드로 로딩된 이미지를 출력하거나 리스너를 할당하거나 등의 작업을 한다.</p>
+
+<h2 id="update">Update</h2>
+<p>주기적으로 실행되는 메소드로 주로 키 이벤트를 할당하거나 게임의 개체들을 업데이트 하는 등의 작업을 한다.</p>
+
+<h1 id="간단한-결과물">간단한 결과물</h1>
+<p>사용자의 마우스 이벤트에 반응해서 이미지의 알파값을 변경시켜 출력 시켜주는 애니메이션 예제<br />
+<a href="http://minimi.surge.sh/">Phaser로 제작한 간단한 결과물</a></p>
+
+<h1 id="추후-계획">추후 계획</h1>
+<p>주 1회 협업, 매번 간단한 인터렉션 제작 (장기적으로는 게임이 될 수도…)</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/javascript/2017/06/11/phaser-interaction/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/javascript/2017/06/11/phaser-interaction/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -609,64 +671,6 @@ RuntimeError: Python is not installed as a framework. The Mac OS X backend will 
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/git/2017/06/06/git-conflic-solving/">
-        Git Merge 충돌 해결 원인 파악하기
-      </a>
-    </h1>
-
-    <span class="post-date">06 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#github" class="post-tag">Github</a>
-    
-    <a href="/blog/tags/#git" class="post-tag">Git</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-
-<p>로컬의 프로젝트를 Github로 푸쉬하려는데 문제가 발생했다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>(workoutscheduler) My-MacBook-Pro:workoutscheduler mymacpro$ git push origin master
-To https://github.com/MinyoungJung/workoutscheduler_project.git
-! [rejected]        master -&gt; master (non-fast-forward)
-error: failed to push some refs to 'https://github.com/MinyoungJung/workoutscheduler_project.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-</code></pre>
-</div>
-<p>메시지를 보니 Github 브랜치 내용이 로컬의 브랜치 내용보다 최신이란다.</p>
-
-<h1 id="해결-방안">해결 방안</h1>
-<ol>
-  <li>
-    <p><code class="highlighter-rouge">git push -f</code>를 통해 강제로 푸쉬한다.<br />
-사실 혼자 로컬에서 작업하는 프로젝트다보니 Github 내용이 더 최신이 된 것 자체가 이상한 상황이고,<br />
-로컬의 코드를 그냥 푸쉬해서 덮어씌워도 아무 문제 없으나 아무래도 찜찜한 것이 사실.</p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">gitk HEAD @{u}</code> 명령어로 upstream branch와 현재 헤드의 차이를 확인한다.
-<img src="/post_assets/2017-06-06/conflict.png" alt="머지 충돌" />
-master와 origin 사이의 충돌이 생긴 이유가 명확해졌다.<br />
-project setting에서 github page를 생성했더니, 그에 대한 파일이 변경된 것이 로컬에서는 반영되지 않은 것.<br />
-원인을 파악했으니 편안한 맘으로 강제로 푸쉬할 수 있게 되었다.</p>
-  </li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/git/2017/06/06/git-conflic-solving/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/git/2017/06/06/git-conflic-solving/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -735,7 +739,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-15 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-16 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
