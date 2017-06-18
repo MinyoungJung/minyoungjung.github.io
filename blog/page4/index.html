@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">18</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">18</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">19</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">19</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,98 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
+        Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
+      </a>
+    </h1>
+
+    <span class="post-date">03 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#github" class="post-tag">Github</a>
+    
+    <a href="/blog/tags/#blog" class="post-tag">Blog</a>
+    
+    <a href="/blog/tags/#jekyll" class="post-tag">Jekyll</a>
+    
+    <a href="/blog/tags/#tag" class="post-tag">Tag</a>
+    
+    
+
+    <article>
+      <h1 id="지난-포스팅">지난 포스팅</h1>
+
+<p><a href="/환경설정/블로그/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</a></p>
+
+<h1 id="발단">발단</h1>
+<p>다시 하루가 지나고 Github page에 접속하자, 어제 만든 플러그인이 동작하지 않았다.<br />
+<code class="highlighter-rouge">total_blogging_date</code> 태그가 동작하지 않아 하루가 지났음에도 총 일수가 더해지지 않은 것.<br />
+한참 루비코드만 들여다보다 생각해보니, Jekyll 자체가 정적인 페이지를 생성하는데 페이지를 빌드하지 않았는데도 갱신되는게 말이 안되는 상황.<br />
+계속해서 소스를 수정하면서 빌드하다보니, 제대로 동작하는 것으로 오해하게 된 것이었다.</p>
+
+<h1 id="해결-방안">해결 방안</h1>
+<p>총 블로깅 일수를 태그로 받았을때, 현재 날짜와 총 날짜를 계산할 때 사용된 마지막 날짜의 비교가 불가능하다.<br />
+태그에서 받은 총 블로깅 날짜만을 가지고 빌드하지 않은채로 며칠이 지났는지 알 방법이 없고,<br />
+혹여 있다해도 그냥 템플릿에서 가장 오래된 포스팅 날짜와 현재 날짜의 차이를 비교하는 것이 편하다.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Calculate total_blogging_date_dynamically</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.last.date }}"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
+  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+<p><del>결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.</del> <br />
+며칠 후 갑자기 날짜가 맞지않아 생각해보니, 그냥 내림을 해서 계산하면 안된다…<br />
+결국 시간단위를 제외한 Date값을 연산하는 아래와 같은 방법으로 로직 수정하여 해결.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"2017-05-31 00:00:00 +0900"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
+  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+  <span class="nx">today</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">firstday</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="nx">firstday</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="p">((</span><span class="nx">today</span><span class="o">-</span><span class="nx">firstday</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><br />
+마찬가지로 며칠째 포스팅을 이어가고 있는지도 마지막 빌드 이후 며칠이 지났는지 알수 없기에,</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">latest_post_date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.first.date }}"</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">day_passed</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">latest_post_date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">);</span>
+  <span class="c1">// if latest posting date passed a day then reset to 0</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">day_passed</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">"#current_date_streak"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">"0"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+<p>위와 같이 템플릿에서 받아온 값을 마지막 포스팅의 날짜와 현재 날짜가 하루이상 지났을때,<br />
+<code class="highlighter-rouge">current_date_streak</code> 태그 값을 0으로 덮어씌우도록 수정했다.</p>
+
+<h1 id="추가-문제점">추가 문제점</h1>
+<p>sitemap이 정적페이지로 빌드하다보니, <code class="highlighter-rouge">site.url</code>값이 로컬이 반영된 값인 localhost가 들어가 버린다…<br />
+결국 사이트맵 내의 <code class="highlighter-rouge">site.url</code> 값을 github pages 주소로 하드코딩.</p>
+
+<h1 id="마무리">마무리</h1>
+<p>Github Plugin 코드 및 README를 업데이트 했다. <a href="https://github.com/MinyoungJung/jekyll-plugin-blogStreak">링크</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -581,7 +673,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-17 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-18 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
