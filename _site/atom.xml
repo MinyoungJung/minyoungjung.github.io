@@ -4,13 +4,43 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-19T00:01:47+09:00</updated>
+ <updated>2017-06-20T12:22:08+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-19T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning</id>
+   <content type="html">&lt;h1 id=&quot;브라우저-css-캐쉬-무력화하기&quot;&gt;브라우저 CSS 캐쉬 무력화하기&lt;/h1&gt;
+&lt;p&gt;웹서비스를 제작하며 CSS 를 수정하다보면 분명 수정했는데도 불구하고 브라우저에 적용되지 않을때가 있다.&lt;br /&gt;
+이는 브라우저가 기존의 CSS 파일을 캐쉬로 저장하고 있기 때문인데 간단하게 해결할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;해결방법&quot;&gt;해결방법&lt;/h2&gt;
+&lt;p&gt;HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;link href=&quot;/css/custom.css?v=1.0&quot; rel=&quot;stylesheet&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;django의-경우&quot;&gt;Django의 경우&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&amp;lt;link href=&quot;{% static '/css/custom.css' %}?v=1.0&quot; rel=&quot;stylesheet&quot;&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;mac에서-localhost-지정하기&quot;&gt;Mac에서 Localhost 지정하기&lt;/h1&gt;
+&lt;p&gt;IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;/private/etc/hosts&lt;/code&gt; 이다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo vi /private/etc/hosts&lt;/code&gt;와 같이 해당 파일을 편집기로 진입해 host이름과 ip 짝을 수정해주면 된다.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>흐름에 따른 사고</title>
