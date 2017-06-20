@@ -4,13 +4,117 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-20T12:22:08+09:00</updated>
+ <updated>2017-06-20T23:37:31+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>장고 서비스 테스트하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-20T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django</id>
+   <content type="html">&lt;h1 id=&quot;coverage-설치&quot;&gt;Coverage 설치&lt;/h1&gt;
+&lt;p&gt;파이썬 코드의 테스트 커버리지를 나타내 주는 라이브러리인 coverage를 설치한다.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install coverage&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;coverage-설정&quot;&gt;Coverage 설정&lt;/h1&gt;
+&lt;h2 id=&quot;coveragerc-파일-생성&quot;&gt;.coveragerc 파일 생성&lt;/h2&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi .coveragerc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;vim을 이용해서 간단하게 coveragerc 설정 파일을 생성.&lt;/p&gt;
+
+&lt;h2 id=&quot;실행환경-설정&quot;&gt;실행환경 설정&lt;/h2&gt;
+&lt;p&gt;[run] 헤더 이후에 설정을 적어주면 된다.&lt;br /&gt;
+include = 테스트를 포함할 경로&lt;br /&gt;
+omit = 테스트를 제외할 경로&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[run]
+omit = ../virtualenvs/landlord_reputation_venv/*
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;기본적으로 project_root의 폴더들이 모두 포함되므로 위와 같이 가상환경만 제외했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;coverage-실행&quot;&gt;Coverage 실행&lt;/h1&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;coverage run manage.py test&lt;/code&gt;로 테스트를 수행&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;위와 같이 테스트를 수행한다.&lt;br /&gt;
+현재는 아무런 테스트도 넣지 않은 상태&lt;/p&gt;
+
+&lt;h1 id=&quot;리포트-보기&quot;&gt;리포트 보기&lt;/h1&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;coverage report&lt;/code&gt;로 각각의 파일에 대한 리포트를 볼수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name                                    Stmts   Miss  Cover
+-----------------------------------------------------------
+landlord_reputation/__init__.py             0      0   100%
+landlord_reputation/settings.py            20      0   100%
+landlord_reputation/urls.py                 4      0   100%
+landlord_reputation/views.py                8      0   100%
+manage.py                                  13      6    54%
+reputation/__init__.py                      0      0   100%
+reputation/admin.py                         8      0   100%
+reputation/apps.py                          3      0   100%
+reputation/migrations/0001_initial.py       8      0   100%
+reputation/migrations/__init__.py           0      0   100%
+reputation/models.py                        9      0   100%
+reputation/tests.py                         1      0   100%
+reputation/urls.py                          3      0   100%
+reputation/views.py                        90     65    28%
+-----------------------------------------------------------
+TOTAL                                     167     71    57%
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;view 파일에 대해 하나도 테스트가 작성되지 않은 상태라 coverage가 매우 낮게 출력된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;리포트-html-형식으로-보기&quot;&gt;리포트 html 형식으로 보기&lt;/h1&gt;
+&lt;p&gt;좀더 자세한 결과를 보기위해서 리포트를 Html 형식으로 출력할수도 있다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;coverage html&lt;/code&gt; 명령을 통해 &lt;code class=&quot;highlighter-rouge&quot;&gt;htmlcov/index.html&lt;/code&gt;로 리포트가 생성된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;리포트-형식&quot;&gt;리포트 형식&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-20/coverage_list.png&quot; alt=&quot;커버리지 리스트&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;리포트를-선택했을때-나오는-상세-결과&quot;&gt;리포트를 선택했을때 나오는 상세 결과&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-20/coverage_detail.png&quot; alt=&quot;커버리지 디테일&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;테스트-코드-작성하기&quot;&gt;테스트 코드 작성하기&lt;/h1&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.core.urlresolvers&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.test&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TestCase&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;reputation.models&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reputation&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReputationView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TestCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Reputation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_or_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;sample address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;latitude&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;23.456789&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;longitude&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;123.4567890&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_template_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;reputation:reputation_template&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;123.1234567&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;23.456789&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;assertEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;generic view Http 응답에 대한 테스트 코드를 삽입하였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;이후-다시-테스트를-수행한-결과&quot;&gt;이후 다시 테스트를 수행한 결과&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-20/coverage_detail2.png&quot; alt=&quot;커버리지 디테일&quot; /&gt;
+커버리지가 조금 올라가고 붉은색으로 표시된 테스트 되지 않은 범위도 조금 줄어들었다.&lt;/p&gt;
+
+&lt;p&gt;테스트 플랜을 짜고 좀더 상세한 Suite/Case를 작성해야겠지만 위 방법을 확장하여 테스트 커버리지를 높일 수 있다.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기</title>
