@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">21</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">21</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">22</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">22</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -248,8 +248,17 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">
+            Django에 Rest API 추가하기
+            <small>21 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/">
-            장고 서비스 테스트하기
+            Django 서비스 테스트하기
             <small>20 Jun 2017</small>
           </a>
         </h3>
@@ -260,15 +269,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/">
             브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기
             <small>19 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EB%8F%85%EC%84%9C/%EC%83%9D%EA%B0%81/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/">
-            흐름에 따른 사고
-            <small>18 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -350,7 +350,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-20 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-21 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

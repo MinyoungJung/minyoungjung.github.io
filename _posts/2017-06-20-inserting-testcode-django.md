@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 장고 서비스 테스트하기
+title: Django 서비스 테스트하기
 category: [파이썬, Django, 웹서비스, 테스트]
 tags: [Django, Python, Web service, Test]
 ---
