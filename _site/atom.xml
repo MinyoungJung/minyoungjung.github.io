@@ -4,13 +4,78 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-22T15:58:09+09:00</updated>
+ <updated>2017-06-23T00:15:44+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-22T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)</id>
+   <content type="html">&lt;h1 id=&quot;공동-프로젝트-진행상황&quot;&gt;공동 프로젝트 진행상황&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;1주차&lt;/strong&gt; : JQuery를 이용한 간단한 애니메이션&lt;br /&gt;
+&lt;strong&gt;2주차&lt;/strong&gt; : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션&lt;br /&gt;
+&lt;strong&gt;3주차&lt;/strong&gt; : 개인 포트폴리오 사이트 공동 기획&lt;/p&gt;
+
+&lt;h1 id=&quot;4주차-진행상황&quot;&gt;4주차 진행상황&lt;/h1&gt;
+&lt;p&gt;이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다.&lt;br /&gt;
+먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;지난주-요구사항&quot;&gt;지난주 요구사항&lt;/h2&gt;
+&lt;h3 id=&quot;최신-작업중인-작품을-보여주는-페이지&quot;&gt;최신 작업중인 작품을 보여주는 페이지&lt;/h3&gt;
+&lt;p&gt;TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;간단한-프로필-페이지-contact-profile-description-sns-링크-등&quot;&gt;간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)&lt;/h3&gt;
+&lt;p&gt;TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다.&lt;br /&gt;
+Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고,&lt;br /&gt;
+이 내용이 프로필 페이지에 반영되도록 했다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OneToOneField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on_delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CASCADE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bio&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;twitter_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;instagram_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tumblr_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;facebook_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라,&lt;br /&gt;
+위와 같이 OneToOneField를 이용해 유저 모델을 확장했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기존-작품-목록&quot;&gt;기존 작품 목록&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;목록을 선택하면 &lt;a href=&quot;https://issuu.com/&quot;&gt;ISSUU&lt;/a&gt;와 같은 책 형식으로 작품을 보여줄 수 있어야 함.&lt;/li&gt;
+  &lt;li&gt;아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다.&lt;br /&gt;
+책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사이드-프로젝트-목록&quot;&gt;사이드 프로젝트 목록&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;주 작업 외에 기타 작품들을 전시할 공간&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다.&lt;/p&gt;
+
+&lt;h1 id=&quot;다음주-목표&quot;&gt;다음주 목표&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;작품 업로드 구현하기
+    &lt;ul&gt;
+      &lt;li&gt;여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각&lt;/li&gt;
+      &lt;li&gt;여러장의 이미지에는 Cover와 table contents가 포함되어 있음&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;관리자 기능 추가 및 디자인 업데이트&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django에 Rest API 추가하기</title>

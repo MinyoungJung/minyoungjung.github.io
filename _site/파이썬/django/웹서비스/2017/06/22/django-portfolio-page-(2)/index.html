@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장 | Ringsterz Log</title>
+<meta property="og:title" content="Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="공동 프로젝트 진행상황 1주차 : JQuery를 이용한 간단한 애니메이션 2주차 : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션 3주차 : 개인 포트폴리오 사이트 공동 기획 4주차 진행상황 이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다. 먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다. 지난주 요구사항 최신 작업중인 작품을 보여주는 페이지 TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다. 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다. Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고, 이 내용이 프로필 페이지에 반영되도록 했다. class Profile(models.Model): user = models.OneToOneField(User, on_delete=models.CASCADE) bio = models.TextField(max_length=500) twitter_id = models.CharField(max_length=30, blank=True) instagram_id = models.CharField(max_length=30, blank=True) tumblr_id = models.CharField(max_length=30, blank=True) facebook_id = models.CharField(max_length=30, blank=True) 별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라, 위와 같이 OneToOneField를 이용해 유저 모델을 확장했다. 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다. 책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다. 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다. 다음주 목표 작품 업로드 구현하기 여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각 여러장의 이미지에는 Cover와 table contents가 포함되어 있음 관리자 기능 추가 및 디자인 업데이트" />
+<meta property="og:description" content="공동 프로젝트 진행상황 1주차 : JQuery를 이용한 간단한 애니메이션 2주차 : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션 3주차 : 개인 포트폴리오 사이트 공동 기획 4주차 진행상황 이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다. 먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다. 지난주 요구사항 최신 작업중인 작품을 보여주는 페이지 TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다. 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다. Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고, 이 내용이 프로필 페이지에 반영되도록 했다. class Profile(models.Model): user = models.OneToOneField(User, on_delete=models.CASCADE) bio = models.TextField(max_length=500) twitter_id = models.CharField(max_length=30, blank=True) instagram_id = models.CharField(max_length=30, blank=True) tumblr_id = models.CharField(max_length=30, blank=True) facebook_id = models.CharField(max_length=30, blank=True) 별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라, 위와 같이 OneToOneField를 이용해 유저 모델을 확장했다. 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다. 책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다. 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다. 다음주 목표 작품 업로드 구현하기 여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각 여러장의 이미지에는 Cover와 table contents가 포함되어 있음 관리자 기능 추가 및 디자인 업데이트" />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-22T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-22T00:00:00+09:00","dateModified":"2017-06-22T00:00:00+09:00","description":"공동 프로젝트 진행상황 1주차 : JQuery를 이용한 간단한 애니메이션 2주차 : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션 3주차 : 개인 포트폴리오 사이트 공동 기획 4주차 진행상황 이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다. 먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다. 지난주 요구사항 최신 작업중인 작품을 보여주는 페이지 TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다. 간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등) TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다. Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고, 이 내용이 프로필 페이지에 반영되도록 했다. class Profile(models.Model): user = models.OneToOneField(User, on_delete=models.CASCADE) bio = models.TextField(max_length=500) twitter_id = models.CharField(max_length=30, blank=True) instagram_id = models.CharField(max_length=30, blank=True) tumblr_id = models.CharField(max_length=30, blank=True) facebook_id = models.CharField(max_length=30, blank=True) 별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라, 위와 같이 OneToOneField를 이용해 유저 모델을 확장했다. 기존 작품 목록 목록을 선택하면 ISSUU와 같은 책 형식으로 작품을 보여줄 수 있어야 함. 아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음 목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다. 책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다. 사이드 프로젝트 목록 주 작업 외에 기타 작품들을 전시할 공간 아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다. 다음주 목표 작품 업로드 구현하기 여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각 여러장의 이미지에는 Cover와 table contents가 포함되어 있음 관리자 기능 추가 및 디자인 업데이트","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">23</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">23</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장</h1>
+  <span class="post-date">22 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+  
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#portfolio" class="post-tag">Portfolio</a>
+  
+    <a href="/blog/tags/#bootstrap" class="post-tag">Bootstrap</a>
+  
+  
+  <article>
+    <h1 id="공동-프로젝트-진행상황">공동 프로젝트 진행상황</h1>
+<p><strong>1주차</strong> : JQuery를 이용한 간단한 애니메이션<br />
+<strong>2주차</strong> : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션<br />
+<strong>3주차</strong> : 개인 포트폴리오 사이트 공동 기획</p>
+
+<h1 id="4주차-진행상황">4주차 진행상황</h1>
+<p>이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다.<br />
+먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다.</p>
+
+<h2 id="지난주-요구사항">지난주 요구사항</h2>
+<h3 id="최신-작업중인-작품을-보여주는-페이지">최신 작업중인 작품을 보여주는 페이지</h3>
+<p>TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다.</p>
+
+<h3 id="간단한-프로필-페이지-contact-profile-description-sns-링크-등">간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)</h3>
+<p>TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다.<br />
+Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고,<br />
+이 내용이 프로필 페이지에 반영되도록 했다.</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Profile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">bio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">twitter_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">instagram_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">tumblr_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">facebook_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라,<br />
+위와 같이 OneToOneField를 이용해 유저 모델을 확장했다.</p>
+
+<h3 id="기존-작품-목록">기존 작품 목록</h3>
+<ul>
+  <li>목록을 선택하면 <a href="https://issuu.com/">ISSUU</a>와 같은 책 형식으로 작품을 보여줄 수 있어야 함.</li>
+  <li>아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음</li>
+</ul>
+
+<p>목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다.<br />
+책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다.</p>
+
+<h3 id="사이드-프로젝트-목록">사이드 프로젝트 목록</h3>
+<ul>
+  <li>주 작업 외에 기타 작품들을 전시할 공간</li>
+</ul>
+
+<p>아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다.</p>
+
+<h1 id="다음주-목표">다음주 목표</h1>
+
+<ol>
+  <li>작품 업로드 구현하기
+    <ul>
+      <li>여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각</li>
+      <li>여러장의 이미지에는 Cover와 table contents가 포함되어 있음</li>
+    </ul>
+  </li>
+  <li>관리자 기능 추가 및 디자인 업데이트</li>
+</ol>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">
+            Django에 Rest API 추가하기
+            <small>21 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/">
+            Django 서비스 테스트하기
+            <small>20 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/">
+            브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기
+            <small>19 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-22 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
