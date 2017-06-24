@@ -70,14 +70,14 @@ DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 �
 ``` python
 class MultipleFieldLookupMixin(object):
     def get_object(self):
-    queryset = self.get_queryset()             # Get the base queryset
-    queryset = self.filter_queryset(queryset)  # Apply any filter backends
-    filter = {}
-    for field in self.lookup_fields:
-        if self.kwargs[field]: # Ignore empty fields.
-            filter[field] = self.kwargs[field]
+        queryset = self.get_queryset()             # Get the base queryset
+        queryset = self.filter_queryset(queryset)  # Apply any filter backends
+        filter = {}
+        for field in self.lookup_fields:
+            if self.kwargs[field]: # Ignore empty fields.
+                filter[field] = self.kwargs[field]
 
-    return get_object_or_404(queryset, **filter)  # Lookup the object
+        return get_object_or_404(queryset, **filter)  # Lookup the object
 ```
 
 이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고,  
@@ -95,6 +95,9 @@ class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyA
 Postman을 이용해서 api를 테스트 한 결과
 ![실행결과](/post_assets/2017-06-21/test_api.png)
 
+
+# 다음편 링크
+[Django에 Rest API 추가하기 (2) - API에 인증 추가](https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/)  
 
 
 
