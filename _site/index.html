@@ -61,8 +61,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">24</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">24</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">25</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">25</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -220,6 +220,12 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <div class="tags-expo">
   <div class="tags-expo-section">
     <ul class="tags-expo-posts">
+      
+        <big class="post-date">24 Jun 2017</big>
+        <li>
+            <a class="post-title" href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기 </a>
+        </li>
+      <br>
       
         <big class="post-date">23 Jun 2017</big>
         <li>
@@ -452,6 +458,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <a href="/blog/tags/#auth" class="post-tag">Auth</a>
     
+      <a href="/blog/tags/#postgresql" class="post-tag">PostgreSQL</a>
+    
+      <a href="/blog/tags/#pgadmin4" class="post-tag">pgAdmin4</a>
+    
   </div>
 </div>
 
@@ -511,7 +521,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-23 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
