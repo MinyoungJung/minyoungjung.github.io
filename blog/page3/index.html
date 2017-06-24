@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">23</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">23</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">24</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">24</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,84 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/">
+        Pycharm Community 에디션에 Django 가상환경으로 세팅하기
+      </a>
+    </h1>
+
+    <span class="post-date">13 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#pycharm" class="post-tag">Pycharm</a>
+    
+    <a href="/blog/tags/#virtualenv" class="post-tag">Virtualenv</a>
+    
+    <a href="/blog/tags/#git" class="post-tag">Git</a>
+    
+    
+
+    <article>
+      <h1 id="pycharm-community-에디션에-django-가상환경으로-세팅">Pycharm Community 에디션에 Django 가상환경으로 세팅</h1>
+<p>Pycharm Professional Edition과 다르게 Community Edition은 Django와 같은 프로젝트를 직접 생성할 수 없다.<br />
+결국 설정을 위해서 약간의 번거로운 작업이 필요하다.</p>
+
+<h2 id="가상환경-설정">가상환경 설정</h2>
+<p><code class="highlighter-rouge">python -m venv my-virtualenv</code>
+my-virtualenv라는 이름의 가상환경 생성</p>
+
+<h2 id="가상환경-실행">가상환경 실행</h2>
+<p><code class="highlighter-rouge">source my-virtualenv/bin/activate</code><br />
+가상환경이 실행되면 <code class="highlighter-rouge">(my-virtualenv) 프롬프트 이름$</code>와 같이 프롬프트가 변경된다.<br />
+이 상태에서는 어떤 폴더로 이동하든 가상환경이 실행된 상태이다.</p>
+
+<h2 id="django-설치">Django 설치</h2>
+<p><code class="highlighter-rouge">pip3 install django</code></p>
+
+<h2 id="django-project-생성">Django project 생성</h2>
+<p><code class="highlighter-rouge">django-admin startproject 프로젝트이름</code></p>
+
+<h2 id="git-설정">Git 설정</h2>
+<p><code class="highlighter-rouge">git init</code> <br />
+<code class="highlighter-rouge">git add .</code><br />
+<code class="highlighter-rouge">git commit -m "first commit"</code><br />
+<code class="highlighter-rouge">git remote add origin https://github.com/프로젝트github.git</code><br />
+<code class="highlighter-rouge">git push origin master</code></p>
+
+<h2 id="pycharm-설정">Pycharm 설정</h2>
+<ol>
+  <li>Pycharm 커뮤니티 에디션 실행, 프로젝트 폴더 위치 선택하여 프로젝트 열기</li>
+  <li><code class="highlighter-rouge">⌘</code>+<code class="highlighter-rouge">,</code> 입력하여 Preference 창 출력</li>
+  <li>Project -&gt; Project Interpreter 선택</li>
+  <li>맨 위의 Prject Interpreter 선택 창 옆의 설정 아이콘 선택 -&gt; Add local</li>
+  <li>생성한 가상환경 폴더의 /bin/python3 선택 -&gt; Apply</li>
+  <li>Run -&gt; Edit configurations 선택</li>
+  <li><code class="highlighter-rouge">+</code> 선택 후 Python 선택하여 새로운 환경 설정 생성 후 이름 지정</li>
+  <li>Script: 프로젝트 폴더의 manage.py 선택, Script parameters: runserver</li>
+</ol>
+
+<h2 id="pycharm에서-가상환경으로-작업">Pycharm에서 가상환경으로 작업</h2>
+<p>이제 커맨드라인에서 <code class="highlighter-rouge">deactivate</code>를 입력해 가상환경을 종료해도 Pycharm안에서 모두 해결 가능하다.<br />
+패키지를 인스톨하고 싶다면 <code class="highlighter-rouge">⌘</code>+<code class="highlighter-rouge">,</code> 입력 후 Project Interpreter 항목의 리스트에서 선택하면 되고,<br />
+테스트 서버를 실행하고 싶다면 간단히 <code class="highlighter-rouge">⌃</code>+<code class="highlighter-rouge">r</code>이나 재생버튼(?)을 선택하여 실행할 수 있다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -557,136 +635,6 @@ DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
-        Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
-      </a>
-    </h1>
-
-    <span class="post-date">08 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-<p>1일 1커밋을 생활화하기 위해 Django를 이용한 간단한 서비스를 만들기로 했다.<br />
-운동을 좋아하는 만큼 운동 스케쥴러를 작성하기로 했고, 프로젝트 목표와 개발 방향을 설정했다.</p>
-
-<h1 id="목표">목표</h1>
-<ol>
-  <li>스스로 사용할 만한 서비스 구축</li>
-  <li>깔끔한 디자인</li>
-  <li>확장성(?)</li>
-</ol>
-
-<h1 id="요구사항">요구사항</h1>
-<ol>
-  <li>일정을 추가할 수 있고, 일별/월별 보기가 가능할 것</li>
-  <li>당일 해야할 운동 종류를 표시하며, 해당 Todo 리스트에서 수행 여부를 표시할 수 있을 것</li>
-  <li>수행한 항목의 수행 시간에 비율을 그래프로 출력할 것</li>
-</ol>
-
-<h1 id="db-구성">DB 구성</h1>
-<p>크게 운동 종류를 나타낸 Category 테이블을 만들고, 카테고리 테이블을 Foreign key로 이용한 List 테이블,<br />
-마지막으로 각각의 개별 운동을 나타내는 Workout 테이블을 생성했다.<br />
-테이블 상세 구성은 아래와 같다.</p>
-
-<h2 id="workout-list-테이블">Workout List 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">workout_title</th>
-      <th style="text-align: center">category_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">개별 운동 이름</td>
-      <td style="text-align: center">FK(Category)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="workout-category-테이블">Workout Category 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">category_name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">운동 카테고리 이름</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="workout-테이블">Workout 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">create_date</th>
-      <th style="text-align: center">workout_done</th>
-      <th style="text-align: center">owner_id</th>
-      <th style="text-align: center">workout_id</th>
-      <th style="text-align: center">duration</th>
-      <th style="text-align: center">workout_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">생성일</td>
-      <td style="text-align: center">운동 수행여부</td>
-      <td style="text-align: center">소유자</td>
-      <td style="text-align: center">FK(List)</td>
-      <td style="text-align: center">수행시간(분)</td>
-      <td style="text-align: center">수행 날짜</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br /></p>
-
-<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
-<p>App은 할일을 출력하는 todolist, 월별 목록을 출력하는 calendar,<br />
-그래프를 출력하는 stats의 세 부분으로 구성되어 있다.</p>
-
-<p>전체적인 Look&amp;Feel은 심플한 Material Design 형태로 가기로 하고, <a href="http://materializecss.com/getting-started.html">Materialize</a>를 이용했다.<br />
-그래프를 출력하기 위해서는 <a href="https://github.com/plotly/plotly.py">Plotly</a>와 <a href="https://matplotlib.org/gallery.html">Matplotlib</a>을 고민하다 최종적으로 matplotlib으로 결정하였다.</p>
-
-<p><a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -755,7 +703,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-22 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-23 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
