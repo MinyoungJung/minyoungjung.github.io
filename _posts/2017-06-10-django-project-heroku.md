@@ -61,6 +61,10 @@ application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
 ```
 
+## 추가사항
+DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.  
+해결방법은 [Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드](https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/25/django-landlord-reputation-(5)/) 여기서 확인
+
 ## Heroku에 로그인
 `heroku login`
 

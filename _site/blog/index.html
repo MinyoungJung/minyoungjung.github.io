@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">25</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">25</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">26</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">26</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,95 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드
+      </a>
+    </h1>
+
+    <span class="post-date">25 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+    
+    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
+    
+    
+
+    <article>
+      <h1 id="진행률">진행률</h1>
+<p>모든 기능구현을 끝내고 개발/운영환경을 설정 후 여러 보안 키들을 분리했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기</a></p>
+
+<p>그리고 Heroku에 릴리즈하기 위한 설정을 했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a></p>
+
+<h1 id="heroku-설정-환경변수">Heroku 설정 (환경변수)</h1>
+<p>Django의 SECRET_KEY나 여러 API키들을 숨기기 위해 환경변수를 이용한 설정을 하는 경우,<br />
+Heroku에도 동일하게 환경변수를 이용해 설정을 해줘야 한다.</p>
+
+<h2 id="secret_key-설정">SECRET_KEY 설정</h2>
+<p><code class="highlighter-rouge">heroku config:set SECRET_KEY=asdasdsad</code> <strong>= 양쪽에 공백이 없어야 한다.</strong></p>
+
+<h2 id="django_settings_module-설정">DJANGO_SETTINGS_MODULE 설정</h2>
+<p><code class="highlighter-rouge">heroku config:set DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code><br />
+이 항목을 설정해야 Heroku에 push 할때 여러개의 설정 파일 중, 운영환경의 설정 파일을 적용한다.<br />
+<strong>이 항목을 적용하지 않으면 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생한다.</strong></p>
+
+<p>아니면 Heroku 사이트의 <a href="https://dashboard.heroku.com/apps">대시보드</a>에서 Settings 탭의 Config Variables를 통해 직접 설정할 수도 있다.</p>
+
+<h1 id="heroku-설정-local-test">Heroku 설정 (Local Test)</h1>
+<p><code class="highlighter-rouge">heroku conifg</code>를 통해 환경변수 설정값을 확인하고,<br />
+<code class="highlighter-rouge">heroku local web</code>을 통해 heroku 설정을 이용해 로컬 웹서버를 띄워본다.<br />
+이때 여전히 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생하는 경우가 있다.  <br />
+이는 로컬 웹서버를 띄울 시 DJANGO_SETTINGS_MODULE 환경변수 값을 Heroku에 설정한 값이 아닌<br />
+로컬에 설정되어 있는 값을 가져오기 때문이다.</p>
+
+<p><code class="highlighter-rouge">env | grep DJANGO_SETTINGS_MODULE</code>을 통해 값을 확인하고 값이 Heroku에 설정한 값과 다를 경우<br />
+<code class="highlighter-rouge">export DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code>를 입력하면 해결할 수 있다.</p>
+
+<h1 id="heroku-설정-debugfalse-및-whitenoise">Heroku 설정 (Debug=False 및 whitenoise)</h1>
+<p>이 설정 때문에 무난히도 삽질을 했다.<br />
+전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a> 시에는 사실 나 혼자 쓸 것이기도 하고,<br />
+귀찮기도 해서 Debug도 켜놓고 키값조차 감추지 않은 개발환경 그대로 Heroku에 업로드를 했다.<br />
+그때만 해도 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a> 대로만 하면 아무런 문제없이 Heroku에서 동작했다.</p>
+
+<p>문제는 Debug를 False로 놓았을 때인데… <a href="https://devcenter.heroku.com/articles/django-app-configuration#migrating-an-existing-django-project">Heroku 문서</a>부터가 삽질을 조장한다.<br />
+<a href="http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly">whitenoise 문서</a>를 보면 <code class="highlighter-rouge">settings.py</code>의 MIDDLEWARE 설정에 <code class="highlighter-rouge">whitenoise.middleware.WhiteNoiseMiddleware',</code>를 추가하라 되어있지만,<br />
+이런 내용이 Heroku에는 쏙 빠져있다.<br />
+덕분에 500 Internal server error를 일으키며 site가 동작하지 않는다.</p>
+
+<p>나의 경우는 미들웨어 설정을 추가했는데도 whitenoise가 계속 문제를 일으키며 staticfile을 제대로 제공하지 않아,<br />
+결국 whitenoise 대신 기본 Django staticfiles로 해결했다.</p>
+
+<h2 id="whitenoise-대신-default-django-staticfiles-이용">whitenoise 대신 default Django staticfiles 이용</h2>
+<p><code class="highlighter-rouge">STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'</code>로 교체<br />
+이후 <code class="highlighter-rouge">python manage.py collectstatic</code>를 하고 <code class="highlighter-rouge">heroku local web</code>을 실행하면 사이트가 정상 동작한다.<br />
+heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.</p>
+
+<h1 id="마무리">마무리</h1>
+<p>이걸로 또 하나의 프로젝트가 마무리 되었다.<br />
+<a href="http://landlord-reputation.herokuapp.com/">우리동네집주인 바로가기</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -677,133 +766,6 @@ lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/">
-        Django 서비스 테스트하기
-      </a>
-    </h1>
-
-    <span class="post-date">20 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#test" class="post-tag">Test</a>
-    
-    
-
-    <article>
-      <h1 id="coverage-설치">Coverage 설치</h1>
-<p>파이썬 코드의 테스트 커버리지를 나타내 주는 라이브러리인 coverage를 설치한다.
-<code class="highlighter-rouge">pip3 install coverage</code></p>
-
-<h1 id="coverage-설정">Coverage 설정</h1>
-<h2 id="coveragerc-파일-생성">.coveragerc 파일 생성</h2>
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>vi .coveragerc
-</code></pre>
-</div>
-<p>vim을 이용해서 간단하게 coveragerc 설정 파일을 생성.</p>
-
-<h2 id="실행환경-설정">실행환경 설정</h2>
-<p>[run] 헤더 이후에 설정을 적어주면 된다.<br />
-include = 테스트를 포함할 경로<br />
-omit = 테스트를 제외할 경로</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>[run]
-omit = ../virtualenvs/landlord_reputation_venv/*
-</code></pre>
-</div>
-<p>기본적으로 project_root의 폴더들이 모두 포함되므로 위와 같이 가상환경만 제외했다.</p>
-
-<h1 id="coverage-실행">Coverage 실행</h1>
-<p><code class="highlighter-rouge">coverage run manage.py test</code>로 테스트를 수행</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-
-----------------------------------------------------------------------
-Ran 0 tests in 0.000s
-
-OK
-</code></pre>
-</div>
-<p>위와 같이 테스트를 수행한다.<br />
-현재는 아무런 테스트도 넣지 않은 상태</p>
-
-<h1 id="리포트-보기">리포트 보기</h1>
-<p><code class="highlighter-rouge">coverage report</code>로 각각의 파일에 대한 리포트를 볼수 있다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Name                                    Stmts   Miss  Cover
------------------------------------------------------------
-landlord_reputation/__init__.py             0      0   100%
-landlord_reputation/settings.py            20      0   100%
-landlord_reputation/urls.py                 4      0   100%
-landlord_reputation/views.py                8      0   100%
-manage.py                                  13      6    54%
-reputation/__init__.py                      0      0   100%
-reputation/admin.py                         8      0   100%
-reputation/apps.py                          3      0   100%
-reputation/migrations/0001_initial.py       8      0   100%
-reputation/migrations/__init__.py           0      0   100%
-reputation/models.py                        9      0   100%
-reputation/tests.py                         1      0   100%
-reputation/urls.py                          3      0   100%
-reputation/views.py                        90     65    28%
------------------------------------------------------------
-TOTAL                                     167     71    57%
-</code></pre>
-</div>
-
-<p>view 파일에 대해 하나도 테스트가 작성되지 않은 상태라 coverage가 매우 낮게 출력된다.</p>
-
-<h1 id="리포트-html-형식으로-보기">리포트 html 형식으로 보기</h1>
-<p>좀더 자세한 결과를 보기위해서 리포트를 Html 형식으로 출력할수도 있다.<br />
-<code class="highlighter-rouge">coverage html</code> 명령을 통해 <code class="highlighter-rouge">htmlcov/index.html</code>로 리포트가 생성된다.</p>
-
-<h2 id="리포트-형식">리포트 형식</h2>
-<p><img src="/post_assets/2017-06-20/coverage_list.png" alt="커버리지 리스트" /></p>
-
-<h2 id="리포트를-선택했을때-나오는-상세-결과">리포트를 선택했을때 나오는 상세 결과</h2>
-<p><img src="/post_assets/2017-06-20/coverage_detail.png" alt="커버리지 디테일" /></p>
-
-<h1 id="테스트-코드-작성하기">테스트 코드 작성하기</h1>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
-<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
-
-<span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
-
-<span class="k">class</span> <span class="nc">ReputationView</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s">"sample address"</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="s">"23.456789"</span><span class="p">,</span>
-        <span class="n">longitude</span><span class="o">=</span><span class="s">"123.4567890"</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_template_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s">"reputation:reputation_template"</span><span class="p">,</span>  <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">"123.1234567"</span><span class="p">,</span> <span class="s">"23.456789"</span><span class="p">])</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</code></pre>
-</div>
-<p>generic view Http 응답에 대한 테스트 코드를 삽입하였다.</p>
-
-<h2 id="이후-다시-테스트를-수행한-결과">이후 다시 테스트를 수행한 결과</h2>
-<p><img src="/post_assets/2017-06-20/coverage_detail2.png" alt="커버리지 디테일" />
-커버리지가 조금 올라가고 붉은색으로 표시된 테스트 되지 않은 범위도 조금 줄어들었다.</p>
-
-<p>테스트 플랜을 짜고 좀더 상세한 Suite/Case를 작성해야겠지만 위 방법을 확장하여 테스트 커버리지를 높일 수 있다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -870,7 +832,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-24 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-25 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
