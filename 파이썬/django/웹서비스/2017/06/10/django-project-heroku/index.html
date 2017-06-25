@@ -40,15 +40,15 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:title" content="Django 프로젝트 Heroku에 릴리즈하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
-<meta property="og:description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
+<meta name="description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) 추가사항 DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다. 해결방법은 Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드 여기서 확인 Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
+<meta property="og:description" content="기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) 추가사항 DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다. 해결방법은 Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드 여기서 확인 Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다." />
 <link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/" />
 <meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-10T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django 프로젝트 Heroku에 릴리즈하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-10T00:00:00+09:00","dateModified":"2017-06-10T00:00:00+09:00","description":"기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"}</script>
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django 프로젝트 Heroku에 릴리즈하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-10T00:00:00+09:00","dateModified":"2017-06-10T00:00:00+09:00","description":"기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) 추가사항 DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다. 해결방법은 Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드 여기서 확인 Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">25</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">25</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">26</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">26</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -251,6 +251,10 @@ application = DjangoWhiteNoise(application)
 </code></pre>
 </div>
 
+<h2 id="추가사항">추가사항</h2>
+<p>DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.<br />
+해결방법은 <a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/25/django-landlord-reputation-(5)/">Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드</a> 여기서 확인</p>
+
 <h2 id="heroku에-로그인">Heroku에 로그인</h2>
 <p><code class="highlighter-rouge">heroku login</code></p>
 
@@ -296,6 +300,15 @@ matplotlib.use('Agg')
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/">
+            Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드
+            <small>25 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">
             Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기
             <small>24 Jun 2017</small>
@@ -308,15 +321,6 @@ matplotlib.use('Agg')
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">
             Django에 Rest API 추가하기 (2) - API에 인증 추가
             <small>23 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/">
-            Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장
-            <small>22 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -398,7 +402,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-24 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-25 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
