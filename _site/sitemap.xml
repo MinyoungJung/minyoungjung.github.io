@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/</loc>
+    
+    <lastmod>2017-06-27T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/</loc>
     
     <lastmod>2017-06-26T00:00:00+09:00</lastmod>
@@ -538,6 +547,18 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Google Analytics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Volley</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Java</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
