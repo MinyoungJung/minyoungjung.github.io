@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Volley를 이용해 간단한 Android Rest API Client 만들기 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Volley를 이용해 간단한 Android Rest API Client 만들기 | Ringsterz Log</title>
+<meta property="og:title" content="Volley를 이용해 간단한 Android Rest API Client 만들기" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="서론 지난번에 마무리했던 Project인 Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획에서 추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다. API overview 클라이언트에 사용되는 API는 Django에 Rest API 추가하기 Django에 Rest API 추가하기 (2) - API에 인증 추가 위의 포스팅들을 통해 제작한 간단한 API이다. http://landlord-reputation.herokuapp.com/reputation/api/경도+위도 형태로 질의 시, 우리동네집주인에 추가된 평판 정보를 전송하는 API이다. Android Application Layout EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다. 간단하므로 설명은 생략. Volley 추가 build.gradle (Module:app) 파일에 dependency를 추가한다. compile &#39;com.android.volley:volley:1.0.0&#39; AndroidManifest.xml 권한 설정 인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다. &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; Volley 사용 JSONObject Request를 이용해서 간단히 구현했다. Volley의 자세한 사용법은 예전 블로그에 써놓은 글을 참조. API Client 실행 결과 Github 링크 SimpleAndroidRestAPIClient 바로가기" />
+<meta property="og:description" content="서론 지난번에 마무리했던 Project인 Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획에서 추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다. API overview 클라이언트에 사용되는 API는 Django에 Rest API 추가하기 Django에 Rest API 추가하기 (2) - API에 인증 추가 위의 포스팅들을 통해 제작한 간단한 API이다. http://landlord-reputation.herokuapp.com/reputation/api/경도+위도 형태로 질의 시, 우리동네집주인에 추가된 평판 정보를 전송하는 API이다. Android Application Layout EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다. 간단하므로 설명은 생략. Volley 추가 build.gradle (Module:app) 파일에 dependency를 추가한다. compile &#39;com.android.volley:volley:1.0.0&#39; AndroidManifest.xml 권한 설정 인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다. &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; Volley 사용 JSONObject Request를 이용해서 간단히 구현했다. Volley의 자세한 사용법은 예전 블로그에 써놓은 글을 참조. API Client 실행 결과 Github 링크 SimpleAndroidRestAPIClient 바로가기" />
+<link rel="canonical" href="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/" />
+<meta property="og:url" content="http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-27T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Volley를 이용해 간단한 Android Rest API Client 만들기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-27T00:00:00+09:00","dateModified":"2017-06-27T00:00:00+09:00","description":"서론 지난번에 마무리했던 Project인 Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획에서 추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다. API overview 클라이언트에 사용되는 API는 Django에 Rest API 추가하기 Django에 Rest API 추가하기 (2) - API에 인증 추가 위의 포스팅들을 통해 제작한 간단한 API이다. http://landlord-reputation.herokuapp.com/reputation/api/경도+위도 형태로 질의 시, 우리동네집주인에 추가된 평판 정보를 전송하는 API이다. Android Application Layout EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다. 간단하므로 설명은 생략. Volley 추가 build.gradle (Module:app) 파일에 dependency를 추가한다. compile &#39;com.android.volley:volley:1.0.0&#39; AndroidManifest.xml 권한 설정 인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다. &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; Volley 사용 JSONObject Request를 이용해서 간단히 구현했다. Volley의 자세한 사용법은 예전 블로그에 써놓은 글을 참조. API Client 실행 결과 Github 링크 SimpleAndroidRestAPIClient 바로가기","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">28</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">28</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Volley를 이용해 간단한 Android Rest API Client 만들기</h1>
+  <span class="post-date">27 Jun 2017</span>
+   | 
+  
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+  
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+  
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+  
+    <a href="/blog/tags/#volley" class="post-tag">Volley</a>
+  
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+  
+  
+  <article>
+    <h1 id="서론">서론</h1>
+<p>지난번에 마무리했던 Project인 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/">Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획</a>에서<br />
+추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다.</p>
+
+<h1 id="api-overview">API overview</h1>
+<p>클라이언트에 사용되는 API는<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">Django에 Rest API 추가하기</a><br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">Django에 Rest API 추가하기 (2) - API에 인증 추가</a><br />
+위의 포스팅들을 통해 제작한 간단한 API이다.</p>
+
+<p><code class="highlighter-rouge">http://landlord-reputation.herokuapp.com/reputation/api/경도+위도</code> 형태로 질의 시,<br />
+<a href="http://landlord-reputation.herokuapp.com/">우리동네집주인</a>에 추가된 평판 정보를 전송하는 API이다.</p>
+
+<h1 id="android-application-layout">Android Application Layout</h1>
+<p>EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다.<br />
+간단하므로 설명은 생략.</p>
+
+<h1 id="volley-추가">Volley 추가</h1>
+<p><code class="highlighter-rouge">build.gradle (Module:app)</code> 파일에 dependency를 추가한다.<br />
+<code class="highlighter-rouge">compile 'com.android.volley:volley:1.0.0'</code></p>
+
+<h1 id="androidmanifestxml-권한-설정">AndroidManifest.xml 권한 설정</h1>
+<p>인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다.</p>
+<pre><code class="language-XML">&lt;uses-permission android:name="android.permission.INTERNET"/&gt;
+</code></pre>
+
+<h1 id="volley-사용">Volley 사용</h1>
+<p>JSONObject Request를 이용해서 간단히 구현했다.<br />
+Volley의 자세한 사용법은 <a href="https://ringsterz.wordpress.com/2014/12/03/volley%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-network-data-%EC%A0%84%EC%86%A1%ED%95%98%EA%B8%B0-1-simple-request-%EC%A0%84%EC%86%A1/">예전 블로그</a>에 써놓은 글을 참조.</p>
+
+<h1 id="api-client-실행-결과">API Client 실행 결과</h1>
+<p><img src="/post_assets/2017-06-27/API_client.png" alt="실행결과" /></p>
+
+<h1 id="github-링크">Github 링크</h1>
+<p><a href="https://github.com/MinyoungJung/SimpleAndroidRestAPIClient">SimpleAndroidRestAPIClient 바로가기</a></p>
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/">
+            Google Tag analysis 사용하기
+            <small>26 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/">
+            Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드
+            <small>25 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">
+            Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기
+            <small>24 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-06-27 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
