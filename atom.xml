@@ -4,13 +4,51 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-26T03:05:48+09:00</updated>
+ <updated>2017-06-27T22:24:34+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Google Tag analysis 사용하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-26T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis</id>
+   <content type="html">&lt;h1 id=&quot;tag-analysis&quot;&gt;Tag analysis&lt;/h1&gt;
+&lt;p&gt;Tag Anaylytics는 Google Analytics등 추적코드가 정상적으로 동작하는지 알게 해주는 툴이다.&lt;br /&gt;
+Github blog의 사용자 추적을 위해 걸어넣은 Google Analytics 대쉬보드에 들어갈때마다&lt;br /&gt;
+Tag analysis를 사용해 보라는 팝업이 계속해서 출력되어 사용해 보기로 했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;사용법&quot;&gt;사용법&lt;/h1&gt;
+&lt;h2 id=&quot;크롬-애드온-설치&quot;&gt;크롬 애드온 설치&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-26/chrome_addon.png&quot; alt=&quot;애드온설치&quot; /&gt;
+크롬에 Tag Assistant 애드온을 설치한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-26/addon_installed.png&quot; alt=&quot;설치화면&quot; /&gt;
+설치되면 애드온에 위와 같이 Assistant 아이콘이 출력된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;현재-페이지에서-tag-analysis-사용&quot;&gt;현재 페이지에서 Tag analysis 사용&lt;/h2&gt;
+&lt;p&gt;Enalble을 선택한 후 페이지를 리로드 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;여러-페이지에-걸쳐-tag-analysis-사용&quot;&gt;여러 페이지에 걸쳐 Tag analysis 사용&lt;/h2&gt;
+&lt;p&gt;Record를 선택한 후 여러 페이지를 걸쳐 이동한다.&lt;br /&gt;
+이후 Recording을 중지하면 이동한 페이지들에 대한 레포트를 출력해준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-26/analysis_result.png&quot; alt=&quot;결과&quot; /&gt;
+&lt;img src=&quot;/post_assets/2017-06-26/analysis_report.png&quot; alt=&quot;리포트&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;full-analysis_report&quot;&gt;Full analysis_report&lt;/h2&gt;
+&lt;p&gt;View Full report를 선택하면 전체 레포트를 출력한다.
+&lt;img src=&quot;/post_assets/2017-06-26/report_detail_1.png&quot; alt=&quot;리포트 상세1&quot; /&gt;
+&lt;img src=&quot;/post_assets/2017-06-26/report_detail_2.png&quot; alt=&quot;리포트 상세2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;문제점-해결하기&quot;&gt;문제점 해결하기&lt;/h2&gt;
+&lt;p&gt;문제가 있는 태그가 있다면 태그가 붉은색으로 표시되는데 해당 태그를 선택하면 관련 오류 메시지가 출력된다.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드</title>

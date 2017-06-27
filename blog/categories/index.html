@@ -61,8 +61,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">26</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">26</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">27</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">27</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -213,6 +213,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
     <a href="#테스트" class="post-tag">테스트</a>
     
+    <a href="#analytics" class="post-tag">Analytics</a>
+    
   </div>
   <hr/>
   <div class="tags-expo-section">
@@ -266,6 +268,13 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
     <h2 id="블로그">블로그</h2>
     <ul class="tags-expo-posts">
+      
+        <a class="post-title" href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/">
+      <li>
+        Google Tag analysis 사용하기
+      <small class="post-date">26 Jun 2017</small>
+      </li>
+      </a>
       
         <a class="post-title" href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
       <li>
@@ -803,6 +812,18 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       
     </ul>
     
+    <h2 id="analytics">Analytics</h2>
+    <ul class="tags-expo-posts">
+      
+        <a class="post-title" href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/">
+      <li>
+        Google Tag analysis 사용하기
+      <small class="post-date">26 Jun 2017</small>
+      </li>
+      </a>
+      
+    </ul>
+    
   </div>
 </div>
 
@@ -862,7 +883,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-25 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-26 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
