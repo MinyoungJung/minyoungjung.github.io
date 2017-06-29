@@ -2,7 +2,7 @@
 layout: post
 title: Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 
 category: [환경설정, 블로그]
-tags: [Github, Blog, Jekyll, Tag]
+tags: [Github, Blog, Jekyll, Tag, Plugin]
 ---
 
 # 발단

@@ -7,7 +7,7 @@ tags: [Django, Python, Web service, REST API, Android, Volley, Java]
 
 # 서론
 지난번에 마무리했던 Project인 [Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획](https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/)에서  
-추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다.  
+추가 목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다.  
 
 # API overview
 클라이언트에 사용되는 API는  
