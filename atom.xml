@@ -4,13 +4,32 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-29T15:04:48+09:00</updated>
+ <updated>2017-06-30T00:42:01+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>사람들이 원하는것</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-29T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EB%8B%A8%EC%83%81/2017/06/29/what-people-want</id>
+   <content type="html">&lt;p&gt;한때는 사람들이 원하는 것이 무엇인지 안다고 생각했다.&lt;br /&gt;
+철없던 시절의 객기였는지 오만함에서 비롯된 생각인지는 모르겠다.&lt;br /&gt;
+그 탓에 오랜 시간의 시행착오를 겪었고 그 덕에 많이 성장했지만,&lt;br /&gt;
+&lt;strong&gt;무엇을 사람들이 원하는가&lt;/strong&gt;에 대한 정답은 더욱 멀어진 듯한 생각이 든다.&lt;/p&gt;
+
+&lt;p&gt;때로는 정말 별것 아닌것에도 감탄하고, 정말 오랜 시간과 공을 들인 것들에는 심드렁하고,&lt;br /&gt;
+인간도 하나의 동물일 뿐이라지만, 개인의 다양성은 내가 상상하는 범위를 언제나 벗어나곤 한다.&lt;/p&gt;
+
+&lt;p&gt;당분간은 내 생각을 버리고, 사람들이 직접 원한다고 말하는 것들을 들어볼 생각이다.&lt;br /&gt;
+물론 개인 프로젝트도 내가 하고싶은 것 말고, 사람들이 말하는 것 위주로 제작해 봐야겠지.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django Admin 테마 변경하기</title>
@@ -194,7 +213,8 @@ Heroku에도 동일하게 환경변수를 이용해 설정을 해줘야 한다.&
 
 &lt;h2 id=&quot;whitenoise-대신-default-django-staticfiles-이용&quot;&gt;whitenoise 대신 default Django staticfiles 이용&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'&lt;/code&gt;로 교체&lt;br /&gt;
-이후 &lt;code class=&quot;highlighter-rouge&quot;&gt;python manage.py collectstatic&lt;/code&gt;를 하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;heroku local web&lt;/code&gt;을 실행하면 사이트가 정상 동작한다.&lt;br /&gt;
+이후 &lt;code class=&quot;highlighter-rouge&quot;&gt;python manage.py collectstatic --settings=앱이름.settings.prod&lt;/code&gt;를 실행하고&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku local web&lt;/code&gt;을 실행하면 사이트가 정상 동작한다.&lt;br /&gt;
 heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.&lt;/p&gt;
 
 &lt;h1 id=&quot;마무리&quot;&gt;마무리&lt;/h1&gt;
@@ -738,7 +758,7 @@ TOTAL                                     167     71    57%
    <title>흐름에 따른 사고</title>
    <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-18T00:00:00+09:00</updated>
-   <id>https://minyoungjung.github.io//%EB%8F%85%EC%84%9C/%EC%83%9D%EA%B0%81/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow</id>
+   <id>https://minyoungjung.github.io//%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow</id>
    <content type="html">&lt;p&gt;우리는 무엇인가를 빠르게 습득하고 적용하기 위해 많은 부분들을 건너뛰곤 한다.&lt;br /&gt;
 남들이 쌓아올린 경험과 지식의 결실을 빠르게 받아들이고 사용할 수 있는 능력이 실리와 직결되기도 한다.&lt;br /&gt;
 하지만 더욱 깊이있는 발전을 위해서는 그러한 결실이 만들어지는 과정과 사고를 이해하는 것이 중요하다.&lt;br /&gt;
