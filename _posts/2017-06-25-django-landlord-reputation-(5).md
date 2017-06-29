@@ -54,9 +54,9 @@ Heroku에도 동일하게 환경변수를 이용해 설정을 해줘야 한다.
 
 ## whitenoise 대신 default Django staticfiles 이용
 `STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'`로 교체  
-이후 `python manage.py collectstatic`를 하고 `heroku local web`을 실행하면 사이트가 정상 동작한다.  
+이후 `python manage.py collectstatic --settings=앱이름.settings.prod`를 실행하고  
+`heroku local web`을 실행하면 사이트가 정상 동작한다.  
 heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.  
-
 
 # 마무리
 이걸로 또 하나의 프로젝트가 마무리 되었다.  

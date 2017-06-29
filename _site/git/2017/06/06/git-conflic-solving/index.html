@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">29</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">29</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">30</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">30</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -232,6 +232,15 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
     
       <li>
         <h3>
+          <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/">
+            사람들이 원하는것
+            <small>29 Jun 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/">
             Django Admin 테마 변경하기
             <small>28 Jun 2017</small>
@@ -244,15 +253,6 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
           <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/">
             Volley를 이용해 간단한 Android Rest API Client 만들기
             <small>27 Jun 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/">
-            Google Tag analysis 사용하기
-            <small>26 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -334,7 +334,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-28 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-29 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

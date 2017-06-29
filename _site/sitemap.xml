@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/</loc>
+    
+    <lastmod>2017-06-29T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/</loc>
     
     <lastmod>2017-06-28T00:00:00+09:00</lastmod>
@@ -95,7 +104,7 @@
   </url>
   
   <url>
-    <loc>https://minyoungjung.github.io//%EB%8F%85%EC%84%9C/%EC%83%9D%EA%B0%81/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/</loc>
+    <loc>https://minyoungjung.github.io//%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/</loc>
     
     <lastmod>2017-06-18T00:00:00+09:00</lastmod>
     
