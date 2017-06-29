@@ -4,7 +4,7 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-28T02:46:45+09:00</updated>
+ <updated>2017-06-29T15:04:48+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
@@ -13,13 +13,62 @@
 
  
  <entry>
+   <title>Django Admin 테마 변경하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-06-28T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change</id>
+   <content type="html">&lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+&lt;p&gt;Django의 기본 Admin은 강력한 기능이지만 Look이 그다지 아름답지 않다.&lt;br /&gt;
+직접 Admin을 커스터마이즈 하는 것은 상당히 손이 많이 가므로 &lt;a href=&quot;https://djangopackages.org/grids/g/admin-styling/&quot;&gt;djangopackages.org&lt;/a&gt;에 올라와 있는&lt;br /&gt;
+패키지를 이용해 간단히 수정해 보았다.&lt;/p&gt;
+
+&lt;h1 id=&quot;패키지-선택&quot;&gt;패키지 선택&lt;/h1&gt;
+&lt;p&gt;가장 널리 쓰이는 &lt;code class=&quot;highlighter-rouge&quot;&gt;DJANGO-GRAPPELLI&lt;/code&gt;부터, &lt;code class=&quot;highlighter-rouge&quot;&gt;DJANGO-SUIT&lt;/code&gt; 등등 여러 패키지가 있지만,&lt;br /&gt;
+Material Design의 팬(?)으로써 &lt;code class=&quot;highlighter-rouge&quot;&gt;DJANGO-MATERIAL&lt;/code&gt;을 이용해 보았다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;DJANGO-MATERIAL&lt;/code&gt;은 전에 &lt;a href=&quot;https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/&quot;&gt;Django를 이용한 스케쥴러 제작&lt;/a&gt;에서도 이용했었던 &lt;a href=&quot;http://materializecss.com/getting-started.html&quot;&gt;Materialize&lt;/a&gt;를 기반으로 하므로&lt;br /&gt;
+사용도 간단하리라 생각했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;사용법&quot;&gt;사용법&lt;/h1&gt;
+&lt;h2 id=&quot;django-material-설치&quot;&gt;django-material 설치&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip install django-material&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;installed_apps-추가&quot;&gt;INSTALLED_APPS 추가&lt;/h2&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'material'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'material.admin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.admin&lt;/code&gt; 앞에 두 줄이 추가되어야 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;적용결과&quot;&gt;적용결과&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-28/material-admin.png&quot; alt=&quot;적용결과&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;간단한-커스터마이즈-사이드바-아이콘&quot;&gt;간단한 커스터마이즈 (사이드바 아이콘)&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apps.py&lt;/code&gt;의 AppConfig class에 &lt;code class=&quot;highlighter-rouge&quot;&gt;icon = '&amp;lt;i class=&quot;material-icons&quot;&amp;gt;subject&amp;lt;/i&amp;gt;'&lt;/code&gt;속성 추가&lt;br /&gt;
+아이콘 주소는 &lt;a href=&quot;https://material.io/icons/&quot;&gt;https://material.io/icons/&lt;/a&gt;를 따른다.&lt;/p&gt;
+
+&lt;h2 id=&quot;간단한-커스터마이즈-카드-내-아이콘&quot;&gt;간단한 커스터마이즈 (카드 내 아이콘)&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;admin.py&lt;/code&gt;의 admin.ModelAdmin class에 &lt;code class=&quot;highlighter-rouge&quot;&gt;icon&lt;/code&gt; 속성 추가 (위와 동일)&lt;/p&gt;
+
+&lt;h2 id=&quot;커스터마이즈-후-결과&quot;&gt;커스터마이즈 후 결과&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-06-28/material-admin-modify.png&quot; alt=&quot;커스터마이즈 결과&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;추가-커스터마이즈&quot;&gt;추가 커스터마이즈&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://docs.viewflow.io/admin_customization.html&quot;&gt;라이브러리 Doc 참조&lt;/a&gt;&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>Volley를 이용해 간단한 Android Rest API Client 만들기</title>
    <link href="https://minyoungjung.github.io/"/>
    <updated>2017-06-27T00:00:00+09:00</updated>
    <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley</id>
    <content type="html">&lt;h1 id=&quot;서론&quot;&gt;서론&lt;/h1&gt;
 &lt;p&gt;지난번에 마무리했던 Project인 &lt;a href=&quot;https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/&quot;&gt;Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획&lt;/a&gt;에서&lt;br /&gt;
-추가목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다.&lt;/p&gt;
+추가 목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다.&lt;/p&gt;
 
 &lt;h1 id=&quot;api-overview&quot;&gt;API overview&lt;/h1&gt;
 &lt;p&gt;클라이언트에 사용되는 API는&lt;br /&gt;

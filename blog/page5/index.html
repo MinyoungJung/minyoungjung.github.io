@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">28</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">28</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">29</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">29</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,136 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
+        Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
+      </a>
+    </h1>
+
+    <span class="post-date">08 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
+    
+    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
+    
+    
+
+    <article>
+      <h1 id="발단">발단</h1>
+<p>1일 1커밋을 생활화하기 위해 Django를 이용한 간단한 서비스를 만들기로 했다.<br />
+운동을 좋아하는 만큼 운동 스케쥴러를 작성하기로 했고, 프로젝트 목표와 개발 방향을 설정했다.</p>
+
+<h1 id="목표">목표</h1>
+<ol>
+  <li>스스로 사용할 만한 서비스 구축</li>
+  <li>깔끔한 디자인</li>
+  <li>확장성(?)</li>
+</ol>
+
+<h1 id="요구사항">요구사항</h1>
+<ol>
+  <li>일정을 추가할 수 있고, 일별/월별 보기가 가능할 것</li>
+  <li>당일 해야할 운동 종류를 표시하며, 해당 Todo 리스트에서 수행 여부를 표시할 수 있을 것</li>
+  <li>수행한 항목의 수행 시간에 비율을 그래프로 출력할 것</li>
+</ol>
+
+<h1 id="db-구성">DB 구성</h1>
+<p>크게 운동 종류를 나타낸 Category 테이블을 만들고, 카테고리 테이블을 Foreign key로 이용한 List 테이블,<br />
+마지막으로 각각의 개별 운동을 나타내는 Workout 테이블을 생성했다.<br />
+테이블 상세 구성은 아래와 같다.</p>
+
+<h2 id="workout-list-테이블">Workout List 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">workout_title</th>
+      <th style="text-align: center">category_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">개별 운동 이름</td>
+      <td style="text-align: center">FK(Category)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="workout-category-테이블">Workout Category 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">category_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">운동 카테고리 이름</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="workout-테이블">Workout 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">create_date</th>
+      <th style="text-align: center">workout_done</th>
+      <th style="text-align: center">owner_id</th>
+      <th style="text-align: center">workout_id</th>
+      <th style="text-align: center">duration</th>
+      <th style="text-align: center">workout_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">생성일</td>
+      <td style="text-align: center">운동 수행여부</td>
+      <td style="text-align: center">소유자</td>
+      <td style="text-align: center">FK(List)</td>
+      <td style="text-align: center">수행시간(분)</td>
+      <td style="text-align: center">수행 날짜</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
+<p>App은 할일을 출력하는 todolist, 월별 목록을 출력하는 calendar,<br />
+그래프를 출력하는 stats의 세 부분으로 구성되어 있다.</p>
+
+<p>전체적인 Look&amp;Feel은 심플한 Material Design 형태로 가기로 하고, <a href="http://materializecss.com/getting-started.html">Materialize</a>를 이용했다.<br />
+그래프를 출력하기 위해서는 <a href="https://github.com/plotly/plotly.py">Plotly</a>와 <a href="https://matplotlib.org/gallery.html">Matplotlib</a>을 고민하다 최종적으로 matplotlib으로 결정하였다.</p>
+
+<p><a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -516,98 +646,6 @@ print(sess.run([node1, node2]))
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
-        Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
-      </a>
-    </h1>
-
-    <span class="post-date">03 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#github" class="post-tag">Github</a>
-    
-    <a href="/blog/tags/#blog" class="post-tag">Blog</a>
-    
-    <a href="/blog/tags/#jekyll" class="post-tag">Jekyll</a>
-    
-    <a href="/blog/tags/#tag" class="post-tag">Tag</a>
-    
-    
-
-    <article>
-      <h1 id="지난-포스팅">지난 포스팅</h1>
-
-<p><a href="/환경설정/블로그/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</a></p>
-
-<h1 id="발단">발단</h1>
-<p>다시 하루가 지나고 Github page에 접속하자, 어제 만든 플러그인이 동작하지 않았다.<br />
-<code class="highlighter-rouge">total_blogging_date</code> 태그가 동작하지 않아 하루가 지났음에도 총 일수가 더해지지 않은 것.<br />
-한참 루비코드만 들여다보다 생각해보니, Jekyll 자체가 정적인 페이지를 생성하는데 페이지를 빌드하지 않았는데도 갱신되는게 말이 안되는 상황.<br />
-계속해서 소스를 수정하면서 빌드하다보니, 제대로 동작하는 것으로 오해하게 된 것이었다.</p>
-
-<h1 id="해결-방안">해결 방안</h1>
-<p>총 블로깅 일수를 태그로 받았을때, 현재 날짜와 총 날짜를 계산할 때 사용된 마지막 날짜의 비교가 불가능하다.<br />
-태그에서 받은 총 블로깅 날짜만을 가지고 빌드하지 않은채로 며칠이 지났는지 알 방법이 없고,<br />
-혹여 있다해도 그냥 템플릿에서 가장 오래된 포스팅 날짜와 현재 날짜의 차이를 비교하는 것이 편하다.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Calculate total_blogging_date_dynamically</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.last.date }}"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
-  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-<p><del>결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.</del> <br />
-며칠 후 갑자기 날짜가 맞지않아 생각해보니, 그냥 내림을 해서 계산하면 안된다…<br />
-결국 시간단위를 제외한 Date값을 연산하는 아래와 같은 방법으로 로직 수정하여 해결.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"2017-05-31 00:00:00 +0900"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
-  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
-  <span class="nx">today</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-  <span class="kd">var</span> <span class="nx">firstday</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-  <span class="nx">firstday</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="p">((</span><span class="nx">today</span><span class="o">-</span><span class="nx">firstday</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-
-<p><br />
-마찬가지로 며칠째 포스팅을 이어가고 있는지도 마지막 빌드 이후 며칠이 지났는지 알수 없기에,</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="kd">var</span> <span class="nx">latest_post_date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.first.date }}"</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">day_passed</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">latest_post_date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">);</span>
-  <span class="c1">// if latest posting date passed a day then reset to 0</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">day_passed</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">"#current_date_streak"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">"0"</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-<p>위와 같이 템플릿에서 받아온 값을 마지막 포스팅의 날짜와 현재 날짜가 하루이상 지났을때,<br />
-<code class="highlighter-rouge">current_date_streak</code> 태그 값을 0으로 덮어씌우도록 수정했다.</p>
-
-<h1 id="추가-문제점">추가 문제점</h1>
-<p>sitemap이 정적페이지로 빌드하다보니, <code class="highlighter-rouge">site.url</code>값이 로컬이 반영된 값인 localhost가 들어가 버린다…<br />
-결국 사이트맵 내의 <code class="highlighter-rouge">site.url</code> 값을 github pages 주소로 하드코딩.</p>
-
-<h1 id="마무리">마무리</h1>
-<p>Github Plugin 코드 및 README를 업데이트 했다. <a href="https://github.com/MinyoungJung/jekyll-plugin-blogStreak">링크</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -676,7 +714,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-06-27 00:00:00 +0900";
+      var latest_post_date_str = "2017-06-28 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
