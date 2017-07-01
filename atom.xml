@@ -4,13 +4,40 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-06-30T15:56:31+09:00</updated>
+ <updated>2017-07-01T23:39:19+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django를 이용한 포트폴리오 사이트 제작 (3) - 디자인 컨셉 잡기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-01T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/01/django-portfolio-page-(3)</id>
+   <content type="html">&lt;h1 id=&quot;공동-프로젝트-진행상황&quot;&gt;공동 프로젝트 진행상황&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;1주차&lt;/strong&gt; : JQuery를 이용한 간단한 애니메이션&lt;br /&gt;
+&lt;strong&gt;2주차&lt;/strong&gt; : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션&lt;br /&gt;
+&lt;strong&gt;3주차&lt;/strong&gt; : &lt;a href=&quot;https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/&quot;&gt;개인 포트폴리오 사이트 공동 기획&lt;/a&gt;&lt;br /&gt;
+&lt;strong&gt;4주차&lt;/strong&gt; : &lt;a href=&quot;https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/&quot;&gt;프로필 페이지 및 책장 넘기기 형태 구현&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;5주차-진행상황&quot;&gt;5주차 진행상황&lt;/h1&gt;
+&lt;p&gt;지난주에 가닥을 잡았던 메뉴 구성 및 사이트 디자인이 전부 뒤엎어졌다.&lt;br /&gt;
+홈 화면은 지난주와 같으나 네비게이션 바가 Drawer 형식으로 숨겨져 있으면 좋겠고,&lt;br /&gt;
+전체적인 페이지 느낌이 책과 같으면 좋겠다는 디자인 컨셉이 잡혔다.&lt;br /&gt;
+아직 정확한 컨셉이 확정되지 않아 기능구현은 무의미해 같이 이야기를 나누며 기획안을 그려보았다.&lt;br /&gt;
+지난주에 제작했던 Page flip transition도 디테일이 마음에 안든다고 해 다른 라이브러리를 찾던지,&lt;br /&gt;
+그냥 작정하고 처음부터 제작해야 할 것 같다.&lt;/p&gt;
+
+&lt;h1 id=&quot;다음주-목표&quot;&gt;다음주 목표&lt;/h1&gt;
+&lt;p&gt;디자인 확정&lt;br /&gt;
+기획이 조금이라도 확정되어야 진전이 있을 것 같은 느낌이 든다.&lt;br /&gt;
+분명 처음 기획은 그냥 간단히 작품 올리고 볼 수 있는 사이트였는데…&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>개인 도메인으로 이메일 설정하기</title>
