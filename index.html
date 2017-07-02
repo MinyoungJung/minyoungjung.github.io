@@ -61,8 +61,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">32</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">32</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">33</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">33</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -224,6 +224,12 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <div class="tags-expo">
   <div class="tags-expo-section">
     <ul class="tags-expo-posts">
+      
+        <big class="post-date">02 Jul 2017</big>
+        <li>
+            <a class="post-title" href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/07/02/economics_stupid/">지식, 그리고 경제 </a>
+        </li>
+      <br>
       
         <big class="post-date">01 Jul 2017</big>
         <li>
@@ -530,6 +536,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <a href="/blog/tags/#mailgun" class="post-tag">Mailgun</a>
     
+      <a href="/blog/tags/#경제학-위의-오늘" class="post-tag">경제학 위의 오늘</a>
+    
+      <a href="/blog/tags/#지민의-탄생" class="post-tag">지민의 탄생</a>
+    
   </div>
 </div>
 
@@ -589,7 +599,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-01 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-02 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
