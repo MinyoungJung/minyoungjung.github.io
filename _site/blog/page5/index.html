@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">32</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">32</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">33</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">33</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,83 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획
+      </a>
+    </h1>
+
+    <span class="post-date">12 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    
+
+    <article>
+      <h1 id="발단">발단</h1>
+
+<p>1일 1커밋/포스팅의 압박에 무엇이라도 만들어내야 한다는 부담이 들기 시작했다.<br />
+누구에게 보여주고자 한 것도 아니고 스스로 한 약속이지만 부담이 있는 것은 사실이다.<br />
+다행히 아직까지는 그러한 부담이 긍정적으로 작용하는 것 같다.<br />
+<br />
+지난 프로젝트 이후 느낀 점이지만 프로젝트가 커지는 경우 디버깅과 완성도의 압박에 프로젝트의 흥미를 잃게 된다.<br />
+그런 것을 방지하고자 최대한 간단한 기능과 구조로 출발하기로 했다.<br />
+사실 그런것보다 “다작”하기로 결심한 이후 무엇을 만들 것인가를 결정하는 것이 더 어려운 편이다.<br />
+다행히 이번에는 아이디어를 제공하는 사건이 있어 그것을 토대로 서비스를 만들기로 했다.</p>
+
+<blockquote>
+  <p>지인이 사무실을 이전하는데 이전 사무실 건물주가 에어컨을 떼는 날 잠적하거나,<br />
+이런저런 일로 꼬투리를 잡아가며 한푼이라도 더 뜯어가려는(?) 행태를 보였다.</p>
+</blockquote>
+
+<p>이에 대해 이야기하다 기존 집주인/건물주의 평판을 조회할 수 있는 서비스를 제작해 보기로 했다.</p>
+
+<h1 id="요구사항">요구사항</h1>
+<ol>
+  <li>Google/Naver등 Map 서비스를 바탕으로 특정 위치의 건물주의 평판을 등록/조회할 수 있게 한다.</li>
+  <li><del>간단한 토론이 일어날 수 있도록 등록된 평판에 댓글 기능을 지원한다.</del> 그냥 평판이 여러개 등록되면 될듯 하다.</li>
+  <li>회원가입 시 간단한 인증 절차를 통해 인증되지 않은 회원은 평판<del>/댓글</del>을 등록할 수 없게 한다.</li>
+  <li>주소/위치 검색등을 통해 해당 위치의 평판을 보여주는 기능을 갖춘다.</li>
+</ol>
+
+<h1 id="목표">목표</h1>
+<ol>
+  <li>간결한 UI/UX</li>
+  <li>테스트 코드 삽입</li>
+  <li>Heroku등 무료 서비스를 이용한 퍼블리싱</li>
+  <li>REST API를 제작하여 App으로 연동 (옵션)</li>
+</ol>
+
+<h1 id="추가-목표">추가 목표</h1>
+<ol>
+  <li>안드로이드 App 연동</li>
+  <li>1주일 내 MVP 완성 (~6/18일)</li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -616,67 +693,6 @@ DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/">
-        Python 가상환경 옮기기
-      </a>
-    </h1>
-
-    <span class="post-date">07 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#virtualenv" class="post-tag">Virtualenv</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#matplotlib" class="post-tag">Matplotlib</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-<p>가상환경을 이용한 로컬 프로젝트에서 matplotlib을 임포트 하려니 임포트 에러가 발생했다.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>(tensorflow_venv) My-MacBook-Pro:tensorflow_demo mymacpro$ python3 linearregression.py 
-Traceback (most recent call last):
-File "linearregression.py", line 14, in &lt;module&gt;
-import matplotlib.pyplot as plt
-File "/Users/mymacpro/Documents/Python_workspace/tensorflow_demo/tensorflow_venv/lib/python3.6/site-packages/matplotlib/pyplot.py", line 115, in &lt;module&gt;
-_backend_mod, new_figure_manager, draw_if_interactive, _show = pylab_setup()
-File "/Users/mymacpro/Documents/Python_workspace/tensorflow_demo/tensorflow_venv/lib/python3.6/site-packages/matplotlib/backends/__init__.py", line 32, in pylab_setup
-globals(),locals(),[backend_name],0)
-File "/Users/mymacpro/Documents/Python_workspace/tensorflow_demo/tensorflow_venv/lib/python3.6/site-packages/matplotlib/backends/backend_macosx.py", line 19, in &lt;module&gt;
-from matplotlib.backends import _macosx
-RuntimeError: Python is not installed as a framework. The Mac OS X backend will not be able to function correctly if Python is not installed as a framework. See the Python documentation for more information on installing Python as a framework on Mac OS X. Please either reinstall Python as a framework, or try one of the other backends. If you are using (Ana)Conda please install python.app and replace the use of 'python' with 'pythonw'. See 'Working with Matplotlib on OSX' in the Matplotlib FAQ for more information.
-</code></pre>
-</div>
-
-<p>라이브러리의 FAQ를 보니 virtualenv 대신에 venv를 이용하여 가상환경을 이용하란다.</p>
-
-<h1 id="해결-방법">해결 방법</h1>
-<ol>
-  <li><code class="highlighter-rouge">pip3 freeze &gt; requirements.txt</code>로 기존 가상환경의 패키지 리스트를 추출한다.</li>
-  <li><code class="highlighter-rouge">python3 -m venv myvenv</code>로 myenv라는 새로운 가상환경을 만든다.</li>
-  <li><code class="highlighter-rouge">source myvenv/bin/activate</code>로 myenv 가상환경을 실행한다.</li>
-  <li><code class="highlighter-rouge">pip3 install -r requirements.txt</code>를 통해 전에 있던 가상환경에서 추출한 패키지 리스트를 다시 설치한다.</li>
-  <li>필요하다면 (기존 가상환경을 삭제한다.)</li>
-</ol>
-
-<h2 id="결과">결과</h2>
-
-<p><img src="/post_assets/2017-06-07/matplotlib_plot.png" alt="그래프" /></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/07/python-venv-export/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -745,7 +761,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-01 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-02 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
