@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">34</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">34</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">35</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">35</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,171 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">
+        Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">24 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#postgresql" class="post-tag">PostgreSQL</a>
+    
+    <a href="/blog/tags/#pycharm" class="post-tag">Pycharm</a>
+    
+    <a href="/blog/tags/#pgadmin4" class="post-tag">pgAdmin4</a>
+    
+    
+
+    <article>
+      <h1 id="개발운영환경-설정파일-분리">개발/운영환경 설정파일 분리</h1>
+<ol>
+  <li>Settings 폴더를 생성하여 <code class="highlighter-rouge">__init__.py</code> 파일을 넣어 모듈로 만든다.</li>
+  <li>기존 <code class="highlighter-rouge">settings.py</code>를 <code class="highlighter-rouge">base.py</code>로 변경하여 setting에 공통으로 필요한 부분만 남긴다.</li>
+  <li><code class="highlighter-rouge">base.py</code>를 import한 <code class="highlighter-rouge">prod.py</code>를 추가하여 운영 환경에 관련된 세팅을 추가한다.</li>
+  <li><code class="highlighter-rouge">base.py</code>를 import한 <code class="highlighter-rouge">dev.py</code>를 추가하여 개발환경에 관련된 세팅을 추가한다.</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="c"># SECURITY WARNING: don't run with debug turned on in production!</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s">'django.core.mail.backends.console.EmailBackend'</span>
+</code></pre>
+</div>
+
+<h1 id="키값-분리">키값 분리</h1>
+<p>base.py에서 SECRET_KEY나 여러 API키 등 노출되면 안되는 부분을 분리해야 한다.<br />
+가상환경의 <code class="highlighter-rouge">bin/activate</code> 파일을 수정하여 마지막 부분에 다음 줄을 넣는다.</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>
+<span class="nb">export </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
+
+</code></pre>
+</div>
+<p>이후 <code class="highlighter-rouge">SECRET_KEY = os.environ["SECRET_KEY"]</code>를 세팅에 추가한다.<br />
+Runserver를 동작시켜보면 잘 돌아간다.</p>
+
+<h1 id="pycharm에서의-문제점">Pycharm에서의 문제점</h1>
+<p>위와 같이 설정할 경우 Pycharm에서 서버를 실행하면 환경변수를 받아오지 못한다.<br />
+이는 Pycharm과 같은 GUI 프로그램이 가상환경을 실행한 Shell을 상속받지 않기 때문인데,</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_env_variable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+    <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">io</span>
+        <span class="kn">import</span> <span class="nn">configparser</span>
+        <span class="n">env_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'PROJECT_ENV_FILE'</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s">"/.env"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"[DATA]</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">SEEK_SET</span><span class="p">)</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">'DATA'</span><span class="p">))[</span><span class="n">var_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'"'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">'"'</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"'"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">"'"</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">except</span> <span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="nb">IOError</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+        <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="s">"Either set the env variable '{var}' or place it in your "</span> \
+                    <span class="s">"{env_file} file as '{var} = VALUE'"</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">))</span>
+
+
+<span class="c"># Make this unique, and don't share it with anybody.</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_env_variable</span><span class="p">(</span><span class="s">'SECRET_KEY'</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고,<br />
+프로젝트 루트에 <code class="highlighter-rouge">.env</code>파일을 생성해서</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
+</code></pre>
+</div>
+<p>과 같이 작성하면 해결된다.</p>
+
+<p><strong>위와 같은 경우에는 .gitignore에 .env 파일을 추가해서 키값이 노출되는 것을 막아줘야 한다.</strong></p>
+
+<h1 id="설정파일-적용">설정파일 적용</h1>
+<p><code class="highlighter-rouge">python manage.py runserver --settings=앱이름.settings.dev</code><br />
+위와 같이 설정파일을 각각 적용 가능하다.</p>
+
+<h1 id="postgresql-사용하기">PostgreSQL 사용하기</h1>
+<p>Django는 기본 DB로 SQLite를 사용한다.<br />
+운영 환경에서는 PostgreSQL을 이용할 것이므로, 개발환경에서도 PostgreSQL을 적용하기로 했다.<br />
+ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되는 편이 문제 발생률을 크게 줄여준다.<br />
+또한 실환경의 Data를 덤프해서 개발환경에 집어넣고 테스트가 가능하기도 하다.</p>
+
+<ol>
+  <li>
+    <p>psycopg2 설치<br />
+<code class="highlighter-rouge">pip3 install psycopg2</code></p>
+  </li>
+  <li>
+    <p>postgresql 설치 및 db 생성<br />
+<code class="highlighter-rouge">createdb db이름</code></p>
+  </li>
+  <li><code class="highlighter-rouge">dev.py</code>에 설정
+    <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.postgresql_psycopg2'</span><span class="p">,</span>
+     <span class="s">'NAME'</span><span class="p">:</span> <span class="s">'db이름'</span><span class="p">,</span>
+     <span class="s">'USER'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'PASSWORD'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'HOST'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'PORT'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>migrate 하기<br />
+<code class="highlighter-rouge">python manage.py migrate --settings=앱이름.settings.dev</code></p>
+  </li>
+  <li>
+    <p>superuser 생성<br />
+<code class="highlighter-rouge">python manage.py createsuperuser --settings=앱이름.settings.dev</code></p>
+  </li>
+  <li>서버 실행<br />
+<code class="highlighter-rouge">python manage.py runserver --settings=앱이름.settings.dev</code></li>
+</ol>
+
+<h1 id="pgadmin4">pgAdmin4</h1>
+<h2 id="data-보기">Data 보기</h2>
+<p>db이름 → Schemas → public → Tables → 테이블에서 우클릭 → View Data</p>
+
+<h2 id="기타">기타</h2>
+<p>SQlite GUI 관리툴로는 DB Browser for SQLite를 쓰며 만족스러웠는데,<br />
+이놈의 pgAdmin4는 왜이렇게 마음에 안드는지 모르겠다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -640,67 +805,6 @@ TOTAL                                     167     71    57%
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/">
-        브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기
-      </a>
-    </h1>
-
-    <span class="post-date">19 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#css" class="post-tag">CSS</a>
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
-    
-    <a href="/blog/tags/#cache" class="post-tag">Cache</a>
-    
-    <a href="/blog/tags/#localhost" class="post-tag">Localhost</a>
-    
-    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
-    
-    
-
-    <article>
-      <h1 id="브라우저-css-캐쉬-무력화하기">브라우저 CSS 캐쉬 무력화하기</h1>
-<p>웹서비스를 제작하며 CSS 를 수정하다보면 분명 수정했는데도 불구하고 브라우저에 적용되지 않을때가 있다.<br />
-이는 브라우저가 기존의 CSS 파일을 캐쉬로 저장하고 있기 때문인데 간단하게 해결할 수 있다.</p>
-
-<h2 id="해결방법">해결방법</h2>
-<p>HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
-</code></pre>
-</div>
-
-<h3 id="django의-경우">Django의 경우</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-&lt;link href="{% static '/css/custom.css' %}?v=1.0" rel="stylesheet"&gt;
-
-</code></pre>
-</div>
-
-<h1 id="mac에서-localhost-지정하기">Mac에서 Localhost 지정하기</h1>
-<p>IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는<br />
-<code class="highlighter-rouge">/private/etc/hosts</code> 이다.<br />
-<code class="highlighter-rouge">sudo vi /private/etc/hosts</code>와 같이 해당 파일을 편집기로 진입해 host이름과 ip 짝을 수정해주면 된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -769,7 +873,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-03 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-04 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
