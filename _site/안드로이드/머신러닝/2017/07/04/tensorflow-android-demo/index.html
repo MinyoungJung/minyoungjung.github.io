@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      텐서플로 라이브러리 안드로이드에 사용하기 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>텐서플로 라이브러리 안드로이드에 사용하기 | Ringsterz Log</title>
+<meta property="og:title" content="텐서플로 라이브러리 안드로이드에 사용하기" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="빌드된 라이브러리 다운로드 상세 설정은 지난 포스팅 참조. Project nightly-android에서 최신 빌드된 버전 이미지의 libandroid_tensorflow_inference_java.jar 파일 다운로드, native 폴더의 libtensorflow_inference.so도 zip 파일로 압축해서 다운로드 안드로이드 프로젝트 생성 텐서플로를 사용할 안드로이드 프로젝트 생성 라이브러리 추가 app/libs/ 폴더에 zip 파일로 압축한 폴더를 풀어서 복사 동일 폴더안에 libandroid_tensorflow_inference_java.jar 또한 복사 트리 구조는 아래와 같음 build.gradle 수정 build.gradle (Module: app) 파일의 android 항목 안에 native 라이브러리 경로 추가 sourceSets { main { jniLibs.srcDirs = [&#39;libs&#39;] } } 메인 액티비티 수정 라이브러리 로드 static { System.loadLibrary(&quot;tensorflow_inference&quot;); } onCreate 수정 Tensor c = Tensor.create(3.0f); TextView tv = (TextView) findViewById(R.id.textView); tv.setText(String.valueOf(c.floatValue())); 간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함." />
+<meta property="og:description" content="빌드된 라이브러리 다운로드 상세 설정은 지난 포스팅 참조. Project nightly-android에서 최신 빌드된 버전 이미지의 libandroid_tensorflow_inference_java.jar 파일 다운로드, native 폴더의 libtensorflow_inference.so도 zip 파일로 압축해서 다운로드 안드로이드 프로젝트 생성 텐서플로를 사용할 안드로이드 프로젝트 생성 라이브러리 추가 app/libs/ 폴더에 zip 파일로 압축한 폴더를 풀어서 복사 동일 폴더안에 libandroid_tensorflow_inference_java.jar 또한 복사 트리 구조는 아래와 같음 build.gradle 수정 build.gradle (Module: app) 파일의 android 항목 안에 native 라이브러리 경로 추가 sourceSets { main { jniLibs.srcDirs = [&#39;libs&#39;] } } 메인 액티비티 수정 라이브러리 로드 static { System.loadLibrary(&quot;tensorflow_inference&quot;); } onCreate 수정 Tensor c = Tensor.create(3.0f); TextView tv = (TextView) findViewById(R.id.textView); tv.setText(String.valueOf(c.floatValue())); 간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함." />
+<link rel="canonical" href="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"텐서플로 라이브러리 안드로이드에 사용하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-04T00:00:00+09:00","dateModified":"2017-07-04T00:00:00+09:00","description":"빌드된 라이브러리 다운로드 상세 설정은 지난 포스팅 참조. Project nightly-android에서 최신 빌드된 버전 이미지의 libandroid_tensorflow_inference_java.jar 파일 다운로드, native 폴더의 libtensorflow_inference.so도 zip 파일로 압축해서 다운로드 안드로이드 프로젝트 생성 텐서플로를 사용할 안드로이드 프로젝트 생성 라이브러리 추가 app/libs/ 폴더에 zip 파일로 압축한 폴더를 풀어서 복사 동일 폴더안에 libandroid_tensorflow_inference_java.jar 또한 복사 트리 구조는 아래와 같음 build.gradle 수정 build.gradle (Module: app) 파일의 android 항목 안에 native 라이브러리 경로 추가 sourceSets { main { jniLibs.srcDirs = [&#39;libs&#39;] } } 메인 액티비티 수정 라이브러리 로드 static { System.loadLibrary(&quot;tensorflow_inference&quot;); } onCreate 수정 Tensor c = Tensor.create(3.0f); TextView tv = (TextView) findViewById(R.id.textView); tv.setText(String.valueOf(c.floatValue())); 간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">35</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">35</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">텐서플로 라이브러리 안드로이드에 사용하기</h1>
+  <span class="post-date">04 Jul 2017</span>
+   | 
+  
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+  
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+  
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+  
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+  
+  
+  <article>
+    <h1 id="빌드된-라이브러리-다운로드">빌드된 라이브러리 다운로드</h1>
+<p>상세 설정은 <a href="https://minyoungjung.github.io/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">지난 포스팅</a> 참조.</p>
+
+<p><a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 최신 빌드된 버전 이미지의 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code><br />
+파일 다운로드,  <code class="highlighter-rouge">native</code> 폴더의 <code class="highlighter-rouge">libtensorflow_inference.so</code>도 zip 파일로 압축해서 다운로드</p>
+
+<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
+<p>텐서플로를 사용할 안드로이드 프로젝트 생성</p>
+
+<h1 id="라이브러리-추가">라이브러리 추가</h1>
+<p><code class="highlighter-rouge">app/libs/</code> 폴더에 zip 파일로 압축한 폴더를 풀어서 복사<br />
+동일 폴더안에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 또한 복사<br />
+트리 구조는 아래와 같음
+<img src="/post_assets/2017-07-04/tree.png" alt="폴더구조" /></p>
+
+<h1 id="buildgradle-수정">build.gradle 수정</h1>
+<p><code class="highlighter-rouge">build.gradle (Module: app)</code> 파일의 android 항목 안에 native 라이브러리 경로 추가</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+}
+</code></pre>
+</div>
+
+<h1 id="메인-액티비티-수정">메인 액티비티 수정</h1>
+<h2 id="라이브러리-로드">라이브러리 로드</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">static</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"tensorflow_inference"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="oncreate-수정">onCreate 수정</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Tensor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span>
+
+<span class="n">TextView</span> <span class="n">tv</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">);</span>
+<span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">floatValue</span><span class="o">()));</span>
+</code></pre>
+</div>
+
+<p>간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.</p>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">
+            텐서플로 소스로부터 안드로이드 라이브러리 빌드하기
+            <small>03 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/07/02/economics_stupid/">
+            지식, 그리고 경제
+            <small>02 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/01/django-portfolio-page-(3)/">
+            Django를 이용한 포트폴리오 사이트 제작 (3) - 디자인 컨셉 잡기
+            <small>01 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-07-04 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>

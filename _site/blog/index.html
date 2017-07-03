@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">34</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">34</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">35</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">35</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -183,8 +183,82 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/">
-        텐서플로 소스로부터 안드로이드로 빌드하기
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/">
+        텐서플로 라이브러리 안드로이드에 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+    
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+    
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    
+
+    <article>
+      <h1 id="빌드된-라이브러리-다운로드">빌드된 라이브러리 다운로드</h1>
+<p>상세 설정은 <a href="https://minyoungjung.github.io/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">지난 포스팅</a> 참조.</p>
+
+<p><a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 최신 빌드된 버전 이미지의 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code><br />
+파일 다운로드,  <code class="highlighter-rouge">native</code> 폴더의 <code class="highlighter-rouge">libtensorflow_inference.so</code>도 zip 파일로 압축해서 다운로드</p>
+
+<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
+<p>텐서플로를 사용할 안드로이드 프로젝트 생성</p>
+
+<h1 id="라이브러리-추가">라이브러리 추가</h1>
+<p><code class="highlighter-rouge">app/libs/</code> 폴더에 zip 파일로 압축한 폴더를 풀어서 복사<br />
+동일 폴더안에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 또한 복사<br />
+트리 구조는 아래와 같음
+<img src="/post_assets/2017-07-04/tree.png" alt="폴더구조" /></p>
+
+<h1 id="buildgradle-수정">build.gradle 수정</h1>
+<p><code class="highlighter-rouge">build.gradle (Module: app)</code> 파일의 android 항목 안에 native 라이브러리 경로 추가</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+}
+</code></pre>
+</div>
+
+<h1 id="메인-액티비티-수정">메인 액티비티 수정</h1>
+<h2 id="라이브러리-로드">라이브러리 로드</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">static</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"tensorflow_inference"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="oncreate-수정">onCreate 수정</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Tensor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span>
+
+<span class="n">TextView</span> <span class="n">tv</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">);</span>
+<span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">floatValue</span><span class="o">()));</span>
+</code></pre>
+</div>
+
+<p>간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-demo/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">
+        텐서플로 소스로부터 안드로이드 라이브러리 빌드하기
       </a>
     </h1>
 
@@ -267,16 +341,13 @@ android_ndk_repository(
 <p>마찬가지로 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar</code> 생성됨</p>
 
 <h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
-<h2 id="jar-추가">.jar 추가</h2>
-<p><code class="highlighter-rouge">app/libs</code>에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 추가</p>
-
-<h2 id="so-추가">.so 추가</h2>
-<p><code class="highlighter-rouge">main/jniLibs/x86</code> 생성 후 <code class="highlighter-rouge">libtensorflow_inference.so</code> 추가</p>
+<h2 id="라이브러리-추가">라이브러리 추가</h2>
+<p>라이브러리에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 및 <code class="highlighter-rouge">libtensorflow_inference.so</code> 추가</p>
 
 <p>이제 텐서플로의 Java API를 <code class="highlighter-rouge">TensorFlowInferenceInterface</code>를 통해 호출 가능하다.</p>
 
 <blockquote>
-  <p>제일 간단한 방법
+  <p>소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법<br />
 <a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 빌드된 파일을 받는다.<br />
 굳이 빌드할 필요도 없음…</p>
 </blockquote>
@@ -285,9 +356,9 @@ android_ndk_repository(
     <article>
     <div class="post-more">
       
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
@@ -459,42 +530,6 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/">
-        사람들이 원하는것
-      </a>
-    </h1>
-
-    <span class="post-date">29 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#thinking" class="post-tag">Thinking</a>
-    
-    
-
-    <article>
-      <p>한때는 사람들이 원하는 것이 무엇인지 안다고 생각했다.<br />
-철없던 시절의 객기였는지 오만함에서 비롯된 생각인지는 모르겠다.<br />
-그 탓에 오랜 시간의 시행착오를 겪었고 그 덕에 많이 성장했지만,<br />
-<strong>무엇을 사람들이 원하는가</strong>에 대한 정답은 더욱 멀어진 듯한 생각이 든다.</p>
-
-<p>때로는 정말 별것 아닌것에도 감탄하고, 정말 오랜 시간과 공을 들인 것들에는 심드렁하고,<br />
-인간도 하나의 동물일 뿐이라지만, 개인의 다양성은 내가 상상하는 범위를 언제나 벗어나곤 한다.</p>
-
-<p>당분간은 내 생각을 버리고, 사람들이 직접 원한다고 말하는 것들을 들어볼 생각이다.<br />
-물론 개인 프로젝트도 내가 하고싶은 것 말고, 사람들이 말하는 것 위주로 제작해 봐야겠지.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -561,7 +596,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-03 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-04 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

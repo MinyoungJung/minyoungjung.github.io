@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 텐서플로 소스로부터 안드로이드로 빌드하기
+title: 텐서플로 소스로부터 안드로이드 라이브러리 빌드하기
 category: [안드로이드, 환경설정, 머신러닝]
 tags: [Machine Learning, AI, Tensorflow, Android]
 ---
@@ -71,17 +71,13 @@ bazel build //tensorflow/contrib/android:android_tensorflow_inference_java
 
 
 # 안드로이드 프로젝트 생성
-## .jar 추가
-`app/libs`에 `libandroid_tensorflow_inference_java.jar` 추가  
-
-## .so 추가
-`main/jniLibs/x86` 생성 후 `libtensorflow_inference.so` 추가
+## 라이브러리 추가
+라이브러리에 `libandroid_tensorflow_inference_java.jar` 및 `libtensorflow_inference.so` 추가
 
 이제 텐서플로의 Java API를 `TensorFlowInferenceInterface`를 통해 호출 가능하다.  
 
 
-
-> 제일 간단한 방법
+> 소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법  
 [Project nightly-android](http://ci.tensorflow.org/view/Nightly/job/nightly-android/)에서 빌드된 파일을 받는다.  
 굳이 빌드할 필요도 없음...
 
