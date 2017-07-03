@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">33</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">33</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">34</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">34</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,116 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/">
+        텐서플로 소스로부터 안드로이드로 빌드하기
+      </a>
+    </h1>
+
+    <span class="post-date">03 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+    
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+    
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    
+
+    <article>
+      <h1 id="텐서플로-repository-clone">텐서플로 repository clone</h1>
+<p><code class="highlighter-rouge">git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git</code></p>
+
+<h1 id="android-ndk-설치">Android NDK 설치</h1>
+<p>텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요.<br />
+<del>Android Studio의 Preference -&gt; Appearance &amp; Behavior -&gt; System Settings -&gt; Android SDK -&gt; SDK Tools 탭에서 NDK를 찾아 설치</del><br />
+위와 같이 하면 NDK 최신 버전이 설치되는데 <code class="highlighter-rouge">WORKSPACE</code> 파일을 보면 r12b를 쓰라 되어있다.<br />
+그러므로 <a href="https://developer.android.com/ndk/downloads/older_releases.html#ndk-12b-downloads">여기</a>서 다운 받은 r12b를 설치</p>
+
+<h1 id="bazel-설치">Bazel 설치</h1>
+<p>텐서플로의 빌드 툴인 <a href="https://docs.bazel.build/versions/master/bazel-overview.html">Bazel</a> 설치</p>
+
+<h1 id="workspace-파일-수정">WORKSPACE 파일 수정</h1>
+<p>Clone된 텐서플로 프로젝트의 Root의 <code class="highlighter-rouge">WORKSPACE</code> 파일을 열어</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>#android_sdk_repository(
+#    name = "androidsdk",
+#    api_level = 23,
+#    # Ensure that you have the build_tools_version below installed in the
+#    # SDK manager as it updates periodically.
+#    build_tools_version = "25.0.2",
+#    # Replace with path to Android SDK on your system
+#    path = "&lt;PATH_TO_SDK&gt;",
+#)
+#
+# Android NDK r12b is recommended (higher may cause issues with Bazel)
+#android_ndk_repository(
+#    name="androidndk",
+#    path="&lt;PATH_TO_NDK&gt;",
+#    # This needs to be 14 or higher to compile TensorFlow.
+#    # Note that the NDK version is not the API level.
+#    api_level=14)
+</code></pre>
+</div>
+<p>이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>android_sdk_repository(
+    name = "androidsdk",
+    api_level = 23,
+    build_tools_version = "25.0.2",
+    path = "/Users/mymacpro/Library/Android/sdk/",
+)
+android_ndk_repository(
+    name="androidndk",
+    path="/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/",
+    api_level=14)
+</code></pre>
+</div>
+
+<h1 id="so-파일-빌드">.so 파일 빌드</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \
+--crosstool_top=//external:android/crosstool \
+--host_crosstool_top=@bazel_tools//tools/cpp:toolchain \
+--cpu=x86_64
+</code></pre>
+</div>
+
+<p>빌드가 끝나면 프로젝트 폴더에 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so</code>가 생성</p>
+
+<h1 id="jar-파일-빌드">.jar 파일 빌드</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>bazel build //tensorflow/contrib/android:android_tensorflow_inference_java
+</code></pre>
+</div>
+
+<p>마찬가지로 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar</code> 생성됨</p>
+
+<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
+<h2 id="jar-추가">.jar 추가</h2>
+<p><code class="highlighter-rouge">app/libs</code>에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 추가</p>
+
+<h2 id="so-추가">.so 추가</h2>
+<p><code class="highlighter-rouge">main/jniLibs/x86</code> 생성 후 <code class="highlighter-rouge">libtensorflow_inference.so</code> 추가</p>
+
+<p>이제 텐서플로의 Java API를 <code class="highlighter-rouge">TensorFlowInferenceInterface</code>를 통해 호출 가능하다.</p>
+
+<blockquote>
+  <p>제일 간단한 방법
+<a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 빌드된 파일을 받는다.<br />
+굳이 빌드할 필요도 없음…</p>
+</blockquote>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -385,80 +495,6 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/">
-        Django Admin 테마 변경하기
-      </a>
-    </h1>
-
-    <span class="post-date">28 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#admin" class="post-tag">Admin</a>
-    
-    <a href="/blog/tags/#theme" class="post-tag">Theme</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="개요">개요</h1>
-<p>Django의 기본 Admin은 강력한 기능이지만 Look이 그다지 아름답지 않다.<br />
-직접 Admin을 커스터마이즈 하는 것은 상당히 손이 많이 가므로 <a href="https://djangopackages.org/grids/g/admin-styling/">djangopackages.org</a>에 올라와 있는<br />
-패키지를 이용해 간단히 수정해 보았다.</p>
-
-<h1 id="패키지-선택">패키지 선택</h1>
-<p>가장 널리 쓰이는 <code class="highlighter-rouge">DJANGO-GRAPPELLI</code>부터, <code class="highlighter-rouge">DJANGO-SUIT</code> 등등 여러 패키지가 있지만,<br />
-Material Design의 팬(?)으로써 <code class="highlighter-rouge">DJANGO-MATERIAL</code>을 이용해 보았다.<br />
-<code class="highlighter-rouge">DJANGO-MATERIAL</code>은 전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">Django를 이용한 스케쥴러 제작</a>에서도 이용했었던 <a href="http://materializecss.com/getting-started.html">Materialize</a>를 기반으로 하므로<br />
-사용도 간단하리라 생각했다.</p>
-
-<h1 id="사용법">사용법</h1>
-<h2 id="django-material-설치">django-material 설치</h2>
-<p><code class="highlighter-rouge">pip install django-material</code></p>
-
-<h2 id="installed_apps-추가">INSTALLED_APPS 추가</h2>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s">'material'</span><span class="p">,</span>
-    <span class="s">'material.admin'</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">)</span>
-</code></pre>
-</div>
-<p><code class="highlighter-rouge">django.contrib.admin</code> 앞에 두 줄이 추가되어야 한다.</p>
-
-<h2 id="적용결과">적용결과</h2>
-<p><img src="/post_assets/2017-06-28/material-admin.png" alt="적용결과" /></p>
-
-<h2 id="간단한-커스터마이즈-사이드바-아이콘">간단한 커스터마이즈 (사이드바 아이콘)</h2>
-<p><code class="highlighter-rouge">apps.py</code>의 AppConfig class에 <code class="highlighter-rouge">icon = '&lt;i class="material-icons"&gt;subject&lt;/i&gt;'</code>속성 추가<br />
-아이콘 주소는 <a href="https://material.io/icons/">https://material.io/icons/</a>를 따른다.</p>
-
-<h2 id="간단한-커스터마이즈-카드-내-아이콘">간단한 커스터마이즈 (카드 내 아이콘)</h2>
-<p><code class="highlighter-rouge">admin.py</code>의 admin.ModelAdmin class에 <code class="highlighter-rouge">icon</code> 속성 추가 (위와 동일)</p>
-
-<h2 id="커스터마이즈-후-결과">커스터마이즈 후 결과</h2>
-<p><img src="/post_assets/2017-06-28/material-admin-modify.png" alt="커스터마이즈 결과" /></p>
-
-<h2 id="추가-커스터마이즈">추가 커스터마이즈</h2>
-<p><a href="http://docs.viewflow.io/admin_customization.html">라이브러리 Doc 참조</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -525,7 +561,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-02 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-03 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

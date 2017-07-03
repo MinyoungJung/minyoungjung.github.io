@@ -4,13 +4,100 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-02T23:11:27+09:00</updated>
+ <updated>2017-07-04T02:06:11+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>텐서플로 소스로부터 안드로이드로 빌드하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-03T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-android-build</id>
+   <content type="html">&lt;h1 id=&quot;텐서플로-repository-clone&quot;&gt;텐서플로 repository clone&lt;/h1&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;android-ndk-설치&quot;&gt;Android NDK 설치&lt;/h1&gt;
+&lt;p&gt;텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요.&lt;br /&gt;
+&lt;del&gt;Android Studio의 Preference -&amp;gt; Appearance &amp;amp; Behavior -&amp;gt; System Settings -&amp;gt; Android SDK -&amp;gt; SDK Tools 탭에서 NDK를 찾아 설치&lt;/del&gt;&lt;br /&gt;
+위와 같이 하면 NDK 최신 버전이 설치되는데 &lt;code class=&quot;highlighter-rouge&quot;&gt;WORKSPACE&lt;/code&gt; 파일을 보면 r12b를 쓰라 되어있다.&lt;br /&gt;
+그러므로 &lt;a href=&quot;https://developer.android.com/ndk/downloads/older_releases.html#ndk-12b-downloads&quot;&gt;여기&lt;/a&gt;서 다운 받은 r12b를 설치&lt;/p&gt;
+
+&lt;h1 id=&quot;bazel-설치&quot;&gt;Bazel 설치&lt;/h1&gt;
+&lt;p&gt;텐서플로의 빌드 툴인 &lt;a href=&quot;https://docs.bazel.build/versions/master/bazel-overview.html&quot;&gt;Bazel&lt;/a&gt; 설치&lt;/p&gt;
+
+&lt;h1 id=&quot;workspace-파일-수정&quot;&gt;WORKSPACE 파일 수정&lt;/h1&gt;
+&lt;p&gt;Clone된 텐서플로 프로젝트의 Root의 &lt;code class=&quot;highlighter-rouge&quot;&gt;WORKSPACE&lt;/code&gt; 파일을 열어&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#android_sdk_repository(
+#    name = &quot;androidsdk&quot;,
+#    api_level = 23,
+#    # Ensure that you have the build_tools_version below installed in the
+#    # SDK manager as it updates periodically.
+#    build_tools_version = &quot;25.0.2&quot;,
+#    # Replace with path to Android SDK on your system
+#    path = &quot;&amp;lt;PATH_TO_SDK&amp;gt;&quot;,
+#)
+#
+# Android NDK r12b is recommended (higher may cause issues with Bazel)
+#android_ndk_repository(
+#    name=&quot;androidndk&quot;,
+#    path=&quot;&amp;lt;PATH_TO_NDK&amp;gt;&quot;,
+#    # This needs to be 14 or higher to compile TensorFlow.
+#    # Note that the NDK version is not the API level.
+#    api_level=14)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;android_sdk_repository(
+    name = &quot;androidsdk&quot;,
+    api_level = 23,
+    build_tools_version = &quot;25.0.2&quot;,
+    path = &quot;/Users/mymacpro/Library/Android/sdk/&quot;,
+)
+android_ndk_repository(
+    name=&quot;androidndk&quot;,
+    path=&quot;/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/&quot;,
+    api_level=14)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;so-파일-빌드&quot;&gt;.so 파일 빌드&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \
+--crosstool_top=//external:android/crosstool \
+--host_crosstool_top=@bazel_tools//tools/cpp:toolchain \
+--cpu=x86_64
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;빌드가 끝나면 프로젝트 폴더에 &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so&lt;/code&gt;가 생성&lt;/p&gt;
+
+&lt;h1 id=&quot;jar-파일-빌드&quot;&gt;.jar 파일 빌드&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bazel build //tensorflow/contrib/android:android_tensorflow_inference_java
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;마찬가지로 &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar&lt;/code&gt; 생성됨&lt;/p&gt;
+
+&lt;h1 id=&quot;안드로이드-프로젝트-생성&quot;&gt;안드로이드 프로젝트 생성&lt;/h1&gt;
+&lt;h2 id=&quot;jar-추가&quot;&gt;.jar 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;app/libs&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;libandroid_tensorflow_inference_java.jar&lt;/code&gt; 추가&lt;/p&gt;
+
+&lt;h2 id=&quot;so-추가&quot;&gt;.so 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;main/jniLibs/x86&lt;/code&gt; 생성 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;libtensorflow_inference.so&lt;/code&gt; 추가&lt;/p&gt;
+
+&lt;p&gt;이제 텐서플로의 Java API를 &lt;code class=&quot;highlighter-rouge&quot;&gt;TensorFlowInferenceInterface&lt;/code&gt;를 통해 호출 가능하다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;제일 간단한 방법
+&lt;a href=&quot;http://ci.tensorflow.org/view/Nightly/job/nightly-android/&quot;&gt;Project nightly-android&lt;/a&gt;에서 빌드된 파일을 받는다.&lt;br /&gt;
+굳이 빌드할 필요도 없음…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>지식, 그리고 경제</title>
