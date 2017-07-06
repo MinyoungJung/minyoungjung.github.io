@@ -2,7 +2,7 @@
 layout: post
 title: 안드로이드에 Facebook 로그인 연동하기
 category: [안드로이드]
-tags: [Android, FacebookSDK]
+tags: [Android, Java, Facebook SDK, REST API, Auth]
 ---
 
 # Facebook SDK 연동하기
