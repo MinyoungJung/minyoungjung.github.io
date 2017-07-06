@@ -4,7 +4,7 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-06T22:50:31+09:00</updated>
+ <updated>2017-07-06T23:13:12+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
@@ -13,10 +13,87 @@
 
  
  <entry>
+   <title>안드로이드에 Facebook Graph API 사용하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-06T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph</id>
+   <content type="html">&lt;h1 id=&quot;graph-api-사용-flow&quot;&gt;Graph API 사용 Flow&lt;/h1&gt;
+&lt;h2 id=&quot;인증-후-accesstoken-획득&quot;&gt;인증 후 AccessToken 획득&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AccessToken accessToken = AccessToken.getCurrentAccessToken();&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;graph-request-생성&quot;&gt;Graph Request 생성&lt;/h2&gt;
+&lt;p&gt;accessToken, URL endpoint, params, HttpMethod, Callback method를 인자로 생성&lt;br /&gt;
+이후 &lt;code class=&quot;highlighter-rouge&quot;&gt;executeAsync()&lt;/code&gt;로 비동기 실행&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;예제 1 - 사용자 이름 얻기&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newMeRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;accessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GraphJSONObjectCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCompleted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;JSONObject&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;GraphResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;mTextView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Logged in as:&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JSONException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;je&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;FB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;No key provided.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bundle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;putString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fields&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;id,name,link&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setParameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;executeAsync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;예제 2 - 페이스북 페이지에 게시물 포스팅&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;AccessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCurrentAccessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;/912605208889540/feed&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 페이지 ID&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HttpMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCompleted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GraphResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Toast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;makeText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getBaseContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Write Complete&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Toast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LENGTH_SHORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;executeAsync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;예제 3 - 페이스북 페이지 게시물 가져오기&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;AccessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCurrentAccessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;/912605208889540/feed&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HttpMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GraphRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCompleted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GraphResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;JSONObject&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jsonObj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getJSONObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;JSONArray&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jsonArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;jsonArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jsonObj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getJSONArray&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JSONException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;je&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;FB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Error fetching JSON&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;executeAsync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;기타-확인할-것&quot;&gt;기타 확인할 것&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Facebook 개발자 페이지에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;앱 검수&lt;/code&gt; 항목에서 쓰기 권한 검수 받기&lt;/li&gt;
+  &lt;li&gt;Facebook 개발자 페이지에서 앱 공개해서 SANDBOX에서 실행되지 않도록 할 것&lt;br /&gt;
+(앱 공개 안하면 안드로이드 앱을 통해 Publishing한 포스트들이 다른 사람에게 보이지 않음)&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>안드로이드에 Facebook 로그인 연동하기</title>
    <link href="https://minyoungjung.github.io/"/>
    <updated>2017-07-05T00:00:00+09:00</updated>
-   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android</id>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login</id>
    <content type="html">&lt;h1 id=&quot;facebook-sdk-연동하기&quot;&gt;Facebook SDK 연동하기&lt;/h1&gt;
 &lt;p&gt;한동안 Facebook SDK를 쓸일이 없다가 다시 기회가 생겨 간단한 샘플을 제작해 보았다.&lt;br /&gt;
 잊어버리지 않게 정리해두려 한다.&lt;/p&gt;
@@ -88,7 +165,7 @@
 &lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;onActivityResult를 통해 callbackmanager에 결과를 전달한다.&lt;br /&gt;
+  &lt;li&gt;onActivityResult를 통해 CallbackManager에 결과를 전달한다.&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;mCallbackManager.onActivityResult(requestCode, resultCode, data);&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 

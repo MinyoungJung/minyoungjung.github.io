@@ -5,7 +5,16 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android/</loc>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/</loc>
+    
+    <lastmod>2017-07-06T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/</loc>
     
     <lastmod>2017-07-05T00:00:00+09:00</lastmod>
     
@@ -688,7 +697,13 @@
   </url>
   
   <url>
-    <loc>https://minyoungjung.github.io/blog/tags/#FacebookSDK</loc>
+    <loc>https://minyoungjung.github.io/blog/tags/#Facebook SDK</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Graph API</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
