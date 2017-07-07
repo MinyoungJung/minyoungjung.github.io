@@ -4,13 +4,38 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-06T23:13:12+09:00</updated>
+ <updated>2017-07-07T23:51:19+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>일일커밋, 일일 블로깅</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-07T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EB%8B%A8%EC%83%81/2017/07/07/one-day-one-commit</id>
+   <content type="html">&lt;p&gt;1일 1커밋과 1일 1블로깅을 한달 넘계 계속해왔다.&lt;br /&gt;
+7/3일 하루가 빠져있는데, 이날 커밋한 리포지토리를 삭제했기 때문에 발생한 일이다.&lt;br /&gt;
+한칸이 비어있는 것이 못내 아쉽기는 하지만 자신과의 약속은 깨지 않았다는 것에 만족한다.&lt;br /&gt;
+한달넘게 일일커밋과 블로깅을 하며 느낀점은…&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;글쓰기도 익숙해지면 점점 빨라진다.&lt;br /&gt;
+처음에는 이런식이면 어떻게 하나 싶었던 문서화도 점점 할수록 익숙해지고 빨라진다.&lt;/li&gt;
+  &lt;li&gt;어거지로라도 한줄이라도 코딩을 한다.&lt;br /&gt;
+필(?)받을때 몰아서 하고, 안될때는 잘 안되는 편이라 기복이 좀 있는데 이럴때 억지로라도 시작하면&lt;br /&gt;
+어느새 평균정도 능률은 나오기도 한다.&lt;br /&gt;
+다만 별의미없는 내용을 12시가 넘기전에 커밋하는 치팅(?)은 반성해야겠다.&lt;/li&gt;
+  &lt;li&gt;하루를 반성하고 돌아보는 계기가 된다.
+그날 정리할 것이 없으면 뭔가 한 것이 없다는 생각이 든다. 꾸준한 정진의 발판이 될 것 같다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;나름 장단이 있지만 현재로서는 장점이 더 많은 것 같다. 좀 더 계속해보자.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>안드로이드에 Facebook Graph API 사용하기</title>
