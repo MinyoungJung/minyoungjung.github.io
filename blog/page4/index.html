@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">38</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">38</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">39</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">39</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,127 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">
+        Django에 Rest API 추가하기 (2) - API에 인증 추가
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
+    
+    
+
+    <article>
+      <h1 id="지난번에-추가한-api">지난번에 추가한 API</h1>
+<p>지난번에는 Django REST Framework의 <code class="highlighter-rouge">generics.RetrieveUpdateDestroyAPIView</code>를 이용하여,<br />
+GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">Django에 Rest API 추가하기 - 링크</a></p>
+
+<p>하지만 지금 상태로는 누구나 정보를 수정/삭제가 가능하므로 인증 기능을 추가해야 한다.</p>
+
+<h1 id="api에-인증-추가">API에 인증 추가</h1>
+<p>로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+
+<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c"># 추가</span>
+</code></pre>
+</div>
+
+<p>하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다.<br />
+따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다.<br />
+이를 위해서 먼저 Custom permisson을 추가한다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+
+
+<span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>  <span class="c"># GET, HEAD, OPTIONS </span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="nb">id</span>
+
+</code></pre>
+</div>
+<p>위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환,<br />
+그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.permissions</span> <span class="kn">import</span> <span class="n">IsOwnerOrReadOnly</span>
+
+<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c"># 변경</span>
+</code></pre>
+</div>
+<p>그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다.<br />
+마지막으로 object를 반환하는 mixin 클래스에서,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class MultipleFieldLookupMixin(object):
+    def get_object(self):
+        queryset = self.get_queryset()             # Get the base queryset
+        queryset = self.filter_queryset(queryset)  # Apply any filter backends
+        filter = {}
+        for field in self.lookup_fields:
+            if self.kwargs[field]:  # Ignore empty fields.
+                filter[field] = self.kwargs[field]
+        obj = get_object_or_404(queryset, **filter)  # Lookup the object
+        self.check_object_permissions(self.request, obj)  # Check permissions
+        return obj
+</code></pre>
+</div>
+<p>위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다.</p>
+
+<h1 id="api-테스트-결과">API 테스트 결과</h1>
+<h2 id="postman을-이용해서-api를-테스트-한-결과-get">Postman을 이용해서 api를 테스트 한 결과 (GET)</h2>
+<p><img src="/post_assets/2017-06-23/without_auth.png" alt="실행결과" />
+GET 명령은 인증 없이도 잘 동작한다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete">Postman을 이용해서 api를 테스트 한 결과 (DELETE)</h2>
+<p><img src="/post_assets/2017-06-23/without_auth_delete.png" alt="실행결과" />
+Delete 명령은 인증이 없으니 동작하지 않는다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--wrong-auth">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; wrong Auth)</h2>
+<p><img src="/post_assets/2017-06-23/invalid_id_pw.png" alt="실행결과" />
+Auth를 포함할 때 잘못된 아이디/패스워드를 사용했을때는 다음과 같은 결과가 돌아온다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-not-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (not owner))</h2>
+<p><img src="/post_assets/2017-06-23/valid_auth_not_owner.png" alt="실행결과" />
+제대로된 Auth로 인증했으나 Owner가 아닌 경우에도 역시 동작하지 않는다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (Owner))</h2>
+<p><img src="/post_assets/2017-06-23/valid_auth_owner.png" alt="실행결과" />
+Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -580,56 +701,6 @@ TOTAL                                     167     71    57%
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/">
-        흐름에 따른 사고
-      </a>
-    </h1>
-
-    <span class="post-date">18 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#reading" class="post-tag">Reading</a>
-    
-    <a href="/blog/tags/#thinking" class="post-tag">Thinking</a>
-    
-    <a href="/blog/tags/#수학의-언어로-세상을-본다면" class="post-tag">수학의 언어로 세상을 본다면</a>
-    
-    
-
-    <article>
-      <p>우리는 무엇인가를 빠르게 습득하고 적용하기 위해 많은 부분들을 건너뛰곤 한다.<br />
-남들이 쌓아올린 경험과 지식의 결실을 빠르게 받아들이고 사용할 수 있는 능력이 실리와 직결되기도 한다.<br />
-하지만 더욱 깊이있는 발전을 위해서는 그러한 결실이 만들어지는 과정과 사고를 이해하는 것이 중요하다.<br />
-최첨단으로 보이는 결실들이 결국 많은 사람들의 고민과 시행착오 끝에 만들어 졌다는 사실을 인지하고,<br />
-그러한 고민들을 하게된 이유와 사고의 흐름을 쫓아보는 것이 지식에 대한 이해를 한단계 높여준다.<br />
-또한 이러한 사고의 흐름을 바탕으로 자신만의 고유한 해결책을 제시할 수 있게된다.</p>
-
-<p>빠른 결실을 바라는 사회에서 본질로 돌아가 고민하고 차근히 들여다 보는 것은 사회를 역행하는 것처럼 보이기에,<br />
-다들 혁신을 부르짓지만 진정한 혁신가라 불리는 이들이 정말 적은 이유가 아닐까.</p>
-
-<blockquote>
-  <p>우리는 일상생활 속에서 일일이 기본원리로 되돌아가 생각할 수는 없습니다.<br />
-이것은 정신적으로 상당히 힘든 일입니다.<br />
-그래서 우리는 비슷한 것에 기초해서 미루어 추측하거나 타인을 흉내 내는 것으로 인생의 대부분을 보냅니다.<br />
-그러나 새로운 지평을 개척하거나 진정한 의미의 혁신을 일으키기 위해서는 기본원리에서부터의 접근이 필요합니다.<br />
-어떤 분야에서나 가장 기본적 진리를 찾고 거기서 다시 생각해야 합니다.<br />
-그러기 위해서는 정신적 노력이 필요합니다.      - <strong>Elon musk</strong></p>
-</blockquote>
-
-<p>수학의 발전사를 통해 수학적 사고의 발전을 보여주는 <strong>수학의 언어로 세상을 본다면</strong>을 읽고…</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -698,7 +769,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-07 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-08 23:58:58 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
