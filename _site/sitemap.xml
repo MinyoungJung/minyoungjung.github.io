@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//2017/07/08/2017-07-08-learning-money/</loc>
+    
+    <lastmod>2017-07-08T23:58:58+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%EB%8B%A8%EC%83%81/2017/07/07/one-day-one-commit/</loc>
     
     <lastmod>2017-07-07T00:00:00+09:00</lastmod>

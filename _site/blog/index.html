@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">38</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">38</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">39</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">39</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,28 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2017/07/08/2017-07-08-learning-money/">
+        
+      </a>
+    </h1>
+
+    <span class="post-date">08 Jul 2017</span>
+    
+
+    <article>
+      
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/2017/07/08/2017-07-08-learning-money/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/2017/07/08/2017-07-08-learning-money/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -509,113 +531,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">
-        텐서플로 소스로부터 안드로이드 라이브러리 빌드하기
-      </a>
-    </h1>
-
-    <span class="post-date">03 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
-    
-    <a href="/blog/tags/#ai" class="post-tag">AI</a>
-    
-    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    
-
-    <article>
-      <h1 id="텐서플로-repository-clone">텐서플로 repository clone</h1>
-<p><code class="highlighter-rouge">git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git</code></p>
-
-<h1 id="android-ndk-설치">Android NDK 설치</h1>
-<p>텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요.<br />
-<del>Android Studio의 Preference -&gt; Appearance &amp; Behavior -&gt; System Settings -&gt; Android SDK -&gt; SDK Tools 탭에서 NDK를 찾아 설치</del><br />
-위와 같이 하면 NDK 최신 버전이 설치되는데 <code class="highlighter-rouge">WORKSPACE</code> 파일을 보면 r12b를 쓰라 되어있다.<br />
-그러므로 <a href="https://developer.android.com/ndk/downloads/older_releases.html#ndk-12b-downloads">여기</a>서 다운 받은 r12b를 설치</p>
-
-<h1 id="bazel-설치">Bazel 설치</h1>
-<p>텐서플로의 빌드 툴인 <a href="https://docs.bazel.build/versions/master/bazel-overview.html">Bazel</a> 설치</p>
-
-<h1 id="workspace-파일-수정">WORKSPACE 파일 수정</h1>
-<p>Clone된 텐서플로 프로젝트의 Root의 <code class="highlighter-rouge">WORKSPACE</code> 파일을 열어</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>#android_sdk_repository(
-#    name = "androidsdk",
-#    api_level = 23,
-#    # Ensure that you have the build_tools_version below installed in the
-#    # SDK manager as it updates periodically.
-#    build_tools_version = "25.0.2",
-#    # Replace with path to Android SDK on your system
-#    path = "&lt;PATH_TO_SDK&gt;",
-#)
-#
-# Android NDK r12b is recommended (higher may cause issues with Bazel)
-#android_ndk_repository(
-#    name="androidndk",
-#    path="&lt;PATH_TO_NDK&gt;",
-#    # This needs to be 14 or higher to compile TensorFlow.
-#    # Note that the NDK version is not the API level.
-#    api_level=14)
-</code></pre>
-</div>
-<p>이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>android_sdk_repository(
-    name = "androidsdk",
-    api_level = 23,
-    build_tools_version = "25.0.2",
-    path = "/Users/mymacpro/Library/Android/sdk/",
-)
-android_ndk_repository(
-    name="androidndk",
-    path="/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/",
-    api_level=14)
-</code></pre>
-</div>
-
-<h1 id="so-파일-빌드">.so 파일 빌드</h1>
-<div class="highlighter-rouge"><pre class="highlight"><code>bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \
---crosstool_top=//external:android/crosstool \
---host_crosstool_top=@bazel_tools//tools/cpp:toolchain \
---cpu=x86_64
-</code></pre>
-</div>
-
-<p>빌드가 끝나면 프로젝트 폴더에 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so</code>가 생성</p>
-
-<h1 id="jar-파일-빌드">.jar 파일 빌드</h1>
-<div class="highlighter-rouge"><pre class="highlight"><code>bazel build //tensorflow/contrib/android:android_tensorflow_inference_java
-</code></pre>
-</div>
-
-<p>마찬가지로 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar</code> 생성됨</p>
-
-<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
-<h2 id="라이브러리-추가">라이브러리 추가</h2>
-<p>라이브러리에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 및 <code class="highlighter-rouge">libtensorflow_inference.so</code> 추가</p>
-
-<p>이제 텐서플로의 Java API를 <code class="highlighter-rouge">TensorFlowInferenceInterface</code>를 통해 호출 가능하다.</p>
-
-<blockquote>
-  <p>소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법<br />
-<a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 빌드된 파일을 받는다.<br />
-굳이 빌드할 필요도 없음…</p>
-</blockquote>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -682,7 +597,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-07 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-08 23:58:58 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
