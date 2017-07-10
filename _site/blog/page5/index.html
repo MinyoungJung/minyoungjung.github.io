@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">39</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">39</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">40</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,67 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/">
+        브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기
+      </a>
+    </h1>
+
+    <span class="post-date">19 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#css" class="post-tag">CSS</a>
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
+    
+    <a href="/blog/tags/#cache" class="post-tag">Cache</a>
+    
+    <a href="/blog/tags/#localhost" class="post-tag">Localhost</a>
+    
+    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
+    
+    
+
+    <article>
+      <h1 id="브라우저-css-캐쉬-무력화하기">브라우저 CSS 캐쉬 무력화하기</h1>
+<p>웹서비스를 제작하며 CSS 를 수정하다보면 분명 수정했는데도 불구하고 브라우저에 적용되지 않을때가 있다.<br />
+이는 브라우저가 기존의 CSS 파일을 캐쉬로 저장하고 있기 때문인데 간단하게 해결할 수 있다.</p>
+
+<h2 id="해결방법">해결방법</h2>
+<p>HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
+</code></pre>
+</div>
+
+<h3 id="django의-경우">Django의 경우</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+&lt;link href="{% static '/css/custom.css' %}?v=1.0" rel="stylesheet"&gt;
+
+</code></pre>
+</div>
+
+<h1 id="mac에서-localhost-지정하기">Mac에서 Localhost 지정하기</h1>
+<p>IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는<br />
+<code class="highlighter-rouge">/private/etc/hosts</code> 이다.<br />
+<code class="highlighter-rouge">sudo vi /private/etc/hosts</code>와 같이 해당 파일을 편집기로 진입해 host이름과 ip 짝을 수정해주면 된다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -519,88 +580,6 @@ DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/">
-        Django를 이용한 건물주 평판 조회 서비스 제작 (2) - DB 구성, 외부 라이브러리
-      </a>
-    </h1>
-
-    <span class="post-date">14 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
-    
-    
-
-    <article>
-      <h1 id="db-구성">DB 구성</h1>
-<h2 id="reputation-테이블">Reputation 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">ID</th>
-      <th style="text-align: center">Longitude</th>
-      <th style="text-align: center">Latitude</th>
-      <th style="text-align: center">Description</th>
-      <th style="text-align: center">Created_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">Primary Key</td>
-      <td style="text-align: center">경도</td>
-      <td style="text-align: center">위도</td>
-      <td style="text-align: center">평판</td>
-      <td style="text-align: center">레코드 생성 날짜</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br /></p>
-<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
-<h2 id="app-구성">App 구성</h2>
-<p>평판 조회/출력하는 단일 app으로 구성</p>
-
-<h2 id="주소검색-라이브러리">주소검색 라이브러리</h2>
-<p><a href="http://www.juso.go.kr/addrlink/main.do">주소검색솔루션</a><br />
-행정자치부에서 만든 솔루션이다.<br />
-자체적으로 서버에 솔루션을 설치해야 하기에 간단히 제작한다는 취지에 너무 과하다는 생각이 들어 패스했다.</p>
-
-<p><a href="https://developers.naver.com/docs/map/javascriptv3/">네이버맵스</a><br />
-간단하고 쓰기편한 네이버 지도 API 선택.</p>
-
-<h2 id="프론트엔드-라이브러리">프론트엔드 라이브러리</h2>
-<p><a href="http://http://getbootstrap.com/">부트스트랩</a><br />
-프론트엔드는 그냥 고민없이 부트스트랩으로…</p>
-
-<h1 id="추후-일정">추후 일정</h1>
-<p>Generic View, Admin 기능 등.. 최대한 장고 자체의 기능을 이용해서 빨리빨리 MVP 구현.<br />
-이후 저번 프로젝트와는 다른쪽에 중점을 두고 개선/확장 예정</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -669,7 +648,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-08 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-09 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
