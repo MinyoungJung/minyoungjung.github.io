@@ -4,13 +4,41 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-09T00:12:14+09:00</updated>
+ <updated>2017-07-11T00:32:14+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-09T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration</id>
+   <content type="html">&lt;h1 id=&quot;주의점-1&quot;&gt;주의점 1&lt;/h1&gt;
+&lt;p&gt;그냥 Open existing project 하면 에로사항이 꽃핀다.&lt;br /&gt;
+import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것&lt;/p&gt;
+
+&lt;h1 id=&quot;주의점-2&quot;&gt;주의점 2&lt;/h1&gt;
+&lt;p&gt;때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다.&lt;br /&gt;
+이클립스를 지워버렸으면 좀더 귀찮아진다…&lt;/p&gt;
+
+&lt;h1 id=&quot;주의점-3&quot;&gt;주의점 3&lt;/h1&gt;
+&lt;p&gt;임포트 후에 라이브러리 설정을 잘 해줘야 한다.&lt;br /&gt;
+support-library 관련 충돌이 많이 일어난다.&lt;br /&gt;
+빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;주의점-4&quot;&gt;주의점 4&lt;/h1&gt;
+&lt;p&gt;임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다.&lt;br /&gt;
+한마디로 &lt;code class=&quot;highlighter-rouge&quot;&gt;app/src/main&lt;/code&gt; 과 이중으로 폴더가 남아있는 것…&lt;br /&gt;
+이때문에 xml 레이아웃 수정시에 &lt;code class=&quot;highlighter-rouge&quot;&gt;URI is not registered ( Setting | Project Settings | Schemas and DTDs&lt;/code&gt; 가 출력되며,
+&lt;code class=&quot;highlighter-rouge&quot;&gt;xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&lt;/code&gt; 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다.&lt;br /&gt;
+해당 폴더들을 삭제하면 해결된다.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>돈을 배우다 - 좋은 책의 조건</title>

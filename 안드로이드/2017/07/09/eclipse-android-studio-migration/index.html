@@ -11,7 +11,7 @@
 
   <title>
     
-      개인 도메인으로 이메일 설정하기 &middot; Ringsterz Log
+      이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점 &middot; Ringsterz Log
     
   </title>
 
@@ -36,19 +36,19 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.2.3 -->
-<title>개인 도메인으로 이메일 설정하기 | Ringsterz Log</title>
-<meta property="og:title" content="개인 도메인으로 이메일 설정하기" />
+<title>이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점 | Ringsterz Log</title>
+<meta property="og:title" content="이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다." />
-<meta property="og:description" content="기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다." />
-<link rel="canonical" href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/" />
-<meta property="og:url" content="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/" />
+<meta name="description" content="주의점 1 그냥 Open existing project 하면 에로사항이 꽃핀다. import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것 주의점 2 때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다. 이클립스를 지워버렸으면 좀더 귀찮아진다… 주의점 3 임포트 후에 라이브러리 설정을 잘 해줘야 한다. support-library 관련 충돌이 많이 일어난다. 빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다. 주의점 4 임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다. 한마디로 app/src/main 과 이중으로 폴더가 남아있는 것… 이때문에 xml 레이아웃 수정시에 URI is not registered ( Setting | Project Settings | Schemas and DTDs 가 출력되며, xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다. 해당 폴더들을 삭제하면 해결된다." />
+<meta property="og:description" content="주의점 1 그냥 Open existing project 하면 에로사항이 꽃핀다. import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것 주의점 2 때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다. 이클립스를 지워버렸으면 좀더 귀찮아진다… 주의점 3 임포트 후에 라이브러리 설정을 잘 해줘야 한다. support-library 관련 충돌이 많이 일어난다. 빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다. 주의점 4 임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다. 한마디로 app/src/main 과 이중으로 폴더가 남아있는 것… 이때문에 xml 레이아웃 수정시에 URI is not registered ( Setting | Project Settings | Schemas and DTDs 가 출력되며, xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다. 해당 폴더들을 삭제하면 해결된다." />
+<link rel="canonical" href="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-06-30T00:00:00+09:00" />
+<meta property="article:published_time" content="2017-07-09T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"개인 도메인으로 이메일 설정하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-30T00:00:00+09:00","dateModified":"2017-06-30T00:00:00+09:00","description":"기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"},"url":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"}</script>
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-09T00:00:00+09:00","dateModified":"2017-07-09T00:00:00+09:00","description":"주의점 1 그냥 Open existing project 하면 에로사항이 꽃핀다. import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것 주의점 2 때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다. 이클립스를 지워버렸으면 좀더 귀찮아진다… 주의점 3 임포트 후에 라이브러리 설정을 잘 해줘야 한다. support-library 관련 충돌이 많이 일어난다. 빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다. 주의점 4 임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다. 한마디로 app/src/main 과 이중으로 폴더가 남아있는 것… 이때문에 xml 레이아웃 수정시에 URI is not registered ( Setting | Project Settings | Schemas and DTDs 가 출력되며, xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다. 해당 폴더들을 삭제하면 해결된다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -181,50 +181,40 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">개인 도메인으로 이메일 설정하기</h1>
-  <span class="post-date">30 Jun 2017</span>
+  <h1 class="post-title">이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점</h1>
+  <span class="post-date">09 Jul 2017</span>
    | 
   
-    <a href="/blog/tags/#e-mail" class="post-tag">E-mail</a>
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
   
-    <a href="/blog/tags/#domain" class="post-tag">Domain</a>
+    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
   
-    <a href="/blog/tags/#mailgun" class="post-tag">Mailgun</a>
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+  
+    <a href="/blog/tags/#eclipse" class="post-tag">Eclipse</a>
   
   
   <article>
-    <p>기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다.<br />
-한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니,<br />
-네이버 웍스가 2016년 말쯤에 유료로 전환되었다.<br />
-굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후,<br />
-SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
+    <h1 id="주의점-1">주의점 1</h1>
+<p>그냥 Open existing project 하면 에로사항이 꽃핀다.<br />
+import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것</p>
 
-<h1 id="설정법">설정법</h1>
-<h2 id="지메일-환경설정-진입">지메일 환경설정 진입</h2>
-<p><img src="/post_assets/2017-06-30/settings.png" alt="지메일설정" /></p>
+<h1 id="주의점-2">주의점 2</h1>
+<p>때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다.<br />
+이클립스를 지워버렸으면 좀더 귀찮아진다…</p>
 
-<p>가** 서비스의 무료 웹메일을 기준 설정</p>
+<h1 id="주의점-3">주의점 3</h1>
+<p>임포트 후에 라이브러리 설정을 잘 해줘야 한다.<br />
+support-library 관련 충돌이 많이 일어난다.<br />
+빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다.</p>
 
-<p><strong>계정 및 가져오기</strong> 탭 선택</p>
+<h1 id="주의점-4">주의점 4</h1>
+<p>임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다.<br />
+한마디로 <code class="highlighter-rouge">app/src/main</code> 과 이중으로 폴더가 남아있는 것…<br />
+이때문에 xml 레이아웃 수정시에 <code class="highlighter-rouge">URI is not registered ( Setting | Project Settings | Schemas and DTDs</code> 가 출력되며,
+<code class="highlighter-rouge">xmlns:android="http://schemas.android.com/apk/res/android"</code> 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다.<br />
+해당 폴더들을 삭제하면 해결된다.</p>
 
-<h2 id="메일-가져오기-pop3">메일 가져오기 (POP3)</h2>
-<ol>
-  <li><strong>다른 계정에서 메일 확인하기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>다른 계정에서 이메일 가져오기(POP3) 선택</li>
-  <li>POP3 연결 설정
-<img src="/post_assets/2017-06-30/pop3-secure.png" alt="POP3설정" /></li>
-</ol>
-
-<h2 id="메일-보내기-smtp">메일 보내기 (SMTP)</h2>
-<ol>
-  <li><strong>다른 주소에서 메일 보내기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>SMTP 설정
-<img src="/post_assets/2017-06-30/smtp.png" alt="SMTP설정" /></li>
-</ol>
-
-<p><strong>무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.</strong></p>
 
   </article>
 </div>
@@ -232,15 +222,6 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/">
-            이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점
-            <small>09 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -260,6 +241,15 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
         </h3>
       </li>
     
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/">
+            안드로이드에 Facebook Graph API 사용하기
+            <small>06 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
   </ul>
 </div>
 
@@ -269,8 +259,8 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');
