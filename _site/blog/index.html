@@ -62,8 +62,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">40</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">43</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">43</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -183,6 +183,138 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close/">
+        안드로이드 startActivity 시에 기존 activity 제거하기
+      </a>
+    </h1>
+
+    <span class="post-date">12 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    
+
+    <article>
+      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
+그냥 간단한 것이라도 남기기로 한다.</p>
+
+<h1 id="인텐트-전달하며-기존-액티비티-제거하기">인텐트 전달하며 기존 액티비티 제거하기</h1>
+<p>액티비티에서 액티비티로 갈때에는 <code class="highlighter-rouge">finish();</code> 를 호출하면 간단하다.</p>
+
+<p>비동기 태스크와 같이 액티비티가 아닌 곳에서 기존 액티비티를 없애려면 다음과 같이 한다.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">i</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TOP</span><span class="o">);</span>
+<span class="n">context</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h1 id="사용법">사용법</h1>
+<p>Splash 화면 만들어놓고 비동기로 작업 해놓고 그 작업이 다 완료되면 다음 액티비티로 넘어가며,<br />
+Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/">
+        안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
+      </a>
+    </h1>
+
+    <span class="post-date">11 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    
+
+    <article>
+      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
+그냥 간단한 것이라도 남기기로 한다.</p>
+
+<h1 id="xml에-물결-이펙트-넣기">XML에 물결 이펙트 넣기</h1>
+<p>위젯이 터치 이벤트에 반응하여 움직이는 것처럼 보이게 하려면 위젯의 XML attribute에<br />
+<code class="highlighter-rouge">android:background="?attr/selectableItemBackgroundBorderless" </code>
+를 추가하면 된다.</p>
+
+<p>이펙트 크기는 padding값을 적절히 조절하면 된다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/">
+        안드로이드 액티비티 전체화면 만들기
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    
+
+    <article>
+      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
+그냥 간단한 것이라도 남기기로 한다.</p>
+
+<h1 id="툴바-및-상태바-숨기기">툴바 및 상태바 숨기기</h1>
+
+<p>아래 코드를 onCreate의 <code class="highlighter-rouge">setContentView</code> 전에 해주면 된다.<br />
+사실 Android Studio에서 자동으로 생성해주는 FullScreenActivity에서도 볼 수 있는 내용이다.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">getWindow</span><span class="o">().</span><span class="na">getDecorView</span><span class="o">().</span><span class="na">setSystemUiVisibility</span><span class="o">(</span>
+    <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_STABLE</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_HIDE_NAVIGATION</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_FULLSCREEN</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_IMMERSIVE_STICKY</span><span class="o">);</span>
+</code></pre>
+</div>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/">
         이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점
       </a>
@@ -287,260 +419,6 @@ support-library 관련 충돌이 많이 일어난다.<br />
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EB%8B%A8%EC%83%81/2017/07/07/one-day-one-commit/">
-        일일커밋, 일일 블로깅
-      </a>
-    </h1>
-
-    <span class="post-date">07 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#thinking" class="post-tag">Thinking</a>
-    
-    
-
-    <article>
-      <p>1일 1커밋과 1일 1블로깅을 한달 넘계 계속해왔다.<br />
-7/3일 하루가 빠져있는데, 이날 커밋한 리포지토리를 삭제했기 때문에 발생한 일이다.<br />
-한칸이 비어있는 것이 못내 아쉽기는 하지만 자신과의 약속은 깨지 않았다는 것에 만족한다.<br />
-한달넘게 일일커밋과 블로깅을 하며 느낀점은…</p>
-
-<ol>
-  <li>글쓰기도 익숙해지면 점점 빨라진다.<br />
-처음에는 이런식이면 어떻게 하나 싶었던 문서화도 점점 할수록 익숙해지고 빨라진다.</li>
-  <li>어거지로라도 한줄이라도 코딩을 한다.<br />
-필(?)받을때 몰아서 하고, 안될때는 잘 안되는 편이라 기복이 좀 있는데 이럴때 억지로라도 시작하면<br />
-어느새 평균정도 능률은 나오기도 한다.<br />
-다만 별의미없는 내용을 12시가 넘기전에 커밋하는 치팅(?)은 반성해야겠다.</li>
-  <li>하루를 반성하고 돌아보는 계기가 된다.
-그날 정리할 것이 없으면 뭔가 한 것이 없다는 생각이 든다. 꾸준한 정진의 발판이 될 것 같다.</li>
-</ol>
-
-<p>나름 장단이 있지만 현재로서는 장점이 더 많은 것 같다. 좀 더 계속해보자.</p>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/07/07/one-day-one-commit/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/07/07/one-day-one-commit/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/">
-        안드로이드에 Facebook Graph API 사용하기
-      </a>
-    </h1>
-
-    <span class="post-date">06 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#facebook-sdk" class="post-tag">Facebook SDK</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
-    
-    <a href="/blog/tags/#graph-api" class="post-tag">Graph API</a>
-    
-    
-
-    <article>
-      <h1 id="graph-api-사용-flow">Graph API 사용 Flow</h1>
-<h2 id="인증-후-accesstoken-획득">인증 후 AccessToken 획득</h2>
-<p><code class="highlighter-rouge">AccessToken accessToken = AccessToken.getCurrentAccessToken();</code></p>
-
-<h2 id="graph-request-생성">Graph Request 생성</h2>
-<p>accessToken, URL endpoint, params, HttpMethod, Callback method를 인자로 생성<br />
-이후 <code class="highlighter-rouge">executeAsync()</code>로 비동기 실행</p>
-
-<p><strong>예제 1 - 사용자 이름 얻기</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">GraphRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">newMeRequest</span><span class="o">(</span><span class="n">accessToken</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">GraphJSONObjectCallback</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span>
-            <span class="n">JSONObject</span> <span class="n">object</span><span class="o">,</span>
-            <span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Logged in as:"</span> <span class="o">+</span> <span class="n">object</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">je</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"FB"</span><span class="o">,</span> <span class="s">"No key provided."</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">});</span>
-<span class="n">Bundle</span> <span class="n">parameters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
-<span class="n">parameters</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="s">"fields"</span><span class="o">,</span> <span class="s">"id,name,link"</span><span class="o">);</span>
-<span class="n">request</span><span class="o">.</span><span class="na">setParameters</span><span class="o">(</span><span class="n">parameters</span><span class="o">);</span>
-<span class="n">request</span><span class="o">.</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-<p><strong>예제 2 - 페이스북 페이지에 게시물 포스팅</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">GraphRequest</span><span class="o">(</span>
-    <span class="n">AccessToken</span><span class="o">.</span><span class="na">getCurrentAccessToken</span><span class="o">(),</span>
-    <span class="s">"/912605208889540/feed"</span><span class="o">,</span> <span class="c1">// 페이지 ID</span>
-    <span class="n">params</span><span class="o">,</span>
-    <span class="n">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">Callback</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span><span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getBaseContext</span><span class="o">(),</span> <span class="s">"Write Complete"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">).</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-
-<p><strong>예제 3 - 페이스북 페이지 게시물 가져오기</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">GraphRequest</span><span class="o">(</span>
-    <span class="n">AccessToken</span><span class="o">.</span><span class="na">getCurrentAccessToken</span><span class="o">(),</span>
-    <span class="s">"/912605208889540/feed"</span><span class="o">,</span>
-    <span class="kc">null</span><span class="o">,</span>
-    <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">Callback</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span><span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">JSONObject</span> <span class="n">jsonObj</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getJSONObject</span><span class="o">();</span>
-            <span class="n">JSONArray</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">jsonArray</span> <span class="o">=</span> <span class="n">jsonObj</span><span class="o">.</span><span class="na">getJSONArray</span><span class="o">(</span><span class="s">"data"</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">je</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"FB"</span><span class="o">,</span> <span class="s">"Error fetching JSON"</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">).</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-
-<h2 id="기타-확인할-것">기타 확인할 것</h2>
-<ol>
-  <li>Facebook 개발자 페이지에서 <code class="highlighter-rouge">앱 검수</code> 항목에서 쓰기 권한 검수 받기</li>
-  <li>Facebook 개발자 페이지에서 앱 공개해서 SANDBOX에서 실행되지 않도록 할 것<br />
-(앱 공개 안하면 안드로이드 앱을 통해 Publishing한 포스트들이 다른 사람에게 보이지 않음)</li>
-</ol>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/">
-        안드로이드에 Facebook 로그인 연동하기
-      </a>
-    </h1>
-
-    <span class="post-date">05 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#facebook-sdk" class="post-tag">Facebook SDK</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
-    
-    
-
-    <article>
-      <h1 id="facebook-sdk-연동하기">Facebook SDK 연동하기</h1>
-<p>한동안 Facebook SDK를 쓸일이 없다가 다시 기회가 생겨 간단한 샘플을 제작해 보았다.<br />
-잊어버리지 않게 정리해두려 한다.</p>
-
-<h2 id="dependency-추가">Dependency 추가</h2>
-<p><code class="highlighter-rouge">compile 'com.facebook.android:facebook-android-sdk:[4,5)'</code>를 <code class="highlighter-rouge">build.gradle</code>에 추가한다.</p>
-
-<h2 id="manifest-수정">Manifest 수정</h2>
-<p>인터넷 엑서스가 필요하므로 권한을 추가해야 한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<p>meta Data를 추가해 어플리케이션 ID를 넣고,</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">"com.facebook.sdk.ApplicationId"</span>
-    <span class="na">android:value=</span><span class="s">"@string/facebook_app_id"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<p>Facebook Activity도 추가해야 한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">"com.facebook.FacebookActivity"</span>
-    <span class="na">android:configChanges=</span>
-        <span class="s">"keyboard|keyboardHidden|screenLayout|screenSize|orientation"</span>
-    <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
-<h2 id="layout-수정">Layout 수정</h2>
-<p>페이스북에서 제공하는 기본 로그인 버튼을 이용하려면, 레이아웃에 다음을 추가한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;com.facebook.login.widget.LoginButton</span>
-    <span class="na">android:id=</span><span class="s">"@+id/login_button"</span>
-    <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:layout_gravity=</span><span class="s">"center_horizontal"</span>
-    <span class="na">android:layout_marginTop=</span><span class="s">"30dp"</span>
-    <span class="na">android:layout_marginBottom=</span><span class="s">"30dp"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<h2 id="activity-수정">Activity 수정</h2>
-<ol>
-  <li>LoginButton의 참조를 얻은 후<br />
-<code class="highlighter-rouge">final LoginButton mLoginBtn = (LoginButton) findViewById(R.id.login_button);</code></li>
-  <li>읽기 퍼미션을 준다.<br />
-<code class="highlighter-rouge">mLoginBtn.setReadPermissions("public_profile");</code></li>
-  <li>쓰기 퍼미션은 추후 다음과 같이 LoginManager를 통해 준다.
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LoginManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">logInWithPublishPermissions</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
- <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"publish_actions"</span><span class="o">)</span>
-<span class="o">);</span>
-</code></pre>
-    </div>
-  </li>
-  <li>LoginButton에 콜백을 등록하고, 필요한 메소드를 오버라이드 한다.
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mLoginBtn</span><span class="o">.</span><span class="na">registerCallback</span><span class="o">(</span><span class="n">mCallbackManager</span><span class="o">,</span> <span class="k">new</span> <span class="n">FacebookCallback</span><span class="o">&lt;</span><span class="n">LoginResult</span><span class="o">&gt;()</span> <span class="o">{</span>
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">LoginResult</span> <span class="n">loginResult</span><span class="o">)</span> <span class="o">{</span>
-
- <span class="o">}</span>
-
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCancel</span><span class="o">()</span> <span class="o">{</span>
-
- <span class="o">}</span>
-
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">FacebookException</span> <span class="n">error</span><span class="o">)</span> <span class="o">{</span>
-
- <span class="o">}</span>
-<span class="o">});</span>
-</code></pre>
-    </div>
-  </li>
-  <li>onActivityResult를 통해 CallbackManager에 결과를 전달한다.<br />
-<code class="highlighter-rouge">mCallbackManager.onActivityResult(requestCode, resultCode, data);</code></li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -607,7 +485,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-09 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-12 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
