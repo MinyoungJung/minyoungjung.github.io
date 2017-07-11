@@ -4,13 +4,82 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-11T00:32:14+09:00</updated>
+ <updated>2017-07-12T02:33:21+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>안드로이드 startActivity 시에 기존 activity 제거하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-12T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close</id>
+   <content type="html">&lt;p&gt;요즘 바빠서 블로깅하기가 힘들다.&lt;br /&gt;
+그냥 간단한 것이라도 남기기로 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;인텐트-전달하며-기존-액티비티-제거하기&quot;&gt;인텐트 전달하며 기존 액티비티 제거하기&lt;/h1&gt;
+&lt;p&gt;액티비티에서 액티비티로 갈때에는 &lt;code class=&quot;highlighter-rouge&quot;&gt;finish();&lt;/code&gt; 를 호출하면 간단하다.&lt;/p&gt;
+
+&lt;p&gt;비동기 태스크와 같이 액티비티가 아닌 곳에서 기존 액티비티를 없애려면 다음과 같이 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MainActivity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFlags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;FLAG_ACTIVITY_NEW_TASK&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;FLAG_ACTIVITY_CLEAR_TASK&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;startActivity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;사용법&quot;&gt;사용법&lt;/h1&gt;
+&lt;p&gt;Splash 화면 만들어놓고 비동기로 작업 해놓고 그 작업이 다 완료되면 다음 액티비티로 넘어가며,&lt;br /&gt;
+Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-11T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect</id>
+   <content type="html">&lt;p&gt;요즘 바빠서 블로깅하기가 힘들다.&lt;br /&gt;
+그냥 간단한 것이라도 남기기로 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;xml에-물결-이펙트-넣기&quot;&gt;XML에 물결 이펙트 넣기&lt;/h1&gt;
+&lt;p&gt;위젯이 터치 이벤트에 반응하여 움직이는 것처럼 보이게 하려면 위젯의 XML attribute에&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;android:background=&quot;?attr/selectableItemBackgroundBorderless&quot; &lt;/code&gt;
+를 추가하면 된다.&lt;/p&gt;
+
+&lt;p&gt;이펙트 크기는 padding값을 적절히 조절하면 된다.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>안드로이드 액티비티 전체화면 만들기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-10T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen</id>
+   <content type="html">&lt;p&gt;요즘 바빠서 블로깅하기가 힘들다.&lt;br /&gt;
+그냥 간단한 것이라도 남기기로 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;툴바-및-상태바-숨기기&quot;&gt;툴바 및 상태바 숨기기&lt;/h1&gt;
+
+&lt;p&gt;아래 코드를 onCreate의 &lt;code class=&quot;highlighter-rouge&quot;&gt;setContentView&lt;/code&gt; 전에 해주면 된다.&lt;br /&gt;
+사실 Android Studio에서 자동으로 생성해주는 FullScreenActivity에서도 볼 수 있는 내용이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getDecorView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setSystemUiVisibility&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_LAYOUT_STABLE&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_HIDE_NAVIGATION&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_FULLSCREEN&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SYSTEM_UI_FLAG_IMMERSIVE_STICKY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점</title>
