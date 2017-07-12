@@ -4,13 +4,45 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-12T02:33:21+09:00</updated>
+ <updated>2017-07-13T01:48:28+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>안드로이드 Activity에서 Fragment로부터 데이터 전달 받기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-13T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity</id>
+   <content type="html">&lt;p&gt;요즘 바빠서 블로깅하기가 힘들다.&lt;br /&gt;
+그냥 간단한 것이라도 남기기로 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;사용씬&quot;&gt;사용씬&lt;/h1&gt;
+&lt;p&gt;액티비티에서 Fragment Transaction을 이용하여 DialogFragment 등을 호출했다.&lt;br /&gt;
+이 Dialog가 종료시에 Activity가 결과값을 돌려받고자 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;문제점&quot;&gt;문제점&lt;/h1&gt;
+&lt;p&gt;Fragment - Fragment 면 &lt;code class=&quot;highlighter-rouge&quot;&gt;setTargetFragment&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;onActivityResult&lt;/code&gt;를 통해 인텐트로 전달가능하다.&lt;br /&gt;
+하지만 Activity가 Fragment를 호출했을때는 Dialog가 종료 시 &lt;code class=&quot;highlighter-rouge&quot;&gt;onActivityResult&lt;/code&gt;가 호출되지 않는다.&lt;/p&gt;
+
+&lt;h1 id=&quot;해결책&quot;&gt;해결책&lt;/h1&gt;
+&lt;p&gt;액티비티에서 인터페이스를 생성하여 구현하거나 기타등등 해결법이 있지만 제일 간단한 방법은…&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;액티비티에 public 메소드를 구현한다.&lt;/li&gt;
+  &lt;li&gt;DialogFragment에서 다음과 같이 액티비티의 메소드를 인자와 같이 호출한다.
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MainActivity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;someMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;엄밀히 따지면 데이터 전달은 아니다.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>안드로이드 startActivity 시에 기존 activity 제거하기</title>
