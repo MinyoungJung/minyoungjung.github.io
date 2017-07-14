@@ -61,8 +61,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">44</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">44</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">45</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">45</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -216,6 +216,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
     <a href="/blog/categories/#이메일" class="post-tag">이메일</a>
     
+    <a href="/blog/categories/#데이터베이스" class="post-tag">데이터베이스</a>
+    
   </div>
   <hr/>
 </div>
@@ -225,6 +227,12 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="tags-expo-section">
     <ul class="tags-expo-posts">
       
+        <big class="post-date">14 Jul 2017</big>
+        <li>
+            <a class="post-title" href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/">안드로이드 SQLite에 대량의 레코드 삽입하기 </a>
+        </li>
+      <br>
+      
         <big class="post-date">13 Jul 2017</big>
         <li>
             <a class="post-title" href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/">안드로이드 Activity에서 Fragment로부터 데이터 전달 받기 </a>
@@ -233,7 +241,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       
         <big class="post-date">12 Jul 2017</big>
         <li>
-            <a class="post-title" href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close/">안드로이드 startActivity 시에 기존 activity 제거하기 </a>
+            <a class="post-title" href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/">안드로이드 startActivity 시에 기존 activity 제거하기 </a>
         </li>
       <br>
       
@@ -616,6 +624,12 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <a href="/blog/tags/#eclipse" class="post-tag">Eclipse</a>
     
+      <a href="/blog/tags/#ui" class="post-tag">UI</a>
+    
+      <a href="/blog/tags/#sqlite" class="post-tag">SQLite</a>
+    
+      <a href="/blog/tags/#database" class="post-tag">Database</a>
+    
   </div>
 </div>
 
@@ -675,7 +689,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-13 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-14 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
