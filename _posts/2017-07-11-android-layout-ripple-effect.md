@@ -2,7 +2,7 @@
 layout: post
 title: 안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
 category: [안드로이드]
-tags: [Android, Android Studio, Java]
+tags: [Android, Java, UI]
 ---
 
 요즘 바빠서 블로깅하기가 힘들다.  

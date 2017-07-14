@@ -2,11 +2,8 @@
 layout: post
 title: 안드로이드 startActivity 시에 기존 activity 제거하기
 category: [안드로이드]
-tags: [Android, Android Studio, Java]
+tags: [Android, Java]
 ---
-
-요즘 바빠서 블로깅하기가 힘들다.  
-그냥 간단한 것이라도 남기기로 한다.  
 
 # 인텐트 전달하며 기존 액티비티 제거하기
 액티비티에서 액티비티로 갈때에는 `finish();` 를 호출하면 간단하다.  

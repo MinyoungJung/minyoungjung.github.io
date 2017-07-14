@@ -2,11 +2,8 @@
 layout: post
 title: 안드로이드 Activity에서 Fragment로부터 데이터 전달 받기
 category: [안드로이드]
-tags: [Android, Android Studio, Java]
----
-
-요즘 바빠서 블로깅하기가 힘들다.  
-그냥 간단한 것이라도 남기기로 한다.  
+tags: [Android, Java]
+---  
 
 # 사용씬
 액티비티에서 Fragment Transaction을 이용하여 DialogFragment 등을 호출했다.  

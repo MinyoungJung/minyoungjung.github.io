@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/</loc>
+    
+    <lastmod>2017-07-14T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/</loc>
     
     <lastmod>2017-07-13T00:00:00+09:00</lastmod>
@@ -14,7 +23,7 @@
   </url>
   
   <url>
-    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-studio-activity-close/</loc>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/</loc>
     
     <lastmod>2017-07-12T00:00:00+09:00</lastmod>
     
@@ -787,6 +796,24 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Eclipse</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#UI</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#SQLite</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Database</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

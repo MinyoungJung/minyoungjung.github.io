@@ -11,7 +11,7 @@
 
   <title>
     
-      Blog &middot; Ringsterz Log
+      안드로이드 SQLite에 대량의 레코드 삽입하기 &middot; Ringsterz Log
     
   </title>
 
@@ -36,18 +36,19 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.2.3 -->
-<title>Blog | Ringsterz Log</title>
-<meta property="og:title" content="Blog" />
+<title>안드로이드 SQLite에 대량의 레코드 삽입하기 | Ringsterz Log</title>
+<meta property="og:title" content="안드로이드 SQLite에 대량의 레코드 삽입하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="하루를 정리하는 데일리 로그" />
-<meta property="og:description" content="하루를 정리하는 데일리 로그" />
-<link rel="canonical" href="http://localhost:4000/blog/" />
-<meta property="og:url" content="http://localhost:4000/blog/" />
+<meta name="description" content="사용씬 안드로이드의 로컬 저장소인 SQLite에 대용량의 레코드를 한번에 삽입하려 한다. ArrayList&lt;Data&gt; data 안에 4만개의 레코드가 있다. 통상정인 방법 SqliteOpenHelper 내 메소드 public long insertData(Data data) { ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); return getWritableDatabase().insert(TABLE_A, null, cv); } 하나의 레코드를 삽입하는 메소드를 정의했다. insertData 사용 for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } for 문을 돌려서 Data를 삽입한다. 문제점 만약 4만개의 레코드를 한번에 저장하려면 위의 방법으로는 대략 1분이 넘어간다. long startTime = System.nanoTime(); for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } long finishTime = System.nanoTime(); Log.e(TAG, &quot;Write to DB takes: &quot;+ (finishTime-startTime)/1e9 +&quot; seconds&quot;); 위와 같이 시간을 확인해 보았을 때, 94.216414초가 걸렸다. 원인 이는 SQlite가 하나의 레코드를 생성할때 Transaction을 수행하며 저널 파일을 생성하기 때문인데, 위의 방법으로는 4만여개의 저널파일을 생성하며 DB의 삽입 속도가 느려지게 된다. 해결책 하나의 Transaction으로 처리해 4만여개의 레코드를 한번에 삽입하며 저널파일을 한번만 생성하게 되면 된다. public void insertAllDatas(ArrayList&lt;Data&gt; datas) { SQLiteDatabase db = getWritableDatabase(); db.beginTransaction(); try { for (int i=0; i&lt;datas.size(); i++ ){ ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); db.insert(TABLE_A, null, cv); } db.setTransactionSuccessful(); } finally { db.endTransaction(); } 위의 방법으로 4만개의 레코드를 삽입할 때에는 2.813887초가 걸렸다." />
+<meta property="og:description" content="사용씬 안드로이드의 로컬 저장소인 SQLite에 대용량의 레코드를 한번에 삽입하려 한다. ArrayList&lt;Data&gt; data 안에 4만개의 레코드가 있다. 통상정인 방법 SqliteOpenHelper 내 메소드 public long insertData(Data data) { ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); return getWritableDatabase().insert(TABLE_A, null, cv); } 하나의 레코드를 삽입하는 메소드를 정의했다. insertData 사용 for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } for 문을 돌려서 Data를 삽입한다. 문제점 만약 4만개의 레코드를 한번에 저장하려면 위의 방법으로는 대략 1분이 넘어간다. long startTime = System.nanoTime(); for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } long finishTime = System.nanoTime(); Log.e(TAG, &quot;Write to DB takes: &quot;+ (finishTime-startTime)/1e9 +&quot; seconds&quot;); 위와 같이 시간을 확인해 보았을 때, 94.216414초가 걸렸다. 원인 이는 SQlite가 하나의 레코드를 생성할때 Transaction을 수행하며 저널 파일을 생성하기 때문인데, 위의 방법으로는 4만여개의 저널파일을 생성하며 DB의 삽입 속도가 느려지게 된다. 해결책 하나의 Transaction으로 처리해 4만여개의 레코드를 한번에 삽입하며 저널파일을 한번만 생성하게 되면 된다. public void insertAllDatas(ArrayList&lt;Data&gt; datas) { SQLiteDatabase db = getWritableDatabase(); db.beginTransaction(); try { for (int i=0; i&lt;datas.size(); i++ ){ ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); db.insert(TABLE_A, null, cv); } db.setTransactionSuccessful(); } finally { db.endTransaction(); } 위의 방법으로 4만개의 레코드를 삽입할 때에는 2.813887초가 걸렸다." />
+<link rel="canonical" href="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/" />
 <meta property="og:site_name" content="Ringsterz Log" />
-<link rel="next" href="http://localhost:4000/blog/page2">
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-14T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"WebPage","headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/blog/"}</script>
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"안드로이드 SQLite에 대량의 레코드 삽입하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-14T00:00:00+09:00","dateModified":"2017-07-14T00:00:00+09:00","description":"사용씬 안드로이드의 로컬 저장소인 SQLite에 대용량의 레코드를 한번에 삽입하려 한다. ArrayList&lt;Data&gt; data 안에 4만개의 레코드가 있다. 통상정인 방법 SqliteOpenHelper 내 메소드 public long insertData(Data data) { ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); return getWritableDatabase().insert(TABLE_A, null, cv); } 하나의 레코드를 삽입하는 메소드를 정의했다. insertData 사용 for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } for 문을 돌려서 Data를 삽입한다. 문제점 만약 4만개의 레코드를 한번에 저장하려면 위의 방법으로는 대략 1분이 넘어간다. long startTime = System.nanoTime(); for (int i=0; i&lt;data.size(); i++) { dbHelper.insertData(data.get(i)); } long finishTime = System.nanoTime(); Log.e(TAG, &quot;Write to DB takes: &quot;+ (finishTime-startTime)/1e9 +&quot; seconds&quot;); 위와 같이 시간을 확인해 보았을 때, 94.216414초가 걸렸다. 원인 이는 SQlite가 하나의 레코드를 생성할때 Transaction을 수행하며 저널 파일을 생성하기 때문인데, 위의 방법으로는 4만여개의 저널파일을 생성하며 DB의 삽입 속도가 느려지게 된다. 해결책 하나의 Transaction으로 처리해 4만여개의 레코드를 한번에 삽입하며 저널파일을 한번만 생성하게 되면 된다. public void insertAllDatas(ArrayList&lt;Data&gt; datas) { SQLiteDatabase db = getWritableDatabase(); db.beginTransaction(); try { for (int i=0; i&lt;datas.size(); i++ ){ ContentValues cv = new ContentValues(); cv.put(COLUMN_A, dataA); cv.put(COLUMN_B, dataB); cv.put(COLUMN_B, dataC); db.insert(TABLE_A, null, cv); } db.setTransactionSuccessful(); } finally { db.endTransaction(); } 위의 방법으로 4만개의 레코드를 삽입할 때에는 2.813887초가 걸렸다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -124,7 +125,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       
 
       <span class="foldable">
-        <a class="sidebar-nav-item active" href="/blog/">
+        <a class="sidebar-nav-item " href="/blog/">
           Blog
         </a>
 
@@ -179,30 +180,22 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
 
       <div class="container content">
-        <div class="posts">
+        <div class="post">
+  <h1 class="post-title">안드로이드 SQLite에 대량의 레코드 삽입하기</h1>
+  <span class="post-date">14 Jul 2017</span>
+   | 
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/">
-        안드로이드 SQLite에 대량의 레코드 삽입하기
-      </a>
-    </h1>
-
-    <span class="post-date">14 Jul 2017</span>
-     | 
-    
     <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
+  
     <a href="/blog/tags/#sqlite" class="post-tag">SQLite</a>
-    
+  
     <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
+  
     <a href="/blog/tags/#database" class="post-tag">Database</a>
-    
-    
-
-    <article>
-      <h1 id="사용씬">사용씬</h1>
+  
+  
+  <article>
+    <h1 id="사용씬">사용씬</h1>
 <p>안드로이드의 로컬 저장소인 SQLite에 대용량의 레코드를 한번에 삽입하려 한다.<br />
 <code class="highlighter-rouge">ArrayList&lt;Data&gt; data</code> 안에 4만개의 레코드가 있다.</p>
 
@@ -267,199 +260,60 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <p>위의 방법으로 4만개의 레코드를 삽입할 때에는 2.813887초가 걸렸다.</p>
 
 
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/">
-        안드로이드 Activity에서 Fragment로부터 데이터 전달 받기
-      </a>
-    </h1>
-
-    <span class="post-date">13 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <h1 id="사용씬">사용씬</h1>
-<p>액티비티에서 Fragment Transaction을 이용하여 DialogFragment 등을 호출했다.<br />
-이 Dialog가 종료시에 Activity가 결과값을 돌려받고자 한다.</p>
-
-<h1 id="문제점">문제점</h1>
-<p>Fragment - Fragment 면 <code class="highlighter-rouge">setTargetFragment</code>와 <code class="highlighter-rouge">onActivityResult</code>를 통해 인텐트로 전달가능하다.<br />
-하지만 Activity가 Fragment를 호출했을때는 Dialog가 종료 시 <code class="highlighter-rouge">onActivityResult</code>가 호출되지 않는다.</p>
-
-<h1 id="해결책">해결책</h1>
-<p>액티비티에서 인터페이스를 생성하여 구현하거나 기타등등 해결법이 있지만 제일 간단한 방법은…</p>
-<ol>
-  <li>액티비티에 public 메소드를 구현한다.</li>
-  <li>DialogFragment에서 다음과 같이 액티비티의 메소드를 인자와 같이 호출한다.
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">((</span><span class="n">MainActivity</span><span class="o">)</span><span class="n">getContext</span><span class="o">()).</span><span class="na">someMethod</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<p>엄밀히 따지면 데이터 전달은 아니다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/">
-        안드로이드 startActivity 시에 기존 activity 제거하기
-      </a>
-    </h1>
-
-    <span class="post-date">12 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <h1 id="인텐트-전달하며-기존-액티비티-제거하기">인텐트 전달하며 기존 액티비티 제거하기</h1>
-<p>액티비티에서 액티비티로 갈때에는 <code class="highlighter-rouge">finish();</code> 를 호출하면 간단하다.</p>
-
-<p>비동기 태스크와 같이 액티비티가 아닌 곳에서 기존 액티비티를 없애려면 다음과 같이 한다.</p>
-
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-<span class="n">i</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TOP</span><span class="o">);</span>
-<span class="n">context</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-</code></pre>
+  </article>
 </div>
 
-<h1 id="사용법">사용법</h1>
-<p>Splash 화면 만들어놓고 비동기로 작업 해놓고 그 작업이 다 완료되면 다음 액티비티로 넘어가며,<br />
-Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/">
-        안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
-      </a>
-    </h1>
-
-    <span class="post-date">11 Jul 2017</span>
-     | 
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
     
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/13/android-fragment-return-activity/">
+            안드로이드 Activity에서 Fragment로부터 데이터 전달 받기
+            <small>13 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
     
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/">
+            안드로이드 startActivity 시에 기존 activity 제거하기
+            <small>12 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
     
-    <a href="/blog/tags/#ui" class="post-tag">UI</a>
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/">
+            안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
+            <small>11 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
     
-    
-
-    <article>
-      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
-그냥 간단한 것이라도 남기기로 한다.</p>
-
-<h1 id="xml에-물결-이펙트-넣기">XML에 물결 이펙트 넣기</h1>
-<p>위젯이 터치 이벤트에 반응하여 움직이는 것처럼 보이게 하려면 위젯의 XML attribute에<br />
-<code class="highlighter-rouge">android:background="?attr/selectableItemBackgroundBorderless" </code>
-를 추가하면 된다.</p>
-
-<p>이펙트 크기는 padding값을 적절히 조절하면 된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/">
-        안드로이드 액티비티 전체화면 만들기
-      </a>
-    </h1>
-
-    <span class="post-date">10 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
-그냥 간단한 것이라도 남기기로 한다.</p>
-
-<h1 id="툴바-및-상태바-숨기기">툴바 및 상태바 숨기기</h1>
-
-<p>아래 코드를 onCreate의 <code class="highlighter-rouge">setContentView</code> 전에 해주면 된다.<br />
-사실 Android Studio에서 자동으로 생성해주는 FullScreenActivity에서도 볼 수 있는 내용이다.</p>
-
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">getWindow</span><span class="o">().</span><span class="na">getDecorView</span><span class="o">().</span><span class="na">setSystemUiVisibility</span><span class="o">(</span>
-    <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_STABLE</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_HIDE_NAVIGATION</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_FULLSCREEN</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_IMMERSIVE_STICKY</span><span class="o">);</span>
-</code></pre>
+  </ul>
 </div>
 
 
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-</div>
-
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/blog/page2">Older</a>
-  
-  
-    <span class="pagination-item newer">Newer</span>
-  
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </div>
 
 
