@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">45</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">45</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">46</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">46</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,53 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/">
+        안드로이드 액티비티 전체화면 만들기
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    
+
+    <article>
+      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
+그냥 간단한 것이라도 남기기로 한다.</p>
+
+<h1 id="툴바-및-상태바-숨기기">툴바 및 상태바 숨기기</h1>
+
+<p>아래 코드를 onCreate의 <code class="highlighter-rouge">setContentView</code> 전에 해주면 된다.<br />
+사실 Android Studio에서 자동으로 생성해주는 FullScreenActivity에서도 볼 수 있는 내용이다.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">getWindow</span><span class="o">().</span><span class="na">getDecorView</span><span class="o">().</span><span class="na">setSystemUiVisibility</span><span class="o">(</span>
+    <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_STABLE</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_HIDE_NAVIGATION</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_FULLSCREEN</span>
+        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_IMMERSIVE_STICKY</span><span class="o">);</span>
+</code></pre>
+</div>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -434,114 +481,6 @@ support-library 관련 충돌이 많이 일어난다.<br />
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/">
-        안드로이드에 Facebook 로그인 연동하기
-      </a>
-    </h1>
-
-    <span class="post-date">05 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#facebook-sdk" class="post-tag">Facebook SDK</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
-    
-    
-
-    <article>
-      <h1 id="facebook-sdk-연동하기">Facebook SDK 연동하기</h1>
-<p>한동안 Facebook SDK를 쓸일이 없다가 다시 기회가 생겨 간단한 샘플을 제작해 보았다.<br />
-잊어버리지 않게 정리해두려 한다.</p>
-
-<h2 id="dependency-추가">Dependency 추가</h2>
-<p><code class="highlighter-rouge">compile 'com.facebook.android:facebook-android-sdk:[4,5)'</code>를 <code class="highlighter-rouge">build.gradle</code>에 추가한다.</p>
-
-<h2 id="manifest-수정">Manifest 수정</h2>
-<p>인터넷 엑서스가 필요하므로 권한을 추가해야 한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<p>meta Data를 추가해 어플리케이션 ID를 넣고,</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">"com.facebook.sdk.ApplicationId"</span>
-    <span class="na">android:value=</span><span class="s">"@string/facebook_app_id"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<p>Facebook Activity도 추가해야 한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">"com.facebook.FacebookActivity"</span>
-    <span class="na">android:configChanges=</span>
-        <span class="s">"keyboard|keyboardHidden|screenLayout|screenSize|orientation"</span>
-    <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
-<h2 id="layout-수정">Layout 수정</h2>
-<p>페이스북에서 제공하는 기본 로그인 버튼을 이용하려면, 레이아웃에 다음을 추가한다.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;com.facebook.login.widget.LoginButton</span>
-    <span class="na">android:id=</span><span class="s">"@+id/login_button"</span>
-    <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:layout_gravity=</span><span class="s">"center_horizontal"</span>
-    <span class="na">android:layout_marginTop=</span><span class="s">"30dp"</span>
-    <span class="na">android:layout_marginBottom=</span><span class="s">"30dp"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
-
-<h2 id="activity-수정">Activity 수정</h2>
-<ol>
-  <li>LoginButton의 참조를 얻은 후<br />
-<code class="highlighter-rouge">final LoginButton mLoginBtn = (LoginButton) findViewById(R.id.login_button);</code></li>
-  <li>읽기 퍼미션을 준다.<br />
-<code class="highlighter-rouge">mLoginBtn.setReadPermissions("public_profile");</code></li>
-  <li>쓰기 퍼미션은 추후 다음과 같이 LoginManager를 통해 준다.
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LoginManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">logInWithPublishPermissions</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
- <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"publish_actions"</span><span class="o">)</span>
-<span class="o">);</span>
-</code></pre>
-    </div>
-  </li>
-  <li>LoginButton에 콜백을 등록하고, 필요한 메소드를 오버라이드 한다.
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mLoginBtn</span><span class="o">.</span><span class="na">registerCallback</span><span class="o">(</span><span class="n">mCallbackManager</span><span class="o">,</span> <span class="k">new</span> <span class="n">FacebookCallback</span><span class="o">&lt;</span><span class="n">LoginResult</span><span class="o">&gt;()</span> <span class="o">{</span>
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">LoginResult</span> <span class="n">loginResult</span><span class="o">)</span> <span class="o">{</span>
-
- <span class="o">}</span>
-
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCancel</span><span class="o">()</span> <span class="o">{</span>
-
- <span class="o">}</span>
-
- <span class="nd">@Override</span>
-     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">FacebookException</span> <span class="n">error</span><span class="o">)</span> <span class="o">{</span>
-
- <span class="o">}</span>
-<span class="o">});</span>
-</code></pre>
-    </div>
-  </li>
-  <li>onActivityResult를 통해 CallbackManager에 결과를 전달한다.<br />
-<code class="highlighter-rouge">mCallbackManager.onActivityResult(requestCode, resultCode, data);</code></li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -610,7 +549,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-14 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-15 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

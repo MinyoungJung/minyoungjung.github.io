@@ -63,8 +63,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">45</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">45</strong>일
+        현재 <strong id="current_date_streak" style="color:#FFC300;">46</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">46</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,67 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/">
+        개인 도메인으로 이메일 설정하기
+      </a>
+    </h1>
+
+    <span class="post-date">30 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#e-mail" class="post-tag">E-mail</a>
+    
+    <a href="/blog/tags/#domain" class="post-tag">Domain</a>
+    
+    <a href="/blog/tags/#mailgun" class="post-tag">Mailgun</a>
+    
+    
+
+    <article>
+      <p>기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다.<br />
+한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니,<br />
+네이버 웍스가 2016년 말쯤에 유료로 전환되었다.<br />
+굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후,<br />
+SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
+
+<h1 id="설정법">설정법</h1>
+<h2 id="지메일-환경설정-진입">지메일 환경설정 진입</h2>
+<p><img src="/post_assets/2017-06-30/settings.png" alt="지메일설정" /></p>
+
+<p>가** 서비스의 무료 웹메일을 기준 설정</p>
+
+<p><strong>계정 및 가져오기</strong> 탭 선택</p>
+
+<h2 id="메일-가져오기-pop3">메일 가져오기 (POP3)</h2>
+<ol>
+  <li><strong>다른 계정에서 메일 확인하기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
+  <li>이메일 주소 입력</li>
+  <li>다른 계정에서 이메일 가져오기(POP3) 선택</li>
+  <li>POP3 연결 설정
+<img src="/post_assets/2017-06-30/pop3-secure.png" alt="POP3설정" /></li>
+</ol>
+
+<h2 id="메일-보내기-smtp">메일 보내기 (SMTP)</h2>
+<ol>
+  <li><strong>다른 주소에서 메일 보내기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
+  <li>이메일 주소 입력</li>
+  <li>SMTP 설정
+<img src="/post_assets/2017-06-30/smtp.png" alt="SMTP설정" /></li>
+</ol>
+
+<p><strong>무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.</strong></p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -425,96 +486,6 @@ Tag analysis를 사용해 보라는 팝업이 계속해서 출력되어 사용�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/">
-        Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드
-      </a>
-    </h1>
-
-    <span class="post-date">25 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
-    
-    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
-    
-    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
-    
-    
-
-    <article>
-      <h1 id="진행률">진행률</h1>
-<p>모든 기능구현을 끝내고 개발/운영환경을 설정 후 여러 보안 키들을 분리했다.<br />
-<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기</a></p>
-
-<p>그리고 Heroku에 릴리즈하기 위한 설정을 했다.<br />
-<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a></p>
-
-<h1 id="heroku-설정-환경변수">Heroku 설정 (환경변수)</h1>
-<p>Django의 SECRET_KEY나 여러 API키들을 숨기기 위해 환경변수를 이용한 설정을 하는 경우,<br />
-Heroku에도 동일하게 환경변수를 이용해 설정을 해줘야 한다.</p>
-
-<h2 id="secret_key-설정">SECRET_KEY 설정</h2>
-<p><code class="highlighter-rouge">heroku config:set SECRET_KEY=asdasdsad</code> <strong>= 양쪽에 공백이 없어야 한다.</strong></p>
-
-<h2 id="django_settings_module-설정">DJANGO_SETTINGS_MODULE 설정</h2>
-<p><code class="highlighter-rouge">heroku config:set DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code><br />
-이 항목을 설정해야 Heroku에 push 할때 여러개의 설정 파일 중, 운영환경의 설정 파일을 적용한다.<br />
-<strong>이 항목을 적용하지 않으면 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생한다.</strong></p>
-
-<p>아니면 Heroku 사이트의 <a href="https://dashboard.heroku.com/apps">대시보드</a>에서 Settings 탭의 Config Variables를 통해 직접 설정할 수도 있다.</p>
-
-<h1 id="heroku-설정-local-test">Heroku 설정 (Local Test)</h1>
-<p><code class="highlighter-rouge">heroku conifg</code>를 통해 환경변수 설정값을 확인하고,<br />
-<code class="highlighter-rouge">heroku local web</code>을 통해 heroku 설정을 이용해 로컬 웹서버를 띄워본다.<br />
-이때 여전히 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생하는 경우가 있다.  <br />
-이는 로컬 웹서버를 띄울 시 DJANGO_SETTINGS_MODULE 환경변수 값을 Heroku에 설정한 값이 아닌<br />
-로컬에 설정되어 있는 값을 가져오기 때문이다.</p>
-
-<p><code class="highlighter-rouge">env | grep DJANGO_SETTINGS_MODULE</code>을 통해 값을 확인하고 값이 Heroku에 설정한 값과 다를 경우<br />
-<code class="highlighter-rouge">export DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code>를 입력하면 해결할 수 있다.</p>
-
-<h1 id="heroku-설정-debugfalse-및-whitenoise">Heroku 설정 (Debug=False 및 whitenoise)</h1>
-<p>이 설정 때문에 무난히도 삽질을 했다.<br />
-전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a> 시에는 사실 나 혼자 쓸 것이기도 하고,<br />
-귀찮기도 해서 Debug도 켜놓고 키값조차 감추지 않은 개발환경 그대로 Heroku에 업로드를 했다.<br />
-그때만 해도 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a> 대로만 하면 아무런 문제없이 Heroku에서 동작했다.</p>
-
-<p>문제는 Debug를 False로 놓았을 때인데… <a href="https://devcenter.heroku.com/articles/django-app-configuration#migrating-an-existing-django-project">Heroku 문서</a>부터가 삽질을 조장한다.<br />
-<a href="http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly">whitenoise 문서</a>를 보면 <code class="highlighter-rouge">settings.py</code>의 MIDDLEWARE 설정에 <code class="highlighter-rouge">whitenoise.middleware.WhiteNoiseMiddleware',</code>를 추가하라 되어있지만,<br />
-이런 내용이 Heroku에는 쏙 빠져있다.<br />
-덕분에 500 Internal server error를 일으키며 site가 동작하지 않는다.</p>
-
-<p>나의 경우는 미들웨어 설정을 추가했는데도 whitenoise가 계속 문제를 일으키며 staticfile을 제대로 제공하지 않아,<br />
-결국 whitenoise 대신 기본 Django staticfiles로 해결했다.</p>
-
-<h2 id="whitenoise-대신-default-django-staticfiles-이용">whitenoise 대신 default Django staticfiles 이용</h2>
-<p><code class="highlighter-rouge">STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'</code>로 교체<br />
-이후 <code class="highlighter-rouge">python manage.py collectstatic --settings=앱이름.settings.prod</code>를 실행하고<br />
-<code class="highlighter-rouge">heroku local web</code>을 실행하면 사이트가 정상 동작한다.<br />
-heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.</p>
-
-<h1 id="마무리">마무리</h1>
-<p>이걸로 또 하나의 프로젝트가 마무리 되었다.<br />
-<a href="http://landlord-reputation.herokuapp.com/">우리동네집주인 바로가기</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -583,7 +554,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-14 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-15 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
