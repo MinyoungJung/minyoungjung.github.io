@@ -4,13 +4,94 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-16T11:37:24+09:00</updated>
+ <updated>2017-07-20T03:28:23+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Django 프로젝트 Heroku 릴리즈 - (최종 수정)</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-16T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-최종</id>
+   <content type="html">&lt;p&gt;할때마다 고생이라 한번 더 정리한다.&lt;br /&gt;
+보안키 같은것 숨기지 않고, 그냥 가장 빠르게 설정하는 방법이다.&lt;br /&gt;
+CLI 등 툴 인스톨은 기존 포스팅을 참고하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;gunicorn-추가-장고-기본-폴더-구성-시&quot;&gt;gunicorn 추가 (장고 기본 폴더 구성 시)&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install gunicorn&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;procfile-추가&quot;&gt;Procfile 추가&lt;/h2&gt;
+&lt;p&gt;프로젝트 루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;Procfile&lt;/code&gt;을 추가하고 다음 내용을 추가&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;web: gunicorn myproject.wsgi --log-file -&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;runtimetxt-추가&quot;&gt;runtime.txt 추가&lt;/h2&gt;
+&lt;p&gt;프로젝트 루트에 &lt;code class=&quot;highlighter-rouge&quot;&gt;runtime.txt&lt;/code&gt;을 추가하고 다음 내용 추가 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;python-3.6.1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dj-database-url-추가&quot;&gt;dj-database-url 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip3 install dj-database-url&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;파일에 다음 내용 추가&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dj_database_url&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dj_database_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn_max_age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;whitenoise-추가&quot;&gt;whitenoise 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip install whitenoise&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에 다음 내용을 추가한다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;STATIC_ROOT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'staticfiles'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;STATICFILES_STORAGE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'whitenoise.django.GzipManifestStaticFilesStorage'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;wsgi.py&lt;/code&gt;에 다음 내용을 추가&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;psycopg2-추가&quot;&gt;psycopg2 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip install psycopg2&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;requirementstxt-생성&quot;&gt;requirements.txt 생성&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; 입력&lt;/p&gt;
+
+&lt;h2 id=&quot;allowed-host-추가&quot;&gt;ALLOWED Host 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;ALLOWED_HOSTS = ['*']&lt;/code&gt;를 추가&lt;/p&gt;
+
+&lt;h2 id=&quot;debug-끄기&quot;&gt;DEBUG 끄기&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;DEBUG = False&lt;/code&gt; 설정&lt;/p&gt;
+
+&lt;h2 id=&quot;heroku-앱-생성&quot;&gt;Heroku 앱 생성&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku create&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;git-commit-하고-heroku로-push&quot;&gt;Git commit 하고 heroku로 push&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git add .&lt;/code&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;git commit -m &quot;heroku settings update&quot;&lt;/code&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;git push heroku master&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;db가-생성&quot;&gt;db가 생성&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku run python manage.py migrate&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;슈퍼유저-생성&quot;&gt;슈퍼유저 생성&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;heroku run python manage.py createsuperuser&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;중요&quot;&gt;중요&lt;/h1&gt;
+&lt;p&gt;SECRET_KEY를 숨기려면 기존에 작성한 포스팅을 참고할 것.&lt;br /&gt;
+위의 방법은 가장 빠르게 릴리즈만을 위한 방법임&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>안드로이드 개발시에만 로그 출력하기</title>
@@ -1976,6 +2057,12 @@ application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h2 id=&quot;requirementstxt-생성&quot;&gt;requirements.txt 생성&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;를 입력하여 사용된 패키지를 추출한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;allowed-host-추가&quot;&gt;ALLOWED Host 추가&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;ALLOWED_HOSTS = ['*']&lt;/code&gt;를 추가한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;추가사항&quot;&gt;추가사항&lt;/h2&gt;
 &lt;p&gt;DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.&lt;br /&gt;
