@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name/</loc>
+    
+    <lastmod>2017-07-17T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC/</loc>
     
     <lastmod>2017-07-16T00:00:00+09:00</lastmod>
@@ -840,6 +849,12 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Log</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Finder</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
