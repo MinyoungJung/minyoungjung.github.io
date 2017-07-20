@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">47</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">48</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,80 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/">
+        Django를 이용한 포트폴리오 사이트 제작 (1) - 기획
+      </a>
+    </h1>
+
+    <span class="post-date">17 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#portfolio" class="post-tag">Portfolio</a>
+    
+    
+
+    <article>
+      <h1 id="발단">발단</h1>
+<p>매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다.<br />
+미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데,<br />
+사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다.</p>
+
+<p>1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고,<br />
+2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다.</p>
+
+<p>기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다.<br />
+그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다.</p>
+
+<p>3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다.</p>
+
+<h1 id="요구사항">요구사항</h1>
+<ol>
+  <li>최신 작업중인 작품을 보여주는 페이지</li>
+  <li>간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)</li>
+  <li>기존 작품 목록
+    <ul>
+      <li>목록을 선택하면 <a href="https://issuu.com/">ISSUU</a>와 같은 책 형식으로 작품을 보여줄 수 있어야 함.</li>
+      <li>아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음</li>
+    </ul>
+  </li>
+  <li>사이드 프로젝트 목록
+    <ul>
+      <li>주 작업 외에 기타 작품들을 전시할 공간</li>
+    </ul>
+  </li>
+</ol>
+
+<h1 id="요구사항-정리">요구사항 정리</h1>
+<p>모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만..<br />
+(작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.)<br />
+그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다.<br />
+사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고,<br />
+이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다.</p>
+
+<h1 id="다음주-목표">다음주 목표</h1>
+<ol>
+  <li>기본적인 목업 사이트 틀 잡기</li>
+  <li>책 형식으로 작품 보여주는 기능 구현</li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -555,83 +629,6 @@ my-virtualenv라는 이름의 가상환경 생성</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/">
-        Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획
-      </a>
-    </h1>
-
-    <span class="post-date">12 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-
-<p>1일 1커밋/포스팅의 압박에 무엇이라도 만들어내야 한다는 부담이 들기 시작했다.<br />
-누구에게 보여주고자 한 것도 아니고 스스로 한 약속이지만 부담이 있는 것은 사실이다.<br />
-다행히 아직까지는 그러한 부담이 긍정적으로 작용하는 것 같다.<br />
-<br />
-지난 프로젝트 이후 느낀 점이지만 프로젝트가 커지는 경우 디버깅과 완성도의 압박에 프로젝트의 흥미를 잃게 된다.<br />
-그런 것을 방지하고자 최대한 간단한 기능과 구조로 출발하기로 했다.<br />
-사실 그런것보다 “다작”하기로 결심한 이후 무엇을 만들 것인가를 결정하는 것이 더 어려운 편이다.<br />
-다행히 이번에는 아이디어를 제공하는 사건이 있어 그것을 토대로 서비스를 만들기로 했다.</p>
-
-<blockquote>
-  <p>지인이 사무실을 이전하는데 이전 사무실 건물주가 에어컨을 떼는 날 잠적하거나,<br />
-이런저런 일로 꼬투리를 잡아가며 한푼이라도 더 뜯어가려는(?) 행태를 보였다.</p>
-</blockquote>
-
-<p>이에 대해 이야기하다 기존 집주인/건물주의 평판을 조회할 수 있는 서비스를 제작해 보기로 했다.</p>
-
-<h1 id="요구사항">요구사항</h1>
-<ol>
-  <li>Google/Naver등 Map 서비스를 바탕으로 특정 위치의 건물주의 평판을 등록/조회할 수 있게 한다.</li>
-  <li><del>간단한 토론이 일어날 수 있도록 등록된 평판에 댓글 기능을 지원한다.</del> 그냥 평판이 여러개 등록되면 될듯 하다.</li>
-  <li>회원가입 시 간단한 인증 절차를 통해 인증되지 않은 회원은 평판<del>/댓글</del>을 등록할 수 없게 한다.</li>
-  <li>주소/위치 검색등을 통해 해당 위치의 평판을 보여주는 기능을 갖춘다.</li>
-</ol>
-
-<h1 id="목표">목표</h1>
-<ol>
-  <li>간결한 UI/UX</li>
-  <li>테스트 코드 삽입</li>
-  <li>Heroku등 무료 서비스를 이용한 퍼블리싱</li>
-  <li>REST API를 제작하여 App으로 연동 (옵션)</li>
-</ol>
-
-<h1 id="추가-목표">추가 목표</h1>
-<ol>
-  <li>안드로이드 App 연동</li>
-  <li>1주일 내 MVP 완성 (~6/18일)</li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/12/django-landlord-reputation-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -700,7 +697,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-16 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-17 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

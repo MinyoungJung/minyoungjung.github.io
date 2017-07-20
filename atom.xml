@@ -4,13 +4,43 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-20T03:28:23+09:00</updated>
+ <updated>2017-07-20T13:27:07+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Mac Finder에서 파일 이름으로 검색하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-17T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name</id>
+   <content type="html">&lt;h2 id=&quot;상황&quot;&gt;상황&lt;/h2&gt;
+&lt;p&gt;다음 그림과 같이 한 폴더에 많은 파일이 있다.&lt;br /&gt;
+&lt;img src=&quot;/post_assets/2017-07-17/search_list.png&quot; alt=&quot;서치 리스트&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 중 heroku라는 글자를 포함한 파일을 찾으려 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;오른쪽-위의-검색-창-사용&quot;&gt;오른쪽 위의 검색 창 사용&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-17/search_finder.png&quot; alt=&quot;파인더&quot; /&gt;
+검색 실패&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-17/search_by_name.png&quot; alt=&quot;파인더 이름검색&quot; /&gt;
+여전히 검색 실패&lt;/p&gt;
+
+&lt;p&gt;Spotlight를 통한 검색에서도 해당 파일을 찾지 못했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;검색-방법&quot;&gt;검색 방법&lt;/h2&gt;
+&lt;p&gt;Finder에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;⌘&lt;/code&gt;(커맨드)+&lt;code class=&quot;highlighter-rouge&quot;&gt;F&lt;/code&gt;를 입력한다.&lt;br /&gt;
+새롭게 뜨는 검색창에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;이름&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;다음을 포함&lt;/code&gt;을 선택하고 검색한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-17/search_solution.png&quot; alt=&quot;파인더 해결방법&quot; /&gt;
+이번에는 잘 검색되었다.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Django 프로젝트 Heroku 릴리즈 - (최종 수정)</title>
