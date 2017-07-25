@@ -11,7 +11,7 @@
 
   <title>
     
-      개인 도메인으로 이메일 설정하기 &middot; Ringsterz Log
+      Google Play App Signing으로 업로드 시 apk 업로드 안될 때 &middot; Ringsterz Log
     
   </title>
 
@@ -36,19 +36,19 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.2.3 -->
-<title>개인 도메인으로 이메일 설정하기 | Ringsterz Log</title>
-<meta property="og:title" content="개인 도메인으로 이메일 설정하기" />
+<title>Google Play App Signing으로 업로드 시 apk 업로드 안될 때 | Ringsterz Log</title>
+<meta property="og:title" content="Google Play App Signing으로 업로드 시 apk 업로드 안될 때" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다." />
-<meta property="og:description" content="기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다." />
-<link rel="canonical" href="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/" />
-<meta property="og:url" content="http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/" />
+<meta name="description" content="위와 같이 Google Play App Signing을 한번 누르니 다시 돌이킬 수도 없고, APK를 업로드를 하려니 다음의 화면이 출력되며 apk 업로드도 안된다. 문제 원인 Signed apk를 만들 때 Signature Vesion의 V1을 체크하지 않으면 .jar 파일이 생성되지 않아, Jar_sig_no라며 jar signature가 없다는 메시지를 뱉는 것이다. Signature Vesion을 둘다 체크하고 다시 Signed APK를 생성하면 잘 업로드 된다." />
+<meta property="og:description" content="위와 같이 Google Play App Signing을 한번 누르니 다시 돌이킬 수도 없고, APK를 업로드를 하려니 다음의 화면이 출력되며 apk 업로드도 안된다. 문제 원인 Signed apk를 만들 때 Signature Vesion의 V1을 체크하지 않으면 .jar 파일이 생성되지 않아, Jar_sig_no라며 jar signature가 없다는 메시지를 뱉는 것이다. Signature Vesion을 둘다 체크하고 다시 Signed APK를 생성하면 잘 업로드 된다." />
+<link rel="canonical" href="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-06-30T00:00:00+09:00" />
+<meta property="article:published_time" content="2017-07-21T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"개인 도메인으로 이메일 설정하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-30T00:00:00+09:00","dateModified":"2017-06-30T00:00:00+09:00","description":"기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다. 한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니, 네이버 웍스가 2016년 말쯤에 유료로 전환되었다. 굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후, SMTP/POP3 설정을 통해 Gmail에 연동하였다. 설정법 지메일 환경설정 진입 가** 서비스의 무료 웹메일을 기준 설정 계정 및 가져오기 탭 선택 메일 가져오기 (POP3) 다른 계정에서 메일 확인하기: 항목의 메일 계정 추가 선택 이메일 주소 입력 다른 계정에서 이메일 가져오기(POP3) 선택 POP3 연결 설정 메일 보내기 (SMTP) 다른 주소에서 메일 보내기: 항목의 메일 계정 추가 선택 이메일 주소 입력 SMTP 설정 무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"},"url":"http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"}</script>
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Google Play App Signing으로 업로드 시 apk 업로드 안될 때","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-21T00:00:00+09:00","dateModified":"2017-07-21T00:00:00+09:00","description":"위와 같이 Google Play App Signing을 한번 누르니 다시 돌이킬 수도 없고, APK를 업로드를 하려니 다음의 화면이 출력되며 apk 업로드도 안된다. 문제 원인 Signed apk를 만들 때 Signature Vesion의 V1을 체크하지 않으면 .jar 파일이 생성되지 않아, Jar_sig_no라며 jar signature가 없다는 메시지를 뱉는 것이다. Signature Vesion을 둘다 체크하고 다시 Signed APK를 생성하면 잘 업로드 된다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -181,50 +181,29 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">개인 도메인으로 이메일 설정하기</h1>
-  <span class="post-date">30 Jun 2017</span>
+  <h1 class="post-title">Google Play App Signing으로 업로드 시 apk 업로드 안될 때</h1>
+  <span class="post-date">21 Jul 2017</span>
    | 
   
-    <a href="/blog/tags/#e-mail" class="post-tag">E-mail</a>
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
   
-    <a href="/blog/tags/#domain" class="post-tag">Domain</a>
-  
-    <a href="/blog/tags/#mailgun" class="post-tag">Mailgun</a>
+    <a href="/blog/tags/#release" class="post-tag">Release</a>
   
   
   <article>
-    <p>기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다.<br />
-한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니,<br />
-네이버 웍스가 2016년 말쯤에 유료로 전환되었다.<br />
-굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후,<br />
-SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
+    <p><img src="/post_assets/2017-07-21/app_signing.png" alt="App Signing" />
+위와 같이 Google Play App Signing을 한번 누르니 다시 돌이킬 수도 없고,<br />
+APK를 업로드를 하려니 다음의 화면이 출력되며 apk 업로드도 안된다.
+<img src="/post_assets/2017-07-21/upload_error.png" alt="apk 업로드 불가" /></p>
 
-<h1 id="설정법">설정법</h1>
-<h2 id="지메일-환경설정-진입">지메일 환경설정 진입</h2>
-<p><img src="/post_assets/2017-06-30/settings.png" alt="지메일설정" /></p>
+<h1 id="문제-원인">문제 원인</h1>
+<p>Signed apk를 만들 때 Signature Vesion의 V1을 체크하지 않으면 .jar 파일이 생성되지 않아,<br />
+Jar_sig_no라며 jar signature가 없다는 메시지를 뱉는 것이다.</p>
 
-<p>가** 서비스의 무료 웹메일을 기준 설정</p>
+<p><img src="/post_assets/2017-07-21/bulid_jar.png" alt="apk 빌드 설정" /></p>
 
-<p><strong>계정 및 가져오기</strong> 탭 선택</p>
-
-<h2 id="메일-가져오기-pop3">메일 가져오기 (POP3)</h2>
-<ol>
-  <li><strong>다른 계정에서 메일 확인하기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>다른 계정에서 이메일 가져오기(POP3) 선택</li>
-  <li>POP3 연결 설정
-<img src="/post_assets/2017-06-30/pop3-secure.png" alt="POP3설정" /></li>
-</ol>
-
-<h2 id="메일-보내기-smtp">메일 보내기 (SMTP)</h2>
-<ol>
-  <li><strong>다른 주소에서 메일 보내기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>SMTP 설정
-<img src="/post_assets/2017-06-30/smtp.png" alt="SMTP설정" /></li>
-</ol>
-
-<p><strong>무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.</strong></p>
+<p>Signature Vesion을 둘다 체크하고 다시 Signed APK를 생성하면 잘 업로드 된다.
+<img src="/post_assets/2017-07-21/uploaded.png" alt="업로드 완료" /></p>
 
   </article>
 </div>
@@ -232,15 +211,6 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/">
-            Google Play App Signing으로 업로드 시 apk 업로드 안될 때
-            <small>21 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -260,6 +230,15 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
         </h3>
       </li>
     
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/">
+            HTML 컬러코드 기본 조합
+            <small>18 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
   </ul>
 </div>
 
@@ -269,8 +248,8 @@ SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');

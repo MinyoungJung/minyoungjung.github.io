@@ -4,13 +4,34 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-25T17:40:51+09:00</updated>
+ <updated>2017-07-25T19:13:41+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Google Play App Signing으로 업로드 시 apk 업로드 안될 때</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-21T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-21/app_signing.png&quot; alt=&quot;App Signing&quot; /&gt;
+위와 같이 Google Play App Signing을 한번 누르니 다시 돌이킬 수도 없고,&lt;br /&gt;
+APK를 업로드를 하려니 다음의 화면이 출력되며 apk 업로드도 안된다.
+&lt;img src=&quot;/post_assets/2017-07-21/upload_error.png&quot; alt=&quot;apk 업로드 불가&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;문제-원인&quot;&gt;문제 원인&lt;/h1&gt;
+&lt;p&gt;Signed apk를 만들 때 Signature Vesion의 V1을 체크하지 않으면 .jar 파일이 생성되지 않아,&lt;br /&gt;
+Jar_sig_no라며 jar signature가 없다는 메시지를 뱉는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-21/bulid_jar.png&quot; alt=&quot;apk 빌드 설정&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Signature Vesion을 둘다 체크하고 다시 Signed APK를 생성하면 잘 업로드 된다.
+&lt;img src=&quot;/post_assets/2017-07-21/uploaded.png&quot; alt=&quot;업로드 완료&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>안드로이드 라이센스 라이브러리 사용하기</title>

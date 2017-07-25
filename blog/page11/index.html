@@ -63,7 +63,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">52</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -180,6 +180,65 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/">
+        Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기
+      </a>
+    </h1>
+
+    <span class="post-date">01 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#tag" class="post-tag">Tag</a>
+    
+    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
+    
+    
+
+    <article>
+      <h2 id="mac-finder에서-tag를-이용해-파일-분류하기">Mac Finder에서 Tag를 이용해 파일 분류하기</h2>
+<p>Jekyll을 이용해 포스팅을 하려니 포스팅 폴더 접근이 귀찮았다.<br />
+보통 이런 경우 Finder의 즐겨찾기에 작업 폴더를 추가하여 사용하는데, <code class="highlighter-rouge">_posts</code> 폴더의 언더바가 마음에 거슬려 태그를 이용해 정리하기로 했다.</p>
+
+<h3 id="tag-이용방법">Tag 이용방법</h3>
+<ol>
+  <li>Finder를 연다.</li>
+  <li><code class="highlighter-rouge">⌘</code>(커맨드)+<code class="highlighter-rouge">,</code>(콤마)를 눌러 Finder 환경 설정으로 들어간다.</li>
+  <li><code class="highlighter-rouge">태그</code> 탭에서 Tag 이름 및 색상을 수정한다
+<img src="/post_assets/2017-06-01/finder_settings.png" alt="태그 수정" />
+    <ul>
+      <li>위쪽 목록 영역은 사이드바, 아래쪽 즐겨찾기 태그 부분은 Finder에서 파일을 우클릭 했을때 나타나는 즐겨찾기 메뉴</li>
+    </ul>
+  </li>
+  <li>Tag를 이용하여 분류한 파일 
+<img src="/post_assets/2017-06-01/finder_sidebar.png" alt="태그를 이용해 분류" /></li>
+</ol>
+
+<p><br /></p>
+<h2 id="mac-키보드의-특수문자등-입력하기">Mac 키보드의 특수문자(⌘⎋⌥⌃등) 입력하기</h2>
+<p>포스팅을 하다보니 맥 키보드에 존재하는 특수문자를 입력해야 하는 경우가 생긴다.<br />
+한번 설정하면 계속 남아있긴 하지만 설정법 등은 매번 잊어버리고 인터넷에서 다시 찾게되는 경향이 있어 정리했다.</p>
+
+<h3 id="특수문자-추가-방법">특수문자 추가 방법</h3>
+<ol>
+  <li><code class="highlighter-rouge">⌘</code>(커맨드)+<code class="highlighter-rouge">⌃</code>(컨트롤)+<code class="highlighter-rouge">⌴</code>(스페이스)를 눌러 특수문자 입력창을 띄운다.</li>
+  <li>왼쪽 위의 <code class="highlighter-rouge">목록 사용자화</code>를 선택한다.
+<img src="/post_assets/2017-06-01/special character_customize.png" alt="목록 사용자화" /></li>
+  <li>목록에서 <code class="highlighter-rouge">기술 기호</code>를 선택하면 특수문자 입력창에 추가된다.
+<img src="/post_assets/2017-06-01/special_character_setting.png" alt="기술기호 선택" /></li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -382,7 +441,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-21 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

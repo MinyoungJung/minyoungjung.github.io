@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">52</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -269,6 +269,15 @@ DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지�
     
       <li>
         <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/">
+            Google Play App Signing으로 업로드 시 apk 업로드 안될 때
+            <small>21 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/">
             안드로이드 라이센스 라이브러리 사용하기
             <small>20 Jul 2017</small>
@@ -281,15 +290,6 @@ DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지�
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/19/android-launcher-icon-generator/">
             안드로이드 런처 아이콘 해상도별로 생성하기
             <small>19 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/">
-            HTML 컬러코드 기본 조합
-            <small>18 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -371,7 +371,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-21 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

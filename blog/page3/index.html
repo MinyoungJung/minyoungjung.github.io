@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">52</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,45 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/">
+        안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
+      </a>
+    </h1>
+
+    <span class="post-date">11 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    <a href="/blog/tags/#ui" class="post-tag">UI</a>
+    
+    
+
+    <article>
+      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
+그냥 간단한 것이라도 남기기로 한다.</p>
+
+<h1 id="xml에-물결-이펙트-넣기">XML에 물결 이펙트 넣기</h1>
+<p>위젯이 터치 이벤트에 반응하여 움직이는 것처럼 보이게 하려면 위젯의 XML attribute에<br />
+<code class="highlighter-rouge">android:background="?attr/selectableItemBackgroundBorderless" </code>
+를 추가하면 된다.</p>
+
+<p>이펙트 크기는 padding값을 적절히 조절하면 된다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -377,110 +416,6 @@ support-library 관련 충돌이 많이 일어난다.<br />
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/">
-        안드로이드에 Facebook Graph API 사용하기
-      </a>
-    </h1>
-
-    <span class="post-date">06 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#facebook-sdk" class="post-tag">Facebook SDK</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
-    
-    <a href="/blog/tags/#graph-api" class="post-tag">Graph API</a>
-    
-    
-
-    <article>
-      <h1 id="graph-api-사용-flow">Graph API 사용 Flow</h1>
-<h2 id="인증-후-accesstoken-획득">인증 후 AccessToken 획득</h2>
-<p><code class="highlighter-rouge">AccessToken accessToken = AccessToken.getCurrentAccessToken();</code></p>
-
-<h2 id="graph-request-생성">Graph Request 생성</h2>
-<p>accessToken, URL endpoint, params, HttpMethod, Callback method를 인자로 생성<br />
-이후 <code class="highlighter-rouge">executeAsync()</code>로 비동기 실행</p>
-
-<p><strong>예제 1 - 사용자 이름 얻기</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">GraphRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">newMeRequest</span><span class="o">(</span><span class="n">accessToken</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">GraphJSONObjectCallback</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span>
-            <span class="n">JSONObject</span> <span class="n">object</span><span class="o">,</span>
-            <span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Logged in as:"</span> <span class="o">+</span> <span class="n">object</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">je</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"FB"</span><span class="o">,</span> <span class="s">"No key provided."</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">});</span>
-<span class="n">Bundle</span> <span class="n">parameters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
-<span class="n">parameters</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="s">"fields"</span><span class="o">,</span> <span class="s">"id,name,link"</span><span class="o">);</span>
-<span class="n">request</span><span class="o">.</span><span class="na">setParameters</span><span class="o">(</span><span class="n">parameters</span><span class="o">);</span>
-<span class="n">request</span><span class="o">.</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-<p><strong>예제 2 - 페이스북 페이지에 게시물 포스팅</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">GraphRequest</span><span class="o">(</span>
-    <span class="n">AccessToken</span><span class="o">.</span><span class="na">getCurrentAccessToken</span><span class="o">(),</span>
-    <span class="s">"/912605208889540/feed"</span><span class="o">,</span> <span class="c1">// 페이지 ID</span>
-    <span class="n">params</span><span class="o">,</span>
-    <span class="n">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">Callback</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span><span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">getBaseContext</span><span class="o">(),</span> <span class="s">"Write Complete"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">).</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-
-<p><strong>예제 3 - 페이스북 페이지 게시물 가져오기</strong></p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">GraphRequest</span><span class="o">(</span>
-    <span class="n">AccessToken</span><span class="o">.</span><span class="na">getCurrentAccessToken</span><span class="o">(),</span>
-    <span class="s">"/912605208889540/feed"</span><span class="o">,</span>
-    <span class="kc">null</span><span class="o">,</span>
-    <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">GraphRequest</span><span class="o">.</span><span class="na">Callback</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">(</span><span class="n">GraphResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">JSONObject</span> <span class="n">jsonObj</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getJSONObject</span><span class="o">();</span>
-            <span class="n">JSONArray</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">jsonArray</span> <span class="o">=</span> <span class="n">jsonObj</span><span class="o">.</span><span class="na">getJSONArray</span><span class="o">(</span><span class="s">"data"</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">je</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"FB"</span><span class="o">,</span> <span class="s">"Error fetching JSON"</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">).</span><span class="na">executeAsync</span><span class="o">();</span>
-</code></pre>
-</div>
-
-<h2 id="기타-확인할-것">기타 확인할 것</h2>
-<ol>
-  <li>Facebook 개발자 페이지에서 <code class="highlighter-rouge">앱 검수</code> 항목에서 쓰기 권한 검수 받기</li>
-  <li>Facebook 개발자 페이지에서 앱 공개해서 SANDBOX에서 실행되지 않도록 할 것<br />
-(앱 공개 안하면 안드로이드 앱을 통해 Publishing한 포스트들이 다른 사람에게 보이지 않음)</li>
-</ol>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/06/facebook-sdk-android-graph/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -549,7 +484,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-21 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
