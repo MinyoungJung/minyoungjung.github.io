@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">48</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -184,6 +184,295 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/">
+        안드로이드에 Facebook 로그인 연동하기
+      </a>
+    </h1>
+
+    <span class="post-date">05 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    <a href="/blog/tags/#facebook-sdk" class="post-tag">Facebook SDK</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
+    
+    
+
+    <article>
+      <h1 id="facebook-sdk-연동하기">Facebook SDK 연동하기</h1>
+<p>한동안 Facebook SDK를 쓸일이 없다가 다시 기회가 생겨 간단한 샘플을 제작해 보았다.<br />
+잊어버리지 않게 정리해두려 한다.</p>
+
+<h2 id="dependency-추가">Dependency 추가</h2>
+<p><code class="highlighter-rouge">compile 'com.facebook.android:facebook-android-sdk:[4,5)'</code>를 <code class="highlighter-rouge">build.gradle</code>에 추가한다.</p>
+
+<h2 id="manifest-수정">Manifest 수정</h2>
+<p>인터넷 엑서스가 필요하므로 권한을 추가해야 한다.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<p>meta Data를 추가해 어플리케이션 ID를 넣고,</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">"com.facebook.sdk.ApplicationId"</span>
+    <span class="na">android:value=</span><span class="s">"@string/facebook_app_id"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<p>Facebook Activity도 추가해야 한다.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">"com.facebook.FacebookActivity"</span>
+    <span class="na">android:configChanges=</span>
+        <span class="s">"keyboard|keyboardHidden|screenLayout|screenSize|orientation"</span>
+    <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+<h2 id="layout-수정">Layout 수정</h2>
+<p>페이스북에서 제공하는 기본 로그인 버튼을 이용하려면, 레이아웃에 다음을 추가한다.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;com.facebook.login.widget.LoginButton</span>
+    <span class="na">android:id=</span><span class="s">"@+id/login_button"</span>
+    <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+    <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+    <span class="na">android:layout_gravity=</span><span class="s">"center_horizontal"</span>
+    <span class="na">android:layout_marginTop=</span><span class="s">"30dp"</span>
+    <span class="na">android:layout_marginBottom=</span><span class="s">"30dp"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="activity-수정">Activity 수정</h2>
+<ol>
+  <li>LoginButton의 참조를 얻은 후<br />
+<code class="highlighter-rouge">final LoginButton mLoginBtn = (LoginButton) findViewById(R.id.login_button);</code></li>
+  <li>읽기 퍼미션을 준다.<br />
+<code class="highlighter-rouge">mLoginBtn.setReadPermissions("public_profile");</code></li>
+  <li>쓰기 퍼미션은 추후 다음과 같이 LoginManager를 통해 준다.
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LoginManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">logInWithPublishPermissions</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+ <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"publish_actions"</span><span class="o">)</span>
+<span class="o">);</span>
+</code></pre>
+    </div>
+  </li>
+  <li>LoginButton에 콜백을 등록하고, 필요한 메소드를 오버라이드 한다.
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mLoginBtn</span><span class="o">.</span><span class="na">registerCallback</span><span class="o">(</span><span class="n">mCallbackManager</span><span class="o">,</span> <span class="k">new</span> <span class="n">FacebookCallback</span><span class="o">&lt;</span><span class="n">LoginResult</span><span class="o">&gt;()</span> <span class="o">{</span>
+ <span class="nd">@Override</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">LoginResult</span> <span class="n">loginResult</span><span class="o">)</span> <span class="o">{</span>
+
+ <span class="o">}</span>
+
+ <span class="nd">@Override</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCancel</span><span class="o">()</span> <span class="o">{</span>
+
+ <span class="o">}</span>
+
+ <span class="nd">@Override</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">FacebookException</span> <span class="n">error</span><span class="o">)</span> <span class="o">{</span>
+
+ <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+    </div>
+  </li>
+  <li>onActivityResult를 통해 CallbackManager에 결과를 전달한다.<br />
+<code class="highlighter-rouge">mCallbackManager.onActivityResult(requestCode, resultCode, data);</code></li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/05/facebook-sdk-android-login/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/">
+        텐서플로 라이브러리 안드로이드에 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+    
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+    
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    
+
+    <article>
+      <h1 id="빌드된-라이브러리-다운로드">빌드된 라이브러리 다운로드</h1>
+<p>상세 설정은 <a href="https://minyoungjung.github.io/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">지난 포스팅</a> 참조.</p>
+
+<p><a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 최신 빌드된 버전 이미지의 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code><br />
+파일 다운로드,  <code class="highlighter-rouge">native</code> 폴더의 <code class="highlighter-rouge">libtensorflow_inference.so</code>도 zip 파일로 압축해서 다운로드</p>
+
+<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
+<p>텐서플로를 사용할 안드로이드 프로젝트 생성</p>
+
+<h1 id="라이브러리-추가">라이브러리 추가</h1>
+<p><code class="highlighter-rouge">app/libs/</code> 폴더에 zip 파일로 압축한 폴더를 풀어서 복사<br />
+동일 폴더안에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 또한 복사<br />
+트리 구조는 아래와 같음
+<img src="/post_assets/2017-07-04/tree.png" alt="폴더구조" /></p>
+
+<h1 id="buildgradle-수정">build.gradle 수정</h1>
+<p><code class="highlighter-rouge">build.gradle (Module: app)</code> 파일의 android 항목 안에 native 라이브러리 경로 추가</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+}
+</code></pre>
+</div>
+
+<h1 id="메인-액티비티-수정">메인 액티비티 수정</h1>
+<h2 id="라이브러리-로드">라이브러리 로드</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">static</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"tensorflow_inference"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="oncreate-수정">onCreate 수정</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Tensor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span>
+
+<span class="n">TextView</span> <span class="n">tv</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">);</span>
+<span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">floatValue</span><span class="o">()));</span>
+</code></pre>
+</div>
+
+<p>간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/">
+        텐서플로 소스로부터 안드로이드 라이브러리 빌드하기
+      </a>
+    </h1>
+
+    <span class="post-date">03 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
+    
+    <a href="/blog/tags/#ai" class="post-tag">AI</a>
+    
+    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    
+
+    <article>
+      <h1 id="텐서플로-repository-clone">텐서플로 repository clone</h1>
+<p><code class="highlighter-rouge">git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git</code></p>
+
+<h1 id="android-ndk-설치">Android NDK 설치</h1>
+<p>텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요.<br />
+<del>Android Studio의 Preference -&gt; Appearance &amp; Behavior -&gt; System Settings -&gt; Android SDK -&gt; SDK Tools 탭에서 NDK를 찾아 설치</del><br />
+위와 같이 하면 NDK 최신 버전이 설치되는데 <code class="highlighter-rouge">WORKSPACE</code> 파일을 보면 r12b를 쓰라 되어있다.<br />
+그러므로 <a href="https://developer.android.com/ndk/downloads/older_releases.html#ndk-12b-downloads">여기</a>서 다운 받은 r12b를 설치</p>
+
+<h1 id="bazel-설치">Bazel 설치</h1>
+<p>텐서플로의 빌드 툴인 <a href="https://docs.bazel.build/versions/master/bazel-overview.html">Bazel</a> 설치</p>
+
+<h1 id="workspace-파일-수정">WORKSPACE 파일 수정</h1>
+<p>Clone된 텐서플로 프로젝트의 Root의 <code class="highlighter-rouge">WORKSPACE</code> 파일을 열어</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>#android_sdk_repository(
+#    name = "androidsdk",
+#    api_level = 23,
+#    # Ensure that you have the build_tools_version below installed in the
+#    # SDK manager as it updates periodically.
+#    build_tools_version = "25.0.2",
+#    # Replace with path to Android SDK on your system
+#    path = "&lt;PATH_TO_SDK&gt;",
+#)
+#
+# Android NDK r12b is recommended (higher may cause issues with Bazel)
+#android_ndk_repository(
+#    name="androidndk",
+#    path="&lt;PATH_TO_NDK&gt;",
+#    # This needs to be 14 or higher to compile TensorFlow.
+#    # Note that the NDK version is not the API level.
+#    api_level=14)
+</code></pre>
+</div>
+<p>이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>android_sdk_repository(
+    name = "androidsdk",
+    api_level = 23,
+    build_tools_version = "25.0.2",
+    path = "/Users/mymacpro/Library/Android/sdk/",
+)
+android_ndk_repository(
+    name="androidndk",
+    path="/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/",
+    api_level=14)
+</code></pre>
+</div>
+
+<h1 id="so-파일-빌드">.so 파일 빌드</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \
+--crosstool_top=//external:android/crosstool \
+--host_crosstool_top=@bazel_tools//tools/cpp:toolchain \
+--cpu=x86_64
+</code></pre>
+</div>
+
+<p>빌드가 끝나면 프로젝트 폴더에 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so</code>가 생성</p>
+
+<h1 id="jar-파일-빌드">.jar 파일 빌드</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>bazel build //tensorflow/contrib/android:android_tensorflow_inference_java
+</code></pre>
+</div>
+
+<p>마찬가지로 <code class="highlighter-rouge">bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar</code> 생성됨</p>
+
+<h1 id="안드로이드-프로젝트-생성">안드로이드 프로젝트 생성</h1>
+<h2 id="라이브러리-추가">라이브러리 추가</h2>
+<p>라이브러리에 <code class="highlighter-rouge">libandroid_tensorflow_inference_java.jar</code> 및 <code class="highlighter-rouge">libtensorflow_inference.so</code> 추가</p>
+
+<p>이제 텐서플로의 Java API를 <code class="highlighter-rouge">TensorFlowInferenceInterface</code>를 통해 호출 가능하다.</p>
+
+<blockquote>
+  <p>소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법<br />
+<a href="http://ci.tensorflow.org/view/Nightly/job/nightly-android/">Project nightly-android</a>에서 빌드된 파일을 받는다.<br />
+굳이 빌드할 필요도 없음…</p>
+</blockquote>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/07/02/economics_stupid/">
         지식, 그리고 경제
       </a>
@@ -289,177 +578,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/">
-        개인 도메인으로 이메일 설정하기
-      </a>
-    </h1>
-
-    <span class="post-date">30 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#e-mail" class="post-tag">E-mail</a>
-    
-    <a href="/blog/tags/#domain" class="post-tag">Domain</a>
-    
-    <a href="/blog/tags/#mailgun" class="post-tag">Mailgun</a>
-    
-    
-
-    <article>
-      <p>기존에는 네이버 웍스를 이용해 내 도메인으로 된 메일을 이용했었다.<br />
-한동안 개인 도메인으로 된 메일 주소를 사용하지 않고 있다 갱신하려다보니,<br />
-네이버 웍스가 2016년 말쯤에 유료로 전환되었다.<br />
-굳이 유료로 쓰고 싶지는 않고 해서 도메인에서 지원하는 무료 웹메일 서비스를 신청한 후,<br />
-SMTP/POP3 설정을 통해 Gmail에 연동하였다.</p>
-
-<h1 id="설정법">설정법</h1>
-<h2 id="지메일-환경설정-진입">지메일 환경설정 진입</h2>
-<p><img src="/post_assets/2017-06-30/settings.png" alt="지메일설정" /></p>
-
-<p>가** 서비스의 무료 웹메일을 기준 설정</p>
-
-<p><strong>계정 및 가져오기</strong> 탭 선택</p>
-
-<h2 id="메일-가져오기-pop3">메일 가져오기 (POP3)</h2>
-<ol>
-  <li><strong>다른 계정에서 메일 확인하기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>다른 계정에서 이메일 가져오기(POP3) 선택</li>
-  <li>POP3 연결 설정
-<img src="/post_assets/2017-06-30/pop3-secure.png" alt="POP3설정" /></li>
-</ol>
-
-<h2 id="메일-보내기-smtp">메일 보내기 (SMTP)</h2>
-<ol>
-  <li><strong>다른 주소에서 메일 보내기:</strong> 항목의 <strong>메일 계정 추가</strong> 선택</li>
-  <li>이메일 주소 입력</li>
-  <li>SMTP 설정
-<img src="/post_assets/2017-06-30/smtp.png" alt="SMTP설정" /></li>
-</ol>
-
-<p><strong>무료 계정에게는 메일 보낼때 SSL 암호화를 지원하지 않는다고 한다.</strong></p>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EC%9D%B4%EB%A9%94%EC%9D%BC/2017/06/30/domain-email-setting/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/">
-        사람들이 원하는것
-      </a>
-    </h1>
-
-    <span class="post-date">29 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#thinking" class="post-tag">Thinking</a>
-    
-    
-
-    <article>
-      <p>한때는 사람들이 원하는 것이 무엇인지 안다고 생각했다.<br />
-철없던 시절의 객기였는지 오만함에서 비롯된 생각인지는 모르겠다.<br />
-그 탓에 오랜 시간의 시행착오를 겪었고 그 덕에 많이 성장했지만,<br />
-<strong>무엇을 사람들이 원하는가</strong>에 대한 정답은 더욱 멀어진 듯한 생각이 든다.</p>
-
-<p>때로는 정말 별것 아닌것에도 감탄하고, 정말 오랜 시간과 공을 들인 것들에는 심드렁하고,<br />
-인간도 하나의 동물일 뿐이라지만, 개인의 다양성은 내가 상상하는 범위를 언제나 벗어나곤 한다.</p>
-
-<p>당분간은 내 생각을 버리고, 사람들이 직접 원한다고 말하는 것들을 들어볼 생각이다.<br />
-물론 개인 프로젝트도 내가 하고싶은 것 말고, 사람들이 말하는 것 위주로 제작해 봐야겠지.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EB%8B%A8%EC%83%81/2017/06/29/what-people-want/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/">
-        Django Admin 테마 변경하기
-      </a>
-    </h1>
-
-    <span class="post-date">28 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#admin" class="post-tag">Admin</a>
-    
-    <a href="/blog/tags/#theme" class="post-tag">Theme</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="개요">개요</h1>
-<p>Django의 기본 Admin은 강력한 기능이지만 Look이 그다지 아름답지 않다.<br />
-직접 Admin을 커스터마이즈 하는 것은 상당히 손이 많이 가므로 <a href="https://djangopackages.org/grids/g/admin-styling/">djangopackages.org</a>에 올라와 있는<br />
-패키지를 이용해 간단히 수정해 보았다.</p>
-
-<h1 id="패키지-선택">패키지 선택</h1>
-<p>가장 널리 쓰이는 <code class="highlighter-rouge">DJANGO-GRAPPELLI</code>부터, <code class="highlighter-rouge">DJANGO-SUIT</code> 등등 여러 패키지가 있지만,<br />
-Material Design의 팬(?)으로써 <code class="highlighter-rouge">DJANGO-MATERIAL</code>을 이용해 보았다.<br />
-<code class="highlighter-rouge">DJANGO-MATERIAL</code>은 전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">Django를 이용한 스케쥴러 제작</a>에서도 이용했었던 <a href="http://materializecss.com/getting-started.html">Materialize</a>를 기반으로 하므로<br />
-사용도 간단하리라 생각했다.</p>
-
-<h1 id="사용법">사용법</h1>
-<h2 id="django-material-설치">django-material 설치</h2>
-<p><code class="highlighter-rouge">pip install django-material</code></p>
-
-<h2 id="installed_apps-추가">INSTALLED_APPS 추가</h2>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s">'material'</span><span class="p">,</span>
-    <span class="s">'material.admin'</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">)</span>
-</code></pre>
-</div>
-<p><code class="highlighter-rouge">django.contrib.admin</code> 앞에 두 줄이 추가되어야 한다.</p>
-
-<h2 id="적용결과">적용결과</h2>
-<p><img src="/post_assets/2017-06-28/material-admin.png" alt="적용결과" /></p>
-
-<h2 id="간단한-커스터마이즈-사이드바-아이콘">간단한 커스터마이즈 (사이드바 아이콘)</h2>
-<p><code class="highlighter-rouge">apps.py</code>의 AppConfig class에 <code class="highlighter-rouge">icon = '&lt;i class="material-icons"&gt;subject&lt;/i&gt;'</code>속성 추가<br />
-아이콘 주소는 <a href="https://material.io/icons/">https://material.io/icons/</a>를 따른다.</p>
-
-<h2 id="간단한-커스터마이즈-카드-내-아이콘">간단한 커스터마이즈 (카드 내 아이콘)</h2>
-<p><code class="highlighter-rouge">admin.py</code>의 admin.ModelAdmin class에 <code class="highlighter-rouge">icon</code> 속성 추가 (위와 동일)</p>
-
-<h2 id="커스터마이즈-후-결과">커스터마이즈 후 결과</h2>
-<p><img src="/post_assets/2017-06-28/material-admin-modify.png" alt="커스터마이즈 결과" /></p>
-
-<h2 id="추가-커스터마이즈">추가 커스터마이즈</h2>
-<p><a href="http://docs.viewflow.io/admin_customization.html">라이브러리 Doc 참조</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -528,7 +646,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-17 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

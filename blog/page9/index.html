@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">48</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,384 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
+        Django 프로젝트 Heroku에 릴리즈하기
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+    
+    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
+    
+    
+
+    <article>
+      <h1 id="기존-django-프로젝트-heroku에-릴리즈">기존 Django 프로젝트 Heroku에 릴리즈</h1>
+
+<h2 id="heroku-cli-설치">Heroku CLI 설치</h2>
+<p><code class="highlighter-rouge">brew install heroku</code></p>
+
+<h2 id="gunicorn을-추가">gunicorn을 추가</h2>
+<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
+
+<p>gunicorn 설정시 폴더구조는<br />
+메인 -<br />
+       |- 프로젝트<br />
+       |- 다른 앱<br />
+폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다.</p>
+
+<h2 id="procfile-추가">Procfile 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 저장한다.<br />
+<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
+
+<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우)<br />
+<code class="highlighter-rouge">python-3.6.1</code></p>
+
+<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
+<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
+
+<p>이후 프로젝트의 <code class="highlighter-rouge">settings.py</code>파일에</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>를 추가한다.</p>
+
+<h2 id="whitenoise-추가">whitenoise 추가</h2>
+<p>장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다.<br />
+whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다.<br />
+<code class="highlighter-rouge">pip install whitenoise</code></p>
+
+<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Simplified static file serving.</span>
+<span class="c"># https://warehouse.python.org/project/whitenoise/</span>
+
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가한다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+</code></pre>
+</div>
+
+<h2 id="requirementstxt-생성">requirements.txt 생성</h2>
+<p><code class="highlighter-rouge">pip freeze &gt; requirements.txt</code>를 입력하여 사용된 패키지를 추출한다.</p>
+
+<h2 id="allowed-host-추가">ALLOWED Host 추가</h2>
+<p><code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">ALLOWED_HOSTS = ['*']</code>를 추가한다.</p>
+
+<h2 id="추가사항">추가사항</h2>
+<p>DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.<br />
+해결방법은 <a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/25/django-landlord-reputation-(5)/">Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드</a> 여기서 확인</p>
+
+<h2 id="heroku에-로그인">Heroku에 로그인</h2>
+<p><code class="highlighter-rouge">heroku login</code></p>
+
+<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
+<p><code class="highlighter-rouge">heroku create</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>heroku create
+Creating app... done, ⬢ calm-basin-17299
+https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
+
+Git remote heroku added
+</code></pre>
+</div>
+
+<h2 id="heroku를-git-remote로-추가">Heroku를 git remote로 추가</h2>
+<p><code class="highlighter-rouge">git remote add heroku https://git.heroku.com/calm-basin-17299.git</code></p>
+
+<h2 id="db가-생성되어-있지-않다면-생성">db가 생성되어 있지 않다면 생성</h2>
+<p><code class="highlighter-rouge">heroku run python manage.py migrate</code><br />
+간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다.</p>
+
+<h1 id="슈퍼유저-생성">슈퍼유저 생성</h1>
+<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
+
+<h2 id="commit하고-heroku에-push">commit하고 Heroku에 push</h2>
+<p><code class="highlighter-rouge">git push heroku master</code></p>
+
+<h2 id="만약-matpolib을-쓴다면-헤로쿠와-충돌이-일어난다">만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import matplotlib
+matplotlib.use('Agg')
+</code></pre>
+</div>
+<p>를 <code class="highlighter-rouge">import matplotlib.pyplot as plt, mpld3</code> 전에 추가한다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">
+        Django를 이용한 스케쥴러 제작 (2) - 구현
+      </a>
+    </h1>
+
+    <span class="post-date">09 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
+    
+    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
+    
+    
+
+    <article>
+      <h1 id="구현">구현</h1>
+<h2 id="todolist">Todolist</h2>
+<p>Django의 Generic view를 이용해 구현했다.<br />
+TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다.</p>
+
+<h2 id="calendar">Calendar</h2>
+<p>Python standard library의 HTMLCalendar를 이용해 구현했다.<br />
+지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다.</p>
+
+<h2 id="stats">Stats</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">create_date</th>
+      <th style="text-align: center">workout_done</th>
+      <th style="text-align: center">owner_id</th>
+      <th style="text-align: center">workout_id</th>
+      <th style="text-align: center">duration</th>
+      <th style="text-align: center">workout_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">생성일</td>
+      <td style="text-align: center">운동 수행여부</td>
+      <td style="text-align: center">소유자</td>
+      <td style="text-align: center">FK(List)</td>
+      <td style="text-align: center">수행시간(분)</td>
+      <td style="text-align: center">수행 날짜</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Workout 테이블에서 owner를 필터로 쿼리셋을 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.<br />
+별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,<br />
+해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.<br />
+Django 철학에도 있지않은가.. <code class="highlighter-rouge">Simple is better than complex</code> <del>이럴때 쓰란말은 아니지만…</del>
+<br />
+여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다.<br />
+워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다.</p>
+
+<h2 id="로그인관리자-기능">로그인/관리자 기능</h2>
+<p>Django의 기본 Auth와 Admin을 이용했다.<br />
+혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다.</p>
+
+<h1 id="스크린샷">스크린샷</h1>
+<h2 id="todolist-1">Todolist</h2>
+<p><img src="/post_assets/2017-06-09/todolist.png" alt="할일목록" /></p>
+
+<h2 id="calendar-1">Calendar</h2>
+<p><img src="/post_assets/2017-06-09/calendar.png" alt="캘린더" /></p>
+
+<h2 id="stats-1">Stats</h2>
+<p><img src="/post_assets/2017-06-09/stats.png" alt="그래프" /></p>
+
+<h2 id="모바일-대응-메뉴">모바일 대응 메뉴</h2>
+<p><img src="/post_assets/2017-06-09/mobile-react.png" alt="모바일 대응" /></p>
+
+<h1 id="마무리">마무리</h1>
+<p>간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다.<br />
+하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고,<br />
+이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다.<br />
+일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다.</p>
+
+<h1 id="추후-계획">추후 계획</h1>
+<ol>
+  <li>각종 버그 수정… (귀찮지 않다면…)</li>
+  <li>데이터 분석 및 그래프 기능 확장</li>
+  <li>데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..)</li>
+  <li>간단한 소셜 기능 (옵션)</li>
+</ol>
+
+<h1 id="서비스-링크">서비스 링크</h1>
+<p>간단히 무료 Dyno를 통해 Heroku에 올려두었다.<br />
+DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지..</p>
+
+<p><a href="https://workoutcal.herokuapp.com">https://workoutcal.herokuapp.com</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
+        Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
+      </a>
+    </h1>
+
+    <span class="post-date">08 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
+    
+    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
+    
+    
+
+    <article>
+      <h1 id="발단">발단</h1>
+<p>1일 1커밋을 생활화하기 위해 Django를 이용한 간단한 서비스를 만들기로 했다.<br />
+운동을 좋아하는 만큼 운동 스케쥴러를 작성하기로 했고, 프로젝트 목표와 개발 방향을 설정했다.</p>
+
+<h1 id="목표">목표</h1>
+<ol>
+  <li>스스로 사용할 만한 서비스 구축</li>
+  <li>깔끔한 디자인</li>
+  <li>확장성(?)</li>
+</ol>
+
+<h1 id="요구사항">요구사항</h1>
+<ol>
+  <li>일정을 추가할 수 있고, 일별/월별 보기가 가능할 것</li>
+  <li>당일 해야할 운동 종류를 표시하며, 해당 Todo 리스트에서 수행 여부를 표시할 수 있을 것</li>
+  <li>수행한 항목의 수행 시간에 비율을 그래프로 출력할 것</li>
+</ol>
+
+<h1 id="db-구성">DB 구성</h1>
+<p>크게 운동 종류를 나타낸 Category 테이블을 만들고, 카테고리 테이블을 Foreign key로 이용한 List 테이블,<br />
+마지막으로 각각의 개별 운동을 나타내는 Workout 테이블을 생성했다.<br />
+테이블 상세 구성은 아래와 같다.</p>
+
+<h2 id="workout-list-테이블">Workout List 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">workout_title</th>
+      <th style="text-align: center">category_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">개별 운동 이름</td>
+      <td style="text-align: center">FK(Category)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="workout-category-테이블">Workout Category 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">category_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">운동 카테고리 이름</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="workout-테이블">Workout 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">id</th>
+      <th style="text-align: center">create_date</th>
+      <th style="text-align: center">workout_done</th>
+      <th style="text-align: center">owner_id</th>
+      <th style="text-align: center">workout_id</th>
+      <th style="text-align: center">duration</th>
+      <th style="text-align: center">workout_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">PK</td>
+      <td style="text-align: center">생성일</td>
+      <td style="text-align: center">운동 수행여부</td>
+      <td style="text-align: center">소유자</td>
+      <td style="text-align: center">FK(List)</td>
+      <td style="text-align: center">수행시간(분)</td>
+      <td style="text-align: center">수행 날짜</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
+<p>App은 할일을 출력하는 todolist, 월별 목록을 출력하는 calendar,<br />
+그래프를 출력하는 stats의 세 부분으로 구성되어 있다.</p>
+
+<p>전체적인 Look&amp;Feel은 심플한 Material Design 형태로 가기로 하고, <a href="http://materializecss.com/getting-started.html">Materialize</a>를 이용했다.<br />
+그래프를 출력하기 위해서는 <a href="https://github.com/plotly/plotly.py">Plotly</a>와 <a href="https://matplotlib.org/gallery.html">Matplotlib</a>을 고민하다 최종적으로 matplotlib으로 결정하였다.</p>
+
+<p><a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -301,313 +679,6 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/">
-        파이썬 오브젝트 소스코드 간단히 보기 및 스탠다드 라이브러리 메소드 오버라이딩
-      </a>
-    </h1>
-
-    <span class="post-date">05 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#python-calendar" class="post-tag">Python Calendar</a>
-    
-    
-
-    <article>
-      <h1 id="파이썬-오브젝트-소스-코드-보기">파이썬 오브젝트 소스 코드 보기</h1>
-<ol>
-  <li>
-    <p><code class="highlighter-rouge">inspect</code> 모듈 임포트
-<code class="highlighter-rouge">import inspect</code></p>
-  </li>
-  <li>
-    <p>살펴볼 오브젝트 임포트
-<code class="highlighter-rouge">from calendar import HTMLCalendar</code></p>
-  </li>
-  <li>
-    <p>소스코드를 보기좋은 형태로 출력
-<code class="highlighter-rouge">print(inspect.getsource(HTMLCalendar))</code></p>
-  </li>
-</ol>
-
-<h1 id="스탠다드-라이브러리-메소드-오버라이딩">스탠다드 라이브러리 메소드 오버라이딩</h1>
-<p>HTMLCalendar는 베이스 클래스인 Calendar를 상속받아 HTML 달력을 만들어주는 역할을 하는 클래스이다.<br />
-0(월요일:디폴트)에서 6(일요일)까지 달력의 시작을 정의하는 하나의 firstweekday인자를 전달받는다.</p>
-
-<p><code class="highlighter-rouge">print(calendar.HTMLCalendar(6).formatmonth(2017,6))</code>과 같이 입력하면 아래의 달력이 출력된다.</p>
-
-<table border="0" cellpadding="0" cellspacing="0" class="month">
-<tr><th colspan="7" class="month">June 2017</th></tr>
-<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
-<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
-<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
-<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
-<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
-<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
-</table>
-
-<p>오브젝트 소스코드를 살펴보고 HTML Calendar의 첫번째 row에 좌/우 이동 화살표(&lt;,&gt;)를 출력해보자.</p>
-
-<p><strong>파이썬 라이브러리 코드</strong></p>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="s">"""
-    Return a month name as a table row.
-    """</span>
-    <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">],</span> <span class="n">theyear</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">]</span>
-    <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="7" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
-</code></pre>
-</div>
-
-<p>주석을 보면 달 이름을 테이블 행 형태로 돌려주는 메소드이고, 리턴값은 HTML의 형태인 것을 알 수 있다.<br />
-해당 메소드를 바로 오버라이딩 하면 <code class="highlighter-rouge">month_name[themonth]</code> 구문에서 오류가 뜨는데,<br />
-month_name은 calendar 모듈의 Data 속성이므로 <code class="highlighter-rouge">from calendar import month_name</code>를 해야한다.</p>
-
-<p><strong>오버라이딩한 메소드</strong></p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">HTMLCalendar</span><span class="p">,</span> <span class="n">month_name</span>
-
-<span class="k">class</span> <span class="nc">ArrowCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">):</span>
-        <span class="n">HTMLCalendar</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">],</span> <span class="n">year</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s">'</span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">month</span><span class="p">]</span>
-        <span class="k">return</span> <span class="s">'&lt;tr&gt;&lt;th colspan="1" class="month_arrow"&gt; &lt; &lt;/th&gt;'</span> \
-            <span class="s">'&lt;th colspan="5" class="month"&gt;</span><span class="si">%</span><span class="s">s&lt;/th&gt;'</span> \
-            <span class="s">'&lt;th colspan="1" class="month_arrow"&gt; &gt; &lt;/th&gt;&lt;/tr&gt;'</span> <span class="o">%</span> <span class="n">s</span>
-</code></pre>
-</div>
-<p>7칸짜리 테이블로 달 이름을 넘겨주는 것을 5칸으로 줄이고 양쪽에 한칸씩 좌/우 화살표를 넣었다.<br />
-이후 css 클래스를 적용해서 화살표를 정렬하면 완성</p>
-
-<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.month_arrow</span> <span class="p">{</span>
-    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h2 id="완성된-달력">완성된 달력</h2>
-<table border="0" cellpadding="0" cellspacing="0" class="month">
-<tr><th colspan="1" class="month_arrow"> &lt; </th><th colspan="5" class="month">June 2017</th><th colspan="1" class="month_arrow"> &gt; </th></tr>
-<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
-<tr><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="noday">&nbsp;</td><td class="thu">1</td><td class="fri">2</td><td class="sat">3</td></tr>
-<tr><td class="sun">4</td><td class="mon">5</td><td class="tue">6</td><td class="wed">7</td><td class="thu">8</td><td class="fri">9</td><td class="sat">10</td></tr>
-<tr><td class="sun">11</td><td class="mon">12</td><td class="tue">13</td><td class="wed">14</td><td class="thu">15</td><td class="fri">16</td><td class="sat">17</td></tr>
-<tr><td class="sun">18</td><td class="mon">19</td><td class="tue">20</td><td class="wed">21</td><td class="thu">22</td><td class="fri">23</td><td class="sat">24</td></tr>
-<tr><td class="sun">25</td><td class="mon">26</td><td class="tue">27</td><td class="wed">28</td><td class="thu">29</td><td class="fri">30</td><td class="noday">&nbsp;</td></tr>
-</table>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2017/06/05/overriding-python-standard-library/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/">
-        Google의 머신러닝 라이브러리, 텐서플로 알아보기 - 환경설정 및 설치
-      </a>
-    </h1>
-
-    <span class="post-date">04 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#machine-learning" class="post-tag">Machine Learning</a>
-    
-    <a href="/blog/tags/#ai" class="post-tag">AI</a>
-    
-    <a href="/blog/tags/#tensorflow" class="post-tag">Tensorflow</a>
-    
-    
-
-    <article>
-      <h1 id="설치">설치</h1>
-
-<ol>
-  <li>파이썬3 가상환경 생성<br />
-<code class="highlighter-rouge">$ virtualenv --system-site-packages -p python3 타겟폴더 이름 # Python3 기준</code></li>
-  <li>가상환경 실행<br />
-<code class="highlighter-rouge">$ source ~/tensorflow/bin/activate</code></li>
-  <li>텐서플로 설치<br />
-<code class="highlighter-rouge">$ pip3 install --upgrade tensorflow</code> # CPU 버전, GPU 버전은 tensorflow-gpu로 설치</li>
-  <li>데모파일 작성 (<code class="highlighter-rouge">demo.py</code>)</li>
-</ol>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
-
-<span class="n">node1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">node2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span> <span class="c"># also tf.float32 implicitly</span>
-<span class="k">print</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
-</code></pre>
-</div>
-<p><strong>실행 결과</strong><br />
-<code class="highlighter-rouge">Tensor("Const:0", shape=(), dtype=float32) Tensor("Const_1:0", shape=(), dtype=float32)</code><br />
-위와 같이 출력되면 환경설정은 완료</p>
-
-<p><a href="https://www.tensorflow.org/install/install_mac">공식 설치문서</a></p>
-
-<h1 id="주요개념">주요개념</h1>
-
-<h2 id="tensor">Tensor</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code>3 # a rank 0 tensor; this is a scalar with shape []
-[1. ,2., 3.] # a rank 1 tensor; this is a vector with shape [3]
-[[1., 2., 3.], [4., 5., 6.]] # a rank 2 tensor; a matrix with shape [2, 3]
-[[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3]
-</code></pre>
-</div>
-<p>Tensorflow의 기본 자료구조.  <br />
-동적인 크기를 갖는 원시값의 다차원 데이터 배열이며 Tensor의 rank는 차원을 의미한다.</p>
-
-<h2 id="computational-graph">Computational Graph</h2>
-<p>노드 그래프로 배열된 일련의 텐서플로우 오퍼레이션 모음.<br />
-Tensorflow의 코어는 Computational Graph를 생성하고, 실행하는 각각의 부분으로 나뉜다.<br />
-그리하여 데모파일의 실행 결과가 각각의 노드값이 아닌 두개의 텐서가 출력된 것.</p>
-
-<h3 id="computational-graph-실행">Computational Graph 실행</h3>
-<ol>
-  <li>Session을 생성하고</li>
-  <li>Session.run()을 실행
-    <div class="highlighter-rouge"><pre class="highlight"><code>sess = tf.Session()
-print(sess.run([node1, node2]))
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<p><strong>실행결과</strong></p>
-<div class="highlighter-rouge"><pre class="highlight"><code>2017-06-04 22:24:47.634630: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
-[3.0, 4.0]
-</code></pre>
-</div>
-<p>워닝이 뜨기는 했지만 결과값은 제대로 출력되었다.<br />
-구글링해보니 로컬에서 소스코드를 빌드하지 않았을 경우 뜨는 오류라 한다.<br />
-해결방법 : <a href="http://www.kwangsiklee.com/ko/2017/04/%ED%85%90%EC%84%9C%ED%94%8C%EB%A1%9C%EC%9A%B0-%EA%B2%BD%EA%B3%A0%EB%A9%94%EC%84%B8%EC%A7%80-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-the-tensorflow-library-wasnt-compiled-to-use-sse3-instructions/">링크</a></p>
-
-<h2 id="기타-더-읽어볼거리">기타 더 읽어볼거리</h2>
-<p><a href="https://tensorflowkorea.gitbooks.io/tensorflow-kr/content/g3doc/get_started/basic_usage.html">텐서플로우 문서 한글 번역본</a><br />
-<a href="http://www.popit.kr/%ED%85%90%EC%84%9C%ED%94%8C%EB%A1%9C%EC%9A%B0tensorflow-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/">텐서플로우 시작하기</a><br />
-<a href="http://pythonkim.tistory.com/39">텐서보드 사용법</a></p>
-
-<h1 id="최종목표">최종목표</h1>
-<p>텐서플로우를 이용한 Android app 작성</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/06/04/tensorflow-demo/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/">
-        Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기 (2)
-      </a>
-    </h1>
-
-    <span class="post-date">03 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#github" class="post-tag">Github</a>
-    
-    <a href="/blog/tags/#blog" class="post-tag">Blog</a>
-    
-    <a href="/blog/tags/#jekyll" class="post-tag">Jekyll</a>
-    
-    <a href="/blog/tags/#tag" class="post-tag">Tag</a>
-    
-    
-
-    <article>
-      <h1 id="지난-포스팅">지난 포스팅</h1>
-
-<p><a href="/환경설정/블로그/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/">Jekyll 커스텀 플러그인 개발 및 적용, Github 페이지에 적용하기</a></p>
-
-<h1 id="발단">발단</h1>
-<p>다시 하루가 지나고 Github page에 접속하자, 어제 만든 플러그인이 동작하지 않았다.<br />
-<code class="highlighter-rouge">total_blogging_date</code> 태그가 동작하지 않아 하루가 지났음에도 총 일수가 더해지지 않은 것.<br />
-한참 루비코드만 들여다보다 생각해보니, Jekyll 자체가 정적인 페이지를 생성하는데 페이지를 빌드하지 않았는데도 갱신되는게 말이 안되는 상황.<br />
-계속해서 소스를 수정하면서 빌드하다보니, 제대로 동작하는 것으로 오해하게 된 것이었다.</p>
-
-<h1 id="해결-방안">해결 방안</h1>
-<p>총 블로깅 일수를 태그로 받았을때, 현재 날짜와 총 날짜를 계산할 때 사용된 마지막 날짜의 비교가 불가능하다.<br />
-태그에서 받은 총 블로깅 날짜만을 가지고 빌드하지 않은채로 며칠이 지났는지 알 방법이 없고,<br />
-혹여 있다해도 그냥 템플릿에서 가장 오래된 포스팅 날짜와 현재 날짜의 차이를 비교하는 것이 편하다.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Calculate total_blogging_date_dynamically</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.last.date }}"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
-  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-<p><del>결국 위와 같이 템플릿에서 받아온 날짜를 가지고, 매크로 형태로 JQuery에 적용시킴으로 해결.</del> <br />
-며칠 후 갑자기 날짜가 맞지않아 생각해보니, 그냥 내림을 해서 계산하면 안된다…<br />
-결국 시간단위를 제외한 Date값을 연산하는 아래와 같은 방법으로 로직 수정하여 해결.</p>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">date_str</span> <span class="o">=</span> <span class="s2">"2017-05-31 00:00:00 +0900"</span><span class="p">;</span> <span class="c1">// 2017-05-31 00:00:00 +0900</span>
-  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
-  <span class="nx">today</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-  <span class="kd">var</span> <span class="nx">firstday</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-  <span class="nx">firstday</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-  <span class="kd">var</span> <span class="nx">total_date</span> <span class="o">=</span> <span class="p">((</span><span class="nx">today</span><span class="o">-</span><span class="nx">firstday</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// calc datediff</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#dynamic_day"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">total_date</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-
-<p><br />
-마찬가지로 며칠째 포스팅을 이어가고 있는지도 마지막 빌드 이후 며칠이 지났는지 알수 없기에,</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="kd">var</span> <span class="nx">latest_post_date_str</span> <span class="o">=</span> <span class="s2">"{{ site.posts.first.date }}"</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">day_passed</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">latest_post_date_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">86400000</span><span class="p">);</span>
-  <span class="c1">// if latest posting date passed a day then reset to 0</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">day_passed</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">"#current_date_streak"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">"0"</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre>
-</div>
-<p>위와 같이 템플릿에서 받아온 값을 마지막 포스팅의 날짜와 현재 날짜가 하루이상 지났을때,<br />
-<code class="highlighter-rouge">current_date_streak</code> 태그 값을 0으로 덮어씌우도록 수정했다.</p>
-
-<h1 id="추가-문제점">추가 문제점</h1>
-<p>sitemap이 정적페이지로 빌드하다보니, <code class="highlighter-rouge">site.url</code>값이 로컬이 반영된 값인 localhost가 들어가 버린다…<br />
-결국 사이트맵 내의 <code class="highlighter-rouge">site.url</code> 값을 github pages 주소로 하드코딩.</p>
-
-<h1 id="마무리">마무리</h1>
-<p>Github Plugin 코드 및 README를 업데이트 했다. <a href="https://github.com/MinyoungJung/jekyll-plugin-blogStreak">링크</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/03/jekyll-custom-plugin-develop-and-adopt-to-github-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -676,7 +747,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-17 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

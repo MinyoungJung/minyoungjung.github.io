@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">48</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,382 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드
+      </a>
+    </h1>
+
+    <span class="post-date">25 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+    
+    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
+    
+    
+
+    <article>
+      <h1 id="진행률">진행률</h1>
+<p>모든 기능구현을 끝내고 개발/운영환경을 설정 후 여러 보안 키들을 분리했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기</a></p>
+
+<p>그리고 Heroku에 릴리즈하기 위한 설정을 했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a></p>
+
+<h1 id="heroku-설정-환경변수">Heroku 설정 (환경변수)</h1>
+<p>Django의 SECRET_KEY나 여러 API키들을 숨기기 위해 환경변수를 이용한 설정을 하는 경우,<br />
+Heroku에도 동일하게 환경변수를 이용해 설정을 해줘야 한다.</p>
+
+<h2 id="secret_key-설정">SECRET_KEY 설정</h2>
+<p><code class="highlighter-rouge">heroku config:set SECRET_KEY=asdasdsad</code> <strong>= 양쪽에 공백이 없어야 한다.</strong></p>
+
+<h2 id="django_settings_module-설정">DJANGO_SETTINGS_MODULE 설정</h2>
+<p><code class="highlighter-rouge">heroku config:set DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code><br />
+이 항목을 설정해야 Heroku에 push 할때 여러개의 설정 파일 중, 운영환경의 설정 파일을 적용한다.<br />
+<strong>이 항목을 적용하지 않으면 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생한다.</strong></p>
+
+<p>아니면 Heroku 사이트의 <a href="https://dashboard.heroku.com/apps">대시보드</a>에서 Settings 탭의 Config Variables를 통해 직접 설정할 수도 있다.</p>
+
+<h1 id="heroku-설정-local-test">Heroku 설정 (Local Test)</h1>
+<p><code class="highlighter-rouge">heroku conifg</code>를 통해 환경변수 설정값을 확인하고,<br />
+<code class="highlighter-rouge">heroku local web</code>을 통해 heroku 설정을 이용해 로컬 웹서버를 띄워본다.<br />
+이때 여전히 <code class="highlighter-rouge">ModuleNotFoundError: No module named 'settings'</code> 에러가 발생하는 경우가 있다.  <br />
+이는 로컬 웹서버를 띄울 시 DJANGO_SETTINGS_MODULE 환경변수 값을 Heroku에 설정한 값이 아닌<br />
+로컬에 설정되어 있는 값을 가져오기 때문이다.</p>
+
+<p><code class="highlighter-rouge">env | grep DJANGO_SETTINGS_MODULE</code>을 통해 값을 확인하고 값이 Heroku에 설정한 값과 다를 경우<br />
+<code class="highlighter-rouge">export DJANGO_SETTINGS_MODULE=앱이름.settings.prod</code>를 입력하면 해결할 수 있다.</p>
+
+<h1 id="heroku-설정-debugfalse-및-whitenoise">Heroku 설정 (Debug=False 및 whitenoise)</h1>
+<p>이 설정 때문에 무난히도 삽질을 했다.<br />
+전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a> 시에는 사실 나 혼자 쓸 것이기도 하고,<br />
+귀찮기도 해서 Debug도 켜놓고 키값조차 감추지 않은 개발환경 그대로 Heroku에 업로드를 했다.<br />
+그때만 해도 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">Django 프로젝트 Heroku에 릴리즈하기</a> 대로만 하면 아무런 문제없이 Heroku에서 동작했다.</p>
+
+<p>문제는 Debug를 False로 놓았을 때인데… <a href="https://devcenter.heroku.com/articles/django-app-configuration#migrating-an-existing-django-project">Heroku 문서</a>부터가 삽질을 조장한다.<br />
+<a href="http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly">whitenoise 문서</a>를 보면 <code class="highlighter-rouge">settings.py</code>의 MIDDLEWARE 설정에 <code class="highlighter-rouge">whitenoise.middleware.WhiteNoiseMiddleware',</code>를 추가하라 되어있지만,<br />
+이런 내용이 Heroku에는 쏙 빠져있다.<br />
+덕분에 500 Internal server error를 일으키며 site가 동작하지 않는다.</p>
+
+<p>나의 경우는 미들웨어 설정을 추가했는데도 whitenoise가 계속 문제를 일으키며 staticfile을 제대로 제공하지 않아,<br />
+결국 whitenoise 대신 기본 Django staticfiles로 해결했다.</p>
+
+<h2 id="whitenoise-대신-default-django-staticfiles-이용">whitenoise 대신 default Django staticfiles 이용</h2>
+<p><code class="highlighter-rouge">STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'</code>로 교체<br />
+이후 <code class="highlighter-rouge">python manage.py collectstatic --settings=앱이름.settings.prod</code>를 실행하고<br />
+<code class="highlighter-rouge">heroku local web</code>을 실행하면 사이트가 정상 동작한다.<br />
+heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.</p>
+
+<h1 id="마무리">마무리</h1>
+<p>이걸로 또 하나의 프로젝트가 마무리 되었다.<br />
+<a href="http://landlord-reputation.herokuapp.com/">우리동네집주인 바로가기</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/25/django-landlord-reputation-(5)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/">
+        Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">24 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#postgresql" class="post-tag">PostgreSQL</a>
+    
+    <a href="/blog/tags/#pycharm" class="post-tag">Pycharm</a>
+    
+    <a href="/blog/tags/#pgadmin4" class="post-tag">pgAdmin4</a>
+    
+    
+
+    <article>
+      <h1 id="개발운영환경-설정파일-분리">개발/운영환경 설정파일 분리</h1>
+<ol>
+  <li>Settings 폴더를 생성하여 <code class="highlighter-rouge">__init__.py</code> 파일을 넣어 모듈로 만든다.</li>
+  <li>기존 <code class="highlighter-rouge">settings.py</code>를 <code class="highlighter-rouge">base.py</code>로 변경하여 setting에 공통으로 필요한 부분만 남긴다.</li>
+  <li><code class="highlighter-rouge">base.py</code>를 import한 <code class="highlighter-rouge">prod.py</code>를 추가하여 운영 환경에 관련된 세팅을 추가한다.</li>
+  <li><code class="highlighter-rouge">base.py</code>를 import한 <code class="highlighter-rouge">dev.py</code>를 추가하여 개발환경에 관련된 세팅을 추가한다.</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="c"># SECURITY WARNING: don't run with debug turned on in production!</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s">'django.core.mail.backends.console.EmailBackend'</span>
+</code></pre>
+</div>
+
+<h1 id="키값-분리">키값 분리</h1>
+<p>base.py에서 SECRET_KEY나 여러 API키 등 노출되면 안되는 부분을 분리해야 한다.<br />
+가상환경의 <code class="highlighter-rouge">bin/activate</code> 파일을 수정하여 마지막 부분에 다음 줄을 넣는다.</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>
+<span class="nb">export </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
+
+</code></pre>
+</div>
+<p>이후 <code class="highlighter-rouge">SECRET_KEY = os.environ["SECRET_KEY"]</code>를 세팅에 추가한다.<br />
+Runserver를 동작시켜보면 잘 돌아간다.</p>
+
+<h1 id="pycharm에서의-문제점">Pycharm에서의 문제점</h1>
+<p>위와 같이 설정할 경우 Pycharm에서 서버를 실행하면 환경변수를 받아오지 못한다.<br />
+이는 Pycharm과 같은 GUI 프로그램이 가상환경을 실행한 Shell을 상속받지 않기 때문인데,</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_env_variable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+    <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">io</span>
+        <span class="kn">import</span> <span class="nn">configparser</span>
+        <span class="n">env_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'PROJECT_ENV_FILE'</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s">"/.env"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"[DATA]</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">SEEK_SET</span><span class="p">)</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">'DATA'</span><span class="p">))[</span><span class="n">var_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'"'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">'"'</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"'"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">"'"</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">except</span> <span class="p">(</span><span class="nb">KeyError</span><span class="p">,</span> <span class="nb">IOError</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+        <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="s">"Either set the env variable '{var}' or place it in your "</span> \
+                    <span class="s">"{env_file} file as '{var} = VALUE'"</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">))</span>
+
+
+<span class="c"># Make this unique, and don't share it with anybody.</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_env_variable</span><span class="p">(</span><span class="s">'SECRET_KEY'</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고,<br />
+프로젝트 루트에 <code class="highlighter-rouge">.env</code>파일을 생성해서</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
+</code></pre>
+</div>
+<p>과 같이 작성하면 해결된다.</p>
+
+<p><strong>위와 같은 경우에는 .gitignore에 .env 파일을 추가해서 키값이 노출되는 것을 막아줘야 한다.</strong></p>
+
+<h1 id="설정파일-적용">설정파일 적용</h1>
+<p><code class="highlighter-rouge">python manage.py runserver --settings=앱이름.settings.dev</code><br />
+위와 같이 설정파일을 각각 적용 가능하다.</p>
+
+<h1 id="postgresql-사용하기">PostgreSQL 사용하기</h1>
+<p>Django는 기본 DB로 SQLite를 사용한다.<br />
+운영 환경에서는 PostgreSQL을 이용할 것이므로, 개발환경에서도 PostgreSQL을 적용하기로 했다.<br />
+ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되는 편이 문제 발생률을 크게 줄여준다.<br />
+또한 실환경의 Data를 덤프해서 개발환경에 집어넣고 테스트가 가능하기도 하다.</p>
+
+<ol>
+  <li>
+    <p>psycopg2 설치<br />
+<code class="highlighter-rouge">pip3 install psycopg2</code></p>
+  </li>
+  <li>
+    <p>postgresql 설치 및 db 생성<br />
+<code class="highlighter-rouge">createdb db이름</code></p>
+  </li>
+  <li><code class="highlighter-rouge">dev.py</code>에 설정
+    <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.postgresql_psycopg2'</span><span class="p">,</span>
+     <span class="s">'NAME'</span><span class="p">:</span> <span class="s">'db이름'</span><span class="p">,</span>
+     <span class="s">'USER'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'PASSWORD'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'HOST'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+     <span class="s">'PORT'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>migrate 하기<br />
+<code class="highlighter-rouge">python manage.py migrate --settings=앱이름.settings.dev</code></p>
+  </li>
+  <li>
+    <p>superuser 생성<br />
+<code class="highlighter-rouge">python manage.py createsuperuser --settings=앱이름.settings.dev</code></p>
+  </li>
+  <li>서버 실행<br />
+<code class="highlighter-rouge">python manage.py runserver --settings=앱이름.settings.dev</code></li>
+</ol>
+
+<h1 id="pgadmin4">pgAdmin4</h1>
+<h2 id="data-보기">Data 보기</h2>
+<p>db이름 → Schemas → public → Tables → 테이블에서 우클릭 → View Data</p>
+
+<h2 id="기타">기타</h2>
+<p>SQlite GUI 관리툴로는 DB Browser for SQLite를 쓰며 만족스러웠는데,<br />
+이놈의 pgAdmin4는 왜이렇게 마음에 안드는지 모르겠다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">
+        Django에 Rest API 추가하기 (2) - API에 인증 추가
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
+    
+    
+
+    <article>
+      <h1 id="지난번에-추가한-api">지난번에 추가한 API</h1>
+<p>지난번에는 Django REST Framework의 <code class="highlighter-rouge">generics.RetrieveUpdateDestroyAPIView</code>를 이용하여,<br />
+GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
+<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">Django에 Rest API 추가하기 - 링크</a></p>
+
+<p>하지만 지금 상태로는 누구나 정보를 수정/삭제가 가능하므로 인증 기능을 추가해야 한다.</p>
+
+<h1 id="api에-인증-추가">API에 인증 추가</h1>
+<p>로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+
+<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c"># 추가</span>
+</code></pre>
+</div>
+
+<p>하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다.<br />
+따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다.<br />
+이를 위해서 먼저 Custom permisson을 추가한다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+
+
+<span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>  <span class="c"># GET, HEAD, OPTIONS </span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="nb">id</span>
+
+</code></pre>
+</div>
+<p>위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환,<br />
+그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.permissions</span> <span class="kn">import</span> <span class="n">IsOwnerOrReadOnly</span>
+
+<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c"># 변경</span>
+</code></pre>
+</div>
+<p>그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다.<br />
+마지막으로 object를 반환하는 mixin 클래스에서,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class MultipleFieldLookupMixin(object):
+    def get_object(self):
+        queryset = self.get_queryset()             # Get the base queryset
+        queryset = self.filter_queryset(queryset)  # Apply any filter backends
+        filter = {}
+        for field in self.lookup_fields:
+            if self.kwargs[field]:  # Ignore empty fields.
+                filter[field] = self.kwargs[field]
+        obj = get_object_or_404(queryset, **filter)  # Lookup the object
+        self.check_object_permissions(self.request, obj)  # Check permissions
+        return obj
+</code></pre>
+</div>
+<p>위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다.</p>
+
+<h1 id="api-테스트-결과">API 테스트 결과</h1>
+<h2 id="postman을-이용해서-api를-테스트-한-결과-get">Postman을 이용해서 api를 테스트 한 결과 (GET)</h2>
+<p><img src="/post_assets/2017-06-23/without_auth.png" alt="실행결과" />
+GET 명령은 인증 없이도 잘 동작한다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete">Postman을 이용해서 api를 테스트 한 결과 (DELETE)</h2>
+<p><img src="/post_assets/2017-06-23/without_auth_delete.png" alt="실행결과" />
+Delete 명령은 인증이 없으니 동작하지 않는다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--wrong-auth">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; wrong Auth)</h2>
+<p><img src="/post_assets/2017-06-23/invalid_id_pw.png" alt="실행결과" />
+Auth를 포함할 때 잘못된 아이디/패스워드를 사용했을때는 다음과 같은 결과가 돌아온다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-not-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (not owner))</h2>
+<p><img src="/post_assets/2017-06-23/valid_auth_not_owner.png" alt="실행결과" />
+제대로된 Auth로 인증했으나 Owner가 아닌 경우에도 역시 동작하지 않는다.</p>
+
+<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (Owner))</h2>
+<p><img src="/post_assets/2017-06-23/valid_auth_owner.png" alt="실행결과" />
+Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -392,244 +768,6 @@ lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/">
-        Django 서비스 테스트하기
-      </a>
-    </h1>
-
-    <span class="post-date">20 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#test" class="post-tag">Test</a>
-    
-    
-
-    <article>
-      <h1 id="coverage-설치">Coverage 설치</h1>
-<p>파이썬 코드의 테스트 커버리지를 나타내 주는 라이브러리인 coverage를 설치한다.
-<code class="highlighter-rouge">pip3 install coverage</code></p>
-
-<h1 id="coverage-설정">Coverage 설정</h1>
-<h2 id="coveragerc-파일-생성">.coveragerc 파일 생성</h2>
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>vi .coveragerc
-</code></pre>
-</div>
-<p>vim을 이용해서 간단하게 coveragerc 설정 파일을 생성.</p>
-
-<h2 id="실행환경-설정">실행환경 설정</h2>
-<p>[run] 헤더 이후에 설정을 적어주면 된다.<br />
-include = 테스트를 포함할 경로<br />
-omit = 테스트를 제외할 경로</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>[run]
-omit = ../virtualenvs/landlord_reputation_venv/*
-</code></pre>
-</div>
-<p>기본적으로 project_root의 폴더들이 모두 포함되므로 위와 같이 가상환경만 제외했다.</p>
-
-<h1 id="coverage-실행">Coverage 실행</h1>
-<p><code class="highlighter-rouge">coverage run manage.py test</code>로 테스트를 수행</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-
-----------------------------------------------------------------------
-Ran 0 tests in 0.000s
-
-OK
-</code></pre>
-</div>
-<p>위와 같이 테스트를 수행한다.<br />
-현재는 아무런 테스트도 넣지 않은 상태</p>
-
-<h1 id="리포트-보기">리포트 보기</h1>
-<p><code class="highlighter-rouge">coverage report</code>로 각각의 파일에 대한 리포트를 볼수 있다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Name                                    Stmts   Miss  Cover
------------------------------------------------------------
-landlord_reputation/__init__.py             0      0   100%
-landlord_reputation/settings.py            20      0   100%
-landlord_reputation/urls.py                 4      0   100%
-landlord_reputation/views.py                8      0   100%
-manage.py                                  13      6    54%
-reputation/__init__.py                      0      0   100%
-reputation/admin.py                         8      0   100%
-reputation/apps.py                          3      0   100%
-reputation/migrations/0001_initial.py       8      0   100%
-reputation/migrations/__init__.py           0      0   100%
-reputation/models.py                        9      0   100%
-reputation/tests.py                         1      0   100%
-reputation/urls.py                          3      0   100%
-reputation/views.py                        90     65    28%
------------------------------------------------------------
-TOTAL                                     167     71    57%
-</code></pre>
-</div>
-
-<p>view 파일에 대해 하나도 테스트가 작성되지 않은 상태라 coverage가 매우 낮게 출력된다.</p>
-
-<h1 id="리포트-html-형식으로-보기">리포트 html 형식으로 보기</h1>
-<p>좀더 자세한 결과를 보기위해서 리포트를 Html 형식으로 출력할수도 있다.<br />
-<code class="highlighter-rouge">coverage html</code> 명령을 통해 <code class="highlighter-rouge">htmlcov/index.html</code>로 리포트가 생성된다.</p>
-
-<h2 id="리포트-형식">리포트 형식</h2>
-<p><img src="/post_assets/2017-06-20/coverage_list.png" alt="커버리지 리스트" /></p>
-
-<h2 id="리포트를-선택했을때-나오는-상세-결과">리포트를 선택했을때 나오는 상세 결과</h2>
-<p><img src="/post_assets/2017-06-20/coverage_detail.png" alt="커버리지 디테일" /></p>
-
-<h1 id="테스트-코드-작성하기">테스트 코드 작성하기</h1>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
-<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
-
-<span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
-
-<span class="k">class</span> <span class="nc">ReputationView</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s">"sample address"</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="s">"23.456789"</span><span class="p">,</span>
-        <span class="n">longitude</span><span class="o">=</span><span class="s">"123.4567890"</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_template_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s">"reputation:reputation_template"</span><span class="p">,</span>  <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">"123.1234567"</span><span class="p">,</span> <span class="s">"23.456789"</span><span class="p">])</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</code></pre>
-</div>
-<p>generic view Http 응답에 대한 테스트 코드를 삽입하였다.</p>
-
-<h2 id="이후-다시-테스트를-수행한-결과">이후 다시 테스트를 수행한 결과</h2>
-<p><img src="/post_assets/2017-06-20/coverage_detail2.png" alt="커버리지 디테일" />
-커버리지가 조금 올라가고 붉은색으로 표시된 테스트 되지 않은 범위도 조금 줄어들었다.</p>
-
-<p>테스트 플랜을 짜고 좀더 상세한 Suite/Case를 작성해야겠지만 위 방법을 확장하여 테스트 커버리지를 높일 수 있다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/">
-        브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기
-      </a>
-    </h1>
-
-    <span class="post-date">19 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#css" class="post-tag">CSS</a>
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#chrome" class="post-tag">Chrome</a>
-    
-    <a href="/blog/tags/#cache" class="post-tag">Cache</a>
-    
-    <a href="/blog/tags/#localhost" class="post-tag">Localhost</a>
-    
-    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
-    
-    
-
-    <article>
-      <h1 id="브라우저-css-캐쉬-무력화하기">브라우저 CSS 캐쉬 무력화하기</h1>
-<p>웹서비스를 제작하며 CSS 를 수정하다보면 분명 수정했는데도 불구하고 브라우저에 적용되지 않을때가 있다.<br />
-이는 브라우저가 기존의 CSS 파일을 캐쉬로 저장하고 있기 때문인데 간단하게 해결할 수 있다.</p>
-
-<h2 id="해결방법">해결방법</h2>
-<p>HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
-</code></pre>
-</div>
-
-<h3 id="django의-경우">Django의 경우</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-&lt;link href="{% static '/css/custom.css' %}?v=1.0" rel="stylesheet"&gt;
-
-</code></pre>
-</div>
-
-<h1 id="mac에서-localhost-지정하기">Mac에서 Localhost 지정하기</h1>
-<p>IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는<br />
-<code class="highlighter-rouge">/private/etc/hosts</code> 이다.<br />
-<code class="highlighter-rouge">sudo vi /private/etc/hosts</code>와 같이 해당 파일을 편집기로 진입해 host이름과 ip 짝을 수정해주면 된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/">
-        흐름에 따른 사고
-      </a>
-    </h1>
-
-    <span class="post-date">18 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#reading" class="post-tag">Reading</a>
-    
-    <a href="/blog/tags/#thinking" class="post-tag">Thinking</a>
-    
-    <a href="/blog/tags/#수학의-언어로-세상을-본다면" class="post-tag">수학의 언어로 세상을 본다면</a>
-    
-    
-
-    <article>
-      <p>우리는 무엇인가를 빠르게 습득하고 적용하기 위해 많은 부분들을 건너뛰곤 한다.<br />
-남들이 쌓아올린 경험과 지식의 결실을 빠르게 받아들이고 사용할 수 있는 능력이 실리와 직결되기도 한다.<br />
-하지만 더욱 깊이있는 발전을 위해서는 그러한 결실이 만들어지는 과정과 사고를 이해하는 것이 중요하다.<br />
-최첨단으로 보이는 결실들이 결국 많은 사람들의 고민과 시행착오 끝에 만들어 졌다는 사실을 인지하고,<br />
-그러한 고민들을 하게된 이유와 사고의 흐름을 쫓아보는 것이 지식에 대한 이해를 한단계 높여준다.<br />
-또한 이러한 사고의 흐름을 바탕으로 자신만의 고유한 해결책을 제시할 수 있게된다.</p>
-
-<p>빠른 결실을 바라는 사회에서 본질로 돌아가 고민하고 차근히 들여다 보는 것은 사회를 역행하는 것처럼 보이기에,<br />
-다들 혁신을 부르짓지만 진정한 혁신가라 불리는 이들이 정말 적은 이유가 아닐까.</p>
-
-<blockquote>
-  <p>우리는 일상생활 속에서 일일이 기본원리로 되돌아가 생각할 수는 없습니다.<br />
-이것은 정신적으로 상당히 힘든 일입니다.<br />
-그래서 우리는 비슷한 것에 기초해서 미루어 추측하거나 타인을 흉내 내는 것으로 인생의 대부분을 보냅니다.<br />
-그러나 새로운 지평을 개척하거나 진정한 의미의 혁신을 일으키기 위해서는 기본원리에서부터의 접근이 필요합니다.<br />
-어떤 분야에서나 가장 기본적 진리를 찾고 거기서 다시 생각해야 합니다.<br />
-그러기 위해서는 정신적 노력이 필요합니다.      - <strong>Elon musk</strong></p>
-</blockquote>
-
-<p>수학의 발전사를 통해 수학적 사고의 발전을 보여주는 <strong>수학의 언어로 세상을 본다면</strong>을 읽고…</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EB%8F%85%EC%84%9C/%EB%8B%A8%EC%83%81/2017/06/18/thinking-flow/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -698,7 +836,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-17 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
