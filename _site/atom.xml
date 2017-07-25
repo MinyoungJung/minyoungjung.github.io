@@ -4,13 +4,234 @@
  <title>Ringsterz Log</title>
  <link href="https://minyoungjung.github.io/atom.xml" rel="self"/>
  <link href="https://minyoungjung.github.io/"/>
- <updated>2017-07-20T13:27:07+09:00</updated>
+ <updated>2017-07-25T17:40:51+09:00</updated>
  <id>https://minyoungjung.github.io/</id>
  <author>
    <name>Minyoung Jung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>안드로이드 라이센스 라이브러리 사용하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-20T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using</id>
+   <content type="html">&lt;p&gt;앱을 유료로 마켓에 업로드하려 할때, apk 파일을 통해 앱을 설치하는게 우려된다면,&lt;br /&gt;
+Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 것인지 검증해 준다.&lt;/p&gt;
+
+&lt;h1 id=&quot;설치&quot;&gt;설치&lt;/h1&gt;
+&lt;p&gt;Android SDK Tools에서 라이센싱 라이브러리를 설치한다.
+&lt;img src=&quot;/post_assets/2017-07-20/add_lib.png&quot; alt=&quot;라이브러리 설치&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;라이브러리-추가&quot;&gt;라이브러리 추가&lt;/h1&gt;
+&lt;p&gt;안드로이드 스튜디오에서 File -&amp;gt; New -&amp;gt; Import Module을 선택한 후,&lt;br /&gt;
+설치한 라이센스 소스 디렉토리의 AndroidManifest.xml을 선택한다.
+&lt;img src=&quot;/post_assets/2017-07-20/import_module.png&quot; alt=&quot;라이브러리 추가&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;계정-설정&quot;&gt;계정 설정&lt;/h1&gt;
+&lt;p&gt;Google Play console에서 라이센스 테스트를 수행할 계정을 선택한다.&lt;br /&gt;
+이 계정으로 기기에 로그인 해야 한다.
+&lt;img src=&quot;/post_assets/2017-07-20/test_response.png&quot; alt=&quot;계정설정&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;라이센스-키-설정&quot;&gt;라이센스 키 설정&lt;/h1&gt;
+&lt;p&gt;Google Play console에서 개별 앱 페이지로 들어가서 라이센스 키를 복사한다.&lt;br /&gt;
+&lt;img src=&quot;/post_assets/2017-07-20/license_key.png&quot; alt=&quot;라이센스 키 설정&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;라이브러리-포함하여-빌드하도록-설정&quot;&gt;라이브러리 포함하여 빌드하도록 설정&lt;/h1&gt;
+&lt;p&gt;app의 build.gradle에 다음 구문을 추가한다
+&lt;code class=&quot;highlighter-rouge&quot;&gt;compile project(path: ':library')&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;라이브러리-사용&quot;&gt;라이브러리 사용&lt;/h1&gt;
+&lt;p&gt;사용법은 딱히 까다롭지 않아 &lt;a href=&quot;https://developer.android.com/google/play/licensing/adding-licensing.html#imports&quot;&gt;Android docs&lt;/a&gt;의 링크로 대체하고, 일부 부분만 설명한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;고유-디바이스-아이디-처리&quot;&gt;고유 디바이스 아이디 처리&lt;/h2&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AESObfuscator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SALT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getPackageName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deviceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;부분에서 고유한 deviceId를 처리해줘야 한다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Secure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getContentResolver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Secure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ANDROID_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))),&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;장치 고유값을 가져오는 것이 생각보다 쉽지않은데, 그냥 단순하게 처리하려면 위와같이 하면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;에러처리&quot;&gt;에러처리&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/post_assets/2017-07-20/error.png&quot; alt=&quot;에러 처리&quot; /&gt;
+라이브러리의 intent 사용 방법 떄문에 에러가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Binding to licensing service.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bindResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mContext&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bindService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Base64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))),&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// ServiceConnection.&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BIND_AUTO_CREATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bindResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;mPendingChecks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;offer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Could not bind to service.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;handleServiceConnectionError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;applicationError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LicenseCheckerCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ERROR_MISSING_PERMISSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Base64DecoderException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;라이브러리의 위 코드를 아래와 같이 수정한다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Binding to licensing service.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceIntent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Base64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;serviceIntent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPackage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.android.vending&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bindResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bindService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceIntent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// ServiceConnection.&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BIND_AUTO_CREATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bindResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;mPendingChecks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;offer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Could not bind to service.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;handleServiceConnectionError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SecurityException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;applicationError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LicenseCheckerCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ERROR_MISSING_PERMISSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Base64DecoderException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;또-다른-에러&quot;&gt;또 다른 에러&lt;/h2&gt;
+&lt;p&gt;LicenseCheckerCallback에서 applicationError가 호출되며 에러코드 3이 찍히는 경우가 있다.&lt;br /&gt;
+이는 ERROR_NOT_MARKET_MANAGED로 마켓에 앱을 올리지 않았을때 반환되는 코드인데, 처리할 필요 없다.&lt;br /&gt;
+정상적인 시나리오에서는 allow나 dontallow가 호출되기 때문인데, 자세한 이유를 알고 싶다면 &lt;a href=&quot;https://stackoverflow.com/questions/10377325/how-do-you-deal-with-licensecheckercallback-error-not-market-managed-error-code&quot;&gt;여기&lt;/a&gt;서 확인할 것&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>안드로이드 런처 아이콘 해상도별로 생성하기</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-19T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/19/android-launcher-icon-generator</id>
+   <content type="html">&lt;h1 id=&quot;안드로이드-런처-아이콘-생성하기&quot;&gt;안드로이드 런처 아이콘 생성하기&lt;/h1&gt;
+&lt;p&gt;안드로이드 런처 아이콘을 해상도별로 작업하는 것은 귀찮은 일이지만,&lt;br /&gt;
+내가 귀찮은 것은 남에게도 귀찮은 법.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html&quot;&gt;AndroidAssetStudio&lt;/a&gt;를 통해 여러가지 해상도별로 쉽게 뽑아낼 수 있다.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>HTML 컬러코드 기본 조합</title>
+   <link href="https://minyoungjung.github.io/"/>
+   <updated>2017-07-18T00:00:00+09:00</updated>
+   <id>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination</id>
+   <content type="html">&lt;h1 id=&quot;color-picker를-위한-기본-색상-조합&quot;&gt;Color Picker를 위한 기본 색상 조합&lt;/h1&gt;
+&lt;p&gt;색상 선택기를 만드는데 기본 조합이 필요하다면 다음의 색상 조합을 이용한다&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;색상&lt;/th&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;이름&lt;/th&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;HEX&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#ff0000;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Red&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#FF0000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#800000;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Maroon&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#800000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#FFFF00;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Yellow&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#FFFF00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#808000;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Olive&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#808000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#00FF00;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Lime&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#00FF00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#008000;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Green&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#008000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#00FFFF;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Aqua&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#00FFFF&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#008080;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Teal&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#008080&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#0000FF;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Blue&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#0000FF&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#000080;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Navy&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#000080&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#FF00FF;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Fuchsia&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#FF00FF&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#800080;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Purple&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#800080&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#FFFFFF;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;White&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#FFFFFF&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#C0C0C0;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Silver&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#C0C0C0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#808080;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Gray&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#808080&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center; background-color:#000000;&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;Black&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;#000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+
+&lt;/table&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Mac Finder에서 파일 이름으로 검색하기</title>

@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">48</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,261 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (3) - 구현 1일차
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#naver-api" class="post-tag">Naver API</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    
+
+    <article>
+      <h1 id="구현-1일차">구현 1일차</h1>
+<h2 id="메인화면">메인화면</h2>
+<p>부트스트랩을 이용해서 간단히 홈화면을 꾸미고, Navbar 및 footer를 생성.<br />
+중앙에는 평판을 검색할 수 있는 검색창을 추가했다.<br />
+검색창에서 주소를 검색하면, Naver Geocoder API를 이용해 주소를 위/경도로 변환해 주었다.</p>
+
+<h2 id="검색-리스트">검색 리스트</h2>
+<p>올바른 주소가 검색되었을때 이미 평판이 있으면 해당 평판을 볼수있는 링크를 보여주게 구현하였다.<br />
+DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지로 링크를 선택하면 평판을 추가할수 있는 화면으로<br />
+이동하게 했다.</p>
+
+<h2 id="평판-디테일-뷰">평판 디테일 뷰</h2>
+<p>네이버 지도 API를 통해 검색한 주소의 마커를 보여주고, 평판을 추가할 수 있는 폼을 생성했다.<br />
+지도상에서 맵을 선택하면 해당 위치에 평판을 추가할 수 있도록 하고, 평판이 있다면 보여주도록 했다.</p>
+
+<h1 id="고생한-점">고생한 점</h1>
+<p>Naver Geocoder에서 주소를 찾지 못할때 <code class="highlighter-rouge">404 Not Found</code>를 날려주는 것을 모르고 있다가 한참 헤맸다.<br />
+<strong>문서를 잘 읽자는 교훈</strong> <a href="https://developers.naver.com/docs/map/overview/">네이버 지도 API 명세 - 5. 에러 코드 참조</a><br />
+또한 경도/위도의 자릿수를 8, 9자리에 6자리 소숫점 고정으로 생각하고 있다가,<br />
+경도/위도의 소숫점 아래 자리수가 7자리수인 좌표들이 등장하며 url 패턴에 맞지 않는 url들이 나와<br />
+계속 오류가 나는 것을 알아채지 못하고 한참 삽질을 했다.<br />
+굳이 Redirect가 필요하지 않은 것을 한단계 더 거쳐가는 형식으로 구현했다가 수정했다.<br />
+간단하다고 설계를 할때 깊게 생각하지 않으면 구현하면서 고생한다는 것을 다시금 깨달았다.</p>
+
+<h1 id="진행률">진행률</h1>
+<p>기본적인 기능 구현은 2/3 정도 끝난것 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">평판 등록/조회 기능</th>
+      <th style="text-align: center">회원가입/로그인 기능</th>
+      <th style="text-align: center">주소 검색 기능</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">80%</td>
+      <td style="text-align: center">20%</td>
+      <td style="text-align: center">100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<h1 id="추후-일정">추후 일정</h1>
+<ol>
+  <li>로그인/회원가입 등 구현</li>
+  <li>가입한 사용자만 정보를 등록할 수 있도록 구현</li>
+  <li>디테일뷰에서 DB에 평판 추가하는 부분 구현</li>
+  <li>UI/UX 개선</li>
+</ol>
+
+<p>일주일내로 기본 기능을 완성하기로 한 일정을 맞출 수 있을 것 같다.<br />
+여전히 개선할 부분과 디테일 개선은 갈길이 멀긴 하다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (2) - DB 구성, 외부 라이브러리
+      </a>
+    </h1>
+
+    <span class="post-date">14 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    
+
+    <article>
+      <h1 id="db-구성">DB 구성</h1>
+<h2 id="reputation-테이블">Reputation 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ID</th>
+      <th style="text-align: center">Longitude</th>
+      <th style="text-align: center">Latitude</th>
+      <th style="text-align: center">Description</th>
+      <th style="text-align: center">Created_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Primary Key</td>
+      <td style="text-align: center">경도</td>
+      <td style="text-align: center">위도</td>
+      <td style="text-align: center">평판</td>
+      <td style="text-align: center">레코드 생성 날짜</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
+<h2 id="app-구성">App 구성</h2>
+<p>평판 조회/출력하는 단일 app으로 구성</p>
+
+<h2 id="주소검색-라이브러리">주소검색 라이브러리</h2>
+<p><a href="http://www.juso.go.kr/addrlink/main.do">주소검색솔루션</a><br />
+행정자치부에서 만든 솔루션이다.<br />
+자체적으로 서버에 솔루션을 설치해야 하기에 간단히 제작한다는 취지에 너무 과하다는 생각이 들어 패스했다.</p>
+
+<p><a href="https://developers.naver.com/docs/map/javascriptv3/">네이버맵스</a><br />
+간단하고 쓰기편한 네이버 지도 API 선택.</p>
+
+<h2 id="프론트엔드-라이브러리">프론트엔드 라이브러리</h2>
+<p><a href="http://http://getbootstrap.com/">부트스트랩</a><br />
+프론트엔드는 그냥 고민없이 부트스트랩으로…</p>
+
+<h1 id="추후-일정">추후 일정</h1>
+<p>Generic View, Admin 기능 등.. 최대한 장고 자체의 기능을 이용해서 빨리빨리 MVP 구현.<br />
+이후 저번 프로젝트와는 다른쪽에 중점을 두고 개선/확장 예정</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/">
+        Pycharm Community 에디션에 Django 가상환경으로 세팅하기
+      </a>
+    </h1>
+
+    <span class="post-date">13 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#pycharm" class="post-tag">Pycharm</a>
+    
+    <a href="/blog/tags/#virtualenv" class="post-tag">Virtualenv</a>
+    
+    <a href="/blog/tags/#git" class="post-tag">Git</a>
+    
+    
+
+    <article>
+      <h1 id="pycharm-community-에디션에-django-가상환경으로-세팅">Pycharm Community 에디션에 Django 가상환경으로 세팅</h1>
+<p>Pycharm Professional Edition과 다르게 Community Edition은 Django와 같은 프로젝트를 직접 생성할 수 없다.<br />
+결국 설정을 위해서 약간의 번거로운 작업이 필요하다.</p>
+
+<h2 id="가상환경-설정">가상환경 설정</h2>
+<p><code class="highlighter-rouge">python -m venv my-virtualenv</code>
+my-virtualenv라는 이름의 가상환경 생성</p>
+
+<h2 id="가상환경-실행">가상환경 실행</h2>
+<p><code class="highlighter-rouge">source my-virtualenv/bin/activate</code><br />
+가상환경이 실행되면 <code class="highlighter-rouge">(my-virtualenv) 프롬프트 이름$</code>와 같이 프롬프트가 변경된다.<br />
+이 상태에서는 어떤 폴더로 이동하든 가상환경이 실행된 상태이다.</p>
+
+<h2 id="django-설치">Django 설치</h2>
+<p><code class="highlighter-rouge">pip3 install django</code></p>
+
+<h2 id="django-project-생성">Django project 생성</h2>
+<p><code class="highlighter-rouge">django-admin startproject 프로젝트이름</code></p>
+
+<h2 id="git-설정">Git 설정</h2>
+<p><code class="highlighter-rouge">git init</code> <br />
+<code class="highlighter-rouge">git add .</code><br />
+<code class="highlighter-rouge">git commit -m "first commit"</code><br />
+<code class="highlighter-rouge">git remote add origin https://github.com/프로젝트github.git</code><br />
+<code class="highlighter-rouge">git push origin master</code></p>
+
+<h2 id="pycharm-설정">Pycharm 설정</h2>
+<ol>
+  <li>Pycharm 커뮤니티 에디션 실행, 프로젝트 폴더 위치 선택하여 프로젝트 열기</li>
+  <li><code class="highlighter-rouge">⌘</code>+<code class="highlighter-rouge">,</code> 입력하여 Preference 창 출력</li>
+  <li>Project -&gt; Project Interpreter 선택</li>
+  <li>맨 위의 Prject Interpreter 선택 창 옆의 설정 아이콘 선택 -&gt; Add local</li>
+  <li>생성한 가상환경 폴더의 /bin/python3 선택 -&gt; Apply</li>
+  <li>Run -&gt; Edit configurations 선택</li>
+  <li><code class="highlighter-rouge">+</code> 선택 후 Python 선택하여 새로운 환경 설정 생성 후 이름 지정</li>
+  <li>Script: 프로젝트 폴더의 manage.py 선택, Script parameters: runserver</li>
+</ol>
+
+<h2 id="pycharm에서-가상환경으로-작업">Pycharm에서 가상환경으로 작업</h2>
+<p>이제 커맨드라인에서 <code class="highlighter-rouge">deactivate</code>를 입력해 가상환경을 종료해도 Pycharm안에서 모두 해결 가능하다.<br />
+패키지를 인스톨하고 싶다면 <code class="highlighter-rouge">⌘</code>+<code class="highlighter-rouge">,</code> 입력 후 Project Interpreter 항목의 리스트에서 선택하면 되고,<br />
+테스트 서버를 실행하고 싶다면 간단히 <code class="highlighter-rouge">⌃</code>+<code class="highlighter-rouge">r</code>이나 재생버튼(?)을 선택하여 실행할 수 있다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -321,384 +576,6 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
-        Django 프로젝트 Heroku에 릴리즈하기
-      </a>
-    </h1>
-
-    <span class="post-date">10 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
-    
-    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
-    
-    
-
-    <article>
-      <h1 id="기존-django-프로젝트-heroku에-릴리즈">기존 Django 프로젝트 Heroku에 릴리즈</h1>
-
-<h2 id="heroku-cli-설치">Heroku CLI 설치</h2>
-<p><code class="highlighter-rouge">brew install heroku</code></p>
-
-<h2 id="gunicorn을-추가">gunicorn을 추가</h2>
-<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
-
-<p>gunicorn 설정시 폴더구조는<br />
-메인 -<br />
-       |- 프로젝트<br />
-       |- 다른 앱<br />
-폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다.</p>
-
-<h2 id="procfile-추가">Procfile 추가</h2>
-<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 저장한다.<br />
-<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
-
-<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
-<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우)<br />
-<code class="highlighter-rouge">python-3.6.1</code></p>
-
-<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
-<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
-
-<p>이후 프로젝트의 <code class="highlighter-rouge">settings.py</code>파일에</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
-<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
-</code></pre>
-</div>
-<p>를 추가한다.</p>
-
-<h2 id="whitenoise-추가">whitenoise 추가</h2>
-<p>장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다.<br />
-whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다.<br />
-<code class="highlighter-rouge">pip install whitenoise</code></p>
-
-<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Simplified static file serving.</span>
-<span class="c"># https://warehouse.python.org/project/whitenoise/</span>
-
-<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
-<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
-</code></pre>
-</div>
-
-<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가한다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
-
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
-</code></pre>
-</div>
-
-<h2 id="requirementstxt-생성">requirements.txt 생성</h2>
-<p><code class="highlighter-rouge">pip freeze &gt; requirements.txt</code>를 입력하여 사용된 패키지를 추출한다.</p>
-
-<h2 id="allowed-host-추가">ALLOWED Host 추가</h2>
-<p><code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">ALLOWED_HOSTS = ['*']</code>를 추가한다.</p>
-
-<h2 id="추가사항">추가사항</h2>
-<p>DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.<br />
-해결방법은 <a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/25/django-landlord-reputation-(5)/">Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드</a> 여기서 확인</p>
-
-<h2 id="heroku에-로그인">Heroku에 로그인</h2>
-<p><code class="highlighter-rouge">heroku login</code></p>
-
-<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
-<p><code class="highlighter-rouge">heroku create</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>heroku create
-Creating app... done, ⬢ calm-basin-17299
-https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
-
-Git remote heroku added
-</code></pre>
-</div>
-
-<h2 id="heroku를-git-remote로-추가">Heroku를 git remote로 추가</h2>
-<p><code class="highlighter-rouge">git remote add heroku https://git.heroku.com/calm-basin-17299.git</code></p>
-
-<h2 id="db가-생성되어-있지-않다면-생성">db가 생성되어 있지 않다면 생성</h2>
-<p><code class="highlighter-rouge">heroku run python manage.py migrate</code><br />
-간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다.</p>
-
-<h1 id="슈퍼유저-생성">슈퍼유저 생성</h1>
-<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
-
-<h2 id="commit하고-heroku에-push">commit하고 Heroku에 push</h2>
-<p><code class="highlighter-rouge">git push heroku master</code></p>
-
-<h2 id="만약-matpolib을-쓴다면-헤로쿠와-충돌이-일어난다">만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>import matplotlib
-matplotlib.use('Agg')
-</code></pre>
-</div>
-<p>를 <code class="highlighter-rouge">import matplotlib.pyplot as plt, mpld3</code> 전에 추가한다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">
-        Django를 이용한 스케쥴러 제작 (2) - 구현
-      </a>
-    </h1>
-
-    <span class="post-date">09 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="구현">구현</h1>
-<h2 id="todolist">Todolist</h2>
-<p>Django의 Generic view를 이용해 구현했다.<br />
-TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다.</p>
-
-<h2 id="calendar">Calendar</h2>
-<p>Python standard library의 HTMLCalendar를 이용해 구현했다.<br />
-지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다.</p>
-
-<h2 id="stats">Stats</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">create_date</th>
-      <th style="text-align: center">workout_done</th>
-      <th style="text-align: center">owner_id</th>
-      <th style="text-align: center">workout_id</th>
-      <th style="text-align: center">duration</th>
-      <th style="text-align: center">workout_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">생성일</td>
-      <td style="text-align: center">운동 수행여부</td>
-      <td style="text-align: center">소유자</td>
-      <td style="text-align: center">FK(List)</td>
-      <td style="text-align: center">수행시간(분)</td>
-      <td style="text-align: center">수행 날짜</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Workout 테이블에서 owner를 필터로 쿼리셋을 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.<br />
-별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,<br />
-해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.<br />
-Django 철학에도 있지않은가.. <code class="highlighter-rouge">Simple is better than complex</code> <del>이럴때 쓰란말은 아니지만…</del>
-<br />
-여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다.<br />
-워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다.</p>
-
-<h2 id="로그인관리자-기능">로그인/관리자 기능</h2>
-<p>Django의 기본 Auth와 Admin을 이용했다.<br />
-혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다.</p>
-
-<h1 id="스크린샷">스크린샷</h1>
-<h2 id="todolist-1">Todolist</h2>
-<p><img src="/post_assets/2017-06-09/todolist.png" alt="할일목록" /></p>
-
-<h2 id="calendar-1">Calendar</h2>
-<p><img src="/post_assets/2017-06-09/calendar.png" alt="캘린더" /></p>
-
-<h2 id="stats-1">Stats</h2>
-<p><img src="/post_assets/2017-06-09/stats.png" alt="그래프" /></p>
-
-<h2 id="모바일-대응-메뉴">모바일 대응 메뉴</h2>
-<p><img src="/post_assets/2017-06-09/mobile-react.png" alt="모바일 대응" /></p>
-
-<h1 id="마무리">마무리</h1>
-<p>간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다.<br />
-하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고,<br />
-이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다.<br />
-일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다.</p>
-
-<h1 id="추후-계획">추후 계획</h1>
-<ol>
-  <li>각종 버그 수정… (귀찮지 않다면…)</li>
-  <li>데이터 분석 및 그래프 기능 확장</li>
-  <li>데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..)</li>
-  <li>간단한 소셜 기능 (옵션)</li>
-</ol>
-
-<h1 id="서비스-링크">서비스 링크</h1>
-<p>간단히 무료 Dyno를 통해 Heroku에 올려두었다.<br />
-DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지..</p>
-
-<p><a href="https://workoutcal.herokuapp.com">https://workoutcal.herokuapp.com</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">
-        Django를 이용한 스케쥴러 제작 (1) - 정의 및 구성
-      </a>
-    </h1>
-
-    <span class="post-date">08 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-<p>1일 1커밋을 생활화하기 위해 Django를 이용한 간단한 서비스를 만들기로 했다.<br />
-운동을 좋아하는 만큼 운동 스케쥴러를 작성하기로 했고, 프로젝트 목표와 개발 방향을 설정했다.</p>
-
-<h1 id="목표">목표</h1>
-<ol>
-  <li>스스로 사용할 만한 서비스 구축</li>
-  <li>깔끔한 디자인</li>
-  <li>확장성(?)</li>
-</ol>
-
-<h1 id="요구사항">요구사항</h1>
-<ol>
-  <li>일정을 추가할 수 있고, 일별/월별 보기가 가능할 것</li>
-  <li>당일 해야할 운동 종류를 표시하며, 해당 Todo 리스트에서 수행 여부를 표시할 수 있을 것</li>
-  <li>수행한 항목의 수행 시간에 비율을 그래프로 출력할 것</li>
-</ol>
-
-<h1 id="db-구성">DB 구성</h1>
-<p>크게 운동 종류를 나타낸 Category 테이블을 만들고, 카테고리 테이블을 Foreign key로 이용한 List 테이블,<br />
-마지막으로 각각의 개별 운동을 나타내는 Workout 테이블을 생성했다.<br />
-테이블 상세 구성은 아래와 같다.</p>
-
-<h2 id="workout-list-테이블">Workout List 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">workout_title</th>
-      <th style="text-align: center">category_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">개별 운동 이름</td>
-      <td style="text-align: center">FK(Category)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="workout-category-테이블">Workout Category 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">category_name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">운동 카테고리 이름</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="workout-테이블">Workout 테이블</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">create_date</th>
-      <th style="text-align: center">workout_done</th>
-      <th style="text-align: center">owner_id</th>
-      <th style="text-align: center">workout_id</th>
-      <th style="text-align: center">duration</th>
-      <th style="text-align: center">workout_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">생성일</td>
-      <td style="text-align: center">운동 수행여부</td>
-      <td style="text-align: center">소유자</td>
-      <td style="text-align: center">FK(List)</td>
-      <td style="text-align: center">수행시간(분)</td>
-      <td style="text-align: center">수행 날짜</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br /></p>
-
-<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
-<p>App은 할일을 출력하는 todolist, 월별 목록을 출력하는 calendar,<br />
-그래프를 출력하는 stats의 세 부분으로 구성되어 있다.</p>
-
-<p>전체적인 Look&amp;Feel은 심플한 Material Design 형태로 가기로 하고, <a href="http://materializecss.com/getting-started.html">Materialize</a>를 이용했다.<br />
-그래프를 출력하기 위해서는 <a href="https://github.com/plotly/plotly.py">Plotly</a>와 <a href="https://matplotlib.org/gallery.html">Matplotlib</a>을 고민하다 최종적으로 matplotlib으로 결정하였다.</p>
-
-<p><a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/09/django-scheduler-(2)/">Django를 이용한 스케쥴러 제작 (2) - 구현</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -767,7 +644,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-17 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

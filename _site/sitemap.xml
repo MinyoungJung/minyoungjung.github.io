@@ -5,6 +5,33 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/</loc>
+    
+    <lastmod>2017-07-20T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/19/android-launcher-icon-generator/</loc>
+    
+    <lastmod>2017-07-19T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io//%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/</loc>
+    
+    <lastmod>2017-07-18T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name/</loc>
     
     <lastmod>2017-07-17T00:00:00+09:00</lastmod>
@@ -475,6 +502,8 @@
   
   
   
+  
+  
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Github</loc>
     <changefreq>monthly</changefreq>
@@ -855,6 +884,30 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Finder</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#HTML</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Design</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Icon</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#License</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
