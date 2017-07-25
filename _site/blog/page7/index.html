@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">51</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">52</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,126 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">
+        Django에 Rest API 추가하기
+      </a>
+    </h1>
+
+    <span class="post-date">21 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    
+
+    <article>
+      <h1 id="api-구성">API 구성</h1>
+<p>기존에 만든 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/">Django를 이용한 건물주 평판 조회 서비스</a>에 Rest API를 추가하려 한다.<br />
+API endpoint로 <code class="highlighter-rouge">/api/위도+경도</code>의 URL을 날리면 해당 좌표에 맞는 정보가 날아오는 형태이다.</p>
+
+<h1 id="django-rest-framework-설치">Django REST Framework 설치</h1>
+<p><code class="highlighter-rouge">pip3 install djangorestframework</code><br />
+Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django REST Framework를 설치한다.</p>
+
+<h1 id="serializer-클래스-정의">Serializer 클래스 정의</h1>
+<p>별도의 <code class="highlighter-rouge">serializer.py</code> 파일을 정의하였다.<br />
+모델 전체를 Serialize 할 수도 있지만, ModelSerializer를 상속받으면 더욱 간단하다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+
+
+<span class="k">class</span> <span class="nc">ReputationSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Reputation</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'address'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">,</span> <span class="s">'longitude'</span><span class="p">,</span> <span class="s">'description'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Django Shell에서 작성한 Serializer를 확인해 보았다.</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">&gt;&gt;&gt; </span>from reputation.serializer import ReputationSerializer
+<span class="gp">&gt;&gt;&gt; </span>ser <span class="o">=</span> ReputationSerializer<span class="o">()</span>
+<span class="gp">&gt;&gt;&gt; </span>print<span class="o">(</span>repr<span class="o">(</span>ser<span class="o">))</span>
+ReputationSerializer<span class="o">()</span>:
+address <span class="o">=</span> CharField<span class="o">(</span><span class="nv">max_length</span><span class="o">=</span>50<span class="o">)</span>
+latitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>9<span class="o">)</span>
+longitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>10<span class="o">)</span>
+description <span class="o">=</span> CharField<span class="o">(</span><span class="nv">style</span><span class="o">={</span><span class="s1">'base_template'</span>: <span class="s1">'textarea.html'</span><span class="o">})</span>
+</code></pre>
+</div>
+
+<h1 id="api-url-생성">API URL 생성</h1>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Endpoint URL: /api/126.575834+33.427337/</span>
+<span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;</span><span class="err">\</span><span class="s">d{1,3}</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d{1,7})</span><span class="err">\</span><span class="s">+(?P&lt;latitude&gt;</span><span class="err">\</span><span class="s">d{1,2}</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d{1,7})/$'</span><span class="p">,</span>
+<span class="n">ReputationDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">'reputation_rest_api'</span><span class="p">),</span>
+</code></pre>
+</div>
+<p>위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다.</p>
+
+<h1 id="api를-제공하는-view-생성">API를 제공하는 View 생성</h1>
+<p>하나의 모델에 대해 read-write-delete 엔드포인트를 제공하는 RetrieveUpdateDestroyAPIView를 상속받았다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.serializer</span> <span class="kn">import</span> <span class="n">ReputationSerializer</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span>
+
+<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+</code></pre>
+</div>
+<p>DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 적절히 상속받는 것으로 충분하나<br />
+넘겨받은 위/경도를 이용해서 DB를 검색하기 위해 조금 추가 작업이 필요하다.</p>
+
+<p>여러개의 필드를 검색할 수 있는 Mixin class를 생성하여 ReputationDetail이 상속받도록 한다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultipleFieldLookupMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>             <span class="c"># Get the base queryset</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>  <span class="c"># Apply any filter backends</span>
+        <span class="nb">filter</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]:</span> <span class="c"># Ignore empty fields.</span>
+                <span class="nb">filter</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="o">**</span><span class="nb">filter</span><span class="p">)</span>  <span class="c"># Lookup the object</span>
+</code></pre>
+</div>
+
+<p>이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고,<br />
+lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
+    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h1 id="api-테스트-결과">API 테스트 결과</h1>
+<p>Postman을 이용해서 api를 테스트 한 결과
+<img src="/post_assets/2017-06-21/test_api.png" alt="실행결과" /></p>
+
+<h1 id="다음편-링크">다음편 링크</h1>
+<p><a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">Django에 Rest API 추가하기 (2) - API에 인증 추가</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -494,124 +614,6 @@ TOTAL                                     167     71    57%
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/">
-        Django를 이용한 건물주 평판 조회 서비스 제작 (4) - 구현 2일차
-      </a>
-    </h1>
-
-    <span class="post-date">16 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#naver-api" class="post-tag">Naver API</a>
-    
-    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
-    
-    
-
-    <article>
-      <h1 id="구현-2일차">구현 2일차</h1>
-
-<h2 id="평판-디테일-뷰">평판 디테일 뷰</h2>
-<p>검색한 위치에서 평판을 등록할 수 있게하고, 맵을 띄워주었다.<br />
-지도를 선택해서 마커를 이동하면 해당 위치에서 평판을 등록할 수 있도록 했다.</p>
-
-<h2 id="로그인로그아웃회원가입">로그인/로그아웃/회원가입</h2>
-<p>Django의 기본 Auth를 이용하여 제작했다.<br />
-Django의 기능이 강력해서 구현 자체는 금방 끝났으나 UI를 다듬는대 생각보다 많은 시간이 걸렸다.<br />
-여전히 Look이 마음에 들진 않는다…</p>
-
-<h1 id="스크린샷">스크린샷</h1>
-<h2 id="홈">홈</h2>
-<p><img src="/post_assets/2017-06-16/home.png" alt="홈화면" /></p>
-
-<h2 id="검색결과-평판이-있을때-평판으로-이동할-수-있는-화면">검색결과 (평판이 있을때 평판으로 이동할 수 있는 화면)</h2>
-<p><img src="/post_assets/2017-06-16/list-without-repu.png" alt="검색결과(평판없음)" /></p>
-
-<h2 id="검색결과-평판이-없을때-검색한-주소에-추가할-수-있는-화면">검색결과 (평판이 없을때 검색한 주소에 추가할 수 있는 화면)</h2>
-<p><img src="/post_assets/2017-06-16/list-without-repu.png" alt="검색결과(평판없음)" /></p>
-
-<h2 id="로그인">로그인</h2>
-<p><img src="/post_assets/2017-06-16/login.png" alt="로그인" /></p>
-
-<h2 id="회원가입-에러-메시지-출력-화면">회원가입 (에러 메시지 출력 화면)</h2>
-<p><img src="/post_assets/2017-06-16/register-with-error.png" alt="회원가입(에러)" /></p>
-
-<h2 id="맵뷰">맵뷰</h2>
-<p><img src="/post_assets/2017-06-16/mapview.png" alt="맵뷰" /></p>
-
-<h1 id="고생한-점">고생한 점</h1>
-<p>2일차 구현은 딱히 어려웠던 점은 없다. UI가 고쳐도 고쳐도 맘에 썩 들지 않는다는 점만 빼면…</p>
-
-<h1 id="진행률">진행률</h1>
-<p>기본적인 기능 구현은 전부 완료했다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">평판 등록/조회 기능</th>
-      <th style="text-align: center">회원가입/로그인 기능</th>
-      <th style="text-align: center">주소 검색 기능</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">100%</td>
-      <td style="text-align: center">100%</td>
-      <td style="text-align: center">100%</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>더불어 지난주 계획도 얼추 완료했다.</p>
-<ol>
-  <li><del>로그인/회원가입 등 구현</del> <strong>완료</strong></li>
-  <li><del>가입한 사용자만 정보를 등록할 수 있도록 구현</del> <strong>완료</strong></li>
-  <li><del>디테일뷰에서 DB에 평판 추가하는 부분 구현</del> <strong>완료</strong></li>
-  <li><del>UI/UX 개선</del> <strong>완료</strong></li>
-</ol>
-
-<p>6/18일까지 MVP를 제작한다는 일정은 맞춘듯 하다.<br />
-전체 프로젝트 목표까지는 아직 조금더 할일이 남긴 했다.</p>
-
-<h1 id="다듬기">다듬기</h1>
-<ol>
-  <li>계정 생성시 간단한 인증코드 삽입</li>
-  <li>테스트 코드 삽입
-    <ul>
-      <li>간단한 코드라도 테스트 코드 넣는 습관 들이자..</li>
-    </ul>
-  </li>
-  <li>릴리즈용으로 코드 정리
-    <ul>
-      <li>Dev/Production 환경을 나누고 여러 키들 노출되지 않도록 처리할 것</li>
-    </ul>
-  </li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -680,7 +682,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-20 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-21 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
