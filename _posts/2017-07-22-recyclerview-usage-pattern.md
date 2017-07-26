@@ -56,6 +56,7 @@ public ViewHolder(View v) {
 뷰홀더 클래스의 생성자 안에서 사용할 뷰들을 바인드 한다.
 
 ### onBindViewHolder 오버라이드
+``` java
 @Override
 public void onBindViewHolder(final ViewHolder holder, final int position) {
     final Phrase item = mDataset.get(position);
@@ -63,6 +64,7 @@ public void onBindViewHolder(final ViewHolder holder, final int position) {
     holder.mTextView.setText(mData.get(position).toString());
     }
 }
+```
 RecyclerView의 각각의 뷰가 표시될 때 처리할 내용을 작성한다.
 
 
