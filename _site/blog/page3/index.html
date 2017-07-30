@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">54</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,101 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/">
+        안드로이드 SQLite에 대량의 레코드 삽입하기
+      </a>
+    </h1>
+
+    <span class="post-date">14 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#sqlite" class="post-tag">SQLite</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    <a href="/blog/tags/#database" class="post-tag">Database</a>
+    
+    
+
+    <article>
+      <h1 id="사용씬">사용씬</h1>
+<p>안드로이드의 로컬 저장소인 SQLite에 대용량의 레코드를 한번에 삽입하려 한다.<br />
+<code class="highlighter-rouge">ArrayList&lt;Data&gt; data</code> 안에 4만개의 레코드가 있다.</p>
+
+<h1 id="통상정인-방법">통상정인 방법</h1>
+<h2 id="sqliteopenhelper-내-메소드">SqliteOpenHelper 내 메소드</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">long</span> <span class="nf">insertData</span><span class="o">(</span><span class="n">Data</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ContentValues</span> <span class="n">cv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
+    <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_A</span><span class="o">,</span> <span class="n">dataA</span><span class="o">);</span>
+    <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_B</span><span class="o">,</span> <span class="n">dataB</span><span class="o">);</span>
+    <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_B</span><span class="o">,</span> <span class="n">dataC</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="nf">getWritableDatabase</span><span class="o">().</span><span class="na">insert</span><span class="o">(</span><span class="n">TABLE_A</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">cv</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>하나의 레코드를 삽입하는 메소드를 정의했다.</p>
+
+<h2 id="insertdata-사용">insertData 사용</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">data</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">dbHelper</span><span class="o">.</span><span class="na">insertData</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>for 문을 돌려서 Data를 삽입한다.</p>
+
+<h1 id="문제점">문제점</h1>
+<p>만약 4만개의 레코드를 한번에 저장하려면 위의 방법으로는 대략 1분이 넘어간다.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">data</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">dbHelper</span><span class="o">.</span><span class="na">insertData</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="o">}</span>
+<span class="kt">long</span> <span class="n">finishTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Write to DB takes: "</span><span class="o">+</span> <span class="o">(</span><span class="n">finishTime</span><span class="o">-</span><span class="n">startTime</span><span class="o">)/</span><span class="mi">1</span><span class="n">e9</span> <span class="o">+</span><span class="s">" seconds"</span><span class="o">);</span>
+</code></pre>
+</div>
+<p>위와 같이 시간을 확인해 보았을 때, 94.216414초가 걸렸다.</p>
+
+<h1 id="원인">원인</h1>
+<p>이는 SQlite가 하나의 레코드를 생성할때 Transaction을 수행하며 저널 파일을 생성하기 때문인데,<br />
+위의 방법으로는 4만여개의 저널파일을 생성하며 DB의 삽입 속도가 느려지게 된다.</p>
+
+<h1 id="해결책">해결책</h1>
+<p>하나의 Transaction으로 처리해 4만여개의 레코드를 한번에 삽입하며 저널파일을 한번만 생성하게 되면 된다.</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertAllDatas</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span> <span class="n">datas</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">SQLiteDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">getWritableDatabase</span><span class="o">();</span>
+<span class="n">db</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">datas</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++</span> <span class="o">){</span>
+        <span class="n">ContentValues</span> <span class="n">cv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
+        <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_A</span><span class="o">,</span> <span class="n">dataA</span><span class="o">);</span>
+        <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_B</span><span class="o">,</span> <span class="n">dataB</span><span class="o">);</span>
+        <span class="n">cv</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COLUMN_B</span><span class="o">,</span> <span class="n">dataC</span><span class="o">);</span>
+        <span class="n">db</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">TABLE_A</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">cv</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">setTransactionSuccessful</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">db</span><span class="o">.</span><span class="na">endTransaction</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>위의 방법으로 4만개의 레코드를 삽입할 때에는 2.813887초가 걸렸다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/2017/07/14/sqlite3-large-file-insert/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -357,57 +452,6 @@ Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/">
-        이클립스 프로젝트 안드로이드 스튜디오로 마이그레이션 할 때 주의점
-      </a>
-    </h1>
-
-    <span class="post-date">09 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#eclipse" class="post-tag">Eclipse</a>
-    
-    
-
-    <article>
-      <h1 id="주의점-1">주의점 1</h1>
-<p>그냥 Open existing project 하면 에로사항이 꽃핀다.<br />
-import project (Eclipse ADT, Gradle, etc.) 메뉴를 이용할 것</p>
-
-<h1 id="주의점-2">주의점 2</h1>
-<p>때로는 이클립스 프로젝트 자체에서 수정해야 될 필요성이 있다.<br />
-이클립스를 지워버렸으면 좀더 귀찮아진다…</p>
-
-<h1 id="주의점-3">주의점 3</h1>
-<p>임포트 후에 라이브러리 설정을 잘 해줘야 한다.<br />
-support-library 관련 충돌이 많이 일어난다.<br />
-빌드버전/컴파일 버전/서포트 라이브러리 버전 등을 잘 맞춰야 한다.</p>
-
-<h1 id="주의점-4">주의점 4</h1>
-<p>임포트가 끝난후에 Android Studio 프로젝트 루트 폴더에 res 폴더 및 src 폴더가 남아있다.<br />
-한마디로 <code class="highlighter-rouge">app/src/main</code> 과 이중으로 폴더가 남아있는 것…<br />
-이때문에 xml 레이아웃 수정시에 <code class="highlighter-rouge">URI is not registered ( Setting | Project Settings | Schemas and DTDs</code> 가 출력되며,
-<code class="highlighter-rouge">xmlns:android="http://schemas.android.com/apk/res/android"</code> 구문에 계속 빨간줄이 가있고, 레이아웃 프리뷰가 제대로 출력이 안된다.<br />
-해당 폴더들을 삭제하면 해결된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/09/eclipse-android-studio-migration/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -476,7 +520,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-23 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

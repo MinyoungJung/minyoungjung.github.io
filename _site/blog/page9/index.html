@@ -64,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
         현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
-        최고 기록:&nbsp;<strong style="color:white;">54</strong>일
+        최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
       <div class="sidebar-personal-info-section">
@@ -181,6 +181,88 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (2) - DB 구성, 외부 라이브러리
+      </a>
+    </h1>
+
+    <span class="post-date">14 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    
+
+    <article>
+      <h1 id="db-구성">DB 구성</h1>
+<h2 id="reputation-테이블">Reputation 테이블</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ID</th>
+      <th style="text-align: center">Longitude</th>
+      <th style="text-align: center">Latitude</th>
+      <th style="text-align: center">Description</th>
+      <th style="text-align: center">Created_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Primary Key</td>
+      <td style="text-align: center">경도</td>
+      <td style="text-align: center">위도</td>
+      <td style="text-align: center">평판</td>
+      <td style="text-align: center">레코드 생성 날짜</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<h1 id="app-구성-및-외부-라이브러리">App 구성 및 외부 라이브러리</h1>
+<h2 id="app-구성">App 구성</h2>
+<p>평판 조회/출력하는 단일 app으로 구성</p>
+
+<h2 id="주소검색-라이브러리">주소검색 라이브러리</h2>
+<p><a href="http://www.juso.go.kr/addrlink/main.do">주소검색솔루션</a><br />
+행정자치부에서 만든 솔루션이다.<br />
+자체적으로 서버에 솔루션을 설치해야 하기에 간단히 제작한다는 취지에 너무 과하다는 생각이 들어 패스했다.</p>
+
+<p><a href="https://developers.naver.com/docs/map/javascriptv3/">네이버맵스</a><br />
+간단하고 쓰기편한 네이버 지도 API 선택.</p>
+
+<h2 id="프론트엔드-라이브러리">프론트엔드 라이브러리</h2>
+<p><a href="http://http://getbootstrap.com/">부트스트랩</a><br />
+프론트엔드는 그냥 고민없이 부트스트랩으로…</p>
+
+<h1 id="추후-일정">추후 일정</h1>
+<p>Generic View, Admin 기능 등.. 최대한 장고 자체의 기능을 이용해서 빨리빨리 MVP 구현.<br />
+이후 저번 프로젝트와는 다른쪽에 중점을 두고 개선/확장 예정</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/14/django-landlord-reputation-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -533,120 +615,6 @@ matplotlib.use('Agg')
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/">
-        Django를 이용한 스케쥴러 제작 (2) - 구현
-      </a>
-    </h1>
-
-    <span class="post-date">09 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#scheduler" class="post-tag">Scheduler</a>
-    
-    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
-    
-    
-
-    <article>
-      <h1 id="구현">구현</h1>
-<h2 id="todolist">Todolist</h2>
-<p>Django의 Generic view를 이용해 구현했다.<br />
-TodayArchiveView/DayArchiveView를 이용해 해당 날짜의 할일들을 보여주었다.</p>
-
-<h2 id="calendar">Calendar</h2>
-<p>Python standard library의 HTMLCalendar를 이용해 구현했다.<br />
-지난달/다음달로 이동할 수 있는 화살표를 추가하고, Workout 테이블을 조회하여 리스트를 해당 날짜에 뿌려주었다.</p>
-
-<h2 id="stats">Stats</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">id</th>
-      <th style="text-align: center">create_date</th>
-      <th style="text-align: center">workout_done</th>
-      <th style="text-align: center">owner_id</th>
-      <th style="text-align: center">workout_id</th>
-      <th style="text-align: center">duration</th>
-      <th style="text-align: center">workout_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">PK</td>
-      <td style="text-align: center">생성일</td>
-      <td style="text-align: center">운동 수행여부</td>
-      <td style="text-align: center">소유자</td>
-      <td style="text-align: center">FK(List)</td>
-      <td style="text-align: center">수행시간(분)</td>
-      <td style="text-align: center">수행 날짜</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Workout 테이블에서 owner를 필터로 쿼리셋을 뽑아낸 후, duration의 평균을 구해 matplotlib으로 출력하였다.<br />
-별도의 DB 테이블에 각각의 평균값을 운동 수행 결과 표시 시마다 계산하여 저장하고,<br />
-해당 테이블을 조회하는 것이 훨씬 빠르겠지만, 일단은 나 혼자 쓰는 서비스니까 그냥 전체 DB를 검색하기로 결정.<br />
-Django 철학에도 있지않은가.. <code class="highlighter-rouge">Simple is better than complex</code> <del>이럴때 쓰란말은 아니지만…</del>
-<br />
-여러 종류의 그래프를 통해 다양한 그래프를 출력하고 싶었지만, 막상 데이터가 여러 방법으로 보여줄 것이 없었다.<br />
-워낙 DB 구성이 단순하니까… 나중에 더 생각나면 추가하기로 했다.</p>
-
-<h2 id="로그인관리자-기능">로그인/관리자 기능</h2>
-<p>Django의 기본 Auth와 Admin을 이용했다.<br />
-혼자 쓰는 서비스이지만 결국 웹에 올려놓을 테니.. 로그인 기능이 필요하긴 했다.</p>
-
-<h1 id="스크린샷">스크린샷</h1>
-<h2 id="todolist-1">Todolist</h2>
-<p><img src="/post_assets/2017-06-09/todolist.png" alt="할일목록" /></p>
-
-<h2 id="calendar-1">Calendar</h2>
-<p><img src="/post_assets/2017-06-09/calendar.png" alt="캘린더" /></p>
-
-<h2 id="stats-1">Stats</h2>
-<p><img src="/post_assets/2017-06-09/stats.png" alt="그래프" /></p>
-
-<h2 id="모바일-대응-메뉴">모바일 대응 메뉴</h2>
-<p><img src="/post_assets/2017-06-09/mobile-react.png" alt="모바일 대응" /></p>
-
-<h1 id="마무리">마무리</h1>
-<p>간단히 시작한 프로젝트였지만, 막상 너무 간단한게 아닌가하는 생각이 들어 무엇인가를 추가하려 했다.<br />
-하지만 기능은 추가하고 싶고 마땅히 추가할 기능은 없고… 점점 본질에서 멀어져가며 흥미가 떨어지는 것을 느끼고,<br />
-이러다가는 프로젝트를 완성하지도 못할 것 같아 다시 초심으로 돌아가 간단히 마무리했다.<br />
-일단은 이것으로 프로젝트 구현을 마치고, 스스로 사용해보고 마음에 들면 개선하고 추가해 볼 생각이다.</p>
-
-<h1 id="추후-계획">추후 계획</h1>
-<ol>
-  <li>각종 버그 수정… (귀찮지 않다면…)</li>
-  <li>데이터 분석 및 그래프 기능 확장</li>
-  <li>데이터 입력 기능 편하게 만들기 (현재는 혼자 쓰니 그냥 어드민으로 넣음..)</li>
-  <li>간단한 소셜 기능 (옵션)</li>
-</ol>
-
-<h1 id="서비스-링크">서비스 링크</h1>
-<p>간단히 무료 Dyno를 통해 Heroku에 올려두었다.<br />
-DB row도 10000줄까지 밖에 지원하지 않지만 혼자쓰니 문제없겠지..</p>
-
-<p><a href="https://workoutcal.herokuapp.com">https://workoutcal.herokuapp.com</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/09/django-scheduler-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -715,7 +683,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-23 00:00:00 +0900";
+      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

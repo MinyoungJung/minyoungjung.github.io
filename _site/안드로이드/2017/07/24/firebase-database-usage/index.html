@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Firebase로 동기화되는 Database 사용하기 &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Firebase로 동기화되는 Database 사용하기 | Ringsterz Log</title>
+<meta property="og:title" content="Firebase로 동기화되는 Database 사용하기" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="firebase 프로젝트 추가 https://console.firebase.google.com에서 프로젝트 추가 firebase 안드로이드 추가 google-services.json 추가 google-services.json 파일을 app 영역의 root에 집어넣음. (project 보기) build.gradle 변경 build.gradle(project)에 다음 추가 dependencies { classpath &#39;com.google.gms:google-services:3.1.0&#39; } build.gradle(app) 마지막줄에 다음 줄 추가 apply plugin: &#39;com.google.gms.google-services&#39; build.gradle(app)의 dependency에 다음 추가 (database 및 recyclerView 이용을 위한 라이브러리) compile &#39;com.google.firebase:firebase-database:11.0.2&#39; compile &#39;com.firebaseui:firebase-ui-database:0.5.3&#39; 이후 프로젝트 sync Model 추가 public class Notice { private String subject; private String content; public Notice(){ }; public Notice(String subject, String content) { this.subject = subject; this.content = content; } public String getSubject() { return subject; } public void setSubject(String subject) { this.subject = subject; } public String getContent() { return content; } public void setContent(String content) { this.content = content; } } RecyclerView item layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:orientation=&quot;horizontal&quot;&gt; &lt;TextView android:id=&quot;@+id/subjectTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;TextView android:id=&quot;@+id/contentTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;/LinearLayout&gt; RecyclerView layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;android.support.v7.widget.RecyclerView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot; android:id=&quot;@+id/noticelist&quot; android:name=&quot;com.ringsterz.picmemo.fragment.ItemFragment&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot; android:layout_marginLeft=&quot;16dp&quot; android:layout_marginRight=&quot;16dp&quot; app:layoutManager=&quot;LinearLayoutManager&quot; tools:context=&quot;com.ringsterz.picmemo.fragment.NotificationFragment&quot; tools:listitem=&quot;@layout/fragment_item&quot; /&gt; 변수 선언 및 viewHolder 정의 (프래그먼트나 엑티비티의 inner class로 추가) private DatabaseReference mFirebaseDatabaseReference; private FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt; mFirebaseAdapter; private LinearLayoutManager mLayoutManager; public static class MessageViewHolder extends RecyclerView.ViewHolder { TextView subjectTextView; TextView contentTextView; public MessageViewHolder(View v) { super(v); subjectTextView = itemView.findViewById(R.id.subjectTextView); contentTextView = itemView.findViewById(R.id.contentTextView); } } RecyclerView와 adapter 설정 및 observer 설정 (Fragment) @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { View view = inflater.inflate(R.layout.fragment_item_list, container, false); // Set the adapter if (view instanceof RecyclerView) { Context context = view.getContext(); recyclerView = (RecyclerView) view; mLayoutManager = new LinearLayoutManager(context); recyclerView.setLayoutManager(mLayoutManager); // New child entries mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(); mFirebaseAdapter = new FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt;( Notice.class, R.layout.fragment_item, MessageViewHolder.class, mFirebaseDatabaseReference.child(&quot;notification&quot;)) { @Override protected void populateViewHolder(final MessageViewHolder viewHolder, Notice notice, int position) { if (notice.getSubject() != null) { viewHolder.subjectTextView.setText(notice.getSubject()); viewHolder.contentTextView.setText(notice.getContent()); } } }; mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() { @Override public void onItemRangeInserted(int positionStart, int itemCount) { super.onItemRangeInserted(positionStart, itemCount); int noticeCount = mFirebaseAdapter.getItemCount(); int lastVisiblePosition = mLayoutManager.findLastCompletelyVisibleItemPosition(); // If the recycler view is initially being loaded or the // user is at the bottom of the list, scroll to the bottom // of the list to show the newly added message. if (lastVisiblePosition == -1 || (positionStart &gt;= (noticeCount - 1) &amp;&amp; lastVisiblePosition == (positionStart - 1))) { recyclerView.scrollToPosition(positionStart); } } }); recyclerView.setAdapter(mFirebaseAdapter); } return view; } Rule 설정 인증하지 않고 데이터를 받으려면 Firebase console에서 아래와 같이 읽기 권한을 준다. { &quot;rules&quot;: { &quot;.read&quot;: true, &quot;.write&quot;: &quot;auth != null&quot; } } Firebase Data 형태 위와 같이 db 밑에 child명을 주고 임의의 인스턴스 값 하위에 model에서 정의한 값을 넣어주면 된다. 동기화 결과 DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다." />
+<meta property="og:description" content="firebase 프로젝트 추가 https://console.firebase.google.com에서 프로젝트 추가 firebase 안드로이드 추가 google-services.json 추가 google-services.json 파일을 app 영역의 root에 집어넣음. (project 보기) build.gradle 변경 build.gradle(project)에 다음 추가 dependencies { classpath &#39;com.google.gms:google-services:3.1.0&#39; } build.gradle(app) 마지막줄에 다음 줄 추가 apply plugin: &#39;com.google.gms.google-services&#39; build.gradle(app)의 dependency에 다음 추가 (database 및 recyclerView 이용을 위한 라이브러리) compile &#39;com.google.firebase:firebase-database:11.0.2&#39; compile &#39;com.firebaseui:firebase-ui-database:0.5.3&#39; 이후 프로젝트 sync Model 추가 public class Notice { private String subject; private String content; public Notice(){ }; public Notice(String subject, String content) { this.subject = subject; this.content = content; } public String getSubject() { return subject; } public void setSubject(String subject) { this.subject = subject; } public String getContent() { return content; } public void setContent(String content) { this.content = content; } } RecyclerView item layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:orientation=&quot;horizontal&quot;&gt; &lt;TextView android:id=&quot;@+id/subjectTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;TextView android:id=&quot;@+id/contentTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;/LinearLayout&gt; RecyclerView layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;android.support.v7.widget.RecyclerView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot; android:id=&quot;@+id/noticelist&quot; android:name=&quot;com.ringsterz.picmemo.fragment.ItemFragment&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot; android:layout_marginLeft=&quot;16dp&quot; android:layout_marginRight=&quot;16dp&quot; app:layoutManager=&quot;LinearLayoutManager&quot; tools:context=&quot;com.ringsterz.picmemo.fragment.NotificationFragment&quot; tools:listitem=&quot;@layout/fragment_item&quot; /&gt; 변수 선언 및 viewHolder 정의 (프래그먼트나 엑티비티의 inner class로 추가) private DatabaseReference mFirebaseDatabaseReference; private FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt; mFirebaseAdapter; private LinearLayoutManager mLayoutManager; public static class MessageViewHolder extends RecyclerView.ViewHolder { TextView subjectTextView; TextView contentTextView; public MessageViewHolder(View v) { super(v); subjectTextView = itemView.findViewById(R.id.subjectTextView); contentTextView = itemView.findViewById(R.id.contentTextView); } } RecyclerView와 adapter 설정 및 observer 설정 (Fragment) @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { View view = inflater.inflate(R.layout.fragment_item_list, container, false); // Set the adapter if (view instanceof RecyclerView) { Context context = view.getContext(); recyclerView = (RecyclerView) view; mLayoutManager = new LinearLayoutManager(context); recyclerView.setLayoutManager(mLayoutManager); // New child entries mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(); mFirebaseAdapter = new FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt;( Notice.class, R.layout.fragment_item, MessageViewHolder.class, mFirebaseDatabaseReference.child(&quot;notification&quot;)) { @Override protected void populateViewHolder(final MessageViewHolder viewHolder, Notice notice, int position) { if (notice.getSubject() != null) { viewHolder.subjectTextView.setText(notice.getSubject()); viewHolder.contentTextView.setText(notice.getContent()); } } }; mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() { @Override public void onItemRangeInserted(int positionStart, int itemCount) { super.onItemRangeInserted(positionStart, itemCount); int noticeCount = mFirebaseAdapter.getItemCount(); int lastVisiblePosition = mLayoutManager.findLastCompletelyVisibleItemPosition(); // If the recycler view is initially being loaded or the // user is at the bottom of the list, scroll to the bottom // of the list to show the newly added message. if (lastVisiblePosition == -1 || (positionStart &gt;= (noticeCount - 1) &amp;&amp; lastVisiblePosition == (positionStart - 1))) { recyclerView.scrollToPosition(positionStart); } } }); recyclerView.setAdapter(mFirebaseAdapter); } return view; } Rule 설정 인증하지 않고 데이터를 받으려면 Firebase console에서 아래와 같이 읽기 권한을 준다. { &quot;rules&quot;: { &quot;.read&quot;: true, &quot;.write&quot;: &quot;auth != null&quot; } } Firebase Data 형태 위와 같이 db 밑에 child명을 주고 임의의 인스턴스 값 하위에 model에서 정의한 값을 넣어주면 된다. 동기화 결과 DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다." />
+<link rel="canonical" href="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-24T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Firebase로 동기화되는 Database 사용하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-24T00:00:00+09:00","dateModified":"2017-07-24T00:00:00+09:00","description":"firebase 프로젝트 추가 https://console.firebase.google.com에서 프로젝트 추가 firebase 안드로이드 추가 google-services.json 추가 google-services.json 파일을 app 영역의 root에 집어넣음. (project 보기) build.gradle 변경 build.gradle(project)에 다음 추가 dependencies { classpath &#39;com.google.gms:google-services:3.1.0&#39; } build.gradle(app) 마지막줄에 다음 줄 추가 apply plugin: &#39;com.google.gms.google-services&#39; build.gradle(app)의 dependency에 다음 추가 (database 및 recyclerView 이용을 위한 라이브러리) compile &#39;com.google.firebase:firebase-database:11.0.2&#39; compile &#39;com.firebaseui:firebase-ui-database:0.5.3&#39; 이후 프로젝트 sync Model 추가 public class Notice { private String subject; private String content; public Notice(){ }; public Notice(String subject, String content) { this.subject = subject; this.content = content; } public String getSubject() { return subject; } public void setSubject(String subject) { this.subject = subject; } public String getContent() { return content; } public void setContent(String content) { this.content = content; } } RecyclerView item layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:orientation=&quot;horizontal&quot;&gt; &lt;TextView android:id=&quot;@+id/subjectTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;TextView android:id=&quot;@+id/contentTextView&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;@dimen/text_margin&quot; android:textAppearance=&quot;?attr/textAppearanceListItem&quot; /&gt; &lt;/LinearLayout&gt; RecyclerView layout 추가 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; &lt;android.support.v7.widget.RecyclerView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot; android:id=&quot;@+id/noticelist&quot; android:name=&quot;com.ringsterz.picmemo.fragment.ItemFragment&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot; android:layout_marginLeft=&quot;16dp&quot; android:layout_marginRight=&quot;16dp&quot; app:layoutManager=&quot;LinearLayoutManager&quot; tools:context=&quot;com.ringsterz.picmemo.fragment.NotificationFragment&quot; tools:listitem=&quot;@layout/fragment_item&quot; /&gt; 변수 선언 및 viewHolder 정의 (프래그먼트나 엑티비티의 inner class로 추가) private DatabaseReference mFirebaseDatabaseReference; private FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt; mFirebaseAdapter; private LinearLayoutManager mLayoutManager; public static class MessageViewHolder extends RecyclerView.ViewHolder { TextView subjectTextView; TextView contentTextView; public MessageViewHolder(View v) { super(v); subjectTextView = itemView.findViewById(R.id.subjectTextView); contentTextView = itemView.findViewById(R.id.contentTextView); } } RecyclerView와 adapter 설정 및 observer 설정 (Fragment) @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { View view = inflater.inflate(R.layout.fragment_item_list, container, false); // Set the adapter if (view instanceof RecyclerView) { Context context = view.getContext(); recyclerView = (RecyclerView) view; mLayoutManager = new LinearLayoutManager(context); recyclerView.setLayoutManager(mLayoutManager); // New child entries mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(); mFirebaseAdapter = new FirebaseRecyclerAdapter&lt;Notice, MessageViewHolder&gt;( Notice.class, R.layout.fragment_item, MessageViewHolder.class, mFirebaseDatabaseReference.child(&quot;notification&quot;)) { @Override protected void populateViewHolder(final MessageViewHolder viewHolder, Notice notice, int position) { if (notice.getSubject() != null) { viewHolder.subjectTextView.setText(notice.getSubject()); viewHolder.contentTextView.setText(notice.getContent()); } } }; mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() { @Override public void onItemRangeInserted(int positionStart, int itemCount) { super.onItemRangeInserted(positionStart, itemCount); int noticeCount = mFirebaseAdapter.getItemCount(); int lastVisiblePosition = mLayoutManager.findLastCompletelyVisibleItemPosition(); // If the recycler view is initially being loaded or the // user is at the bottom of the list, scroll to the bottom // of the list to show the newly added message. if (lastVisiblePosition == -1 || (positionStart &gt;= (noticeCount - 1) &amp;&amp; lastVisiblePosition == (positionStart - 1))) { recyclerView.scrollToPosition(positionStart); } } }); recyclerView.setAdapter(mFirebaseAdapter); } return view; } Rule 설정 인증하지 않고 데이터를 받으려면 Firebase console에서 아래와 같이 읽기 권한을 준다. { &quot;rules&quot;: { &quot;.read&quot;: true, &quot;.write&quot;: &quot;auth != null&quot; } } Firebase Data 형태 위와 같이 db 밑에 child명을 주고 임의의 인스턴스 값 하위에 model에서 정의한 값을 넣어주면 된다. 동기화 결과 DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">55</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2017 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Firebase로 동기화되는 Database 사용하기</h1>
+  <span class="post-date">24 Jul 2017</span>
+   | 
+  
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+  
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+  
+    <a href="/blog/tags/#firebase" class="post-tag">Firebase</a>
+  
+  
+  <article>
+    <h2 id="firebase-프로젝트-추가">firebase 프로젝트 추가</h2>
+<p><a href="https://console.firebase.google.com">https://console.firebase.google.com</a>에서 프로젝트 추가
+<img src="/post_assets/2017-07-23/add_done.png" alt="프로젝트 추가" /></p>
+
+<h2 id="firebase-안드로이드-추가">firebase 안드로이드 추가</h2>
+<p><img src="/post_assets/2017-07-23/firebase_add.png" alt="안드로이드 추가" /></p>
+
+<h2 id="google-servicesjson-추가">google-services.json 추가</h2>
+<p><code class="highlighter-rouge">google-services.json</code> 파일을 app 영역의 root에 집어넣음. (project 보기)</p>
+
+<h2 id="buildgradle-변경">build.gradle 변경</h2>
+
+<p>build.gradle(project)에 다음 추가</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">classpath</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">google</span><span class="o">-</span><span class="nl">services:</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>build.gradle(app) 마지막줄에 다음 줄 추가</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">.</span><span class="na">google</span><span class="o">-</span><span class="n">services</span><span class="err">'</span>
+</code></pre>
+</div>
+
+<p>build.gradle(app)의 dependency에 다음 추가 (database 및 recyclerView 이용을 위한 라이브러리)</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">database:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">firebaseui</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="n">ui</span><span class="o">-</span><span class="nl">database:</span><span class="mf">0.5</span><span class="o">.</span><span class="mi">3</span><span class="err">'</span>
+</code></pre>
+</div>
+
+<p>이후 프로젝트 sync</p>
+
+<h2 id="model-추가">Model 추가</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Notice</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">subject</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Notice</span><span class="o">(){</span>
+
+    <span class="o">};</span>
+
+    <span class="kd">public</span> <span class="nf">Notice</span><span class="o">(</span><span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">subject</span> <span class="o">=</span> <span class="n">subject</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSubject</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">subject</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSubject</span><span class="o">(</span><span class="n">String</span> <span class="n">subject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">subject</span> <span class="o">=</span> <span class="n">subject</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setContent</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="recyclerview-item-layout-추가">RecyclerView item layout 추가</h2>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+    <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+    <span class="na">android:orientation=</span><span class="s">"horizontal"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">"@+id/subjectTextView"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_margin=</span><span class="s">"@dimen/text_margin"</span>
+        <span class="na">android:textAppearance=</span><span class="s">"?attr/textAppearanceListItem"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">"@+id/contentTextView"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_margin=</span><span class="s">"@dimen/text_margin"</span>
+        <span class="na">android:textAppearance=</span><span class="s">"?attr/textAppearanceListItem"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+
+</code></pre>
+</div>
+
+<h2 id="recyclerview-layout-추가">RecyclerView layout 추가</h2>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;android.support.v7.widget.RecyclerView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:id=</span><span class="s">"@+id/noticelist"</span>
+    <span class="na">android:name=</span><span class="s">"com.ringsterz.picmemo.fragment.ItemFragment"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_marginLeft=</span><span class="s">"16dp"</span>
+    <span class="na">android:layout_marginRight=</span><span class="s">"16dp"</span>
+    <span class="na">app:layoutManager=</span><span class="s">"LinearLayoutManager"</span>
+    <span class="na">tools:context=</span><span class="s">"com.ringsterz.picmemo.fragment.NotificationFragment"</span>
+    <span class="na">tools:listitem=</span><span class="s">"@layout/fragment_item"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="변수-선언-및-viewholder-정의-프래그먼트나-엑티비티의-inner-class로-추가">변수 선언 및 viewHolder 정의 (프래그먼트나 엑티비티의 inner class로 추가)</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">DatabaseReference</span> <span class="n">mFirebaseDatabaseReference</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">FirebaseRecyclerAdapter</span><span class="o">&lt;</span><span class="n">Notice</span><span class="o">,</span> <span class="n">MessageViewHolder</span><span class="o">&gt;</span> <span class="n">mFirebaseAdapter</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">LinearLayoutManager</span> <span class="n">mLayoutManager</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MessageViewHolder</span> <span class="kd">extends</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">ViewHolder</span> <span class="o">{</span>
+    <span class="n">TextView</span> <span class="n">subjectTextView</span><span class="o">;</span>
+    <span class="n">TextView</span> <span class="n">contentTextView</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="nf">MessageViewHolder</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+    <span class="n">subjectTextView</span> <span class="o">=</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">subjectTextView</span><span class="o">);</span>
+    <span class="n">contentTextView</span> <span class="o">=</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">contentTextView</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+
+<h2 id="recyclerview와-adapter-설정-및-observer-설정-fragment">RecyclerView와 adapter 설정 및 observer 설정 (Fragment)</h2>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span>
+<span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_item_list</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+
+<span class="c1">// Set the adapter</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="k">instanceof</span> <span class="n">RecyclerView</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="na">getContext</span><span class="o">();</span>
+    <span class="n">recyclerView</span> <span class="o">=</span> <span class="o">(</span><span class="n">RecyclerView</span><span class="o">)</span> <span class="n">view</span><span class="o">;</span>
+    <span class="n">mLayoutManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinearLayoutManager</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="n">recyclerView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="n">mLayoutManager</span><span class="o">);</span>
+
+    <span class="c1">// New child entries</span>
+    <span class="n">mFirebaseDatabaseReference</span> <span class="o">=</span> <span class="n">FirebaseDatabase</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getReference</span><span class="o">();</span>
+    <span class="n">mFirebaseAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FirebaseRecyclerAdapter</span><span class="o">&lt;</span><span class="n">Notice</span><span class="o">,</span>
+        <span class="n">MessageViewHolder</span><span class="o">&gt;(</span>
+        <span class="n">Notice</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_item</span><span class="o">,</span>
+        <span class="n">MessageViewHolder</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">mFirebaseDatabaseReference</span><span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="s">"notification"</span><span class="o">))</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">populateViewHolder</span><span class="o">(</span><span class="kd">final</span> <span class="n">MessageViewHolder</span> <span class="n">viewHolder</span><span class="o">,</span>
+                                    <span class="n">Notice</span> <span class="n">notice</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getSubject</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">viewHolder</span><span class="o">.</span><span class="na">subjectTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getSubject</span><span class="o">());</span>
+        <span class="n">viewHolder</span><span class="o">.</span><span class="na">contentTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="n">mFirebaseAdapter</span><span class="o">.</span><span class="na">registerAdapterDataObserver</span><span class="o">(</span><span class="k">new</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">AdapterDataObserver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemRangeInserted</span><span class="o">(</span><span class="kt">int</span> <span class="n">positionStart</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onItemRangeInserted</span><span class="o">(</span><span class="n">positionStart</span><span class="o">,</span> <span class="n">itemCount</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">noticeCount</span> <span class="o">=</span> <span class="n">mFirebaseAdapter</span><span class="o">.</span><span class="na">getItemCount</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">lastVisiblePosition</span> <span class="o">=</span>
+            <span class="n">mLayoutManager</span><span class="o">.</span><span class="na">findLastCompletelyVisibleItemPosition</span><span class="o">();</span>
+        <span class="c1">// If the recycler view is initially being loaded or the</span>
+        <span class="c1">// user is at the bottom of the list, scroll to the bottom</span>
+        <span class="c1">// of the list to show the newly added message.</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">lastVisiblePosition</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span>
+            <span class="o">(</span><span class="n">positionStart</span> <span class="o">&gt;=</span> <span class="o">(</span><span class="n">noticeCount</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">lastVisiblePosition</span> <span class="o">==</span> <span class="o">(</span><span class="n">positionStart</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">recyclerView</span><span class="o">.</span><span class="na">scrollToPosition</span><span class="o">(</span><span class="n">positionStart</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>   
+<span class="o">});</span>
+
+<span class="n">recyclerView</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">mFirebaseAdapter</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+<span class="k">return</span> <span class="n">view</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="rule-설정">Rule 설정</h2>
+<p>인증하지 않고 데이터를 받으려면 Firebase console에서 아래와 같이 읽기 권한을 준다.</p>
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">".read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">".write"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth != null"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="firebase-data-형태">Firebase Data 형태</h2>
+<p><img src="/post_assets/2017-07-24/data.png" alt="Data형태" />
+위와 같이 db 밑에 child명을 주고 임의의 인스턴스 값 하위에 model에서 정의한 값을 넣어주면 된다.</p>
+
+<h2 id="동기화-결과">동기화 결과</h2>
+<p><img src="/post_assets/2017-07-24/result.png" alt="Result" />
+DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다.</p>
+
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
+            Firebase 사용하여 Notification 보내기
+            <small>23 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
+            RecyclerView 사용 패턴
+            <small>22 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/">
+            Google Play App Signing으로 업로드 시 apk 업로드 안될 때
+            <small>21 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>

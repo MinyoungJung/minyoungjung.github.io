@@ -31,8 +31,8 @@ apply plugin: 'com.google.gms.google-services'
 
 build.gradle(app)의 dependency에 다음 추가 (Notification 사용 라이브러리)
 ``` java
-compile 'com.google.firebase:firebase-core:9.2.0'
-compile 'com.google.firebase:firebase-messaging:9.2.0'
+compile 'com.google.firebase:firebase-core:11.0.2'
+compile 'com.google.firebase:firebase-messaging:11.0.2'
 ```
 
 이후 프로젝트 sync
