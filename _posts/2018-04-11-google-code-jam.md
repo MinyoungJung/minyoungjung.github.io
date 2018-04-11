@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 파이썬의 입출력
+title: Google Code Jam, 그리고 파이썬
 category: [파이썬, 알고리즘]
 tags: [Python, Algorithm, CodeJam, Google, Jekyll]
 ---
