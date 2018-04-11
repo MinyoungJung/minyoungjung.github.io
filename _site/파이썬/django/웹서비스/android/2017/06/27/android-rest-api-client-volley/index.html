@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Volley를 이용해 간단한 Android Rest API Client 만들기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Volley를 이용해 간단한 Android Rest API Client 만들기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-27T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Volley를 이용해 간단한 Android Rest API Client 만들기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-27T00:00:00+09:00","dateModified":"2017-06-27T00:00:00+09:00","description":"서론 지난번에 마무리했던 Project인 Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획에서 추가 목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다. API overview 클라이언트에 사용되는 API는 Django에 Rest API 추가하기 Django에 Rest API 추가하기 (2) - API에 인증 추가 위의 포스팅들을 통해 제작한 간단한 API이다. http://landlord-reputation.herokuapp.com/reputation/api/경도+위도 형태로 질의 시, 우리동네집주인에 추가된 평판 정보를 전송하는 API이다. Android Application Layout EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다. 간단하므로 설명은 생략. Volley 추가 build.gradle (Module:app) 파일에 dependency를 추가한다. compile &#39;com.android.volley:volley:1.0.0&#39; AndroidManifest.xml 권한 설정 인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다. &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; Volley 사용 JSONObject Request를 이용해서 간단히 구현했다. Volley의 자세한 사용법은 예전 블로그에 써놓은 글을 참조. API Client 실행 결과 Github 링크 SimpleAndroidRestAPIClient 바로가기","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Volley를 이용해 간단한 Android Rest API Client 만들기","dateModified":"2017-06-27T00:00:00+09:00","datePublished":"2017-06-27T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"서론 지난번에 마무리했던 Project인 Django를 이용한 건물주 평판 조회 서비스 제작 (1) - 기획에서 추가 목표로 안드로이드 App을 연동하기로 했으므로 간단하게나마 API Client를 작성한다. API overview 클라이언트에 사용되는 API는 Django에 Rest API 추가하기 Django에 Rest API 추가하기 (2) - API에 인증 추가 위의 포스팅들을 통해 제작한 간단한 API이다. http://landlord-reputation.herokuapp.com/reputation/api/경도+위도 형태로 질의 시, 우리동네집주인에 추가된 평판 정보를 전송하는 API이다. Android Application Layout EditText 2개를 통해 각각 위/경도를 전달받고 TextView를 통해 Response를 출력한다. 간단하므로 설명은 생략. Volley 추가 build.gradle (Module:app) 파일에 dependency를 추가한다. compile &#39;com.android.volley:volley:1.0.0&#39; AndroidManifest.xml 권한 설정 인터넷 엑서스가 필요하므로 인터넷 권한도 설정한다. &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt; Volley 사용 JSONObject Request를 이용해서 간단히 구현했다. Volley의 자세한 사용법은 예전 블로그에 써놓은 글을 참조. API Client 실행 결과 Github 링크 SimpleAndroidRestAPIClient 바로가기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/android/2017/06/27/android-rest-api-client-volley/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -246,6 +247,15 @@ Volley의 자세한 사용법은 <a href="https://ringsterz.wordpress.com/2014/1
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -258,15 +268,6 @@ Volley의 자세한 사용법은 <a href="https://ringsterz.wordpress.com/2014/1
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -348,7 +349,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

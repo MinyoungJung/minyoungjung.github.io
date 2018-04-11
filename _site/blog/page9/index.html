@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Blog | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -45,10 +46,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <link rel="canonical" href="http://localhost:4000/blog/page9/" />
 <meta property="og:url" content="http://localhost:4000/blog/page9/" />
 <meta property="og:site_name" content="Ringsterz Log" />
-<link rel="prev" href="http://localhost:4000/blog/page8">
-<link rel="next" href="http://localhost:4000/blog/page10">
+<link rel="prev" href="http://localhost:4000/blog/page8" />
+<link rel="next" href="http://localhost:4000/blog/page10" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"WebPage","headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/blog/page9/"}</script>
+{"url":"http://localhost:4000/blog/page9/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -181,6 +182,101 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/">
+        Django를 이용한 건물주 평판 조회 서비스 제작 (3) - 구현 1일차
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
+    
+    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#naver-api" class="post-tag">Naver API</a>
+    
+    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
+    
+    
+
+    <article>
+      <h1 id="구현-1일차">구현 1일차</h1>
+<h2 id="메인화면">메인화면</h2>
+<p>부트스트랩을 이용해서 간단히 홈화면을 꾸미고, Navbar 및 footer를 생성.<br />
+중앙에는 평판을 검색할 수 있는 검색창을 추가했다.<br />
+검색창에서 주소를 검색하면, Naver Geocoder API를 이용해 주소를 위/경도로 변환해 주었다.</p>
+
+<h2 id="검색-리스트">검색 리스트</h2>
+<p>올바른 주소가 검색되었을때 이미 평판이 있으면 해당 평판을 볼수있는 링크를 보여주게 구현하였다.<br />
+DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지로 링크를 선택하면 평판을 추가할수 있는 화면으로<br />
+이동하게 했다.</p>
+
+<h2 id="평판-디테일-뷰">평판 디테일 뷰</h2>
+<p>네이버 지도 API를 통해 검색한 주소의 마커를 보여주고, 평판을 추가할 수 있는 폼을 생성했다.<br />
+지도상에서 맵을 선택하면 해당 위치에 평판을 추가할 수 있도록 하고, 평판이 있다면 보여주도록 했다.</p>
+
+<h1 id="고생한-점">고생한 점</h1>
+<p>Naver Geocoder에서 주소를 찾지 못할때 <code class="highlighter-rouge">404 Not Found</code>를 날려주는 것을 모르고 있다가 한참 헤맸다.<br />
+<strong>문서를 잘 읽자는 교훈</strong> <a href="https://developers.naver.com/docs/map/overview/">네이버 지도 API 명세 - 5. 에러 코드 참조</a><br />
+또한 경도/위도의 자릿수를 8, 9자리에 6자리 소숫점 고정으로 생각하고 있다가,<br />
+경도/위도의 소숫점 아래 자리수가 7자리수인 좌표들이 등장하며 url 패턴에 맞지 않는 url들이 나와<br />
+계속 오류가 나는 것을 알아채지 못하고 한참 삽질을 했다.<br />
+굳이 Redirect가 필요하지 않은 것을 한단계 더 거쳐가는 형식으로 구현했다가 수정했다.<br />
+간단하다고 설계를 할때 깊게 생각하지 않으면 구현하면서 고생한다는 것을 다시금 깨달았다.</p>
+
+<h1 id="진행률">진행률</h1>
+<p>기본적인 기능 구현은 2/3 정도 끝난것 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">평판 등록/조회 기능</th>
+      <th style="text-align: center">회원가입/로그인 기능</th>
+      <th style="text-align: center">주소 검색 기능</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">80%</td>
+      <td style="text-align: center">20%</td>
+      <td style="text-align: center">100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<h1 id="추후-일정">추후 일정</h1>
+<ol>
+  <li>로그인/회원가입 등 구현</li>
+  <li>가입한 사용자만 정보를 등록할 수 있도록 구현</li>
+  <li>디테일뷰에서 DB에 평판 추가하는 부분 구현</li>
+  <li>UI/UX 개선</li>
+</ol>
+
+<p>일주일내로 기본 기능을 완성하기로 한 일정을 맞출 수 있을 것 같다.<br />
+여전히 개선할 부분과 디테일 개선은 갈길이 멀긴 하다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -448,10 +544,9 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
 <p><code class="highlighter-rouge">python -m SimpleHTTPServer</code></p>
 
 <h1 id="구조">구조</h1>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">,</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> 
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">,</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> 
         <span class="p">{</span> <span class="na">preload</span><span class="p">:</span> <span class="nx">preload</span><span class="p">,</span> <span class="na">create</span><span class="p">:</span> <span class="nx">create</span><span class="p">,</span> <span class="na">update</span><span class="p">:</span> <span class="nx">update</span> <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다.<br />
 크게 preload, create, update의 세 메소드로 나뉘어져 있다.</p>
 
@@ -478,140 +573,6 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
       <a href="/javascript/2017/06/11/phaser-interaction/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
       <a href="/javascript/2017/06/11/phaser-interaction/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/">
-        Django 프로젝트 Heroku에 릴리즈하기
-      </a>
-    </h1>
-
-    <span class="post-date">10 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
-    
-    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
-    
-    
-
-    <article>
-      <h1 id="기존-django-프로젝트-heroku에-릴리즈">기존 Django 프로젝트 Heroku에 릴리즈</h1>
-
-<h2 id="heroku-cli-설치">Heroku CLI 설치</h2>
-<p><code class="highlighter-rouge">brew install heroku</code></p>
-
-<h2 id="gunicorn을-추가">gunicorn을 추가</h2>
-<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
-
-<p>gunicorn 설정시 폴더구조는<br />
-메인 -<br />
-       |- 프로젝트<br />
-       |- 다른 앱<br />
-폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다.</p>
-
-<h2 id="procfile-추가">Procfile 추가</h2>
-<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 저장한다.<br />
-<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
-
-<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
-<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우)<br />
-<code class="highlighter-rouge">python-3.6.1</code></p>
-
-<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
-<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
-
-<p>이후 프로젝트의 <code class="highlighter-rouge">settings.py</code>파일에</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
-<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
-</code></pre>
-</div>
-<p>를 추가한다.</p>
-
-<h2 id="whitenoise-추가">whitenoise 추가</h2>
-<p>장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다.<br />
-whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다.<br />
-<code class="highlighter-rouge">pip install whitenoise</code></p>
-
-<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Simplified static file serving.</span>
-<span class="c"># https://warehouse.python.org/project/whitenoise/</span>
-
-<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
-<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
-</code></pre>
-</div>
-
-<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가한다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
-
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
-</code></pre>
-</div>
-
-<h2 id="requirementstxt-생성">requirements.txt 생성</h2>
-<p><code class="highlighter-rouge">pip freeze &gt; requirements.txt</code>를 입력하여 사용된 패키지를 추출한다.</p>
-
-<h2 id="allowed-host-추가">ALLOWED Host 추가</h2>
-<p><code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">ALLOWED_HOSTS = ['*']</code>를 추가한다.</p>
-
-<h2 id="추가사항">추가사항</h2>
-<p>DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다.<br />
-해결방법은 <a href="https://minyoungjung.github.io/파이썬/django/웹서비스/2017/06/25/django-landlord-reputation-(5)/">Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드</a> 여기서 확인</p>
-
-<h2 id="heroku에-로그인">Heroku에 로그인</h2>
-<p><code class="highlighter-rouge">heroku login</code></p>
-
-<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
-<p><code class="highlighter-rouge">heroku create</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>heroku create
-Creating app... done, ⬢ calm-basin-17299
-https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git
-
-Git remote heroku added
-</code></pre>
-</div>
-
-<h2 id="heroku를-git-remote로-추가">Heroku를 git remote로 추가</h2>
-<p><code class="highlighter-rouge">git remote add heroku https://git.heroku.com/calm-basin-17299.git</code></p>
-
-<h2 id="db가-생성되어-있지-않다면-생성">db가 생성되어 있지 않다면 생성</h2>
-<p><code class="highlighter-rouge">heroku run python manage.py migrate</code><br />
-간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다.</p>
-
-<h1 id="슈퍼유저-생성">슈퍼유저 생성</h1>
-<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
-
-<h2 id="commit하고-heroku에-push">commit하고 Heroku에 push</h2>
-<p><code class="highlighter-rouge">git push heroku master</code></p>
-
-<h2 id="만약-matpolib을-쓴다면-헤로쿠와-충돌이-일어난다">만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>import matplotlib
-matplotlib.use('Agg')
-</code></pre>
-</div>
-<p>를 <code class="highlighter-rouge">import matplotlib.pyplot as plt, mpld3</code> 전에 추가한다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
@@ -683,7 +644,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

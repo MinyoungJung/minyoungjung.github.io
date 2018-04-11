@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Pycharm Community 에디션에 Django 가상환경으로 세팅하기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Pycharm Community 에디션에 Django 가상환경으로 세팅하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-13T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Pycharm Community 에디션에 Django 가상환경으로 세팅하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-13T00:00:00+09:00","dateModified":"2017-06-13T00:00:00+09:00","description":"Pycharm Community 에디션에 Django 가상환경으로 세팅 Pycharm Professional Edition과 다르게 Community Edition은 Django와 같은 프로젝트를 직접 생성할 수 없다. 결국 설정을 위해서 약간의 번거로운 작업이 필요하다. 가상환경 설정 python -m venv my-virtualenv my-virtualenv라는 이름의 가상환경 생성 가상환경 실행 source my-virtualenv/bin/activate 가상환경이 실행되면 (my-virtualenv) 프롬프트 이름$와 같이 프롬프트가 변경된다. 이 상태에서는 어떤 폴더로 이동하든 가상환경이 실행된 상태이다. Django 설치 pip3 install django Django project 생성 django-admin startproject 프로젝트이름 Git 설정 git init git add . git commit -m &quot;first commit&quot; git remote add origin https://github.com/프로젝트github.git git push origin master Pycharm 설정 Pycharm 커뮤니티 에디션 실행, 프로젝트 폴더 위치 선택하여 프로젝트 열기 ⌘+, 입력하여 Preference 창 출력 Project -&gt; Project Interpreter 선택 맨 위의 Prject Interpreter 선택 창 옆의 설정 아이콘 선택 -&gt; Add local 생성한 가상환경 폴더의 /bin/python3 선택 -&gt; Apply Run -&gt; Edit configurations 선택 + 선택 후 Python 선택하여 새로운 환경 설정 생성 후 이름 지정 Script: 프로젝트 폴더의 manage.py 선택, Script parameters: runserver Pycharm에서 가상환경으로 작업 이제 커맨드라인에서 deactivate를 입력해 가상환경을 종료해도 Pycharm안에서 모두 해결 가능하다. 패키지를 인스톨하고 싶다면 ⌘+, 입력 후 Project Interpreter 항목의 리스트에서 선택하면 되고, 테스트 서버를 실행하고 싶다면 간단히 ⌃+r이나 재생버튼(?)을 선택하여 실행할 수 있다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Pycharm Community 에디션에 Django 가상환경으로 세팅하기","dateModified":"2017-06-13T00:00:00+09:00","datePublished":"2017-06-13T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"Pycharm Community 에디션에 Django 가상환경으로 세팅 Pycharm Professional Edition과 다르게 Community Edition은 Django와 같은 프로젝트를 직접 생성할 수 없다. 결국 설정을 위해서 약간의 번거로운 작업이 필요하다. 가상환경 설정 python -m venv my-virtualenv my-virtualenv라는 이름의 가상환경 생성 가상환경 실행 source my-virtualenv/bin/activate 가상환경이 실행되면 (my-virtualenv) 프롬프트 이름$와 같이 프롬프트가 변경된다. 이 상태에서는 어떤 폴더로 이동하든 가상환경이 실행된 상태이다. Django 설치 pip3 install django Django project 생성 django-admin startproject 프로젝트이름 Git 설정 git init git add . git commit -m &quot;first commit&quot; git remote add origin https://github.com/프로젝트github.git git push origin master Pycharm 설정 Pycharm 커뮤니티 에디션 실행, 프로젝트 폴더 위치 선택하여 프로젝트 열기 ⌘+, 입력하여 Preference 창 출력 Project -&gt; Project Interpreter 선택 맨 위의 Prject Interpreter 선택 창 옆의 설정 아이콘 선택 -&gt; Add local 생성한 가상환경 폴더의 /bin/python3 선택 -&gt; Apply Run -&gt; Edit configurations 선택 + 선택 후 Python 선택하여 새로운 환경 설정 생성 후 이름 지정 Script: 프로젝트 폴더의 manage.py 선택, Script parameters: runserver Pycharm에서 가상환경으로 작업 이제 커맨드라인에서 deactivate를 입력해 가상환경을 종료해도 Pycharm안에서 모두 해결 가능하다. 패키지를 인스톨하고 싶다면 ⌘+, 입력 후 Project Interpreter 항목의 리스트에서 선택하면 되고, 테스트 서버를 실행하고 싶다면 간단히 ⌃+r이나 재생버튼(?)을 선택하여 실행할 수 있다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/2017/06/13/django-pycharm-project-venv/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -252,6 +253,15 @@ my-virtualenv라는 이름의 가상환경 생성</p>
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -264,15 +274,6 @@ my-virtualenv라는 이름의 가상환경 생성</p>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -354,7 +355,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

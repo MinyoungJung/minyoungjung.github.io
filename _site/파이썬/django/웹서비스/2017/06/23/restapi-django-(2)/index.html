@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Django에 Rest API 추가하기 (2) - API에 인증 추가 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Django에 Rest API 추가하기 (2) - API에 인증 추가" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-23T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django에 Rest API 추가하기 (2) - API에 인증 추가","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-23T00:00:00+09:00","dateModified":"2017-06-23T00:00:00+09:00","description":"지난번에 추가한 API 지난번에는 Django REST Framework의 generics.RetrieveUpdateDestroyAPIView를 이용하여, GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다. Django에 Rest API 추가하기 - 링크 하지만 지금 상태로는 누구나 정보를 수정/삭제가 가능하므로 인증 기능을 추가해야 한다. API에 인증 추가 로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다. from rest_framework import permissions class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) permission_classes = (permissions.IsAuthenticatedOrReadOnly,) # 추가 하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다. 따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다. 이를 위해서 먼저 Custom permisson을 추가한다. from rest_framework import permissions class IsOwnerOrReadOnly(permissions.BasePermission): def has_object_permission(self, request, view, obj): if request.method in permissions.SAFE_METHODS: # GET, HEAD, OPTIONS return True return obj.owner_id == request.user.id 위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환, 그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다. from reputation.permissions import IsOwnerOrReadOnly class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) permission_classes = (IsOwnerOrReadOnly,) # 변경 그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다. 마지막으로 object를 반환하는 mixin 클래스에서, class MultipleFieldLookupMixin(object): def get_object(self): queryset = self.get_queryset() # Get the base queryset queryset = self.filter_queryset(queryset) # Apply any filter backends filter = {} for field in self.lookup_fields: if self.kwargs[field]: # Ignore empty fields. filter[field] = self.kwargs[field] obj = get_object_or_404(queryset, **filter) # Lookup the object self.check_object_permissions(self.request, obj) # Check permissions return obj 위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다. API 테스트 결과 Postman을 이용해서 api를 테스트 한 결과 (GET) GET 명령은 인증 없이도 잘 동작한다. Postman을 이용해서 api를 테스트 한 결과 (DELETE) Delete 명령은 인증이 없으니 동작하지 않는다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; wrong Auth) Auth를 포함할 때 잘못된 아이디/패스워드를 사용했을때는 다음과 같은 결과가 돌아온다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (not owner)) 제대로된 Auth로 인증했으나 Owner가 아닌 경우에도 역시 동작하지 않는다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (Owner)) Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Django에 Rest API 추가하기 (2) - API에 인증 추가","dateModified":"2017-06-23T00:00:00+09:00","datePublished":"2017-06-23T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"지난번에 추가한 API 지난번에는 Django REST Framework의 generics.RetrieveUpdateDestroyAPIView를 이용하여, GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다. Django에 Rest API 추가하기 - 링크 하지만 지금 상태로는 누구나 정보를 수정/삭제가 가능하므로 인증 기능을 추가해야 한다. API에 인증 추가 로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다. from rest_framework import permissions class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) permission_classes = (permissions.IsAuthenticatedOrReadOnly,) # 추가 하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다. 따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다. 이를 위해서 먼저 Custom permisson을 추가한다. from rest_framework import permissions class IsOwnerOrReadOnly(permissions.BasePermission): def has_object_permission(self, request, view, obj): if request.method in permissions.SAFE_METHODS: # GET, HEAD, OPTIONS return True return obj.owner_id == request.user.id 위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환, 그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다. from reputation.permissions import IsOwnerOrReadOnly class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) permission_classes = (IsOwnerOrReadOnly,) # 변경 그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다. 마지막으로 object를 반환하는 mixin 클래스에서, class MultipleFieldLookupMixin(object): def get_object(self): queryset = self.get_queryset() # Get the base queryset queryset = self.filter_queryset(queryset) # Apply any filter backends filter = {} for field in self.lookup_fields: if self.kwargs[field]: # Ignore empty fields. filter[field] = self.kwargs[field] obj = get_object_or_404(queryset, **filter) # Lookup the object self.check_object_permissions(self.request, obj) # Check permissions return obj 위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다. API 테스트 결과 Postman을 이용해서 api를 테스트 한 결과 (GET) GET 명령은 인증 없이도 잘 동작한다. Postman을 이용해서 api를 테스트 한 결과 (DELETE) Delete 명령은 인증이 없으니 동작하지 않는다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; wrong Auth) Auth를 포함할 때 잘못된 아이디/패스워드를 사용했을때는 다음과 같은 결과가 돌아온다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (not owner)) 제대로된 Auth로 인증했으나 Owner가 아닌 경우에도 역시 동작하지 않는다. Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (Owner)) Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -207,21 +208,20 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
 <h1 id="api에-인증-추가">API에 인증 추가</h1>
 <p>로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
 
 <span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
     <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c"># 추가</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다.<br />
 따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다.<br />
 이를 위해서 먼저 Custom permisson을 추가한다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
 
 
 <span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
@@ -232,24 +232,22 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
 
     <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="nb">id</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환,<br />
 그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.permissions</span> <span class="kn">import</span> <span class="n">IsOwnerOrReadOnly</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.permissions</span> <span class="kn">import</span> <span class="n">IsOwnerOrReadOnly</span>
 
 <span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
     <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c"># 변경</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다.<br />
 마지막으로 object를 반환하는 mixin 클래스에서,</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class MultipleFieldLookupMixin(object):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MultipleFieldLookupMixin(object):
     def get_object(self):
         queryset = self.get_queryset()             # Get the base queryset
         queryset = self.filter_queryset(queryset)  # Apply any filter backends
@@ -260,8 +258,7 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
         obj = get_object_or_404(queryset, **filter)  # Lookup the object
         self.check_object_permissions(self.request, obj)  # Check permissions
         return obj
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다.</p>
 
 <h1 id="api-테스트-결과">API 테스트 결과</h1>
@@ -295,6 +292,15 @@ Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -307,15 +313,6 @@ Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -397,7 +394,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

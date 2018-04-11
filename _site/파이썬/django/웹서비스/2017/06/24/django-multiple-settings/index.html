@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-24T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-24T00:00:00+09:00","dateModified":"2017-06-24T00:00:00+09:00","description":"개발/운영환경 설정파일 분리 Settings 폴더를 생성하여 __init__.py 파일을 넣어 모듈로 만든다. 기존 settings.py를 base.py로 변경하여 setting에 공통으로 필요한 부분만 남긴다. base.py를 import한 prod.py를 추가하여 운영 환경에 관련된 세팅을 추가한다. base.py를 import한 dev.py를 추가하여 개발환경에 관련된 세팅을 추가한다. from .base import * # SECURITY WARNING: don&#39;t run with debug turned on in production! DEBUG = True ALLOWED_HOSTS = [] EMAIL_BACKEND = &#39;django.core.mail.backends.console.EmailBackend&#39; 키값 분리 base.py에서 SECRET_KEY나 여러 API키 등 노출되면 안되는 부분을 분리해야 한다. 가상환경의 bin/activate 파일을 수정하여 마지막 부분에 다음 줄을 넣는다. export SECRET_KEY=`secret key` 이후 SECRET_KEY = os.environ[&quot;SECRET_KEY&quot;]를 세팅에 추가한다. Runserver를 동작시켜보면 잘 돌아간다. Pycharm에서의 문제점 위와 같이 설정할 경우 Pycharm에서 서버를 실행하면 환경변수를 받아오지 못한다. 이는 Pycharm과 같은 GUI 프로그램이 가상환경을 실행한 Shell을 상속받지 않기 때문인데, def get_env_variable(var_name, default=False): try: return os.environ[var_name] except KeyError: import io import configparser env_file = os.environ.get(&#39;PROJECT_ENV_FILE&#39;, os.getcwd() + &quot;/.env&quot;) try: config = io.StringIO() config.write(&quot;[DATA]\\n&quot;) config.write(open(env_file).read()) config.seek(0, os.SEEK_SET) cp = configparser.ConfigParser() cp.read_file(config) value = dict(cp.items(&#39;DATA&#39;))[var_name.lower()] if value.startswith(&#39;&quot;&#39;) and value.endswith(&#39;&quot;&#39;): value = value[1:-1] elif value.startswith(&quot;&#39;&quot;) and value.endswith(&quot;&#39;&quot;): value = value[1:-1] os.environ.setdefault(var_name, value) return value except (KeyError, IOError): if default is not False: return default from django.core.exceptions import ImproperlyConfigured error_msg = &quot;Either set the env variable &#39;{var}&#39; or place it in your &quot; \\ &quot;{env_file} file as &#39;{var} = VALUE&#39;&quot; raise ImproperlyConfigured(error_msg.format(var=var_name, env_file=env_file)) # Make this unique, and don&#39;t share it with anybody. SECRET_KEY = get_env_variable(&#39;SECRET_KEY&#39;) 위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고, 프로젝트 루트에 .env파일을 생성해서 SECRET_KEY=`secret key` 과 같이 작성하면 해결된다. 위와 같은 경우에는 .gitignore에 .env 파일을 추가해서 키값이 노출되는 것을 막아줘야 한다. 설정파일 적용 python manage.py runserver --settings=앱이름.settings.dev 위와 같이 설정파일을 각각 적용 가능하다. PostgreSQL 사용하기 Django는 기본 DB로 SQLite를 사용한다. 운영 환경에서는 PostgreSQL을 이용할 것이므로, 개발환경에서도 PostgreSQL을 적용하기로 했다. ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되는 편이 문제 발생률을 크게 줄여준다. 또한 실환경의 Data를 덤프해서 개발환경에 집어넣고 테스트가 가능하기도 하다. psycopg2 설치 pip3 install psycopg2 postgresql 설치 및 db 생성 createdb db이름 dev.py에 설정 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.postgresql_psycopg2&#39;, &#39;NAME&#39;: &#39;db이름&#39;, &#39;USER&#39;: &#39;&#39;, &#39;PASSWORD&#39;: &#39;&#39;, &#39;HOST&#39;: &#39;&#39;, &#39;PORT&#39;: &#39;&#39;, } } migrate 하기 python manage.py migrate --settings=앱이름.settings.dev superuser 생성 python manage.py createsuperuser --settings=앱이름.settings.dev 서버 실행 python manage.py runserver --settings=앱이름.settings.dev pgAdmin4 Data 보기 db이름 → Schemas → public → Tables → 테이블에서 우클릭 → View Data 기타 SQlite GUI 관리툴로는 DB Browser for SQLite를 쓰며 만족스러웠는데, 이놈의 pgAdmin4는 왜이렇게 마음에 안드는지 모르겠다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Django 설정 개발/운영환경 나누기, PostgreSQL 사용하기","dateModified":"2017-06-24T00:00:00+09:00","datePublished":"2017-06-24T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"개발/운영환경 설정파일 분리 Settings 폴더를 생성하여 __init__.py 파일을 넣어 모듈로 만든다. 기존 settings.py를 base.py로 변경하여 setting에 공통으로 필요한 부분만 남긴다. base.py를 import한 prod.py를 추가하여 운영 환경에 관련된 세팅을 추가한다. base.py를 import한 dev.py를 추가하여 개발환경에 관련된 세팅을 추가한다. from .base import * # SECURITY WARNING: don&#39;t run with debug turned on in production! DEBUG = True ALLOWED_HOSTS = [] EMAIL_BACKEND = &#39;django.core.mail.backends.console.EmailBackend&#39; 키값 분리 base.py에서 SECRET_KEY나 여러 API키 등 노출되면 안되는 부분을 분리해야 한다. 가상환경의 bin/activate 파일을 수정하여 마지막 부분에 다음 줄을 넣는다. export SECRET_KEY=`secret key` 이후 SECRET_KEY = os.environ[&quot;SECRET_KEY&quot;]를 세팅에 추가한다. Runserver를 동작시켜보면 잘 돌아간다. Pycharm에서의 문제점 위와 같이 설정할 경우 Pycharm에서 서버를 실행하면 환경변수를 받아오지 못한다. 이는 Pycharm과 같은 GUI 프로그램이 가상환경을 실행한 Shell을 상속받지 않기 때문인데, def get_env_variable(var_name, default=False): try: return os.environ[var_name] except KeyError: import io import configparser env_file = os.environ.get(&#39;PROJECT_ENV_FILE&#39;, os.getcwd() + &quot;/.env&quot;) try: config = io.StringIO() config.write(&quot;[DATA]\\n&quot;) config.write(open(env_file).read()) config.seek(0, os.SEEK_SET) cp = configparser.ConfigParser() cp.read_file(config) value = dict(cp.items(&#39;DATA&#39;))[var_name.lower()] if value.startswith(&#39;&quot;&#39;) and value.endswith(&#39;&quot;&#39;): value = value[1:-1] elif value.startswith(&quot;&#39;&quot;) and value.endswith(&quot;&#39;&quot;): value = value[1:-1] os.environ.setdefault(var_name, value) return value except (KeyError, IOError): if default is not False: return default from django.core.exceptions import ImproperlyConfigured error_msg = &quot;Either set the env variable &#39;{var}&#39; or place it in your &quot; \\ &quot;{env_file} file as &#39;{var} = VALUE&#39;&quot; raise ImproperlyConfigured(error_msg.format(var=var_name, env_file=env_file)) # Make this unique, and don&#39;t share it with anybody. SECRET_KEY = get_env_variable(&#39;SECRET_KEY&#39;) 위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고, 프로젝트 루트에 .env파일을 생성해서 SECRET_KEY=`secret key` 과 같이 작성하면 해결된다. 위와 같은 경우에는 .gitignore에 .env 파일을 추가해서 키값이 노출되는 것을 막아줘야 한다. 설정파일 적용 python manage.py runserver --settings=앱이름.settings.dev 위와 같이 설정파일을 각각 적용 가능하다. PostgreSQL 사용하기 Django는 기본 DB로 SQLite를 사용한다. 운영 환경에서는 PostgreSQL을 이용할 것이므로, 개발환경에서도 PostgreSQL을 적용하기로 했다. ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되는 편이 문제 발생률을 크게 줄여준다. 또한 실환경의 Data를 덤프해서 개발환경에 집어넣고 테스트가 가능하기도 하다. psycopg2 설치 pip3 install psycopg2 postgresql 설치 및 db 생성 createdb db이름 dev.py에 설정 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.postgresql_psycopg2&#39;, &#39;NAME&#39;: &#39;db이름&#39;, &#39;USER&#39;: &#39;&#39;, &#39;PASSWORD&#39;: &#39;&#39;, &#39;HOST&#39;: &#39;&#39;, &#39;PORT&#39;: &#39;&#39;, } } migrate 하기 python manage.py migrate --settings=앱이름.settings.dev superuser 생성 python manage.py createsuperuser --settings=앱이름.settings.dev 서버 실행 python manage.py runserver --settings=앱이름.settings.dev pgAdmin4 Data 보기 db이름 → Schemas → public → Tables → 테이블에서 우클릭 → View Data 기타 SQlite GUI 관리툴로는 DB Browser for SQLite를 쓰며 만족스러웠는데, 이놈의 pgAdmin4는 왜이렇게 마음에 안드는지 모르겠다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/24/django-multiple-settings/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -207,7 +208,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <li><code class="highlighter-rouge">base.py</code>를 import한 <code class="highlighter-rouge">dev.py</code>를 추가하여 개발환경에 관련된 세팅을 추가한다.</li>
 </ol>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="o">*</span>
 
 
 <span class="c"># SECURITY WARNING: don't run with debug turned on in production!</span>
@@ -216,24 +217,22 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s">'django.core.mail.backends.console.EmailBackend'</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="키값-분리">키값 분리</h1>
 <p>base.py에서 SECRET_KEY나 여러 API키 등 노출되면 안되는 부분을 분리해야 한다.<br />
 가상환경의 <code class="highlighter-rouge">bin/activate</code> 파일을 수정하여 마지막 부분에 다음 줄을 넣는다.</p>
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nb">export </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>이후 <code class="highlighter-rouge">SECRET_KEY = os.environ["SECRET_KEY"]</code>를 세팅에 추가한다.<br />
 Runserver를 동작시켜보면 잘 돌아간다.</p>
 
 <h1 id="pycharm에서의-문제점">Pycharm에서의 문제점</h1>
 <p>위와 같이 설정할 경우 Pycharm에서 서버를 실행하면 환경변수를 받아오지 못한다.<br />
 이는 Pycharm과 같은 GUI 프로그램이 가상환경을 실행한 Shell을 상속받지 않기 때문인데,</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_env_variable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_env_variable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
     <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
@@ -265,13 +264,11 @@ Runserver를 동작시켜보면 잘 돌아간다.</p>
 
 <span class="c"># Make this unique, and don't share it with anybody.</span>
 <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_env_variable</span><span class="p">(</span><span class="s">'SECRET_KEY'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고,<br />
 프로젝트 루트에 <code class="highlighter-rouge">.env</code>파일을 생성해서</p>
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="sb">`</span>secret key<span class="sb">`</span>
+</code></pre></div></div>
 <p>과 같이 작성하면 해결된다.</p>
 
 <p><strong>위와 같은 경우에는 .gitignore에 .env 파일을 추가해서 키값이 노출되는 것을 막아줘야 한다.</strong></p>
@@ -296,7 +293,7 @@ ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되�
 <code class="highlighter-rouge">createdb db이름</code></p>
   </li>
   <li><code class="highlighter-rouge">dev.py</code>에 설정
-    <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
  <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
      <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.postgresql_psycopg2'</span><span class="p">,</span>
      <span class="s">'NAME'</span><span class="p">:</span> <span class="s">'db이름'</span><span class="p">,</span>
@@ -306,8 +303,7 @@ ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되�
      <span class="s">'PORT'</span><span class="p">:</span> <span class="s">''</span><span class="p">,</span>
  <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>migrate 하기<br />
@@ -339,6 +335,15 @@ ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되�
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -351,15 +356,6 @@ ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되�
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -441,7 +437,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

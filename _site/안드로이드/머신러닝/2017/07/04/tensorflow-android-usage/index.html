@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>텐서플로 라이브러리 안드로이드에 사용하기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="텐서플로 라이브러리 안드로이드에 사용하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-04T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"텐서플로 라이브러리 안드로이드에 사용하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-04T00:00:00+09:00","dateModified":"2017-07-04T00:00:00+09:00","description":"빌드된 라이브러리 다운로드 상세 설정은 지난 포스팅 참조. Project nightly-android에서 최신 빌드된 버전 이미지의 libandroid_tensorflow_inference_java.jar 파일 다운로드, native 폴더의 libtensorflow_inference.so도 zip 파일로 압축해서 다운로드 안드로이드 프로젝트 생성 텐서플로를 사용할 안드로이드 프로젝트 생성 라이브러리 추가 app/libs/ 폴더에 zip 파일로 압축한 폴더를 풀어서 복사 동일 폴더안에 libandroid_tensorflow_inference_java.jar 또한 복사 트리 구조는 아래와 같음 build.gradle 수정 build.gradle (Module: app) 파일의 android 항목 안에 native 라이브러리 경로 추가 sourceSets { main { jniLibs.srcDirs = [&#39;libs&#39;] } } 메인 액티비티 수정 라이브러리 로드 static { System.loadLibrary(&quot;tensorflow_inference&quot;); } onCreate 수정 Tensor c = Tensor.create(3.0f); TextView tv = (TextView) findViewById(R.id.textView); tv.setText(String.valueOf(c.floatValue())); 간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/"}</script>
+{"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"텐서플로 라이브러리 안드로이드에 사용하기","dateModified":"2017-07-04T00:00:00+09:00","datePublished":"2017-07-04T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"빌드된 라이브러리 다운로드 상세 설정은 지난 포스팅 참조. Project nightly-android에서 최신 빌드된 버전 이미지의 libandroid_tensorflow_inference_java.jar 파일 다운로드, native 폴더의 libtensorflow_inference.so도 zip 파일로 압축해서 다운로드 안드로이드 프로젝트 생성 텐서플로를 사용할 안드로이드 프로젝트 생성 라이브러리 추가 app/libs/ 폴더에 zip 파일로 압축한 폴더를 풀어서 복사 동일 폴더안에 libandroid_tensorflow_inference_java.jar 또한 복사 트리 구조는 아래와 같음 build.gradle 수정 build.gradle (Module: app) 파일의 android 항목 안에 native 라이브러리 경로 추가 sourceSets { main { jniLibs.srcDirs = [&#39;libs&#39;] } } 메인 액티비티 수정 라이브러리 로드 static { System.loadLibrary(&quot;tensorflow_inference&quot;); } onCreate 수정 Tensor c = Tensor.create(3.0f); TextView tv = (TextView) findViewById(R.id.textView); tv.setText(String.valueOf(c.floatValue())); 간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/04/tensorflow-android-usage/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -212,29 +213,26 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
 <h1 id="buildgradle-수정">build.gradle 수정</h1>
 <p><code class="highlighter-rouge">build.gradle (Module: app)</code> 파일의 android 항목 안에 native 라이브러리 경로 추가</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>sourceSets {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sourceSets {
     main {
         jniLibs.srcDirs = ['libs']
     }
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="메인-액티비티-수정">메인 액티비티 수정</h1>
 <h2 id="라이브러리-로드">라이브러리 로드</h2>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">static</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">static</span> <span class="o">{</span>
     <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"tensorflow_inference"</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="oncreate-수정">onCreate 수정</h2>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Tensor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Tensor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span>
 
 <span class="n">TextView</span> <span class="n">tv</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">);</span>
 <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">floatValue</span><span class="o">()));</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>간단히 Tensor를 하나 생성한 후 값을 빼내서 출력함.</p>
 
@@ -245,6 +243,15 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
     
       <li>
         <h3>
@@ -260,15 +267,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -350,7 +348,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

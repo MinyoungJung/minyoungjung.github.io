@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Phaser를 이용한 간단 인터랙션 제작 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Phaser를 이용한 간단 인터랙션 제작" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-11T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Phaser를 이용한 간단 인터랙션 제작","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-11T00:00:00+09:00","dateModified":"2017-06-11T00:00:00+09:00","description":"Phaser란 HTML5의 Canvas및 WebGL을 이용해 Web game을 제작할 수 있게 해주는 Javascript 라이브러리 Phaser를 테스트 하기 위해서는 로컬 웹서버를 실행해야 한다. Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하다. python -m SimpleHTTPServer 구조 var game = new Phaser.Game(Width, Height, Phaser.AUTO, &#39;&#39;, { preload: preload, create: create, update: update }); 위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다. 크게 preload, create, update의 세 메소드로 나뉘어져 있다. Preload 게임 실행전에 실행되는 메소드로 주로 이미지나 기타 자료의 로딩에 쓰인다. Create 게임이 실제적으로 생성될때 실행되는 메소드로 로딩된 이미지를 출력하거나 리스너를 할당하거나 등의 작업을 한다. Update 주기적으로 실행되는 메소드로 주로 키 이벤트를 할당하거나 게임의 개체들을 업데이트 하는 등의 작업을 한다. 간단한 결과물 사용자의 마우스 이벤트에 반응해서 이미지의 알파값을 변경시켜 출력 시켜주는 애니메이션 예제 Phaser로 제작한 간단한 결과물 추후 계획 주 1회 협업, 매번 간단한 인터렉션 제작 (장기적으로는 게임이 될 수도…)","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/javascript/2017/06/11/phaser-interaction/"},"url":"http://localhost:4000/javascript/2017/06/11/phaser-interaction/"}</script>
+{"url":"http://localhost:4000/javascript/2017/06/11/phaser-interaction/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Phaser를 이용한 간단 인터랙션 제작","dateModified":"2017-06-11T00:00:00+09:00","datePublished":"2017-06-11T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"Phaser란 HTML5의 Canvas및 WebGL을 이용해 Web game을 제작할 수 있게 해주는 Javascript 라이브러리 Phaser를 테스트 하기 위해서는 로컬 웹서버를 실행해야 한다. Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하다. python -m SimpleHTTPServer 구조 var game = new Phaser.Game(Width, Height, Phaser.AUTO, &#39;&#39;, { preload: preload, create: create, update: update }); 위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다. 크게 preload, create, update의 세 메소드로 나뉘어져 있다. Preload 게임 실행전에 실행되는 메소드로 주로 이미지나 기타 자료의 로딩에 쓰인다. Create 게임이 실제적으로 생성될때 실행되는 메소드로 로딩된 이미지를 출력하거나 리스너를 할당하거나 등의 작업을 한다. Update 주기적으로 실행되는 메소드로 주로 키 이벤트를 할당하거나 게임의 개체들을 업데이트 하는 등의 작업을 한다. 간단한 결과물 사용자의 마우스 이벤트에 반응해서 이미지의 알파값을 변경시켜 출력 시켜주는 애니메이션 예제 Phaser로 제작한 간단한 결과물 추후 계획 주 1회 협업, 매번 간단한 인터렉션 제작 (장기적으로는 게임이 될 수도…)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/javascript/2017/06/11/phaser-interaction/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -203,10 +204,9 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
 <p><code class="highlighter-rouge">python -m SimpleHTTPServer</code></p>
 
 <h1 id="구조">구조</h1>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">,</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> 
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">,</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> 
         <span class="p">{</span> <span class="na">preload</span><span class="p">:</span> <span class="nx">preload</span><span class="p">,</span> <span class="na">create</span><span class="p">:</span> <span class="nx">create</span><span class="p">,</span> <span class="na">update</span><span class="p">:</span> <span class="nx">update</span> <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위의 전역 변수 정의를 통해 width * height 크기의 게임창을 생성한다.<br />
 크게 preload, create, update의 세 메소드로 나뉘어져 있다.</p>
 
@@ -236,6 +236,15 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -248,15 +257,6 @@ Python이 깔려있다면 Python의 기본 웹서버를 이용하면 간단하�
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -338,7 +338,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

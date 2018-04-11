@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Firebase 사용하여 Notification 보내기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Firebase 사용하여 Notification 보내기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-23T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Firebase 사용하여 Notification 보내기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-23T00:00:00+09:00","dateModified":"2017-07-23T00:00:00+09:00","description":"firebase 프로젝트 추가 https://console.firebase.google.com에서 프로젝트 추가 firebase 안드로이드 추가 google-services.json 추가 google-services.json 파일을 app 영역의 root에 집어넣음. (project 보기) build.gradle 변경 build.gradle(project)에 다음 추가 dependencies { classpath &#39;com.google.gms:google-services:3.1.0&#39; } build.gradle(app) 마지막줄에 다음 줄 추가 apply plugin: &#39;com.google.gms.google-services&#39; build.gradle(app)의 dependency에 다음 추가 (Notification 사용 라이브러리) compile &#39;com.google.firebase:firebase-core:11.0.2&#39; compile &#39;com.google.firebase:firebase-messaging:11.0.2&#39; 이후 프로젝트 sync FirebaseMessagingService 추가 public class MyFirebaseMessagingService extends FirebaseMessagingService { private static final String TAG = &quot;FCM Service&quot;; @Override public void onMessageReceived(RemoteMessage remoteMessage) { Log.e(TAG, &quot;From: &quot; + remoteMessage.getFrom()); Log.e(TAG, &quot;Notification Message Body: &quot; + remoteMessage.getNotification().getBody()); } } FirebaseInstanceIdService 추가 public class FirebaseIDService extends FirebaseInstanceIdService { private static final String TAG = &quot;FirebaseIDService&quot;; @Override public void onTokenRefresh() { // Get updated InstanceID token. String refreshedToken = FirebaseInstanceId.getInstance().getToken(); Log.e(TAG, &quot;Refreshed token: &quot; + refreshedToken); // TODO: Implement this method to send any registration to your app&#39;s servers. sendRegistrationToServer(refreshedToken); } private void sendRegistrationToServer(String token) { // Add custom implementation, as needed. } } 매니페스트에 서비스 추가 &lt;service android:name=&quot;.service.MyFirebaseMessagingService&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.google.firebase.MESSAGING_EVENT&quot;/&gt; &lt;/intent-filter&gt; &lt;/service&gt; &lt;service android:name=&quot;.service.FirebaseIDService&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.google.firebase.INSTANCE_ID_EVENT&quot;/&gt; &lt;/intent-filter&gt; &lt;/service&gt; 서비스 태그는 애플리케이션 태그 속에 넣으면 된다. Notification 보내기 콘솔에서 앱 전체를 대상으로 Notification를 보낸 모습 Notification 전송 모습 상태창을 보면 notification이 전송된 것을 볼 수 있다. 앱이 떠있을때는 로그로 정상 출력되는 것을 볼 수 있다.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/"}</script>
+{"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Firebase 사용하여 Notification 보내기","dateModified":"2017-07-23T00:00:00+09:00","datePublished":"2017-07-23T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"firebase 프로젝트 추가 https://console.firebase.google.com에서 프로젝트 추가 firebase 안드로이드 추가 google-services.json 추가 google-services.json 파일을 app 영역의 root에 집어넣음. (project 보기) build.gradle 변경 build.gradle(project)에 다음 추가 dependencies { classpath &#39;com.google.gms:google-services:3.1.0&#39; } build.gradle(app) 마지막줄에 다음 줄 추가 apply plugin: &#39;com.google.gms.google-services&#39; build.gradle(app)의 dependency에 다음 추가 (Notification 사용 라이브러리) compile &#39;com.google.firebase:firebase-core:11.0.2&#39; compile &#39;com.google.firebase:firebase-messaging:11.0.2&#39; 이후 프로젝트 sync FirebaseMessagingService 추가 public class MyFirebaseMessagingService extends FirebaseMessagingService { private static final String TAG = &quot;FCM Service&quot;; @Override public void onMessageReceived(RemoteMessage remoteMessage) { Log.e(TAG, &quot;From: &quot; + remoteMessage.getFrom()); Log.e(TAG, &quot;Notification Message Body: &quot; + remoteMessage.getNotification().getBody()); } } FirebaseInstanceIdService 추가 public class FirebaseIDService extends FirebaseInstanceIdService { private static final String TAG = &quot;FirebaseIDService&quot;; @Override public void onTokenRefresh() { // Get updated InstanceID token. String refreshedToken = FirebaseInstanceId.getInstance().getToken(); Log.e(TAG, &quot;Refreshed token: &quot; + refreshedToken); // TODO: Implement this method to send any registration to your app&#39;s servers. sendRegistrationToServer(refreshedToken); } private void sendRegistrationToServer(String token) { // Add custom implementation, as needed. } } 매니페스트에 서비스 추가 &lt;service android:name=&quot;.service.MyFirebaseMessagingService&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.google.firebase.MESSAGING_EVENT&quot;/&gt; &lt;/intent-filter&gt; &lt;/service&gt; &lt;service android:name=&quot;.service.FirebaseIDService&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.google.firebase.INSTANCE_ID_EVENT&quot;/&gt; &lt;/intent-filter&gt; &lt;/service&gt; 서비스 태그는 애플리케이션 태그 속에 넣으면 된다. Notification 보내기 콘솔에서 앱 전체를 대상으로 Notification를 보낸 모습 Notification 전송 모습 상태창을 보면 notification이 전송된 것을 볼 수 있다. 앱이 떠있을때는 로그로 정상 출력되는 것을 볼 수 있다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -206,27 +207,24 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <h2 id="buildgradle-변경">build.gradle 변경</h2>
 
 <p>build.gradle(project)에 다음 추가</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
     <span class="n">classpath</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">google</span><span class="o">-</span><span class="nl">services:</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>build.gradle(app) 마지막줄에 다음 줄 추가</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">.</span><span class="na">google</span><span class="o">-</span><span class="n">services</span><span class="err">'</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">.</span><span class="na">google</span><span class="o">-</span><span class="n">services</span><span class="err">'</span>
+</code></pre></div></div>
 
 <p>build.gradle(app)의 dependency에 다음 추가 (Notification 사용 라이브러리)</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">core:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">core:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
 <span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">messaging:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이후 프로젝트 sync</p>
 
 <h2 id="firebasemessagingservice-추가">FirebaseMessagingService 추가</h2>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirebaseMessagingService</span> <span class="kd">extends</span> <span class="n">FirebaseMessagingService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirebaseMessagingService</span> <span class="kd">extends</span> <span class="n">FirebaseMessagingService</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">"FCM Service"</span><span class="o">;</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessageReceived</span><span class="o">(</span><span class="n">RemoteMessage</span> <span class="n">remoteMessage</span><span class="o">)</span> <span class="o">{</span>
@@ -234,11 +232,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
         <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Notification Message Body: "</span> <span class="o">+</span> <span class="n">remoteMessage</span><span class="o">.</span><span class="na">getNotification</span><span class="o">().</span><span class="na">getBody</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="firebaseinstanceidservice-추가">FirebaseInstanceIdService 추가</h2>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FirebaseIDService</span> <span class="kd">extends</span> <span class="n">FirebaseInstanceIdService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FirebaseIDService</span> <span class="kd">extends</span> <span class="n">FirebaseInstanceIdService</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">"FirebaseIDService"</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
@@ -255,11 +252,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
         <span class="c1">// Add custom implementation, as needed.</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="매니페스트에-서비스-추가">매니페스트에 서비스 추가</h2>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".service.MyFirebaseMessagingService"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;intent-filter&gt;</span>
         <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"com.google.firebase.MESSAGING_EVENT"</span><span class="nt">/&gt;</span>
@@ -271,8 +267,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
         <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"com.google.firebase.INSTANCE_ID_EVENT"</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/intent-filter&gt;</span>
 <span class="nt">&lt;/service&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>서비스 태그는 애플리케이션 태그 속에 넣으면 된다.</p>
 
 <h2 id="notification-보내기">Notification 보내기</h2>
@@ -296,6 +291,15 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -308,15 +312,6 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
             RecyclerView 사용 패턴
             <small>22 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/21/android-app-sigining-upload-problem/">
-            Google Play App Signing으로 업로드 시 apk 업로드 안될 때
-            <small>21 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -398,7 +393,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Blog | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -45,10 +46,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <link rel="canonical" href="http://localhost:4000/blog/page8/" />
 <meta property="og:url" content="http://localhost:4000/blog/page8/" />
 <meta property="og:site_name" content="Ringsterz Log" />
-<link rel="prev" href="http://localhost:4000/blog/page7">
-<link rel="next" href="http://localhost:4000/blog/page9">
+<link rel="prev" href="http://localhost:4000/blog/page7" />
+<link rel="next" href="http://localhost:4000/blog/page9" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"WebPage","headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/blog/page8/"}</script>
+{"url":"http://localhost:4000/blog/page8/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -181,6 +182,128 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/">
+        Django 서비스 테스트하기
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#test" class="post-tag">Test</a>
+    
+    
+
+    <article>
+      <h1 id="coverage-설치">Coverage 설치</h1>
+<p>파이썬 코드의 테스트 커버리지를 나타내 주는 라이브러리인 coverage를 설치한다.
+<code class="highlighter-rouge">pip3 install coverage</code></p>
+
+<h1 id="coverage-설정">Coverage 설정</h1>
+<h2 id="coveragerc-파일-생성">.coveragerc 파일 생성</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi .coveragerc
+</code></pre></div></div>
+<p>vim을 이용해서 간단하게 coveragerc 설정 파일을 생성.</p>
+
+<h2 id="실행환경-설정">실행환경 설정</h2>
+<p>[run] 헤더 이후에 설정을 적어주면 된다.<br />
+include = 테스트를 포함할 경로<br />
+omit = 테스트를 제외할 경로</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[run]
+omit = ../virtualenvs/landlord_reputation_venv/*
+</code></pre></div></div>
+<p>기본적으로 project_root의 폴더들이 모두 포함되므로 위와 같이 가상환경만 제외했다.</p>
+
+<h1 id="coverage-실행">Coverage 실행</h1>
+<p><code class="highlighter-rouge">coverage run manage.py test</code>로 테스트를 수행</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+</code></pre></div></div>
+<p>위와 같이 테스트를 수행한다.<br />
+현재는 아무런 테스트도 넣지 않은 상태</p>
+
+<h1 id="리포트-보기">리포트 보기</h1>
+<p><code class="highlighter-rouge">coverage report</code>로 각각의 파일에 대한 리포트를 볼수 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name                                    Stmts   Miss  Cover
+-----------------------------------------------------------
+landlord_reputation/__init__.py             0      0   100%
+landlord_reputation/settings.py            20      0   100%
+landlord_reputation/urls.py                 4      0   100%
+landlord_reputation/views.py                8      0   100%
+manage.py                                  13      6    54%
+reputation/__init__.py                      0      0   100%
+reputation/admin.py                         8      0   100%
+reputation/apps.py                          3      0   100%
+reputation/migrations/0001_initial.py       8      0   100%
+reputation/migrations/__init__.py           0      0   100%
+reputation/models.py                        9      0   100%
+reputation/tests.py                         1      0   100%
+reputation/urls.py                          3      0   100%
+reputation/views.py                        90     65    28%
+-----------------------------------------------------------
+TOTAL                                     167     71    57%
+</code></pre></div></div>
+
+<p>view 파일에 대해 하나도 테스트가 작성되지 않은 상태라 coverage가 매우 낮게 출력된다.</p>
+
+<h1 id="리포트-html-형식으로-보기">리포트 html 형식으로 보기</h1>
+<p>좀더 자세한 결과를 보기위해서 리포트를 Html 형식으로 출력할수도 있다.<br />
+<code class="highlighter-rouge">coverage html</code> 명령을 통해 <code class="highlighter-rouge">htmlcov/index.html</code>로 리포트가 생성된다.</p>
+
+<h2 id="리포트-형식">리포트 형식</h2>
+<p><img src="/post_assets/2017-06-20/coverage_list.png" alt="커버리지 리스트" /></p>
+
+<h2 id="리포트를-선택했을때-나오는-상세-결과">리포트를 선택했을때 나오는 상세 결과</h2>
+<p><img src="/post_assets/2017-06-20/coverage_detail.png" alt="커버리지 디테일" /></p>
+
+<h1 id="테스트-코드-작성하기">테스트 코드 작성하기</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
+
+<span class="k">class</span> <span class="nc">ReputationView</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s">"sample address"</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="s">"23.456789"</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="s">"123.4567890"</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_template_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s">"reputation:reputation_template"</span><span class="p">,</span>  <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">"123.1234567"</span><span class="p">,</span> <span class="s">"23.456789"</span><span class="p">])</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</code></pre></div></div>
+<p>generic view Http 응답에 대한 테스트 코드를 삽입하였다.</p>
+
+<h2 id="이후-다시-테스트를-수행한-결과">이후 다시 테스트를 수행한 결과</h2>
+<p><img src="/post_assets/2017-06-20/coverage_detail2.png" alt="커버리지 디테일" />
+커버리지가 조금 올라가고 붉은색으로 표시된 테스트 되지 않은 범위도 조금 줄어들었다.</p>
+
+<p>테스트 플랜을 짜고 좀더 상세한 Suite/Case를 작성해야겠지만 위 방법을 확장하여 테스트 커버리지를 높일 수 있다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%ED%85%8C%EC%8A%A4%ED%8A%B8/2017/06/20/inserting-testcode-django/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -217,16 +340,14 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
 <h2 id="해결방법">해결방법</h2>
 <p>HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
+</code></pre></div></div>
 
 <h3 id="django의-경우">Django의 경우</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;link href="{% static '/css/custom.css' %}?v=1.0" rel="stylesheet"&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="mac에서-localhost-지정하기">Mac에서 Localhost 지정하기</h1>
 <p>IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는<br />
@@ -485,101 +606,6 @@ Django의 기능이 강력해서 구현 자체는 금방 끝났으나 UI를 다�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/">
-        Django를 이용한 건물주 평판 조회 서비스 제작 (3) - 구현 1일차
-      </a>
-    </h1>
-
-    <span class="post-date">15 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#map-api" class="post-tag">Map API</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#naver-api" class="post-tag">Naver API</a>
-    
-    <a href="/blog/tags/#평판조회" class="post-tag">평판조회</a>
-    
-    
-
-    <article>
-      <h1 id="구현-1일차">구현 1일차</h1>
-<h2 id="메인화면">메인화면</h2>
-<p>부트스트랩을 이용해서 간단히 홈화면을 꾸미고, Navbar 및 footer를 생성.<br />
-중앙에는 평판을 검색할 수 있는 검색창을 추가했다.<br />
-검색창에서 주소를 검색하면, Naver Geocoder API를 이용해 주소를 위/경도로 변환해 주었다.</p>
-
-<h2 id="검색-리스트">검색 리스트</h2>
-<p>올바른 주소가 검색되었을때 이미 평판이 있으면 해당 평판을 볼수있는 링크를 보여주게 구현하였다.<br />
-DB내에 평판이 없을 경우 평판이 없음을 보여주고, 마찬가지로 링크를 선택하면 평판을 추가할수 있는 화면으로<br />
-이동하게 했다.</p>
-
-<h2 id="평판-디테일-뷰">평판 디테일 뷰</h2>
-<p>네이버 지도 API를 통해 검색한 주소의 마커를 보여주고, 평판을 추가할 수 있는 폼을 생성했다.<br />
-지도상에서 맵을 선택하면 해당 위치에 평판을 추가할 수 있도록 하고, 평판이 있다면 보여주도록 했다.</p>
-
-<h1 id="고생한-점">고생한 점</h1>
-<p>Naver Geocoder에서 주소를 찾지 못할때 <code class="highlighter-rouge">404 Not Found</code>를 날려주는 것을 모르고 있다가 한참 헤맸다.<br />
-<strong>문서를 잘 읽자는 교훈</strong> <a href="https://developers.naver.com/docs/map/overview/">네이버 지도 API 명세 - 5. 에러 코드 참조</a><br />
-또한 경도/위도의 자릿수를 8, 9자리에 6자리 소숫점 고정으로 생각하고 있다가,<br />
-경도/위도의 소숫점 아래 자리수가 7자리수인 좌표들이 등장하며 url 패턴에 맞지 않는 url들이 나와<br />
-계속 오류가 나는 것을 알아채지 못하고 한참 삽질을 했다.<br />
-굳이 Redirect가 필요하지 않은 것을 한단계 더 거쳐가는 형식으로 구현했다가 수정했다.<br />
-간단하다고 설계를 할때 깊게 생각하지 않으면 구현하면서 고생한다는 것을 다시금 깨달았다.</p>
-
-<h1 id="진행률">진행률</h1>
-<p>기본적인 기능 구현은 2/3 정도 끝난것 같다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">평판 등록/조회 기능</th>
-      <th style="text-align: center">회원가입/로그인 기능</th>
-      <th style="text-align: center">주소 검색 기능</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">80%</td>
-      <td style="text-align: center">20%</td>
-      <td style="text-align: center">100%</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br /></p>
-<h1 id="추후-일정">추후 일정</h1>
-<ol>
-  <li>로그인/회원가입 등 구현</li>
-  <li>가입한 사용자만 정보를 등록할 수 있도록 구현</li>
-  <li>디테일뷰에서 DB에 평판 추가하는 부분 구현</li>
-  <li>UI/UX 개선</li>
-</ol>
-
-<p>일주일내로 기본 기능을 완성하기로 한 일정을 맞출 수 있을 것 같다.<br />
-여전히 개선할 부분과 디테일 개선은 갈길이 멀긴 하다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/15/django-landlord-reputation-(3)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -648,7 +674,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

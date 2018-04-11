@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>안드로이드 라이센스 라이브러리 사용하기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="안드로이드 라이센스 라이브러리 사용하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-20T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"안드로이드 라이센스 라이브러리 사용하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-20T00:00:00+09:00","dateModified":"2017-07-20T00:00:00+09:00","description":"앱을 유료로 마켓에 업로드하려 할때, apk 파일을 통해 앱을 설치하는게 우려된다면, Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 것인지 검증해 준다. 설치 Android SDK Tools에서 라이센싱 라이브러리를 설치한다. 라이브러리 추가 안드로이드 스튜디오에서 File -&gt; New -&gt; Import Module을 선택한 후, 설치한 라이센스 소스 디렉토리의 AndroidManifest.xml을 선택한다. 계정 설정 Google Play console에서 라이센스 테스트를 수행할 계정을 선택한다. 이 계정으로 기기에 로그인 해야 한다. 라이센스 키 설정 Google Play console에서 개별 앱 페이지로 들어가서 라이센스 키를 복사한다. 라이브러리 포함하여 빌드하도록 설정 app의 build.gradle에 다음 구문을 추가한다 compile project(path: &#39;:library&#39;) 라이브러리 사용 사용법은 딱히 까다롭지 않아 Android docs의 링크로 대체하고, 일부 부분만 설명한다. 고유 디바이스 아이디 처리 new AESObfuscator(SALT, getPackageName(), deviceId) 부분에서 고유한 deviceId를 처리해줘야 한다. Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID))), 장치 고유값을 가져오는 것이 생각보다 쉽지않은데, 그냥 단순하게 처리하려면 위와같이 하면 된다. 에러처리 라이브러리의 intent 사용 방법 떄문에 에러가 발생한다. if (mService == null) { Log.i(TAG, &quot;Binding to licensing service.&quot;); try { boolean bindResult = mContext .bindService( new Intent( new String( Base64.decode(&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;))), this, // ServiceConnection. Context.BIND_AUTO_CREATE); if (bindResult) { mPendingChecks.offer(validator); } else { Log.e(TAG, &quot;Could not bind to service.&quot;); handleServiceConnectionError(validator); } } catch (SecurityException e) { callback.applicationError(LicenseCheckerCallback.ERROR_MISSING_PERMISSION); } catch (Base64DecoderException e) { e.printStackTrace(); } } 라이브러리의 위 코드를 아래와 같이 수정한다. if (mService == null) { Log.i(TAG, &quot;Binding to licensing service.&quot;); try { Intent serviceIntent = new Intent( new String(Base64.decode(&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;))); serviceIntent.setPackage(&quot;com.android.vending&quot;); boolean bindResult = mContext.bindService(serviceIntent, this, // ServiceConnection. Context.BIND_AUTO_CREATE); if (bindResult) { mPendingChecks.offer(validator); } else { Log.e(TAG, &quot;Could not bind to service.&quot;); handleServiceConnectionError(validator); } } catch (SecurityException e) { callback.applicationError(LicenseCheckerCallback.ERROR_MISSING_PERMISSION); } catch (Base64DecoderException e) { e.printStackTrace(); } } 또 다른 에러 LicenseCheckerCallback에서 applicationError가 호출되며 에러코드 3이 찍히는 경우가 있다. 이는 ERROR_NOT_MARKET_MANAGED로 마켓에 앱을 올리지 않았을때 반환되는 코드인데, 처리할 필요 없다. 정상적인 시나리오에서는 allow나 dontallow가 호출되기 때문인데, 자세한 이유를 알고 싶다면 여기서 확인할 것","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/"}</script>
+{"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"안드로이드 라이센스 라이브러리 사용하기","dateModified":"2017-07-20T00:00:00+09:00","datePublished":"2017-07-20T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"앱을 유료로 마켓에 업로드하려 할때, apk 파일을 통해 앱을 설치하는게 우려된다면, Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 것인지 검증해 준다. 설치 Android SDK Tools에서 라이센싱 라이브러리를 설치한다. 라이브러리 추가 안드로이드 스튜디오에서 File -&gt; New -&gt; Import Module을 선택한 후, 설치한 라이센스 소스 디렉토리의 AndroidManifest.xml을 선택한다. 계정 설정 Google Play console에서 라이센스 테스트를 수행할 계정을 선택한다. 이 계정으로 기기에 로그인 해야 한다. 라이센스 키 설정 Google Play console에서 개별 앱 페이지로 들어가서 라이센스 키를 복사한다. 라이브러리 포함하여 빌드하도록 설정 app의 build.gradle에 다음 구문을 추가한다 compile project(path: &#39;:library&#39;) 라이브러리 사용 사용법은 딱히 까다롭지 않아 Android docs의 링크로 대체하고, 일부 부분만 설명한다. 고유 디바이스 아이디 처리 new AESObfuscator(SALT, getPackageName(), deviceId) 부분에서 고유한 deviceId를 처리해줘야 한다. Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID))), 장치 고유값을 가져오는 것이 생각보다 쉽지않은데, 그냥 단순하게 처리하려면 위와같이 하면 된다. 에러처리 라이브러리의 intent 사용 방법 떄문에 에러가 발생한다. if (mService == null) { Log.i(TAG, &quot;Binding to licensing service.&quot;); try { boolean bindResult = mContext .bindService( new Intent( new String( Base64.decode(&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;))), this, // ServiceConnection. Context.BIND_AUTO_CREATE); if (bindResult) { mPendingChecks.offer(validator); } else { Log.e(TAG, &quot;Could not bind to service.&quot;); handleServiceConnectionError(validator); } } catch (SecurityException e) { callback.applicationError(LicenseCheckerCallback.ERROR_MISSING_PERMISSION); } catch (Base64DecoderException e) { e.printStackTrace(); } } 라이브러리의 위 코드를 아래와 같이 수정한다. if (mService == null) { Log.i(TAG, &quot;Binding to licensing service.&quot;); try { Intent serviceIntent = new Intent( new String(Base64.decode(&quot;Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U=&quot;))); serviceIntent.setPackage(&quot;com.android.vending&quot;); boolean bindResult = mContext.bindService(serviceIntent, this, // ServiceConnection. Context.BIND_AUTO_CREATE); if (bindResult) { mPendingChecks.offer(validator); } else { Log.e(TAG, &quot;Could not bind to service.&quot;); handleServiceConnectionError(validator); } } catch (SecurityException e) { callback.applicationError(LicenseCheckerCallback.ERROR_MISSING_PERMISSION); } catch (Base64DecoderException e) { e.printStackTrace(); } } 또 다른 에러 LicenseCheckerCallback에서 applicationError가 호출되며 에러코드 3이 찍히는 경우가 있다. 이는 ERROR_NOT_MARKET_MANAGED로 마켓에 앱을 올리지 않았을때 반환되는 코드인데, 처리할 필요 없다. 정상적인 시나리오에서는 allow나 dontallow가 호출되기 때문인데, 자세한 이유를 알고 싶다면 여기서 확인할 것","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -220,20 +221,18 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
 <p>사용법은 딱히 까다롭지 않아 <a href="https://developer.android.com/google/play/licensing/adding-licensing.html#imports">Android docs</a>의 링크로 대체하고, 일부 부분만 설명한다.</p>
 
 <h2 id="고유-디바이스-아이디-처리">고유 디바이스 아이디 처리</h2>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">AESObfuscator</span><span class="o">(</span><span class="n">SALT</span><span class="o">,</span> <span class="n">getPackageName</span><span class="o">(),</span> <span class="n">deviceId</span><span class="o">)</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="n">AESObfuscator</span><span class="o">(</span><span class="n">SALT</span><span class="o">,</span> <span class="n">getPackageName</span><span class="o">(),</span> <span class="n">deviceId</span><span class="o">)</span>
+</code></pre></div></div>
 <p>부분에서 고유한 deviceId를 처리해줘야 한다.</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">(),</span> <span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">ANDROID_ID</span><span class="o">))),</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">(),</span> <span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">ANDROID_ID</span><span class="o">))),</span>
+</code></pre></div></div>
 <p>장치 고유값을 가져오는 것이 생각보다 쉽지않은데, 그냥 단순하게 처리하려면 위와같이 하면 된다.</p>
 
 <h2 id="에러처리">에러처리</h2>
 <p><img src="/post_assets/2017-07-20/error.png" alt="에러 처리" />
 라이브러리의 intent 사용 방법 떄문에 에러가 발생한다.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Binding to licensing service."</span><span class="o">);</span>
     <span class="k">try</span> <span class="o">{</span>
         <span class="kt">boolean</span> <span class="n">bindResult</span> <span class="o">=</span> <span class="n">mContext</span>
@@ -256,10 +255,9 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
         <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>라이브러리의 위 코드를 아래와 같이 수정한다.</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Binding to licensing service."</span><span class="o">);</span>
     <span class="k">try</span> <span class="o">{</span>
         <span class="n">Intent</span> <span class="n">serviceIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span>
@@ -281,8 +279,7 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
         <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span> 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="또-다른-에러">또 다른 에러</h2>
 <p>LicenseCheckerCallback에서 applicationError가 호출되며 에러코드 3이 찍히는 경우가 있다.<br />
@@ -299,6 +296,15 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -311,15 +317,6 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -401,7 +398,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
