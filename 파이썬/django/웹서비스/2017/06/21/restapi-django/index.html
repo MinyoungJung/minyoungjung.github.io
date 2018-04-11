@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Django에 Rest API 추가하기 | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Django에 Rest API 추가하기" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-21T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django에 Rest API 추가하기","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-06-21T00:00:00+09:00","dateModified":"2017-06-21T00:00:00+09:00","description":"API 구성 기존에 만든 Django를 이용한 건물주 평판 조회 서비스에 Rest API를 추가하려 한다. API endpoint로 /api/위도+경도의 URL을 날리면 해당 좌표에 맞는 정보가 날아오는 형태이다. Django REST Framework 설치 pip3 install djangorestframework Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django REST Framework를 설치한다. Serializer 클래스 정의 별도의 serializer.py 파일을 정의하였다. 모델 전체를 Serialize 할 수도 있지만, ModelSerializer를 상속받으면 더욱 간단하다. from reputation.models import Reputation from rest_framework import serializers class ReputationSerializer(serializers.ModelSerializer): class Meta: model = Reputation fields = (&#39;address&#39;, &#39;latitude&#39;, &#39;longitude&#39;, &#39;description&#39;) Django Shell에서 작성한 Serializer를 확인해 보았다. &gt;&gt;&gt; from reputation.serializer import ReputationSerializer &gt;&gt;&gt; ser = ReputationSerializer() &gt;&gt;&gt; print(repr(ser)) ReputationSerializer(): address = CharField(max_length=50) latitude = DecimalField(decimal_places=7, max_digits=9) longitude = DecimalField(decimal_places=7, max_digits=10) description = CharField(style={&#39;base_template&#39;: &#39;textarea.html&#39;}) API URL 생성 # Endpoint URL: /api/126.575834+33.427337/ url(r&#39;^api/(?P&lt;longitude&gt;\\d{1,3}\\.\\d{1,7})\\+(?P&lt;latitude&gt;\\d{1,2}\\.\\d{1,7})/$&#39;, ReputationDetail.as_view(), name=&#39;reputation_rest_api&#39;), 위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다. API를 제공하는 View 생성 하나의 모델에 대해 read-write-delete 엔드포인트를 제공하는 RetrieveUpdateDestroyAPIView를 상속받았다. from reputation.serializer import ReputationSerializer from rest_framework import generics class ReputationDetail(generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 적절히 상속받는 것으로 충분하나 넘겨받은 위/경도를 이용해서 DB를 검색하기 위해 조금 추가 작업이 필요하다. 여러개의 필드를 검색할 수 있는 Mixin class를 생성하여 ReputationDetail이 상속받도록 한다. class MultipleFieldLookupMixin(object): def get_object(self): queryset = self.get_queryset() # Get the base queryset queryset = self.filter_queryset(queryset) # Apply any filter backends filter = {} for field in self.lookup_fields: if self.kwargs[field]: # Ignore empty fields. filter[field] = self.kwargs[field] return get_object_or_404(queryset, **filter) # Lookup the object 이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고, lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다. class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) API 테스트 결과 Postman을 이용해서 api를 테스트 한 결과 다음편 링크 Django에 Rest API 추가하기 (2) - API에 인증 추가","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Django에 Rest API 추가하기","dateModified":"2017-06-21T00:00:00+09:00","datePublished":"2017-06-21T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"API 구성 기존에 만든 Django를 이용한 건물주 평판 조회 서비스에 Rest API를 추가하려 한다. API endpoint로 /api/위도+경도의 URL을 날리면 해당 좌표에 맞는 정보가 날아오는 형태이다. Django REST Framework 설치 pip3 install djangorestframework Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django REST Framework를 설치한다. Serializer 클래스 정의 별도의 serializer.py 파일을 정의하였다. 모델 전체를 Serialize 할 수도 있지만, ModelSerializer를 상속받으면 더욱 간단하다. from reputation.models import Reputation from rest_framework import serializers class ReputationSerializer(serializers.ModelSerializer): class Meta: model = Reputation fields = (&#39;address&#39;, &#39;latitude&#39;, &#39;longitude&#39;, &#39;description&#39;) Django Shell에서 작성한 Serializer를 확인해 보았다. &gt;&gt;&gt; from reputation.serializer import ReputationSerializer &gt;&gt;&gt; ser = ReputationSerializer() &gt;&gt;&gt; print(repr(ser)) ReputationSerializer(): address = CharField(max_length=50) latitude = DecimalField(decimal_places=7, max_digits=9) longitude = DecimalField(decimal_places=7, max_digits=10) description = CharField(style={&#39;base_template&#39;: &#39;textarea.html&#39;}) API URL 생성 # Endpoint URL: /api/126.575834+33.427337/ url(r&#39;^api/(?P&lt;longitude&gt;\\d{1,3}\\.\\d{1,7})\\+(?P&lt;latitude&gt;\\d{1,2}\\.\\d{1,7})/$&#39;, ReputationDetail.as_view(), name=&#39;reputation_rest_api&#39;), 위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다. API를 제공하는 View 생성 하나의 모델에 대해 read-write-delete 엔드포인트를 제공하는 RetrieveUpdateDestroyAPIView를 상속받았다. from reputation.serializer import ReputationSerializer from rest_framework import generics class ReputationDetail(generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 적절히 상속받는 것으로 충분하나 넘겨받은 위/경도를 이용해서 DB를 검색하기 위해 조금 추가 작업이 필요하다. 여러개의 필드를 검색할 수 있는 Mixin class를 생성하여 ReputationDetail이 상속받도록 한다. class MultipleFieldLookupMixin(object): def get_object(self): queryset = self.get_queryset() # Get the base queryset queryset = self.filter_queryset(queryset) # Apply any filter backends filter = {} for field in self.lookup_fields: if self.kwargs[field]: # Ignore empty fields. filter[field] = self.kwargs[field] return get_object_or_404(queryset, **filter) # Lookup the object 이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고, lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다. class ReputationDetail(MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView): queryset = Reputation.objects.all() serializer_class = ReputationSerializer lookup_fields = (&#39;longitude&#39;, &#39;latitude&#39;) API 테스트 결과 Postman을 이용해서 api를 테스트 한 결과 다음편 링크 Django에 Rest API 추가하기 (2) - API에 인증 추가","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -207,7 +208,7 @@ Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django
 <p>별도의 <code class="highlighter-rouge">serializer.py</code> 파일을 정의하였다.<br />
 모델 전체를 Serialize 할 수도 있지만, ModelSerializer를 상속받으면 더욱 간단하다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
 <span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
 
 
@@ -215,46 +216,42 @@ Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django
 <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Reputation</span>
 <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'address'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">,</span> <span class="s">'longitude'</span><span class="p">,</span> <span class="s">'description'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Django Shell에서 작성한 Serializer를 확인해 보았다.</p>
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">&gt;&gt;&gt; </span>from reputation.serializer import ReputationSerializer
-<span class="gp">&gt;&gt;&gt; </span>ser <span class="o">=</span> ReputationSerializer<span class="o">()</span>
-<span class="gp">&gt;&gt;&gt; </span>print<span class="o">(</span>repr<span class="o">(</span>ser<span class="o">))</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> from reputation.serializer import ReputationSerializer
+<span class="o">&gt;&gt;&gt;</span> ser <span class="o">=</span> ReputationSerializer<span class="o">()</span>
+<span class="o">&gt;&gt;&gt;</span> print<span class="o">(</span>repr<span class="o">(</span>ser<span class="o">))</span>
 ReputationSerializer<span class="o">()</span>:
 address <span class="o">=</span> CharField<span class="o">(</span><span class="nv">max_length</span><span class="o">=</span>50<span class="o">)</span>
 latitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>9<span class="o">)</span>
 longitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>10<span class="o">)</span>
 description <span class="o">=</span> CharField<span class="o">(</span><span class="nv">style</span><span class="o">={</span><span class="s1">'base_template'</span>: <span class="s1">'textarea.html'</span><span class="o">})</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="api-url-생성">API URL 생성</h1>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Endpoint URL: /api/126.575834+33.427337/</span>
-<span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;</span><span class="err">\</span><span class="s">d{1,3}</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d{1,7})</span><span class="err">\</span><span class="s">+(?P&lt;latitude&gt;</span><span class="err">\</span><span class="s">d{1,2}</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">d{1,7})/$'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Endpoint URL: /api/126.575834+33.427337/</span>
+<span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;\d{1,3}\.\d{1,7})\+(?P&lt;latitude&gt;\d{1,2}\.\d{1,7})/$'</span><span class="p">,</span>
 <span class="n">ReputationDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">'reputation_rest_api'</span><span class="p">),</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다.</p>
 
 <h1 id="api를-제공하는-view-생성">API를 제공하는 View 생성</h1>
 <p>하나의 모델에 대해 read-write-delete 엔드포인트를 제공하는 RetrieveUpdateDestroyAPIView를 상속받았다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.serializer</span> <span class="kn">import</span> <span class="n">ReputationSerializer</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.serializer</span> <span class="kn">import</span> <span class="n">ReputationSerializer</span>
 <span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span>
 
 <span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 적절히 상속받는 것으로 충분하나<br />
 넘겨받은 위/경도를 이용해서 DB를 검색하기 위해 조금 추가 작업이 필요하다.</p>
 
 <p>여러개의 필드를 검색할 수 있는 Mixin class를 생성하여 ReputationDetail이 상속받도록 한다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultipleFieldLookupMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultipleFieldLookupMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>             <span class="c"># Get the base queryset</span>
         <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>  <span class="c"># Apply any filter backends</span>
@@ -264,18 +261,16 @@ description <span class="o">=</span> CharField<span class="o">(</span><span clas
                 <span class="nb">filter</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="o">**</span><span class="nb">filter</span><span class="p">)</span>  <span class="c"># Lookup the object</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고,<br />
 lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
     <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="api-테스트-결과">API 테스트 결과</h1>
 <p>Postman을 이용해서 api를 테스트 한 결과
@@ -294,6 +289,15 @@ lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -306,15 +310,6 @@ lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
             Firebase 사용하여 Notification 보내기
             <small>23 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -396,7 +391,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

@@ -35,8 +35,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.2.3 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Django 프로젝트 Heroku 릴리즈 - (최종 수정) | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="Django 프로젝트 Heroku 릴리즈 - (최종 수정)" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -48,7 +49,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-16T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"BlogPosting","headline":"Django 프로젝트 Heroku 릴리즈 - (최종 수정)","author":{"@type":"Person","name":"Minyoung Jung"},"datePublished":"2017-07-16T00:00:00+09:00","dateModified":"2017-07-16T00:00:00+09:00","description":"할때마다 고생이라 한번 더 정리한다. 보안키 같은것 숨기지 않고, 그냥 가장 빠르게 설정하는 방법이다. CLI 등 툴 인스톨은 기존 포스팅을 참고하자. gunicorn 추가 (장고 기본 폴더 구성 시) pip3 install gunicorn Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 추가 web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용 추가 python-3.6.1 dj-database-url 추가 pip3 install dj-database-url settings.py파일에 다음 내용 추가 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) whitenoise 추가 pip install whitenoise settings.py에 다음 내용을 추가한다. STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가 from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) psycopg2 추가 pip install psycopg2 requirements.txt 생성 pip freeze &gt; requirements.txt 입력 ALLOWED Host 추가 settings.py에 ALLOWED_HOSTS = [&#39;*&#39;]를 추가 DEBUG 끄기 settings.py에서 DEBUG = False 설정 Heroku 앱 생성 heroku create Git commit 하고 heroku로 push git add . git commit -m &quot;heroku settings update&quot; git push heroku master db가 생성 heroku run python manage.py migrate 슈퍼유저 생성 heroku run python manage.py createsuperuser 중요 SECRET_KEY를 숨기려면 기존에 작성한 포스팅을 참고할 것. 위의 방법은 가장 빠르게 릴리즈만을 위한 방법임","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/"}</script>
+{"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"headline":"Django 프로젝트 Heroku 릴리즈 - (최종 수정)","dateModified":"2017-07-16T00:00:00+09:00","datePublished":"2017-07-16T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"할때마다 고생이라 한번 더 정리한다. 보안키 같은것 숨기지 않고, 그냥 가장 빠르게 설정하는 방법이다. CLI 등 툴 인스톨은 기존 포스팅을 참고하자. gunicorn 추가 (장고 기본 폴더 구성 시) pip3 install gunicorn Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 추가 web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용 추가 python-3.6.1 dj-database-url 추가 pip3 install dj-database-url settings.py파일에 다음 내용 추가 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) whitenoise 추가 pip install whitenoise settings.py에 다음 내용을 추가한다. STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가 from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) psycopg2 추가 pip install psycopg2 requirements.txt 생성 pip freeze &gt; requirements.txt 입력 ALLOWED Host 추가 settings.py에 ALLOWED_HOSTS = [&#39;*&#39;]를 추가 DEBUG 끄기 settings.py에서 DEBUG = False 설정 Heroku 앱 생성 heroku create Git commit 하고 heroku로 push git add . git commit -m &quot;heroku settings update&quot; git push heroku master db가 생성 heroku run python manage.py migrate 슈퍼유저 생성 heroku run python manage.py createsuperuser 중요 SECRET_KEY를 숨기려면 기존에 작성한 포스팅을 참고할 것. 위의 방법은 가장 빠르게 릴리즈만을 위한 방법임","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -63,7 +64,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -155,7 +156,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2017 Minyoung Jung.
+    &copy; 2018 Minyoung Jung.
     </p>
   </div>
 
@@ -216,29 +217,26 @@ CLI 등 툴 인스톨은 기존 포스팅을 참고하자.</p>
 <p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
 
 <p><code class="highlighter-rouge">settings.py</code>파일에 다음 내용 추가</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
 <span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="whitenoise-추가">whitenoise 추가</h2>
 <p><code class="highlighter-rouge">pip install whitenoise</code></p>
 
 <p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
 <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="psycopg2-추가">psycopg2 추가</h2>
 <p><code class="highlighter-rouge">pip install psycopg2</code></p>
@@ -280,6 +278,15 @@ application = DjangoWhiteNoise(application)
     
       <li>
         <h3>
+          <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/python-input-output/">
+            파이썬의 입출력
+            <small>11 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
             Firebase로 동기화되는 Database 사용하기
             <small>24 Jul 2017</small>
@@ -296,15 +303,6 @@ application = DjangoWhiteNoise(application)
         </h3>
       </li>
     
-      <li>
-        <h3>
-          <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-            RecyclerView 사용 패턴
-            <small>22 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
-    
   </ul>
 </div>
 
@@ -314,8 +312,8 @@ application = DjangoWhiteNoise(application)
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-최종'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-최종'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');
@@ -382,7 +380,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2017-07-24 00:00:00 +0900";
+      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
