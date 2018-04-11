@@ -13,12 +13,12 @@ Github 프로젝트나 개발 관련 배운 것들을 틈틈히 정리하는 용
 
 
 ## Jekyll 및 Laynon 설정하기
-[블로그 링크](https://minyoungjung.github.io/2017/05/31/lanyon-theme-customize/)
+[블로그 링크](https://minyoungjung.github.io/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/05/31/lanyon-theme-customize/)
 
 
 ## 커스톰 플러그인 작성 및 Github에 커스톰 플러그인 적용하기
 
-[블로그 링크](https://minyoungjung.github.io/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/)
+[블로그 링크](https://minyoungjung.github.io/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/02/jekyll-custom-plugin-develop-and-adopt-to-github/)
 
 
 ## 블로그 퍼블리싱
