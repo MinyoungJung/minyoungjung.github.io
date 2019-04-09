@@ -44,9 +44,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     </script>
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.4.0 -->
-<title>Blog | Ringsterz Log</title>
-<meta name="generator" content="Jekyll v3.7.3" />
+  <!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Page 7 of 12 for Blog | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <link rel="prev" href="http://localhost:4000/blog/page6" />
 <link rel="next" href="http://localhost:4000/blog/page8" />
 <script type="application/ld+json">
-{"headline":"Blog","url":"http://localhost:4000/blog/page7/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"http://schema.org"}</script>
+{"headline":"Blog","url":"http://localhost:4000/blog/page7/","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -379,8 +379,8 @@ heroku에서는 Profile을 통해 collectstatic이 자동으로 실행된다.</p
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="o">*</span>
 
 
-<span class="c"># SECURITY WARNING: don't run with debug turned on in production!</span>
-<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c1"># SECURITY WARNING: don't run with debug turned on in production!
+</span><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -427,11 +427,11 @@ Runserver를 동작시켜보면 잘 돌아간다.</p>
         <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
         <span class="n">error_msg</span> <span class="o">=</span> <span class="s">"Either set the env variable '{var}' or place it in your "</span> \
                     <span class="s">"{env_file} file as '{var} = VALUE'"</span>
-        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">error_msg</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">))</span>
 
 
-<span class="c"># Make this unique, and don't share it with anybody.</span>
-<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_env_variable</span><span class="p">(</span><span class="s">'SECRET_KEY'</span><span class="p">)</span>
+<span class="c1"># Make this unique, and don't share it with anybody.
+</span><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_env_variable</span><span class="p">(</span><span class="s">'SECRET_KEY'</span><span class="p">)</span>
 </code></pre></div></div>
 <p>위와 같이 환경변수를 받아오는 메소드를 설정파일에 집어넣고,<br />
 프로젝트 루트에 <code class="highlighter-rouge">.env</code>파일을 생성해서</p>
@@ -542,8 +542,8 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
     <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c"># 추가</span>
-</code></pre></div></div>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c1"># 추가
+</span></code></pre></div></div>
 
 <p>하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다.<br />
 따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다.<br />
@@ -555,8 +555,8 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
 <span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>  <span class="c"># GET, HEAD, OPTIONS </span>
-            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>  <span class="c1"># GET, HEAD, OPTIONS 
+</span>            <span class="k">return</span> <span class="bp">True</span>
 
     <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="nb">id</span>
 
@@ -570,8 +570,8 @@ GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
     <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c"># 변경</span>
-</code></pre></div></div>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c1"># 변경
+</span></code></pre></div></div>
 <p>그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다.<br />
 마지막으로 object를 반환하는 mixin 클래스에서,</p>
 

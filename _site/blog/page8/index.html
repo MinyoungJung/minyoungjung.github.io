@@ -44,9 +44,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     </script>
 </head>
 
-  <!-- Begin Jekyll SEO tag v2.4.0 -->
-<title>Blog | Ringsterz Log</title>
-<meta name="generator" content="Jekyll v3.7.3" />
+  <!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Page 8 of 12 for Blog | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <link rel="prev" href="http://localhost:4000/blog/page7" />
 <link rel="next" href="http://localhost:4000/blog/page9" />
 <script type="application/ld+json">
-{"headline":"Blog","url":"http://localhost:4000/blog/page8/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"http://schema.org"}</script>
+{"headline":"Blog","url":"http://localhost:4000/blog/page8/","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -247,8 +247,8 @@ description <span class="o">=</span> CharField<span class="o">(</span><span clas
 </code></pre></div></div>
 
 <h1 id="api-url-생성">API URL 생성</h1>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Endpoint URL: /api/126.575834+33.427337/</span>
-<span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;\d{1,3}\.\d{1,7})\+(?P&lt;latitude&gt;\d{1,2}\.\d{1,7})/$'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Endpoint URL: /api/126.575834+33.427337/
+</span><span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;\d{1,3}\.\d{1,7})\+(?P&lt;latitude&gt;\d{1,2}\.\d{1,7})/$'</span><span class="p">,</span>
 <span class="n">ReputationDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">'reputation_rest_api'</span><span class="p">),</span>
 </code></pre></div></div>
 <p>위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다.</p>
@@ -270,15 +270,15 @@ description <span class="o">=</span> CharField<span class="o">(</span><span clas
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultipleFieldLookupMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>             <span class="c"># Get the base queryset</span>
-        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>  <span class="c"># Apply any filter backends</span>
-        <span class="nb">filter</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>             <span class="c1"># Get the base queryset
+</span>        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>  <span class="c1"># Apply any filter backends
+</span>        <span class="nb">filter</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]:</span> <span class="c"># Ignore empty fields.</span>
-                <span class="nb">filter</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]:</span> <span class="c1"># Ignore empty fields.
+</span>                <span class="nb">filter</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="o">**</span><span class="nb">filter</span><span class="p">)</span>  <span class="c"># Lookup the object</span>
-</code></pre></div></div>
+        <span class="k">return</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="o">**</span><span class="nb">filter</span><span class="p">)</span>  <span class="c1"># Lookup the object
+</span></code></pre></div></div>
 
 <p>이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고,<br />
 lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
@@ -457,26 +457,7 @@ TOTAL                                     167     71    57%
     
 
     <article>
-      <h1 id="브라우저-css-캐쉬-무력화하기">브라우저 CSS 캐쉬 무력화하기</h1>
-<p>웹서비스를 제작하며 CSS 를 수정하다보면 분명 수정했는데도 불구하고 브라우저에 적용되지 않을때가 있다.<br />
-이는 브라우저가 기존의 CSS 파일을 캐쉬로 저장하고 있기 때문인데 간단하게 해결할 수 있다.</p>
-
-<h2 id="해결방법">해결방법</h2>
-<p>HTML에서 css 파일을 로딩하는 부분에 아래와 같이 버전번호를 인자로 추가하면 된다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;link href="/css/custom.css?v=1.0" rel="stylesheet"&gt;
-</code></pre></div></div>
-
-<h3 id="django의-경우">Django의 경우</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&lt;link href="{% static '/css/custom.css' %}?v=1.0" rel="stylesheet"&gt;
-
-</code></pre></div></div>
-
-<h1 id="mac에서-localhost-지정하기">Mac에서 Localhost 지정하기</h1>
-<p>IP 주소(127.0.0.1) 대신 localhost로 접근할때 localhost의 접속 IP를 설정하는 파일 위치는<br />
-<code class="highlighter-rouge">/private/etc/hosts</code> 이다.<br />
-<code class="highlighter-rouge">sudo vi /private/etc/hosts</code>와 같이 해당 파일을 편집기로 진입해 host이름과 ip 짝을 수정해주면 된다.</p>
-
+      
 
     <article>
     <div class="post-more">
