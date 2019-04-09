@@ -165,7 +165,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2018 Minyoung Jung.
+    &copy; 2019 Minyoung Jung.
     </p>
   </div>
 
@@ -191,6 +191,67 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/">
+        Google Tag analysis 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">26 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#github" class="post-tag">Github</a>
+    
+    <a href="/blog/tags/#blog" class="post-tag">Blog</a>
+    
+    <a href="/blog/tags/#tag-analysis" class="post-tag">Tag analysis</a>
+    
+    <a href="/blog/tags/#google-analytics" class="post-tag">Google Analytics</a>
+    
+    
+
+    <article>
+      <h1 id="tag-analysis">Tag analysis</h1>
+<p>Tag Anaylytics는 Google Analytics등 추적코드가 정상적으로 동작하는지 알게 해주는 툴이다.<br />
+Github blog의 사용자 추적을 위해 걸어넣은 Google Analytics 대쉬보드에 들어갈때마다<br />
+Tag analysis를 사용해 보라는 팝업이 계속해서 출력되어 사용해 보기로 했다.</p>
+
+<h1 id="사용법">사용법</h1>
+<h2 id="크롬-애드온-설치">크롬 애드온 설치</h2>
+<p><img src="/post_assets/2017-06-26/chrome_addon.png" alt="애드온설치" />
+크롬에 Tag Assistant 애드온을 설치한다.</p>
+
+<p><img src="/post_assets/2017-06-26/addon_installed.png" alt="설치화면" />
+설치되면 애드온에 위와 같이 Assistant 아이콘이 출력된다.</p>
+
+<h2 id="현재-페이지에서-tag-analysis-사용">현재 페이지에서 Tag analysis 사용</h2>
+<p>Enalble을 선택한 후 페이지를 리로드 한다.</p>
+
+<h2 id="여러-페이지에-걸쳐-tag-analysis-사용">여러 페이지에 걸쳐 Tag analysis 사용</h2>
+<p>Record를 선택한 후 여러 페이지를 걸쳐 이동한다.<br />
+이후 Recording을 중지하면 이동한 페이지들에 대한 레포트를 출력해준다.</p>
+
+<p><img src="/post_assets/2017-06-26/analysis_result.png" alt="결과" />
+<img src="/post_assets/2017-06-26/analysis_report.png" alt="리포트" /></p>
+
+<h2 id="full-analysis_report">Full analysis_report</h2>
+<p>View Full report를 선택하면 전체 레포트를 출력한다.
+<img src="/post_assets/2017-06-26/report_detail_1.png" alt="리포트 상세1" />
+<img src="/post_assets/2017-06-26/report_detail_2.png" alt="리포트 상세2" /></p>
+
+<h2 id="문제점-해결하기">문제점 해결하기</h2>
+<p>문제가 있는 태그가 있다면 태그가 붉은색으로 표시되는데 해당 태그를 선택하면 관련 오류 메시지가 출력된다.</p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/analytics/%EB%B8%94%EB%A1%9C%EA%B7%B8/2017/06/26/Google-tag-analysis/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -648,120 +709,6 @@ Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 �
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">
-        Django에 Rest API 추가하기
-      </a>
-    </h1>
-
-    <span class="post-date">21 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    
-
-    <article>
-      <h1 id="api-구성">API 구성</h1>
-<p>기존에 만든 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/06/16/django-landlord-reputation-(4)/">Django를 이용한 건물주 평판 조회 서비스</a>에 Rest API를 추가하려 한다.<br />
-API endpoint로 <code class="highlighter-rouge">/api/위도+경도</code>의 URL을 날리면 해당 좌표에 맞는 정보가 날아오는 형태이다.</p>
-
-<h1 id="django-rest-framework-설치">Django REST Framework 설치</h1>
-<p><code class="highlighter-rouge">pip3 install djangorestframework</code><br />
-Rest API를 생성할때 가장 보편적으로 쓰는 라이브러리인 Django REST Framework를 설치한다.</p>
-
-<h1 id="serializer-클래스-정의">Serializer 클래스 정의</h1>
-<p>별도의 <code class="highlighter-rouge">serializer.py</code> 파일을 정의하였다.<br />
-모델 전체를 Serialize 할 수도 있지만, ModelSerializer를 상속받으면 더욱 간단하다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.models</span> <span class="kn">import</span> <span class="n">Reputation</span>
-<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
-
-
-<span class="k">class</span> <span class="nc">ReputationSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
-<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Reputation</span>
-<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'address'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">,</span> <span class="s">'longitude'</span><span class="p">,</span> <span class="s">'description'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>Django Shell에서 작성한 Serializer를 확인해 보았다.</p>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> from reputation.serializer import ReputationSerializer
-<span class="o">&gt;&gt;&gt;</span> ser <span class="o">=</span> ReputationSerializer<span class="o">()</span>
-<span class="o">&gt;&gt;&gt;</span> print<span class="o">(</span>repr<span class="o">(</span>ser<span class="o">))</span>
-ReputationSerializer<span class="o">()</span>:
-address <span class="o">=</span> CharField<span class="o">(</span><span class="nv">max_length</span><span class="o">=</span>50<span class="o">)</span>
-latitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>9<span class="o">)</span>
-longitude <span class="o">=</span> DecimalField<span class="o">(</span><span class="nv">decimal_places</span><span class="o">=</span>7, <span class="nv">max_digits</span><span class="o">=</span>10<span class="o">)</span>
-description <span class="o">=</span> CharField<span class="o">(</span><span class="nv">style</span><span class="o">={</span><span class="s1">'base_template'</span>: <span class="s1">'textarea.html'</span><span class="o">})</span>
-</code></pre></div></div>
-
-<h1 id="api-url-생성">API URL 생성</h1>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Endpoint URL: /api/126.575834+33.427337/</span>
-<span class="n">url</span><span class="p">(</span><span class="s">r'^api/(?P&lt;longitude&gt;\d{1,3}\.\d{1,7})\+(?P&lt;latitude&gt;\d{1,2}\.\d{1,7})/$'</span><span class="p">,</span>
-<span class="n">ReputationDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">'reputation_rest_api'</span><span class="p">),</span>
-</code></pre></div></div>
-<p>위도, 경도를 매개변수로 넘겨주도록 URL을 설정했다.</p>
-
-<h1 id="api를-제공하는-view-생성">API를 제공하는 View 생성</h1>
-<p>하나의 모델에 대해 read-write-delete 엔드포인트를 제공하는 RetrieveUpdateDestroyAPIView를 상속받았다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.serializer</span> <span class="kn">import</span> <span class="n">ReputationSerializer</span>
-<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span>
-
-<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
-    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
-    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
-</code></pre></div></div>
-<p>DB의 리스트를 전부 출력하기 위해서는 위와 같이 generics를 적절히 상속받는 것으로 충분하나<br />
-넘겨받은 위/경도를 이용해서 DB를 검색하기 위해 조금 추가 작업이 필요하다.</p>
-
-<p>여러개의 필드를 검색할 수 있는 Mixin class를 생성하여 ReputationDetail이 상속받도록 한다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultipleFieldLookupMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>             <span class="c"># Get the base queryset</span>
-        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>  <span class="c"># Apply any filter backends</span>
-        <span class="nb">filter</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]:</span> <span class="c"># Ignore empty fields.</span>
-                <span class="nb">filter</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
-
-        <span class="k">return</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="o">**</span><span class="nb">filter</span><span class="p">)</span>  <span class="c"># Lookup the object</span>
-</code></pre></div></div>
-
-<p>이후 ReputationDetail이 MultipleFieldLookupMixin을 상속하게 하고,<br />
-lookup_fields 항목에 필터로 지정할 항목을 정해주면 된다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
-    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
-    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
-    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h1 id="api-테스트-결과">API 테스트 결과</h1>
-<p>Postman을 이용해서 api를 테스트 한 결과
-<img src="/post_assets/2017-06-21/test_api.png" alt="실행결과" /></p>
-
-<h1 id="다음편-링크">다음편 링크</h1>
-<p><a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">Django에 Rest API 추가하기 (2) - API에 인증 추가</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -830,7 +777,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2018-04-11 00:00:00 +0900";
+      var latest_post_date_str = "2019-04-09 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

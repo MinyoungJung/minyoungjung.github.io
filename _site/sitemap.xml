@@ -5,6 +5,15 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/</loc>
+    
+    <lastmod>2019-04-09T00:00:00+09:00</lastmod>
+    
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://minyoungjung.github.io//%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/google-code-jam/</loc>
     
     <lastmod>2018-04-11T00:00:00+09:00</lastmod>
