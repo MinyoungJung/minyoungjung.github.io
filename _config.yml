@@ -7,7 +7,7 @@ url:          https://minyoungjung.github.io/
 logo:         '/public/logo.png'
 
 # Site configurations
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-seo-tag
 markdown: kramdown
