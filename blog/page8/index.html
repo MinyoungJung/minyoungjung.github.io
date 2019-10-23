@@ -194,6 +194,95 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/">
+        Django를 이용한 포트폴리오 사이트 제작 (2) - 사이트 형태 잡기, User Model 확장
+      </a>
+    </h1>
+
+    <span class="post-date">22 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#portfolio" class="post-tag">Portfolio</a>
+    
+    <a href="/blog/tags/#bootstrap" class="post-tag">Bootstrap</a>
+    
+    
+
+    <article>
+      <h1 id="공동-프로젝트-진행상황">공동 프로젝트 진행상황</h1>
+<p><strong>1주차</strong> : JQuery를 이용한 간단한 애니메이션<br />
+<strong>2주차</strong> : Phaser Library를 이용한 마우스 이벤트에 반응하는 인터랙션<br />
+<strong>3주차</strong> : 개인 포트폴리오 사이트 공동 기획</p>
+
+<h1 id="4주차-진행상황">4주차 진행상황</h1>
+<p>이번주는 토요일에 작업을 진행하기 힘들것 같아 일정을 미리 앞당겨 진행했다.<br />
+먼저 지난주 목표였던 요구사항에 대해 작업을 진행했다.</p>
+
+<h2 id="지난주-요구사항">지난주 요구사항</h2>
+<h3 id="최신-작업중인-작품을-보여주는-페이지">최신 작업중인 작품을 보여주는 페이지</h3>
+<p>TemplateView를 상속한 HomeView를 추가해서 최신 작품의 커버 이미지를 보여주는 페이지를 제작했다.</p>
+
+<h3 id="간단한-프로필-페이지-contact-profile-description-sns-링크-등">간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)</h3>
+<p>TemplateView를 상속해 마찬가지로 정적 페이지로 제작해 집어넣었다가 마지막에 약간 수정했다.<br />
+Django의 기본 User Model을 확장하여 SNS ID나 Biography 등을 넣을 수 있게끔 하고,<br />
+이 내용이 프로필 페이지에 반영되도록 했다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Profile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">bio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">twitter_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">instagram_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">tumblr_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">facebook_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+<p>별도의 User model 자체에 대한 변경은 필요없고 몇개 추가적인 필드가 필요한 뿐이라,<br />
+위와 같이 OneToOneField를 이용해 유저 모델을 확장했다.</p>
+
+<h3 id="기존-작품-목록">기존 작품 목록</h3>
+<ul>
+  <li>목록을 선택하면 <a href="https://issuu.com/">ISSUU</a>와 같은 책 형식으로 작품을 보여줄 수 있어야 함.</li>
+  <li>아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음</li>
+</ul>
+
+<p>목록은 단순히 그리드 형태로 배치하고, 선택했을때 Modal popup을 이용해 상세정보를 띄워주도록 했다.<br />
+책장을 넘기는 애니메이션이 있는 Viewer는 JQuery Library 중 page transition 관련 하나를 골라 제작했다.</p>
+
+<h3 id="사이드-프로젝트-목록">사이드 프로젝트 목록</h3>
+<ul>
+  <li>주 작업 외에 기타 작품들을 전시할 공간</li>
+</ul>
+
+<p>아직 어떠한 작품들을 어떠한 형식으로 보여주고 싶은지 확정되지 않아 Navbar와 링크만 제작해 놓았다.</p>
+
+<h1 id="다음주-목표">다음주 목표</h1>
+
+<ol>
+  <li>작품 업로드 구현하기
+    <ul>
+      <li>여러장의 이미지로 이루어진 파일을 손쉽게 올릴수 있는 방법 생각</li>
+      <li>여러장의 이미지에는 Cover와 table contents가 포함되어 있음</li>
+    </ul>
+  </li>
+  <li>관리자 기능 추가 및 디자인 업데이트</li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/22/django-portfolio-page-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">
         Django에 Rest API 추가하기
       </a>
@@ -518,80 +607,6 @@ TOTAL                                     167     71    57%
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/">
-        Django를 이용한 포트폴리오 사이트 제작 (1) - 기획
-      </a>
-    </h1>
-
-    <span class="post-date">17 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#portfolio" class="post-tag">Portfolio</a>
-    
-    
-
-    <article>
-      <h1 id="발단">발단</h1>
-<p>매주 토요일마다 여자친구와 공동 프로젝트(?)를 하고 있다.<br />
-미술적 재능과 공학이 만나 무엇인가 재미있는 것을 할수있지 않을까싶어 시작한 프로젝트인데,<br />
-사실 거창한 것은 없고, 짧은시간동안 뭔가 간단한 것이라도 만들어내는 것에 의미를 두고 있다.</p>
-
-<p>1주차에는 JQuery를 이용해 여자친구가 그린 그림을 이용해 간단한 애니메이션을 구현해 보았고,<br />
-2주차에는 Phaser Library를 이용해서 마우스 이벤트에 반응하는 간단한 인터랙션을 제작했다.</p>
-
-<p>기술적으로 볼때는 간단한 일이지만 여자친구 입장에서는 자신의 작품이 움직이는 것을 보니 신기한 모양이다.<br />
-그런 모습이 즐겁기도 하고, 나름 뿌듯하기도 해서 점점 프로젝트가 커져가고 있다.</p>
-
-<p>3주차인 이번주부터는 자신의 작품을 모아서 보여줄 수 있는 포트폴리오 사이트를 같이 제작해 보기로 했다.</p>
-
-<h1 id="요구사항">요구사항</h1>
-<ol>
-  <li>최신 작업중인 작품을 보여주는 페이지</li>
-  <li>간단한 프로필 페이지 (Contact, Profile description, SNS 링크 등)</li>
-  <li>기존 작품 목록
-    <ul>
-      <li>목록을 선택하면 <a href="https://issuu.com/">ISSUU</a>와 같은 책 형식으로 작품을 보여줄 수 있어야 함.</li>
-      <li>아날로그적인 느낌으로 책장을 넘기는 애니메이션이 있으면 좋겠음</li>
-    </ul>
-  </li>
-  <li>사이드 프로젝트 목록
-    <ul>
-      <li>주 작업 외에 기타 작품들을 전시할 공간</li>
-    </ul>
-  </li>
-</ol>
-
-<h1 id="요구사항-정리">요구사항 정리</h1>
-<p>모든 페이지를 그냥 정적 페이지의 형태로 제작하는게 편할 것 같지만..<br />
-(작품 연재주기가 긴 만큼 그때그때 내가 받아서 업데이트 해주는것이 어려울 것이 없을 것 같다.)<br />
-그리하면 그냥 지루하고 단순한 작업이 될 것 같아 재미있을 것 같은 요소를 넣기로 했다.<br />
-사이트 레이아웃이나 구성방법 등은 같이 고민해가며 구현하면 될 것 같고,<br />
-이미지로된 시리즈 연재물을 최대한 유저가 편하게 업로드하고 관리할 수 있는 방법을 생각해 보아야 할 것 같다.</p>
-
-<h1 id="다음주-목표">다음주 목표</h1>
-<ol>
-  <li>기본적인 목업 사이트 틀 잡기</li>
-  <li>책 형식으로 작품 보여주는 기능 구현</li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/17/django-portfolio-page-(1)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -660,7 +675,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-04-09 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

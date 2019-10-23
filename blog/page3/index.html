@@ -194,6 +194,55 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name/">
+        Mac Finder에서 파일 이름으로 검색하기
+      </a>
+    </h1>
+
+    <span class="post-date">17 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#finder" class="post-tag">Finder</a>
+    
+    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
+    
+    
+
+    <article>
+      <h2 id="상황">상황</h2>
+<p>다음 그림과 같이 한 폴더에 많은 파일이 있다.<br />
+<img src="/post_assets/2017-07-17/search_list.png" alt="서치 리스트" /></p>
+
+<p>이 중 heroku라는 글자를 포함한 파일을 찾으려 한다.</p>
+
+<h2 id="오른쪽-위의-검색-창-사용">오른쪽 위의 검색 창 사용</h2>
+<p><img src="/post_assets/2017-07-17/search_finder.png" alt="파인더" />
+검색 실패</p>
+
+<p><img src="/post_assets/2017-07-17/search_by_name.png" alt="파인더 이름검색" />
+여전히 검색 실패</p>
+
+<p>Spotlight를 통한 검색에서도 해당 파일을 찾지 못했다.</p>
+
+<h2 id="검색-방법">검색 방법</h2>
+<p>Finder에서 <code class="highlighter-rouge">⌘</code>(커맨드)+<code class="highlighter-rouge">F</code>를 입력한다.<br />
+새롭게 뜨는 검색창에서 <code class="highlighter-rouge">이름</code>, <code class="highlighter-rouge">다음을 포함</code>을 선택하고 검색한다.</p>
+
+<p><img src="/post_assets/2017-07-17/search_solution.png" alt="파인더 해결방법" />
+이번에는 잘 검색되었다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/07/17/mac-finder-search-by-name/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/">
         Django 프로젝트 Heroku 릴리즈 - (최종 수정)
       </a>
@@ -545,46 +594,6 @@ application = DjangoWhiteNoise(application)
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/">
-        안드로이드 startActivity 시에 기존 activity 제거하기
-      </a>
-    </h1>
-
-    <span class="post-date">12 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <h1 id="인텐트-전달하며-기존-액티비티-제거하기">인텐트 전달하며 기존 액티비티 제거하기</h1>
-<p>액티비티에서 액티비티로 갈때에는 <code class="highlighter-rouge">finish();</code> 를 호출하면 간단하다.</p>
-
-<p>비동기 태스크와 같이 액티비티가 아닌 곳에서 기존 액티비티를 없애려면 다음과 같이 한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-<span class="n">i</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TASK</span> <span class="o">|</span> <span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_CLEAR_TOP</span><span class="o">);</span>
-<span class="n">context</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-</code></pre></div></div>
-
-<h1 id="사용법">사용법</h1>
-<p>Splash 화면 만들어놓고 비동기로 작업 해놓고 그 작업이 다 완료되면 다음 액티비티로 넘어가며,<br />
-Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/12/android-activity-close/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -653,7 +662,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-04-09 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

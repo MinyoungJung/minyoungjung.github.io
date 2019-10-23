@@ -193,6 +193,33 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2019/10/23/subject/">
+        2019-10-23 Blog
+      </a>
+    </h1>
+
+    <span class="post-date">23 Oct 2019</span>
+     | 
+    
+    <a href="/blog/tags/#pub" class="post-tag">pub</a>
+    
+    
+
+    <article>
+      <h3 id="test">test</h3>
+<p>Test update by jekyll publisher</p>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2019/10/23/subject/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2019/10/23/subject/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/">
         Google Code Jam 2019
       </a>
@@ -780,93 +807,6 @@ DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다.</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/">
-        RecyclerView 사용 패턴
-      </a>
-    </h1>
-
-    <span class="post-date">22 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <p>RecyclerView에서는 기본적으로 ViewHolder 패턴을 사용한다.<br />
-ListView보다 사용하기 까다로워 보이지만 사용 패턴을 익히면 그렇지도 않다.</p>
-
-<h1 id="recyclerview-사용패턴">RecyclerView 사용패턴</h1>
-
-<h2 id="adapter-생성">Adapter 생성</h2>
-<p>RecyclerSwipeAdapter<RecyclerViewAdapter.ViewHolder> 를 상속한 아답터를 생성한다.</RecyclerViewAdapter.ViewHolder></p>
-<h3 id="생성자">생성자</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">RecyclerViewAdapter</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span> <span class="n">myDataset</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">mContext</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
-    <span class="n">mDataset</span> <span class="o">=</span> <span class="n">myDataset</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>데이터와 context를 전달 받는다.</p>
-
-<h3 id="oncreateviewhoder-오버라이드">OnCreateViewHoder 오버라이드</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">ViewHolder</span> <span class="nf">onCreateViewHolder</span><span class="o">(</span><span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewType</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">View</span> <span class="n">v</span> <span class="o">=</span> <span class="n">LayoutInflater</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">parent</span><span class="o">.</span><span class="na">getContext</span><span class="o">())</span>
-    <span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">recyclerlayout</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-    <span class="n">ViewHolder</span> <span class="n">vh</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewHolder</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">vh</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>위와 같이 레이아웃을 인플래이트 시킨 후 뷰 홀더에 집어넣는다.</p>
-
-<h3 id="getitemcount-오버라이드">getItemCount 오버라이드</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getItemCount</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">mDataset</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="viewholder-클래스-생성">ViewHolder 클래스 생성</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ViewHolder</span> <span class="kd">extends</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">ViewHolder</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">TextView</span> <span class="n">mTextView</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="nf">ViewHolder</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
-
-    <span class="n">mTextView</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textview</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>뷰홀더 클래스의 생성자 안에서 사용할 뷰들을 바인드 한다.</p>
-
-<h3 id="onbindviewholder-오버라이드">onBindViewHolder 오버라이드</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onBindViewHolder</span><span class="o">(</span><span class="kd">final</span> <span class="n">ViewHolder</span> <span class="n">holder</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">Phrase</span> <span class="n">item</span> <span class="o">=</span> <span class="n">mDataset</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
-
-    <span class="n">holder</span><span class="o">.</span><span class="na">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">mData</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">position</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>RecyclerView의 각각의 뷰가 표시될 때 처리할 내용을 작성한다.</p>
-
-<h2 id="adapter-설정">Adapter 설정</h2>
-<p>RecyclerView에 .setAdapter를 통해 아답터를 설정한다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -933,7 +873,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-04-09 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
