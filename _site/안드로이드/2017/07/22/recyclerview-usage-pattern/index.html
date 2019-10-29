@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-22T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"RecyclerView 사용 패턴","url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/","dateModified":"2017-07-22T00:00:00+09:00","datePublished":"2017-07-22T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"RecyclerView에서는 기본적으로 ViewHolder 패턴을 사용한다. ListView보다 사용하기 까다로워 보이지만 사용 패턴을 익히면 그렇지도 않다. RecyclerView 사용패턴 Adapter 생성 RecyclerSwipeAdapter 를 상속한 아답터를 생성한다. 생성자 public RecyclerViewAdapter(Context context, ArrayList&lt;Data&gt; myDataset) { mContext = context; mDataset = myDataset; } 데이터와 context를 전달 받는다. OnCreateViewHoder 오버라이드 @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { View v = LayoutInflater.from(parent.getContext()) .inflate(R.layout.recyclerlayout, parent, false); ViewHolder vh = new ViewHolder(v); return vh; } 위와 같이 레이아웃을 인플래이트 시킨 후 뷰 홀더에 집어넣는다. getItemCount 오버라이드 @Override public int getItemCount() { return mDataset.size(); } ViewHolder 클래스 생성 public static class ViewHolder extends RecyclerView.ViewHolder { private TextView mTextView; public ViewHolder(View v) { super(v); mTextView = v.findViewById(R.id.textview); } } 뷰홀더 클래스의 생성자 안에서 사용할 뷰들을 바인드 한다. onBindViewHolder 오버라이드 @Override public void onBindViewHolder(final ViewHolder holder, final int position) { final Phrase item = mDataset.get(position); holder.mTextView.setText(mData.get(position).toString()); } } RecyclerView의 각각의 뷰가 표시될 때 처리할 내용을 작성한다. Adapter 설정 RecyclerView에 .setAdapter를 통해 아답터를 설정한다.","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/","headline":"RecyclerView 사용 패턴","dateModified":"2017-07-22T00:00:00+09:00","datePublished":"2017-07-22T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"RecyclerView에서는 기본적으로 ViewHolder 패턴을 사용한다. ListView보다 사용하기 까다로워 보이지만 사용 패턴을 익히면 그렇지도 않다. RecyclerView 사용패턴 Adapter 생성 RecyclerSwipeAdapter 를 상속한 아답터를 생성한다. 생성자 public RecyclerViewAdapter(Context context, ArrayList&lt;Data&gt; myDataset) { mContext = context; mDataset = myDataset; } 데이터와 context를 전달 받는다. OnCreateViewHoder 오버라이드 @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { View v = LayoutInflater.from(parent.getContext()) .inflate(R.layout.recyclerlayout, parent, false); ViewHolder vh = new ViewHolder(v); return vh; } 위와 같이 레이아웃을 인플래이트 시킨 후 뷰 홀더에 집어넣는다. getItemCount 오버라이드 @Override public int getItemCount() { return mDataset.size(); } ViewHolder 클래스 생성 public static class ViewHolder extends RecyclerView.ViewHolder { private TextView mTextView; public ViewHolder(View v) { super(v); mTextView = v.findViewById(R.id.textview); } } 뷰홀더 클래스의 생성자 안에서 사용할 뷰들을 바인드 한다. onBindViewHolder 오버라이드 @Override public void onBindViewHolder(final ViewHolder holder, final int position) { final Phrase item = mDataset.get(position); holder.mTextView.setText(mData.get(position).toString()); } } RecyclerView의 각각의 뷰가 표시될 때 처리할 내용을 작성한다. Adapter 설정 RecyclerView에 .setAdapter를 통해 아답터를 설정한다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/22/recyclerview-usage-pattern/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -271,9 +271,9 @@ ListView보다 사용하기 까다로워 보이지만 사용 패턴을 익히면
     
       <li>
         <h3>
-          <a href="/2019/10/23/subject/">
-            2019-10-23 Blog
-            <small>23 Oct 2019</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+            2019-10-24 코드포스 라운드
+            <small>24 Oct 2019</small>
           </a>
         </h3>
       </li>
@@ -373,7 +373,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

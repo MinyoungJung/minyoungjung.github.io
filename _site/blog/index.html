@@ -57,7 +57,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:site_name" content="Ringsterz Log" />
 <link rel="next" href="http://localhost:4000/blog/page2" />
 <script type="application/ld+json">
-{"headline":"Blog","url":"http://localhost:4000/blog/","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/blog/","headline":"Blog","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -72,7 +72,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -193,25 +193,229 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2019/10/23/subject/">
-        2019-10-23 Blog
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+        2019-10-24 코드포스 라운드
       </a>
     </h1>
 
-    <span class="post-date">23 Oct 2019</span>
+    <span class="post-date">24 Oct 2019</span>
      | 
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#codeforces" class="post-tag">Codeforces</a>
+    
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
     
     
 
     <article>
-      
+      <h2 id="codeforces-라운드-595-div-3">Codeforces 라운드 #595 (Div. 3)</h2>
+<p>요즘 알고리즘 인터뷰 하는 것이 대세인지라 PS를 조금 해봤는데, 생각보다 재미있어서 좀더 깊게 파봐야 겠다는 생각을 했다.
+대회에만 나오는 알고리즘까지 공부하고 싶진 않지만 문제풀이 자체는 재미있는지라 꾸준히 참여해보려 한다.</p>
+
+<h3 id="1249a">1249A</h3>
+<p>조건대로 가면 1 그룹 아니면 2 그룹으로 나뉘어진다. 
+정렬하고 차이 1 나는거 있으면 1 아니면 2 출력해서 끝</p>
+
+<h3 id="1249b1">1249B1</h3>
+<p>문제에서 요구하는 그대로 코드로 옮겼다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tc</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">pos</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>
+<span class="err"> </span><span class="sb">``</span><span class="err">`</span>
+
+<span class="c1">### 1249B2 ###
+</span><span class="err">위</span> <span class="err">문제와</span> <span class="err">같으나</span> <span class="err">쿼리가</span> <span class="mi">1000</span><span class="err">개로</span> <span class="err">증가</span><span class="p">,</span> <span class="n">n</span> <span class="err">의</span> <span class="err">값도</span> <span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="err">으로</span> <span class="err">증가했다</span><span class="o">.</span>
+<span class="err">위의</span> <span class="err">방법대로</span> <span class="err">풀면</span> <span class="n">TLE</span><span class="err">가</span> <span class="err">나게</span> <span class="err">되므로</span> <span class="err">최적화</span> <span class="err">할</span> <span class="err">방법을</span> <span class="err">생각해야</span> <span class="err">한다</span><span class="o">.</span>
+<span class="err">예제</span> <span class="err">입력인</span>
+</code></pre></div></div>
+<p>4 6 2 1 5 3</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>의 경우를 살펴보면 첫번째 숫자인 4는  1을 거쳐 다시 4가 되고, 네번째 숫자인 1의 경우엔 4를 거쳤다가 다시 4가 되는 것을 알수 있다.
+마찬가지로 두번째 6의 경우는 3 -&gt; 2를 거쳐서 돌아오고, 세번째 2의 경우 6-&gt;3을 거쳐서 자신으로 돌아온다.
+이는 자신으로 돌아올때까지 만나는 모든 숫자는 같은 횟수를 가진다는 의미이므로 이를 이용하면 O(N)으로 중복 계산을 없앨 수 있다.
+
+```python
+tc = int(input())
+for _ in range(tc):
+    n = int(input())
+    p = list(map(int, input().split()))
+    res = [0]*n
+    for i in range(n):
+        if res[i] == 0:
+            ans = 1
+            pos = p[i]
+            cycle = [i]
+            while pos != i+1:
+                cycle.append(pos-1)
+                ans += 1
+                pos = p[pos-1]
+            for c in cycle:
+                res[c] = ans
+    print(*res)
+ ```
+
+### 1941C1 ###
+### 1941C2 ###
+3진법으로 표기했을 때 2가 없으면 그대로 출력하고, 2가 있으면 2가 있는 자리까지는 0으로 바꾸고 자릿수 Carry를 올려주는 방식으로 풀었다.
+```python
+tc = int(input())
+for _ in range(tc):
+    n = t = int(input())
+    nums = []
+    while n:
+        nums.append(n % 3)
+        n //= 3
+    if 2 not in nums:
+        print(t)
+    else:
+        carry = 0
+        for i in range(len(nums)):
+            nums[i] += carry
+            carry = 0
+            if nums[i] &gt;= 2:
+                for j in range(i + 1):
+                    nums[j] = 0
+                carry = 1
+        if carry:
+            nums.append(1)
+        ans = 0
+        for i in range(len(nums)):
+            ans += nums[i] * (3**i)
+        print(ans)
+</code></pre></div></div>
+
+<h3 id="1249d1">1249D1</h3>
+<p>인덱스를 앞에서 부터 조사해 나가다가 겹치는 부분이 k보다 크면 가장 긴 세그먼트를 제거해주면 된다.
+입력 크기가 크지 않아 O(N<sup>3</sup>)로 풀어도 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">segs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="n">max_idx</span> <span class="o">=</span> <span class="mi">210</span>
+<span class="n">cnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">max_idx</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">segs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">cnt</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">cnt</span><span class="p">[</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_idx</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_idx</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ans</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="ow">and</span> <span class="n">segs</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">segs</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">segs</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">segs</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">segs</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">segs</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">ans</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ans</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">' '</span><span class="p">)</span>
+<span class="err"> </span><span class="sb">``</span><span class="err">`</span>
+<span class="err">입력</span> <span class="err">받으면서</span> <span class="err">세그먼트의</span> <span class="err">왼쪽</span> <span class="err">끝</span> <span class="err">부분은</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="err">오른쪽</span> <span class="err">끝</span> <span class="err">다음</span> <span class="err">칸을</span> <span class="o">-</span><span class="mi">1</span> <span class="err">한</span> <span class="err">후</span> <span class="err">인덱스</span> <span class="err">순서대로</span> <span class="err">숫자를</span> <span class="err">누적시키면</span> <span class="err">세그먼트의</span> <span class="err">누적합을</span> <span class="err">만들</span> <span class="err">수</span> <span class="err">있다</span><span class="o">.</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="err">과</span> <span class="err">같은</span> <span class="err">형태가</span> <span class="err">되는데</span> <span class="err">이때</span> <span class="err">하나씩</span> <span class="err">탐색하며</span> <span class="n">k</span><span class="err">보다</span> <span class="err">많이</span> <span class="err">겹친</span> <span class="err">부분을</span> <span class="err">찾으면</span> <span class="err">모든</span> <span class="err">세그먼트를</span> <span class="err">탐색하며</span> <span class="n">k</span><span class="err">에</span> <span class="err">걸친</span> <span class="err">세그먼트</span> <span class="err">인지</span><span class="p">,</span> <span class="err">이미</span> <span class="err">삭제된</span> <span class="err">세그먼트</span> <span class="err">인지</span> <span class="p">(</span><span class="n">ans</span> <span class="err">리스트에</span> <span class="err">체크</span><span class="p">)</span> <span class="err">확인</span> <span class="err">후</span> <span class="err">가장</span> <span class="err">긴</span> <span class="err">세그먼트를</span> <span class="n">pos</span><span class="err">에</span> <span class="err">넣고</span> <span class="err">그</span> <span class="err">세그먼트의</span> <span class="err">누적합을</span> <span class="err">제거한다</span><span class="o">.</span>
+<span class="err"> </span>
+<span class="c1">### 1249D2 ###
+</span><span class="err">위쪽</span> <span class="err">문제와</span> <span class="err">동일하나</span> <span class="err">입력</span> <span class="err">크기가</span> <span class="err">크다</span><span class="o">.</span> <span class="err">세그먼트의</span> <span class="err">왼쪽</span> <span class="err">인덱스를</span> <span class="err">기준으로</span> <span class="err">오른쪽</span> <span class="err">인덱스가</span> <span class="err">가장</span> <span class="err">긴</span> <span class="err">순서로</span> <span class="err">쌓아놓고</span><span class="p">,</span>
+<span class="err">인덱스의</span> <span class="err">처음부터</span> <span class="err">순회하며</span> <span class="err">세그먼트가</span> <span class="err">있을때마다</span> <span class="err">추가하고</span><span class="p">,</span> <span class="err">만약</span> <span class="err">세그먼트의</span> <span class="err">중복</span> <span class="err">크기가</span> <span class="n">k</span><span class="err">를</span> <span class="err">넘으면</span> <span class="err">가장</span> <span class="err">오른쪽으로</span> <span class="err">긴</span> <span class="err">세그먼트를</span> <span class="err">제거한다</span><span class="o">.</span> 
+<span class="err">가장</span> <span class="err">긴</span> <span class="err">세그먼트를</span> <span class="err">제거해야하므로</span> <span class="err">추가</span> <span class="err">후</span> <span class="err">순서가</span> <span class="err">정렬되어</span> <span class="err">있어야</span> <span class="err">한다</span><span class="o">.</span> 
+<span class="err">이</span> <span class="err">부분이</span> <span class="err">가장</span> <span class="err">시간소모가</span> <span class="err">크므로</span>  <span class="n">heap</span><span class="err">을</span> <span class="err">이용해서</span> <span class="err">삽입과</span> <span class="err">동시에</span> <span class="err">정렬이</span> <span class="err">최적화</span> <span class="err">되도록</span> <span class="err">한다</span><span class="o">.</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">2e5</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ll</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+<span class="n">vis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">ll</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">rr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">ll</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="n">heappush</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">vis</span><span class="p">[</span><span class="n">cur</span><span class="p">[</span><span class="mi">1</span><span class="p">]]:</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">vis</span><span class="p">[</span><span class="n">cur</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">rr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vis</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">vis</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="o">*</span><span class="n">ans</span><span class="p">)</span>
+<span class="err"> </span>
+</code></pre></div></div>
+<p>입력속도가 빠른 stdin으로 입력 받지않으면 그냥 처리하다가 TLE 나므로 주의한다.
+입력받을때 세그먼트의 왼쪽 끝 위치의 인덱스에 오른쪽 끝 인덱스와 세그먼트의 순서를 쌍으로 집어넣는다.
+이때 -r으로 집어넣어야 나중에 최대값을 꺼낼때 편하다. (Python heap이 기본적으로 min heap이므로..)
+이후 입력을 전부 순회하며 heap에 세그먼트를 넣고, 만약 heap의 크기가 k보다 커지면 heap에서 뽑아낸다.
+마지막 for 문과 swhile문 안의 while은 현재 조회하는 인덱스가 세그먼트의 오른쪽 끝을 넘었다면 해당 세그먼트를 제거하는 역할을 한다.</p>
+
+<h3 id="1249e">1249E</h3>
+<p>간단한 dp 문제
+2차원 리스트를 만든 후 이전 상태와 현재 상태의 최소 시간을 비교하면 된다.
+dp[0]은 엘레베이터 -&gt; 걷기, 걷기 -&gt; 걷기  중 최소값을 dp[1]은 걷기 -&gt; 엘레베이터, 엘레베이터 -&gt; 엘레베이터 최소값을 저장한다.
+이후 dp[0]과 dp[1] 중 최소값을 층별로 출력하면 된다.</p>
+
+<p>```python
+n, c = map(int, input().split())
+dp = [[0] * n, [0] * n]</p>
+
+<p>a = list(map(int, input().split()))
+b = list(map(int, input().split()))</p>
+
+<p>dp[0][0] = 0
+dp[1][0] = c
+for i in range(n-1):
+    dp[0][i + 1] = min(dp[1][i] + a[i], dp[0][i] + a[i])
+    dp[1][i + 1] = min(dp[1][i] + b[i], dp[0][i] + b[i] + c)</p>
+
+<p>for i in range(n):
+    print(min(dp[0][i], dp[1][i]), end=’ ‘)
+ ```</p>
+
+<h3 id="1249f">1249F</h3>
+<p>파이썬으로 못풀겠음. 푼 다른 사람도 없다.
+PS고급문제 하려면 C++은 필수인듯</p>
 
     <article>
     <div class="post-more">
       
-      <a href="/2019/10/23/subject/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
       
-      <a href="/2019/10/23/subject/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
     </div>
   </div>
   
@@ -870,7 +1074,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

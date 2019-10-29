@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-07-03T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"텐서플로 소스로부터 안드로이드 라이브러리 빌드하기","url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/","dateModified":"2017-07-03T00:00:00+09:00","datePublished":"2017-07-03T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"텐서플로 repository clone git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git Android NDK 설치 텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요. Android Studio의 Preference -&gt; Appearance &amp; Behavior -&gt; System Settings -&gt; Android SDK -&gt; SDK Tools 탭에서 NDK를 찾아 설치 위와 같이 하면 NDK 최신 버전이 설치되는데 WORKSPACE 파일을 보면 r12b를 쓰라 되어있다. 그러므로 여기서 다운 받은 r12b를 설치 Bazel 설치 텐서플로의 빌드 툴인 Bazel 설치 WORKSPACE 파일 수정 Clone된 텐서플로 프로젝트의 Root의 WORKSPACE 파일을 열어 #android_sdk_repository( # name = &quot;androidsdk&quot;, # api_level = 23, # # Ensure that you have the build_tools_version below installed in the # # SDK manager as it updates periodically. # build_tools_version = &quot;25.0.2&quot;, # # Replace with path to Android SDK on your system # path = &quot;&lt;PATH_TO_SDK&gt;&quot;, #) # # Android NDK r12b is recommended (higher may cause issues with Bazel) #android_ndk_repository( # name=&quot;androidndk&quot;, # path=&quot;&lt;PATH_TO_NDK&gt;&quot;, # # This needs to be 14 or higher to compile TensorFlow. # # Note that the NDK version is not the API level. # api_level=14) 이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌 android_sdk_repository( name = &quot;androidsdk&quot;, api_level = 23, build_tools_version = &quot;25.0.2&quot;, path = &quot;/Users/mymacpro/Library/Android/sdk/&quot;, ) android_ndk_repository( name=&quot;androidndk&quot;, path=&quot;/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/&quot;, api_level=14) .so 파일 빌드 bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \\ --crosstool_top=//external:android/crosstool \\ --host_crosstool_top=@bazel_tools//tools/cpp:toolchain \\ --cpu=x86_64 빌드가 끝나면 프로젝트 폴더에 bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so가 생성 .jar 파일 빌드 bazel build //tensorflow/contrib/android:android_tensorflow_inference_java 마찬가지로 bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar 생성됨 안드로이드 프로젝트 생성 라이브러리 추가 라이브러리에 libandroid_tensorflow_inference_java.jar 및 libtensorflow_inference.so 추가 이제 텐서플로의 Java API를 TensorFlowInferenceInterface를 통해 호출 가능하다. 소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법 Project nightly-android에서 빌드된 파일을 받는다. 굳이 빌드할 필요도 없음…","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/","headline":"텐서플로 소스로부터 안드로이드 라이브러리 빌드하기","dateModified":"2017-07-03T00:00:00+09:00","datePublished":"2017-07-03T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"텐서플로 repository clone git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git Android NDK 설치 텐서플로의 core 모듈이 c++로 이루어져 있고, 이를 이용하기 위해서는 JNI가 필요. Android Studio의 Preference -&gt; Appearance &amp; Behavior -&gt; System Settings -&gt; Android SDK -&gt; SDK Tools 탭에서 NDK를 찾아 설치 위와 같이 하면 NDK 최신 버전이 설치되는데 WORKSPACE 파일을 보면 r12b를 쓰라 되어있다. 그러므로 여기서 다운 받은 r12b를 설치 Bazel 설치 텐서플로의 빌드 툴인 Bazel 설치 WORKSPACE 파일 수정 Clone된 텐서플로 프로젝트의 Root의 WORKSPACE 파일을 열어 #android_sdk_repository( # name = &quot;androidsdk&quot;, # api_level = 23, # # Ensure that you have the build_tools_version below installed in the # # SDK manager as it updates periodically. # build_tools_version = &quot;25.0.2&quot;, # # Replace with path to Android SDK on your system # path = &quot;&lt;PATH_TO_SDK&gt;&quot;, #) # # Android NDK r12b is recommended (higher may cause issues with Bazel) #android_ndk_repository( # name=&quot;androidndk&quot;, # path=&quot;&lt;PATH_TO_NDK&gt;&quot;, # # This needs to be 14 or higher to compile TensorFlow. # # Note that the NDK version is not the API level. # api_level=14) 이 부분의 주석을 제거하고 SDK 및 NDK 경로를 넣어줌 android_sdk_repository( name = &quot;androidsdk&quot;, api_level = 23, build_tools_version = &quot;25.0.2&quot;, path = &quot;/Users/mymacpro/Library/Android/sdk/&quot;, ) android_ndk_repository( name=&quot;androidndk&quot;, path=&quot;/Users/mymacpro/AndroidStudio_workspace/android-ndk-r12b/&quot;, api_level=14) .so 파일 빌드 bazel build -c opt //tensorflow/contrib/android:libtensorflow_inference.so \\ --crosstool_top=//external:android/crosstool \\ --host_crosstool_top=@bazel_tools//tools/cpp:toolchain \\ --cpu=x86_64 빌드가 끝나면 프로젝트 폴더에 bazel-bin/tensorflow/contrib/android/libtensorflow_inference.so가 생성 .jar 파일 빌드 bazel build //tensorflow/contrib/android:android_tensorflow_inference_java 마찬가지로 bazel-bin/tensorflow/contrib/android/libandroid_tensorflow_inference_java.jar 생성됨 안드로이드 프로젝트 생성 라이브러리 추가 라이브러리에 libandroid_tensorflow_inference_java.jar 및 libtensorflow_inference.so 추가 이제 텐서플로의 Java API를 TensorFlowInferenceInterface를 통해 호출 가능하다. 소스 빌드하지 않을 경우 라이브러리 추가하는 제일 간단한 방법 Project nightly-android에서 빌드된 파일을 받는다. 굳이 빌드할 필요도 없음…","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2017/07/03/tensorflow-library-build/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -287,9 +287,9 @@ android_ndk_repository(
     
       <li>
         <h3>
-          <a href="/2019/10/23/subject/">
-            2019-10-23 Blog
-            <small>23 Oct 2019</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+            2019-10-24 코드포스 라운드
+            <small>24 Oct 2019</small>
           </a>
         </h3>
       </li>
@@ -389,7 +389,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-19T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기","url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/","dateModified":"2017-06-19T00:00:00+09:00","datePublished":"2017-06-19T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/","headline":"브라우저 CSS 캐쉬 무력화하기 및 Mac에서 Localhost 지정하기","dateModified":"2017-06-19T00:00:00+09:00","datePublished":"2017-06-19T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/css/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/19/css-versioning/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -243,9 +243,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <li>
         <h3>
-          <a href="/2019/10/23/subject/">
-            2019-10-23 Blog
-            <small>23 Oct 2019</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+            2019-10-24 코드포스 라운드
+            <small>24 Oct 2019</small>
           </a>
         </h3>
       </li>
@@ -345,7 +345,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

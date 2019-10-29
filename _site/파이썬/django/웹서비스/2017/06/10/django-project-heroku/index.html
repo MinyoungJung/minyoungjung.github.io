@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-10T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"Django 프로젝트 Heroku에 릴리즈하기","url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/","dateModified":"2017-06-10T00:00:00+09:00","datePublished":"2017-06-10T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) requirements.txt 생성 pip freeze &gt; requirements.txt를 입력하여 사용된 패키지를 추출한다. ALLOWED Host 추가 settings.py에서 ALLOWED_HOSTS = [&#39;*&#39;]를 추가한다. 추가사항 DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다. 해결방법은 Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드 여기서 확인 Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다.","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/","headline":"Django 프로젝트 Heroku에 릴리즈하기","dateModified":"2017-06-10T00:00:00+09:00","datePublished":"2017-06-10T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"기존 Django 프로젝트 Heroku에 릴리즈 Heroku CLI 설치 brew install heroku gunicorn을 추가 pip3 install gunicorn gunicorn 설정시 폴더구조는 메인 -        |- 프로젝트        |- 다른 앱 폴더 구조가 다르면 gunicorn module 임포트를 적절히 수정해 줘야 한다. Procfile 추가 프로젝트 루트에 Procfile을 추가하고 다음 내용을 저장한다. web: gunicorn myproject.wsgi --log-file - runtime.txt 추가 프로젝트 루트에 runtime.txt을 추가하고 다음 내용을 저장한다. (파이썬 3.# 일 경우) python-3.6.1 dj-database-url 추가 pip3 install dj-database-url 이후 프로젝트의 settings.py파일에 import dj_database_url db_from_env = dj_database_url.config(conn_max_age=500) DATABASES[&#39;default&#39;].update(db_from_env) 를 추가한다. whitenoise 추가 장고는 기본적으로 프로덕션에서 스태틱 파일을 제공하지 않는다. whitenoise는 개발 환경 그대로 스태틱 파일을 제공하게 해준다. pip install whitenoise settings.py에 다음 내용을 추가한다. # Simplified static file serving. # https://warehouse.python.org/project/whitenoise/ STATIC_ROOT = os.path.join(BASE_DIR, &#39;staticfiles&#39;) STATICFILES_STORAGE = &#39;whitenoise.django.GzipManifestStaticFilesStorage&#39; wsgi.py에 다음 내용을 추가한다. from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = get_wsgi_application() application = DjangoWhiteNoise(application) requirements.txt 생성 pip freeze &gt; requirements.txt를 입력하여 사용된 패키지를 추출한다. ALLOWED Host 추가 settings.py에서 ALLOWED_HOSTS = [&#39;*&#39;]를 추가한다. 추가사항 DEBUG=False 일때 Whitenoise와 Heroku의 충돌이 있다. 해결방법은 Django를 이용한 건물주 평판 조회 서비스 제작 (5) - Heroku 업로드 여기서 확인 Heroku에 로그인 heroku login Heroku 앱 생성 heroku create heroku create Creating app... done, ⬢ calm-basin-17299 https://calm-basin-17299.herokuapp.com/ | https://git.heroku.com/calm-basin-17299.git Git remote heroku added Heroku를 git remote로 추가 git remote add heroku https://git.heroku.com/calm-basin-17299.git db가 생성되어 있지 않다면 생성 heroku run python manage.py migrate 간혹 dev와 production 환경의 db가 다를 경우 db 생성이 되지 않은 상태라 push가 제대로 되지 않는다. 슈퍼유저 생성 heroku run python manage.py createsuperuser commit하고 Heroku에 push git push heroku master 만약 matpolib을 쓴다면… 헤로쿠와 충돌이 일어난다 import matplotlib matplotlib.use(&#39;Agg&#39;) 를 import matplotlib.pyplot as plt, mpld3 전에 추가한다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/10/django-project-heroku/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -313,9 +313,9 @@ matplotlib.use('Agg')
     
       <li>
         <h3>
-          <a href="/2019/10/23/subject/">
-            2019-10-23 Blog
-            <small>23 Oct 2019</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+            2019-10-24 코드포스 라운드
+            <small>24 Oct 2019</small>
           </a>
         </h3>
       </li>
@@ -415,7 +415,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
