@@ -5,9 +5,9 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://minyoungjung.github.io//2019/10/23/subject/</loc>
+    <loc>https://minyoungjung.github.io//%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/</loc>
     
-    <lastmod>2019-10-23T00:00:00+09:00</lastmod>
+    <lastmod>2019-10-24T00:00:00+09:00</lastmod>
     
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -1003,6 +1003,18 @@
   
   <url>
     <loc>https://minyoungjung.github.io/blog/tags/#Google</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#Codeforces</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://minyoungjung.github.io/blog/tags/#PS</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

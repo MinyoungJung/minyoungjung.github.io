@@ -56,7 +56,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:url" content="http://localhost:4000/blog/tags/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <script type="application/ld+json">
-{"headline":"Tags","url":"http://localhost:4000/blog/tags/","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/blog/tags/","headline":"Tags","author":{"@type":"Person","name":"Minyoung Jung"},"description":"하루를 정리하는 데일리 로그","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -71,7 +71,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -338,6 +338,10 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     <a href="#codejam" class="post-tag">CodeJam</a>
     
     <a href="#google" class="post-tag">Google</a>
+    
+    <a href="#codeforces" class="post-tag">Codeforces</a>
+    
+    <a href="#ps" class="post-tag">PS</a>
     
   </div>
   <hr/>
@@ -612,6 +616,13 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
     <h2 id="python">Python</h2>
     <ul class="tags-expo-posts">
+      
+        <a class="post-title" href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+      <li>
+        2019-10-24 코드포스 라운드
+      <small class="post-date">24 Oct 2019</small>
+      </li>
+      </a>
       
         <a class="post-title" href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/">
       <li>
@@ -2332,6 +2343,30 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
       
     </ul>
     
+    <h2 id="codeforces">Codeforces</h2>
+    <ul class="tags-expo-posts">
+      
+        <a class="post-title" href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+      <li>
+        2019-10-24 코드포스 라운드
+      <small class="post-date">24 Oct 2019</small>
+      </li>
+      </a>
+      
+    </ul>
+    
+    <h2 id="ps">PS</h2>
+    <ul class="tags-expo-posts">
+      
+        <a class="post-title" href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+      <li>
+        2019-10-24 코드포스 라운드
+      <small class="post-date">24 Oct 2019</small>
+      </li>
+      </a>
+      
+    </ul>
+    
   </div>
 </div>
 
@@ -2391,7 +2426,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

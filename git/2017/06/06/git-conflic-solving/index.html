@@ -58,7 +58,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-06T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"Git Merge 충돌 해결 원인 파악하기","url":"http://localhost:4000/git/2017/06/06/git-conflic-solving/","dateModified":"2017-06-06T00:00:00+09:00","datePublished":"2017-06-06T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/git/2017/06/06/git-conflic-solving/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"발단 로컬의 프로젝트를 Github로 푸쉬하려는데 문제가 발생했다. (workoutscheduler) My-MacBook-Pro:workoutscheduler mymacpro$ git push origin master To https://github.com/MinyoungJung/workoutscheduler_project.git ! [rejected] master -&gt; master (non-fast-forward) error: failed to push some refs to &#39;https://github.com/MinyoungJung/workoutscheduler_project.git&#39; hint: Updates were rejected because the tip of your current branch is behind hint: its remote counterpart. Integrate the remote changes (e.g. hint: &#39;git pull ...&#39;) before pushing again. hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details. 메시지를 보니 Github 브랜치 내용이 로컬의 브랜치 내용보다 최신이란다. 해결 방안 git push -f를 통해 강제로 푸쉬한다. 사실 혼자 로컬에서 작업하는 프로젝트다보니 Github 내용이 더 최신이 된 것 자체가 이상한 상황이고, 로컬의 코드를 그냥 푸쉬해서 덮어씌워도 아무 문제 없으나 아무래도 찜찜한 것이 사실. gitk HEAD @{u} 명령어로 upstream branch와 현재 헤드의 차이를 확인한다. master와 origin 사이의 충돌이 생긴 이유가 명확해졌다. project setting에서 github page를 생성했더니, 그에 대한 파일이 변경된 것이 로컬에서는 반영되지 않은 것. 원인을 파악했으니 편안한 맘으로 강제로 푸쉬할 수 있게 되었다.","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"url":"http://localhost:4000/git/2017/06/06/git-conflic-solving/","headline":"Git Merge 충돌 해결 원인 파악하기","dateModified":"2017-06-06T00:00:00+09:00","datePublished":"2017-06-06T00:00:00+09:00","author":{"@type":"Person","name":"Minyoung Jung"},"description":"발단 로컬의 프로젝트를 Github로 푸쉬하려는데 문제가 발생했다. (workoutscheduler) My-MacBook-Pro:workoutscheduler mymacpro$ git push origin master To https://github.com/MinyoungJung/workoutscheduler_project.git ! [rejected] master -&gt; master (non-fast-forward) error: failed to push some refs to &#39;https://github.com/MinyoungJung/workoutscheduler_project.git&#39; hint: Updates were rejected because the tip of your current branch is behind hint: its remote counterpart. Integrate the remote changes (e.g. hint: &#39;git pull ...&#39;) before pushing again. hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details. 메시지를 보니 Github 브랜치 내용이 로컬의 브랜치 내용보다 최신이란다. 해결 방안 git push -f를 통해 강제로 푸쉬한다. 사실 혼자 로컬에서 작업하는 프로젝트다보니 Github 내용이 더 최신이 된 것 자체가 이상한 상황이고, 로컬의 코드를 그냥 푸쉬해서 덮어씌워도 아무 문제 없으나 아무래도 찜찜한 것이 사실. gitk HEAD @{u} 명령어로 upstream branch와 현재 헤드의 차이를 확인한다. master와 origin 사이의 충돌이 생긴 이유가 명확해졌다. project setting에서 github page를 생성했더니, 그에 대한 파일이 변경된 것이 로컬에서는 반영되지 않은 것. 원인을 파악했으니 편안한 맘으로 강제로 푸쉬할 수 있게 되었다.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/git/2017/06/06/git-conflic-solving/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -241,9 +241,9 @@ project setting에서 github page를 생성했더니, 그에 대한 파일이 �
     
       <li>
         <h3>
-          <a href="/2019/10/23/subject/">
-            2019-10-23 Blog
-            <small>23 Oct 2019</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2019/10/24/codeforce-595/">
+            2019-10-24 코드포스 라운드
+            <small>24 Oct 2019</small>
           </a>
         </h3>
       </li>
@@ -343,7 +343,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-23 00:00:00 +0900";
+      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
