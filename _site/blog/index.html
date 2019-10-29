@@ -238,60 +238,61 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </span><span class="err">위</span> <span class="err">문제와</span> <span class="err">같으나</span> <span class="err">쿼리가</span> <span class="mi">1000</span><span class="err">개로</span> <span class="err">증가</span><span class="p">,</span> <span class="n">n</span> <span class="err">의</span> <span class="err">값도</span> <span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="err">으로</span> <span class="err">증가했다</span><span class="o">.</span>
 <span class="err">위의</span> <span class="err">방법대로</span> <span class="err">풀면</span> <span class="n">TLE</span><span class="err">가</span> <span class="err">나게</span> <span class="err">되므로</span> <span class="err">최적화</span> <span class="err">할</span> <span class="err">방법을</span> <span class="err">생각해야</span> <span class="err">한다</span><span class="o">.</span>
 <span class="err">예제</span> <span class="err">입력인</span>
-</code></pre></div></div>
-<p>4 6 2 1 5 3</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>의 경우를 살펴보면 첫번째 숫자인 4는  1을 거쳐 다시 4가 되고, 네번째 숫자인 1의 경우엔 4를 거쳤다가 다시 4가 되는 것을 알수 있다.
-마찬가지로 두번째 6의 경우는 3 -&gt; 2를 거쳐서 돌아오고, 세번째 2의 경우 6-&gt;3을 거쳐서 자신으로 돌아온다.
-이는 자신으로 돌아올때까지 만나는 모든 숫자는 같은 횟수를 가진다는 의미이므로 이를 이용하면 O(N)으로 중복 계산을 없앨 수 있다.
 
-```python
-tc = int(input())
-for _ in range(tc):
-    n = int(input())
-    p = list(map(int, input().split()))
-    res = [0]*n
-    for i in range(n):
-        if res[i] == 0:
-            ans = 1
-            pos = p[i]
-            cycle = [i]
-            while pos != i+1:
-                cycle.append(pos-1)
-                ans += 1
-                pos = p[pos-1]
-            for c in cycle:
-                res[c] = ans
-    print(*res)
- ```
+<span class="sb">```4 6 2 1 5 3```</span>
 
-### 1941C1 ###
+<span class="err">의</span> <span class="err">경우를</span> <span class="err">살펴보면</span> <span class="err">첫번째</span> <span class="err">숫자인</span> <span class="mi">4</span><span class="err">는</span>  <span class="mi">1</span><span class="err">을</span> <span class="err">거쳐</span> <span class="err">다시</span> <span class="mi">4</span><span class="err">가</span> <span class="err">되고</span><span class="p">,</span> <span class="err">네번째</span> <span class="err">숫자인</span> <span class="mi">1</span><span class="err">의</span> <span class="err">경우엔</span> <span class="mi">4</span><span class="err">를</span> <span class="err">거쳤다가</span> <span class="err">다시</span> <span class="mi">4</span><span class="err">가</span> <span class="err">되는</span> <span class="err">것을</span> <span class="err">알수</span> <span class="err">있다</span><span class="o">.</span>
+<span class="err">마찬가지로</span> <span class="err">두번째</span> <span class="mi">6</span><span class="err">의</span> <span class="err">경우는</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="err">를</span> <span class="err">거쳐서</span> <span class="err">돌아오고</span><span class="p">,</span> <span class="err">세번째</span> <span class="mi">2</span><span class="err">의</span> <span class="err">경우</span> <span class="mi">6</span><span class="o">-&gt;</span><span class="mi">3</span><span class="err">을</span> <span class="err">거쳐서</span> <span class="err">자신으로</span> <span class="err">돌아온다</span><span class="o">.</span>
+<span class="err">이는</span> <span class="err">자신으로</span> <span class="err">돌아올때까지</span> <span class="err">만나는</span> <span class="err">모든</span> <span class="err">숫자는</span> <span class="err">같은</span> <span class="err">횟수를</span> <span class="err">가진다는</span> <span class="err">의미이므로</span> <span class="err">이를</span> <span class="err">이용하면</span> <span class="n">O</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="err">으로</span> <span class="err">중복</span> <span class="err">계산을</span> <span class="err">없앨</span> <span class="err">수</span> <span class="err">있다</span><span class="o">.</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="n">tc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tc</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">cycle</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">while</span> <span class="n">pos</span> <span class="o">!=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">cycle</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">ans</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">pos</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cycle</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">ans</span>
+    <span class="k">print</span><span class="p">(</span><span class="o">*</span><span class="n">res</span><span class="p">)</span>
+<span class="err"> </span><span class="sb">``</span><span class="err">`</span>
+
+<span class="c1">### 1941C1 ###
 ### 1941C2 ###
-3진법으로 표기했을 때 2가 없으면 그대로 출력하고, 2가 있으면 2가 있는 자리까지는 0으로 바꾸고 자릿수 Carry를 올려주는 방식으로 풀었다.
-```python
-tc = int(input())
-for _ in range(tc):
-    n = t = int(input())
-    nums = []
-    while n:
-        nums.append(n % 3)
-        n //= 3
-    if 2 not in nums:
-        print(t)
-    else:
-        carry = 0
-        for i in range(len(nums)):
-            nums[i] += carry
-            carry = 0
-            if nums[i] &gt;= 2:
-                for j in range(i + 1):
-                    nums[j] = 0
-                carry = 1
-        if carry:
-            nums.append(1)
-        ans = 0
-        for i in range(len(nums)):
-            ans += nums[i] * (3**i)
-        print(ans)
+</span><span class="mi">3</span><span class="err">진법으로</span> <span class="err">표기했을</span> <span class="err">때</span> <span class="mi">2</span><span class="err">가</span> <span class="err">없으면</span> <span class="err">그대로</span> <span class="err">출력하고</span><span class="p">,</span> <span class="mi">2</span><span class="err">가</span> <span class="err">있으면</span> <span class="mi">2</span><span class="err">가</span> <span class="err">있는</span> <span class="err">자리까지는</span> <span class="mi">0</span><span class="err">으로</span> <span class="err">바꾸고</span> <span class="err">자릿수</span> <span class="n">Carry</span><span class="err">를</span> <span class="err">올려주는</span> <span class="err">방식으로</span> <span class="err">풀었다</span><span class="o">.</span>
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="n">tc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tc</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">//=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="mi">2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">carry</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">carry</span>
+            <span class="n">carry</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">carry</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">carry</span><span class="p">:</span>
+            <span class="n">nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">ans</span> <span class="o">+=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h3 id="1249d1">1249D1</h3>
