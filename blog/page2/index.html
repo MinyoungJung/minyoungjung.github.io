@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -165,7 +165,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2019 Minyoung Jung.
+    &copy; 2020 Minyoung Jung.
     </p>
   </div>
 
@@ -191,6 +191,122 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/">
+        Firebase 사용하여 Notification 보내기
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    <a href="/blog/tags/#firebase" class="post-tag">Firebase</a>
+    
+    
+
+    <article>
+      <h2 id="firebase-프로젝트-추가">firebase 프로젝트 추가</h2>
+<p><a href="https://console.firebase.google.com">https://console.firebase.google.com</a>에서 프로젝트 추가
+<img src="/post_assets/2017-07-23/add_done.png" alt="프로젝트 추가" /></p>
+
+<h2 id="firebase-안드로이드-추가">firebase 안드로이드 추가</h2>
+<p><img src="/post_assets/2017-07-23/firebase_add.png" alt="안드로이드 추가" /></p>
+
+<h2 id="google-servicesjson-추가">google-services.json 추가</h2>
+<p><code class="highlighter-rouge">google-services.json</code> 파일을 app 영역의 root에 집어넣음. (project 보기)</p>
+
+<h2 id="buildgradle-변경">build.gradle 변경</h2>
+
+<p>build.gradle(project)에 다음 추가</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">classpath</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">google</span><span class="o">-</span><span class="nl">services:</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>build.gradle(app) 마지막줄에 다음 줄 추가</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">.</span><span class="na">google</span><span class="o">-</span><span class="n">services</span><span class="err">'</span>
+</code></pre></div></div>
+
+<p>build.gradle(app)의 dependency에 다음 추가 (Notification 사용 라이브러리)</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">core:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">messaging:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
+</code></pre></div></div>
+
+<p>이후 프로젝트 sync</p>
+
+<h2 id="firebasemessagingservice-추가">FirebaseMessagingService 추가</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirebaseMessagingService</span> <span class="kd">extends</span> <span class="n">FirebaseMessagingService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">"FCM Service"</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessageReceived</span><span class="o">(</span><span class="n">RemoteMessage</span> <span class="n">remoteMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"From: "</span> <span class="o">+</span> <span class="n">remoteMessage</span><span class="o">.</span><span class="na">getFrom</span><span class="o">());</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Notification Message Body: "</span> <span class="o">+</span> <span class="n">remoteMessage</span><span class="o">.</span><span class="na">getNotification</span><span class="o">().</span><span class="na">getBody</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="firebaseinstanceidservice-추가">FirebaseInstanceIdService 추가</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FirebaseIDService</span> <span class="kd">extends</span> <span class="n">FirebaseInstanceIdService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">"FirebaseIDService"</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTokenRefresh</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Get updated InstanceID token.</span>
+        <span class="n">String</span> <span class="n">refreshedToken</span> <span class="o">=</span> <span class="n">FirebaseInstanceId</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getToken</span><span class="o">();</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Refreshed token: "</span> <span class="o">+</span> <span class="n">refreshedToken</span><span class="o">);</span>
+
+        <span class="c1">// TODO: Implement this method to send any registration to your app's servers.</span>
+        <span class="n">sendRegistrationToServer</span><span class="o">(</span><span class="n">refreshedToken</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendRegistrationToServer</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Add custom implementation, as needed.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="매니페스트에-서비스-추가">매니페스트에 서비스 추가</h2>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".service.MyFirebaseMessagingService"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;intent-filter&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"com.google.firebase.MESSAGING_EVENT"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+
+<span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".service.FirebaseIDService"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;intent-filter&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"com.google.firebase.INSTANCE_ID_EVENT"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</code></pre></div></div>
+<p>서비스 태그는 애플리케이션 태그 속에 넣으면 된다.</p>
+
+<h2 id="notification-보내기">Notification 보내기</h2>
+<p><img src="/post_assets/2017-07-23/noti_send.png" alt="알림 보내기" />
+콘솔에서 앱 전체를 대상으로 Notification를 보낸 모습</p>
+
+<h2 id="notification-전송-모습">Notification 전송 모습</h2>
+<p>상태창을 보면 notification이 전송된 것을 볼 수 있다.
+<img src="/post_assets/2017-07-23/noti_bg.png" alt="백그라운드 알림" /></p>
+
+<p>앱이 떠있을때는 로그로 정상 출력되는 것을 볼 수 있다.
+<img src="/post_assets/2017-07-23/noti_sent.png" alt="포그라운드 알림" /></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/23/firebase-notification-usage/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -475,128 +591,6 @@ Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 �
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/">
-        HTML 컬러코드 기본 조합
-      </a>
-    </h1>
-
-    <span class="post-date">18 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#html" class="post-tag">HTML</a>
-    
-    <a href="/blog/tags/#design" class="post-tag">Design</a>
-    
-    
-
-    <article>
-      <h1 id="color-picker를-위한-기본-색상-조합">Color Picker를 위한 기본 색상 조합</h1>
-<p>색상 선택기를 만드는데 기본 조합이 필요하다면 다음의 색상 조합을 이용한다</p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align: center">색상</th>
-<th style="text-align: center">이름</th>
-<th style="text-align: center">HEX</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center; background-color:#ff0000;"></td>
-<td style="text-align: center">Red</td>
-<td style="text-align: center">#FF0000</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#800000;"></td>
-<td style="text-align: center">Maroon</td>
-<td style="text-align: center">#800000</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#FFFF00;"></td>
-<td style="text-align: center">Yellow</td>
-<td style="text-align: center">#FFFF00</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#808000;"></td>
-<td style="text-align: center">Olive</td>
-<td style="text-align: center">#808000</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#00FF00;"></td>
-<td style="text-align: center">Lime</td>
-<td style="text-align: center">#00FF00</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#008000;"></td>
-<td style="text-align: center">Green</td>
-<td style="text-align: center">#008000</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#00FFFF;"></td>
-<td style="text-align: center">Aqua</td>
-<td style="text-align: center">#00FFFF</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#008080;"></td>
-<td style="text-align: center">Teal</td>
-<td style="text-align: center">#008080</td>
-</tr><tr>
-<td style="text-align: center; background-color:#0000FF;"></td>
-<td style="text-align: center">Blue</td>
-<td style="text-align: center">#0000FF</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#000080;"></td>
-<td style="text-align: center">Navy</td>
-<td style="text-align: center">#000080</td>
-</tr><tr>
-<td style="text-align: center; background-color:#FF00FF;"></td>
-<td style="text-align: center">Fuchsia</td>
-<td style="text-align: center">#FF00FF</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#800080;"></td>
-<td style="text-align: center">Purple</td>
-<td style="text-align: center">#800080</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#FFFFFF;"></td>
-<td style="text-align: center">White</td>
-<td style="text-align: center">#FFFFFF</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#C0C0C0;"></td>
-<td style="text-align: center">Silver</td>
-<td style="text-align: center">#C0C0C0</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#808080;"></td>
-<td style="text-align: center">Gray</td>
-<td style="text-align: center">#808080</td>
-</tr>
-<tr>
-<td style="text-align: center; background-color:#000000;"></td>
-<td style="text-align: center">Black</td>
-<td style="text-align: center">#000000</td>
-</tr>
-</tbody>
-
-</table>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/%EB%94%94%EC%9E%90%EC%9D%B8/2017/07/18/html-colorcode-basic-combination/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -665,7 +659,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
+      var latest_post_date_str = "2020-02-25 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

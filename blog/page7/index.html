@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -165,7 +165,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
   <div class="sidebar-item">
     <p>
-    &copy; 2019 Minyoung Jung.
+    &copy; 2020 Minyoung Jung.
     </p>
   </div>
 
@@ -191,6 +191,79 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/">
+        Django Admin 테마 변경하기
+      </a>
+    </h1>
+
+    <span class="post-date">28 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#admin" class="post-tag">Admin</a>
+    
+    <a href="/blog/tags/#theme" class="post-tag">Theme</a>
+    
+    <a href="/blog/tags/#material-design" class="post-tag">Material Design</a>
+    
+    
+
+    <article>
+      <h1 id="개요">개요</h1>
+<p>Django의 기본 Admin은 강력한 기능이지만 Look이 그다지 아름답지 않다.<br />
+직접 Admin을 커스터마이즈 하는 것은 상당히 손이 많이 가므로 <a href="https://djangopackages.org/grids/g/admin-styling/">djangopackages.org</a>에 올라와 있는<br />
+패키지를 이용해 간단히 수정해 보았다.</p>
+
+<h1 id="패키지-선택">패키지 선택</h1>
+<p>가장 널리 쓰이는 <code class="highlighter-rouge">DJANGO-GRAPPELLI</code>부터, <code class="highlighter-rouge">DJANGO-SUIT</code> 등등 여러 패키지가 있지만,<br />
+Material Design의 팬(?)으로써 <code class="highlighter-rouge">DJANGO-MATERIAL</code>을 이용해 보았다.<br />
+<code class="highlighter-rouge">DJANGO-MATERIAL</code>은 전에 <a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/08/django-scheduler-(1)/">Django를 이용한 스케쥴러 제작</a>에서도 이용했었던 <a href="http://materializecss.com/getting-started.html">Materialize</a>를 기반으로 하므로<br />
+사용도 간단하리라 생각했다.</p>
+
+<h1 id="사용법">사용법</h1>
+<h2 id="django-material-설치">django-material 설치</h2>
+<p><code class="highlighter-rouge">pip install django-material</code></p>
+
+<h2 id="installed_apps-추가">INSTALLED_APPS 추가</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">'material'</span><span class="p">,</span>
+    <span class="s">'material.admin'</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">django.contrib.admin</code> 앞에 두 줄이 추가되어야 한다.</p>
+
+<h2 id="적용결과">적용결과</h2>
+<p><img src="/post_assets/2017-06-28/material-admin.png" alt="적용결과" /></p>
+
+<h2 id="간단한-커스터마이즈-사이드바-아이콘">간단한 커스터마이즈 (사이드바 아이콘)</h2>
+<p><code class="highlighter-rouge">apps.py</code>의 AppConfig class에 <code class="highlighter-rouge">icon = '&lt;i class="material-icons"&gt;subject&lt;/i&gt;'</code>속성 추가<br />
+아이콘 주소는 <a href="https://material.io/icons/">https://material.io/icons/</a>를 따른다.</p>
+
+<h2 id="간단한-커스터마이즈-카드-내-아이콘">간단한 커스터마이즈 (카드 내 아이콘)</h2>
+<p><code class="highlighter-rouge">admin.py</code>의 admin.ModelAdmin class에 <code class="highlighter-rouge">icon</code> 속성 추가 (위와 동일)</p>
+
+<h2 id="커스터마이즈-후-결과">커스터마이즈 후 결과</h2>
+<p><img src="/post_assets/2017-06-28/material-admin-modify.png" alt="커스터마이즈 결과" /></p>
+
+<h2 id="추가-커스터마이즈">추가 커스터마이즈</h2>
+<p><a href="http://docs.viewflow.io/admin_customization.html">라이브러리 Doc 참조</a></p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/2017/06/28/django-admin-theme-change/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -575,123 +648,6 @@ ORM이 많은 부분을 해결해 주더라도 개발/운영환경이 일치되�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/">
-        Django에 Rest API 추가하기 (2) - API에 인증 추가
-      </a>
-    </h1>
-
-    <span class="post-date">23 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#django" class="post-tag">Django</a>
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
-    
-    <a href="/blog/tags/#rest-api" class="post-tag">REST API</a>
-    
-    <a href="/blog/tags/#auth" class="post-tag">Auth</a>
-    
-    
-
-    <article>
-      <h1 id="지난번에-추가한-api">지난번에 추가한 API</h1>
-<p>지난번에는 Django REST Framework의 <code class="highlighter-rouge">generics.RetrieveUpdateDestroyAPIView</code>를 이용하여,<br />
-GET/PUT/PATHCH/DELETE에 반응하는 API를 제작했다.<br />
-<a href="https://minyoungjung.github.io/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/21/restapi-django/">Django에 Rest API 추가하기 - 링크</a></p>
-
-<p>하지만 지금 상태로는 누구나 정보를 수정/삭제가 가능하므로 인증 기능을 추가해야 한다.</p>
-
-<h1 id="api에-인증-추가">API에 인증 추가</h1>
-<p>로그인 하지 않으면 Read 권한만 주고 로그인한 사용자에게는 Write/Update 권한을 주려면 간단한 방법이 있다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
-
-<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
-    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
-    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
-    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticatedOrReadOnly</span><span class="p">,)</span>  <span class="c1"># 추가
-</span></code></pre></div></div>
-
-<p>하지만 현재 서비스는 다중 사용자 환경이므로, 이와 같이 작성하면 계정을 가진 모두가 정보를 삭제할 수 있게 된다.<br />
-따라서 정보 작성자의 계정과 api 접속 인증 계정이 일치할 때만 정보를 삭제할 수 있도록 해야 한다.<br />
-이를 위해서 먼저 Custom permisson을 추가한다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
-
-
-<span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>  <span class="c1"># GET, HEAD, OPTIONS 
-</span>            <span class="k">return</span> <span class="bp">True</span>
-
-    <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="nb">id</span>
-
-</code></pre></div></div>
-<p>위와 같이 새로운 권한을 추가하고, SAFE_METHOD(객체의 상태를 변화시키지 않는 메소드)일 경우는 True를 반환,<br />
-그렇지 않은 경우에는 정보의 모델 필드의 owner_id가 요청하는 유저의 id와 일치할때만 True를 반환하게 했다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">reputation.permissions</span> <span class="kn">import</span> <span class="n">IsOwnerOrReadOnly</span>
-
-<span class="k">class</span> <span class="nc">ReputationDetail</span><span class="p">(</span><span class="n">MultipleFieldLookupMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
-    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Reputation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
-    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReputationSerializer</span>
-    <span class="n">lookup_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'longitude'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">)</span>
-    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOrReadOnly</span><span class="p">,)</span>  <span class="c1"># 변경
-</span></code></pre></div></div>
-<p>그 후 API를 반환하는 View의 퍼미션 클래스에 해당 클래스를 추가했다.<br />
-마지막으로 object를 반환하는 mixin 클래스에서,</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MultipleFieldLookupMixin(object):
-    def get_object(self):
-        queryset = self.get_queryset()             # Get the base queryset
-        queryset = self.filter_queryset(queryset)  # Apply any filter backends
-        filter = {}
-        for field in self.lookup_fields:
-            if self.kwargs[field]:  # Ignore empty fields.
-                filter[field] = self.kwargs[field]
-        obj = get_object_or_404(queryset, **filter)  # Lookup the object
-        self.check_object_permissions(self.request, obj)  # Check permissions
-        return obj
-</code></pre></div></div>
-<p>위와 같이 obj를 반환하기 전에 퍼미션을 확인하도록 변경하였다.</p>
-
-<h1 id="api-테스트-결과">API 테스트 결과</h1>
-<h2 id="postman을-이용해서-api를-테스트-한-결과-get">Postman을 이용해서 api를 테스트 한 결과 (GET)</h2>
-<p><img src="/post_assets/2017-06-23/without_auth.png" alt="실행결과" />
-GET 명령은 인증 없이도 잘 동작한다.</p>
-
-<h2 id="postman을-이용해서-api를-테스트-한-결과-delete">Postman을 이용해서 api를 테스트 한 결과 (DELETE)</h2>
-<p><img src="/post_assets/2017-06-23/without_auth_delete.png" alt="실행결과" />
-Delete 명령은 인증이 없으니 동작하지 않는다.</p>
-
-<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--wrong-auth">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; wrong Auth)</h2>
-<p><img src="/post_assets/2017-06-23/invalid_id_pw.png" alt="실행결과" />
-Auth를 포함할 때 잘못된 아이디/패스워드를 사용했을때는 다음과 같은 결과가 돌아온다.</p>
-
-<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-not-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (not owner))</h2>
-<p><img src="/post_assets/2017-06-23/valid_auth_not_owner.png" alt="실행결과" />
-제대로된 Auth로 인증했으나 Owner가 아닌 경우에도 역시 동작하지 않는다.</p>
-
-<h2 id="postman을-이용해서-api를-테스트-한-결과-delete--auth-owner">Postman을 이용해서 api를 테스트 한 결과 (DELETE &amp; Auth (Owner))</h2>
-<p><img src="/post_assets/2017-06-23/valid_auth_owner.png" alt="실행결과" />
-Owner인 경우에는 정상적으로 동작하여 해당 정보가 삭제되었다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/06/23/restapi-django-(2)/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -760,7 +716,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2019-10-24 00:00:00 +0900";
+      var latest_post_date_str = "2020-02-25 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
