@@ -72,7 +72,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -190,6 +190,101 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/03/usaco-feb-2015/">
+        USACO 2015 February (Bronze)
+      </a>
+    </h1>
+
+    <span class="post-date">03 Mar 2020</span>
+     | 
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+    
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+    
+    
+
+    <article>
+      <h2 id="usaco-2015-february">USACO 2015 February</h2>
+
+<h3 id="1-censoring">1. Censoring</h3>
+<p>글자에서 해당 문자가 나타나는지 확인 후, 나타나면 삭제하는 문제. 문제에서 주어진 순서대로 문자를 삭제할 경우, 문자열 전체를 훑어야 하므로 TLE가 뜬다. 결과 문자열의 뒷부분이 일치하는지를 확인하는 방식으로 시간을 줄일 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"censor.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="s">''</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+    <span class="n">r</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">and</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">):]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"censor.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-cow">2. Cow</h3>
+<p>C가 나타나면 C의 개수를 하나 올리고, O가 나타나면 지금까지 센 C의 개수만큼 O의 개수를 올리고,
+W가 나타나면 O의 개수만큼 W를 증가시키면 W의 갯수가 총 COW의 개수이다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cow.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">o</span> <span class="o">=</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'C'</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'O'</span><span class="p">:</span>
+        <span class="n">o</span> <span class="o">+=</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'W'</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">+=</span> <span class="n">o</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cow.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-cow-hopscotch">3. Cow Hopscotch</h3>
+<p>N이 15이하로 매우 작으므로 BFS 이용해서 0, 0에서 도착점까지 도착하는 모든 경로를 세면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"hopscotch.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">r</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">==</span> <span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]:</span>
+                <span class="n">ans</span> <span class="o">+=</span> <span class="n">bfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ans</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"hopscotch.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/03/usaco-feb-2015/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/03/usaco-feb-2015/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -919,79 +1014,6 @@ F = 5.
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/google-code-jam/">
-        Google Code Jam, 그리고 파이썬
-      </a>
-    </h1>
-
-    <span class="post-date">11 Apr 2018</span>
-     | 
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#algorithm" class="post-tag">Algorithm</a>
-    
-    <a href="/blog/tags/#codejam" class="post-tag">CodeJam</a>
-    
-    <a href="/blog/tags/#google" class="post-tag">Google</a>
-    
-    <a href="/blog/tags/#jekyll" class="post-tag">Jekyll</a>
-    
-    
-
-    <article>
-      <p>오랜만에 블로그를 쓴다.</p>
-
-<h2 id="알고리즘-code-jam">알고리즘, Code Jam</h2>
-<p>알고리즘과 그리 친하지는 않지만, 아예 손을 놓지 않으려고 매년 Google Code Jam에 참가 신청을 한다.
-매년 예선만 통과하자라는 생각으로 크게 욕심부리지 않고 있는데, 다행히 매번 예선은 통과했었다.
-작년부터는 파이썬에 좀더 익숙해지기 위해서 파이썬을 이용해서 문제들을 풀고 있다.</p>
-
-<h2 id="code-jam-2018-그리고-파이썬">Code Jam 2018, 그리고 파이썬</h2>
-<p>참가신청만 해놓고 완전히 잊고있다가, 주말에 늦잠자다 일어나서 컴퓨터를 켜보니까 메일이 와있다.
-<img src="/post_assets/2018-04-11/codejam_6hour.png" alt="6hours left" />
-말이 여섯시간이지… 나는 아침까지 자느라 2시간도 채 안남았다고…
-그래도 예선 통과를 위한 점수를 맞추기는 할만할것 같아서 Code Jam 사이트에 접속!</p>
-
-<p>분명 작년까지는 small input과 large input의 데이터셋에 각각 프로그램을 돌리고,
-output 파일을 제출했던 Code jam 형태가 갑자기 online judge 형태로 바뀌었다. 
-코드도 페이지 상에서 작성하여 바로 제출할 수 있는 형태로 바뀌었고, 따로 입력 데이터가 주어지지 않는다.
-그리고 테스트 파일을 다운받을 수 있는 뭔가 새로운 양식의 문제도 하나 끼어있는 것 같다.
-그리고 judge가 버벅이는지 이에 대한 안내 문구까지 출력되고…</p>
-
-<p>그래도 문제를 둘러보니 1, 2번만 풀면 38점으로 예선을 통과할 수 있을 것 같다.
-다행히 시간내에 1, 2번을 다 풀고, 결과를 확인하는데..
-2번의 15점 배점 문제가 TIME_LIMIT_EXCEEDED가 나서 실패했다.</p>
-
-<p>쉽다고 생각한 문제에서 틀린 이후 제일 먼저 든 생각은 Python의 느린 입출력 때문이 아닐까라는 생각이 들었다.
-<code class="highlighter-rouge">input()</code> 대신 <code class="highlighter-rouge">sys.stdin.readline()</code>을 썼어야 하나 등등…
-작년까지는 로컬에서 아웃풋 파일을 만들어서 업로드를 하면 되는 형식이라, 
-입출력 속도에 민감하게 신경쓰지 않았기도 하고, 코드가 돌아가서 결과만 나오면 된다는 생각이었으니 말이지.</p>
-
-<p>라운드가 끝난 이후 Analysis를 살펴보고 실제로는 내 구현상의 문제였다는 것을 알게되었다.
-‘시간초과가 난 것은 파이썬이 느리기 때문이다.’라고 생각한 내 자신이 민망하기도 하고,
-결과적으로는 처음으로 예선 라운드에 떨어지게 되었지만 오히려 더 배운것은 많았던 Code Jam이었다.</p>
-
-<h2 id="그리고-jekyll">그리고 jekyll</h2>
-<p>작년 12월 경 MacOS가 High Sierra로 업데이트 되면서 Ruby 2.0이 지원되지 않게 되었다.
-덕분에 Ruby Gem으로 이루어진 Jekyll 또한 먹통이 되었다.
-(한동안 블로깅을 멀리한 탓에 내가 jekyll 사용법을 까먹은 줄 알았다…)</p>
-
-<p>jekyll을 다시 사용하려면 거쳐야 할 방법에 대해서는 아래 링크 참조..
-<a href="[https://github.com/jekyll/jekyll/issues/6637]">https://github.com/jekyll/jekyll/issues/6637</a></p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/google-code-jam/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2018/04/11/google-code-jam/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -1058,7 +1080,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-02 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-03 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
