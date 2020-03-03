@@ -45,7 +45,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.6.0 -->
-<title>Page 3 of 12 for Blog | Ringsterz Log</title>
+<title>Page 3 of 13 for Blog | Ringsterz Log</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -191,6 +191,127 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/">
+        안드로이드 라이센스 라이브러리 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#license" class="post-tag">License</a>
+    
+    
+
+    <article>
+      <p>앱을 유료로 마켓에 업로드하려 할때, apk 파일을 통해 앱을 설치하는게 우려된다면,<br />
+Google의 라이센싱 라이브러리를 사용하면 apk파일이 구매한 것인지 검증해 준다.</p>
+
+<h1 id="설치">설치</h1>
+<p>Android SDK Tools에서 라이센싱 라이브러리를 설치한다.
+<img src="/post_assets/2017-07-20/add_lib.png" alt="라이브러리 설치" /></p>
+
+<h1 id="라이브러리-추가">라이브러리 추가</h1>
+<p>안드로이드 스튜디오에서 File -&gt; New -&gt; Import Module을 선택한 후,<br />
+설치한 라이센스 소스 디렉토리의 AndroidManifest.xml을 선택한다.
+<img src="/post_assets/2017-07-20/import_module.png" alt="라이브러리 추가" /></p>
+
+<h1 id="계정-설정">계정 설정</h1>
+<p>Google Play console에서 라이센스 테스트를 수행할 계정을 선택한다.<br />
+이 계정으로 기기에 로그인 해야 한다.
+<img src="/post_assets/2017-07-20/test_response.png" alt="계정설정" /></p>
+
+<h1 id="라이센스-키-설정">라이센스 키 설정</h1>
+<p>Google Play console에서 개별 앱 페이지로 들어가서 라이센스 키를 복사한다.<br />
+<img src="/post_assets/2017-07-20/license_key.png" alt="라이센스 키 설정" /></p>
+
+<h1 id="라이브러리-포함하여-빌드하도록-설정">라이브러리 포함하여 빌드하도록 설정</h1>
+<p>app의 build.gradle에 다음 구문을 추가한다
+<code class="highlighter-rouge">compile project(path: ':library')</code></p>
+
+<h1 id="라이브러리-사용">라이브러리 사용</h1>
+<p>사용법은 딱히 까다롭지 않아 <a href="https://developer.android.com/google/play/licensing/adding-licensing.html#imports">Android docs</a>의 링크로 대체하고, 일부 부분만 설명한다.</p>
+
+<h2 id="고유-디바이스-아이디-처리">고유 디바이스 아이디 처리</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="n">AESObfuscator</span><span class="o">(</span><span class="n">SALT</span><span class="o">,</span> <span class="n">getPackageName</span><span class="o">(),</span> <span class="n">deviceId</span><span class="o">)</span>
+</code></pre></div></div>
+<p>부분에서 고유한 deviceId를 처리해줘야 한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">(),</span> <span class="n">Settings</span><span class="o">.</span><span class="na">Secure</span><span class="o">.</span><span class="na">ANDROID_ID</span><span class="o">))),</span>
+</code></pre></div></div>
+<p>장치 고유값을 가져오는 것이 생각보다 쉽지않은데, 그냥 단순하게 처리하려면 위와같이 하면 된다.</p>
+
+<h2 id="에러처리">에러처리</h2>
+<p><img src="/post_assets/2017-07-20/error.png" alt="에러 처리" />
+라이브러리의 intent 사용 방법 떄문에 에러가 발생한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Binding to licensing service."</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">bindResult</span> <span class="o">=</span> <span class="n">mContext</span>
+            <span class="o">.</span><span class="na">bindService</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">String</span><span class="o">(</span>
+            <span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="s">"Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U="</span><span class="o">))),</span>
+            <span class="k">this</span><span class="o">,</span> <span class="c1">// ServiceConnection.</span>
+            <span class="n">Context</span><span class="o">.</span><span class="na">BIND_AUTO_CREATE</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">bindResult</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mPendingChecks</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">validator</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Could not bind to service."</span><span class="o">);</span>
+            <span class="n">handleServiceConnectionError</span><span class="o">(</span><span class="n">validator</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">callback</span><span class="o">.</span><span class="na">applicationError</span><span class="o">(</span><span class="n">LicenseCheckerCallback</span><span class="o">.</span><span class="na">ERROR_MISSING_PERMISSION</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Base64DecoderException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>라이브러리의 위 코드를 아래와 같이 수정한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">mService</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Binding to licensing service."</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Intent</span> <span class="n">serviceIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="s">"Y29tLmFuZHJvaWQudmVuZGluZy5saWNlbnNpbmcuSUxpY2Vuc2luZ1NlcnZpY2U="</span><span class="o">)));</span>
+        <span class="n">serviceIntent</span><span class="o">.</span><span class="na">setPackage</span><span class="o">(</span><span class="s">"com.android.vending"</span><span class="o">);</span>
+        <span class="kt">boolean</span> <span class="n">bindResult</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">bindService</span><span class="o">(</span><span class="n">serviceIntent</span><span class="o">,</span>
+            <span class="k">this</span><span class="o">,</span> <span class="c1">// ServiceConnection.</span>
+            <span class="n">Context</span><span class="o">.</span><span class="na">BIND_AUTO_CREATE</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">bindResult</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mPendingChecks</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">validator</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Could not bind to service."</span><span class="o">);</span>
+            <span class="n">handleServiceConnectionError</span><span class="o">(</span><span class="n">validator</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">callback</span><span class="o">.</span><span class="na">applicationError</span><span class="o">(</span><span class="n">LicenseCheckerCallback</span><span class="o">.</span><span class="na">ERROR_MISSING_PERMISSION</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Base64DecoderException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<h2 id="또-다른-에러">또 다른 에러</h2>
+<p>LicenseCheckerCallback에서 applicationError가 호출되며 에러코드 3이 찍히는 경우가 있다.<br />
+이는 ERROR_NOT_MARKET_MANAGED로 마켓에 앱을 올리지 않았을때 반환되는 코드인데, 처리할 필요 없다.<br />
+정상적인 시나리오에서는 allow나 dontallow가 호출되기 때문인데, 자세한 이유를 알고 싶다면 <a href="https://stackoverflow.com/questions/10377325/how-do-you-deal-with-licensecheckercallback-error-not-market-managed-error-code">여기</a>서 확인할 것</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/20/android-lvl-library-using/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -501,118 +622,6 @@ application = DjangoWhiteNoise(application)
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/">
-        안드로이드 개발시에만 로그 출력하기
-      </a>
-    </h1>
-
-    <span class="post-date">15 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#log" class="post-tag">Log</a>
-    
-    
-
-    <article>
-      <h1 id="사용씬">사용씬</h1>
-<p>디버그로 빌드할때만 로그가 출력되고, release로 빌드했을때는 로그가 출력되지 않도록 하려고 한다.</p>
-
-<h1 id="사용-방법">사용 방법</h1>
-<p>Log 클래스의 Wrapper class를 생성한 후, <code class="highlighter-rouge">BuildConfig.BUILD_TYPE</code> 값을 체크하여 로그를 출력한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogUtils</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">LOGGING_ENABLED</span> <span class="o">=</span> <span class="o">!</span><span class="n">BuildConfig</span><span class="o">.</span><span class="na">BUILD_TYPE</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">"release"</span><span class="o">);</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGD</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">){</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">DEBUG</span><span class="o">))</span> <span class="o">{</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGD</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">){</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">DEBUG</span><span class="o">))</span> <span class="o">{</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGV</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">VERBOSE</span><span class="o">))</span> <span class="o">{</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGV</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">VERBOSE</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGI</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGI</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGW</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGW</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGE</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGE</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="nf">LogUtils</span><span class="o">()</span> <span class="o">{</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-
-</code></pre></div></div>
-<p>참고로 INFO 레벨 미만은 Log.isLoggable을 이용해 로그가 출력 가능한지 확인해줘야 한다.<br />
-디폴트 로그 레벨 출력값은 Info 이상이다.</p>
-
-<h1 id="이스터에그-logwtf">이스터에그? Log.wtf</h1>
-<p>API 문서를 참조하다. 로그레벨 wtf이 있다는 것을 알게되었다.<br />
-“What a Terrible Failure: Report a condition that should never happen.”라고 설명하고 있지만…<br />
-우리는 모두 진실을 알고있다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -681,7 +690,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-02 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-03 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
