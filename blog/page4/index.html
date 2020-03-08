@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -191,6 +191,109 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/">
+        Django 프로젝트 Heroku 릴리즈 - (최종 수정)
+      </a>
+    </h1>
+
+    <span class="post-date">16 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#django" class="post-tag">Django</a>
+    
+    <a href="/blog/tags/#web-service" class="post-tag">Web service</a>
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#heroku" class="post-tag">Heroku</a>
+    
+    <a href="/blog/tags/#whitenoise" class="post-tag">whitenoise</a>
+    
+    
+
+    <article>
+      <p>할때마다 고생이라 한번 더 정리한다.<br />
+보안키 같은것 숨기지 않고, 그냥 가장 빠르게 설정하는 방법이다.<br />
+CLI 등 툴 인스톨은 기존 포스팅을 참고하자.</p>
+
+<h2 id="gunicorn-추가-장고-기본-폴더-구성-시">gunicorn 추가 (장고 기본 폴더 구성 시)</h2>
+<p><code class="highlighter-rouge">pip3 install gunicorn</code></p>
+
+<h2 id="procfile-추가">Procfile 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">Procfile</code>을 추가하고 다음 내용을 추가<br />
+<code class="highlighter-rouge">web: gunicorn myproject.wsgi --log-file -</code></p>
+
+<h2 id="runtimetxt-추가">runtime.txt 추가</h2>
+<p>프로젝트 루트에 <code class="highlighter-rouge">runtime.txt</code>을 추가하고 다음 내용 추가 
+<code class="highlighter-rouge">python-3.6.1</code></p>
+
+<h2 id="dj-database-url-추가">dj-database-url 추가</h2>
+<p><code class="highlighter-rouge">pip3 install dj-database-url</code></p>
+
+<p><code class="highlighter-rouge">settings.py</code>파일에 다음 내용 추가</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">DATABASES</span><span class="p">[</span><span class="s">'default'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="whitenoise-추가">whitenoise 추가</h2>
+<p><code class="highlighter-rouge">pip install whitenoise</code></p>
+
+<p><code class="highlighter-rouge">settings.py</code>에 다음 내용을 추가한다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'staticfiles'</span><span class="p">)</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s">'whitenoise.django.GzipManifestStaticFilesStorage'</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">wsgi.py</code>에 다음 내용을 추가</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+</code></pre></div></div>
+
+<h2 id="psycopg2-추가">psycopg2 추가</h2>
+<p><code class="highlighter-rouge">pip install psycopg2</code></p>
+
+<h2 id="requirementstxt-생성">requirements.txt 생성</h2>
+<p><code class="highlighter-rouge">pip freeze &gt; requirements.txt</code> 입력</p>
+
+<h2 id="allowed-host-추가">ALLOWED Host 추가</h2>
+<p><code class="highlighter-rouge">settings.py</code>에 <code class="highlighter-rouge">ALLOWED_HOSTS = ['*']</code>를 추가</p>
+
+<h2 id="debug-끄기">DEBUG 끄기</h2>
+<p><code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">DEBUG = False</code> 설정</p>
+
+<h2 id="heroku-앱-생성">Heroku 앱 생성</h2>
+<p><code class="highlighter-rouge">heroku create</code></p>
+
+<h2 id="git-commit-하고-heroku로-push">Git commit 하고 heroku로 push</h2>
+<p><code class="highlighter-rouge">git add .</code><br />
+<code class="highlighter-rouge">git commit -m "heroku settings update"</code><br />
+<code class="highlighter-rouge">git push heroku master</code></p>
+
+<h2 id="db가-생성">db가 생성</h2>
+<p><code class="highlighter-rouge">heroku run python manage.py migrate</code></p>
+
+<h2 id="슈퍼유저-생성">슈퍼유저 생성</h2>
+<p><code class="highlighter-rouge">heroku run python manage.py createsuperuser</code></p>
+
+<h1 id="중요">중요</h1>
+<p>SECRET_KEY를 숨기려면 기존에 작성한 포스팅을 참고할 것.<br />
+위의 방법은 가장 빠르게 릴리즈만을 위한 방법임</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/django/%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4/2017/07/16/django-project-heroku-%EC%B5%9C%EC%A2%85/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -482,45 +585,6 @@ Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/">
-        안드로이드 레이아웃 XML에서 위젯에 물결 이펙트 넣기
-      </a>
-    </h1>
-
-    <span class="post-date">11 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#ui" class="post-tag">UI</a>
-    
-    
-
-    <article>
-      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
-그냥 간단한 것이라도 남기기로 한다.</p>
-
-<h1 id="xml에-물결-이펙트-넣기">XML에 물결 이펙트 넣기</h1>
-<p>위젯이 터치 이벤트에 반응하여 움직이는 것처럼 보이게 하려면 위젯의 XML attribute에<br />
-<code class="highlighter-rouge">android:background="?attr/selectableItemBackgroundBorderless" </code>
-를 추가하면 된다.</p>
-
-<p>이펙트 크기는 padding값을 적절히 조절하면 된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/11/android-layout-ripple-effect/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -589,7 +653,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-03 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-08 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
