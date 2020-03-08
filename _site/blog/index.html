@@ -72,7 +72,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -190,6 +190,181 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/08/usaco-us-open-2015/">
+        USACO 2015 US open (Bronze)
+      </a>
+    </h1>
+
+    <span class="post-date">08 Mar 2020</span>
+     | 
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+    
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+    
+    
+
+    <article>
+      <h2 id="usaco-2015-us-open">USACO 2015 US open</h2>
+
+<h3 id="1-moocryption">1. Moocryption</h3>
+<p>보드판을 전부 훑으면서 OXX의 패턴이 나타나는 문자열의 수를 전부 카운트 한다. 암호화가 한번은 되야 하므로 
+O의 자리에 M이 들어가거나 X의 자리에 O가 들어있으면 카운트하면 안된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"moocrypt.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">dy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="s">'M'</span> <span class="ow">and</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">k</span><span class="p">]][</span><span class="n">j</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="s">'O'</span><span class="p">:</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">k</span><span class="p">]][</span><span class="n">j</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                        <span class="n">d</span><span class="p">[</span><span class="n">res</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">d</span><span class="p">[</span><span class="n">res</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"moocrypt.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"0</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-bessie-gets-even">2. Bessie Gets Even</h3>
+<p>각각의 변수가 짝수냐 홀수냐에 따라 수식의 결과가 달라진다는 점을 이용해서, 각각의 변수의 숫자를 짝수와 홀수의 수로 구분하면 2**7 꼴의 수의 조합만으로 결과를 찾아낼 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">"B"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"E"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"S"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"I"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"G"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"O"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">"M"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"geteven.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">w</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">w</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="p">((</span><span class="n">b</span><span class="o">+</span><span class="n">e</span><span class="o">+</span><span class="n">s</span><span class="o">+</span><span class="n">s</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">e</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="n">o</span><span class="o">+</span><span class="n">e</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">o</span><span class="o">+</span><span class="n">o</span><span class="p">))</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">ans</span> <span class="o">+=</span> <span class="n">d</span><span class="p">[</span><span class="s">'B'</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'E'</span><span class="p">][</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'S'</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'I'</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'G'</span><span class="p">][</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'O'</span><span class="p">][</span><span class="n">o</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s">'M'</span><span class="p">][</span><span class="n">m</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"geteven.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-trapped-in-the-haybales">3. Trapped in the Haybales</h3>
+<p>일단 짚단의 거리순으로 정렬한 후, 하나의 구간당 왼쪽과 오른쪽을 뚫을 수 있는지 확인하고 전체 크기 안에서 가로막히는 구간이 존재한다면 해당 구간을 정답에 추가하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"trapped.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>  <span class="c1"># size, position
+</span>
+<span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">lm</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">rm</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="k">while</span> <span class="n">lm</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">rm</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">broke</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">curdist</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">rm</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">lm</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">curdist</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">lm</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">lm</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">broke</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">curdist</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">rm</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">rm</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">broke</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">broke</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">lm</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">rm</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="n">dist</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"trapped.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h3 id="4-palindromic-paths">4. Palindromic Paths</h3>
+<p>N=18 일때 처음부터 끝까지 완전탐색으로 찾아가는 경우의 수는 36!/(18!<em>18!)이다.
+(아래로 가는 경로를 A, 오른쪽으로 가는 경로를 B라고 하면 결국 A와 B를 18개씩 사용하는 수열이므로, 전체 경우의 수 36!에, A, B가 각각 18번 나오므로 서로 순서가 바뀌어도 동일하니 나누어 주면 됨)
+이 상태로는 탐색해야 할 크기가 너무 크므로 시작점에서 출발하고, 끝에서 거슬러 올라오는 탐색을 돌린 후 대각선에서 만나는 것을 탐색하면 경우의 수가 2</em>2^17번으로 줄어든다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"palpath.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">cand</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">cand2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">cand</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">path</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span>
+    <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">cand2</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">path</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span>
+    <span class="n">f2</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="n">f2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
+<span class="n">f2</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cand</span> <span class="o">&amp;</span> <span class="n">cand2</span><span class="p">:</span>
+    <span class="n">ans</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"palpath.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">))</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/08/usaco-us-open-2015/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/08/usaco-us-open-2015/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -839,181 +1014,6 @@ PS고급문제 하려면 C++은 필수인듯</p>
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/">
-        Google Code Jam 2019
-      </a>
-    </h1>
-
-    <span class="post-date">09 Apr 2019</span>
-     | 
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#algorithm" class="post-tag">Algorithm</a>
-    
-    <a href="/blog/tags/#codejam" class="post-tag">CodeJam</a>
-    
-    <a href="/blog/tags/#google" class="post-tag">Google</a>
-    
-    
-
-    <article>
-      <h2 id="code-jam-2019">Code Jam 2019</h2>
-<p>작년과 마찬가지로 올해도 Code Jam 예선을 참 했다.
-예선은 하루종일 진행되어 시간날때 틈틈히 풀면 되서 딱히 부담스럽지 않았다.</p>
-
-<h2 id="예선-문제-리뷰">예선 문제 리뷰</h2>
-<p>올해도 파이썬을 이용해 Code Jam에 참여했다.</p>
-
-<h3 id="문제1-foregone-solution-17점">문제1. Foregone Solution (17점)</h3>
-<p>4가 들어간 입력을 적절히 분리하여 출력하는 문제였다.
-아래와 같이 4를 1과 3이든 2와 2로 분리하든 N = A+B 형태로만 출력하면 되는 문제였다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4     Case #1: 2 2
-940   Case #2: 852 88
-4444  Case #3: 667 3777
-
-1 ≤ T ≤ 100.
-Time limit: 10 seconds per test set.
-Memory limit: 1GB.
-At least one of the digits of N is a 4.
-
-Test set 1 (Visible)
-1 &lt; N &lt; 10^5.
-
-Test set 2 (Visible)
-1 &lt; N &lt; 10^9.
-
-Test set 3 (Hidden)
-1 &lt; N &lt; 10^100.
-</code></pre></div></div>
-
-<p>단순히 첫 문자부터 4를 찾을때마다 2와 2로 나누어주는 식으로 구현했고, AC판정을 받았다.</p>
-
-<h3 id="문제2-you-can-go-your-own-way-24점">문제2. You Can Go Your Own Way (24점)</h3>
-<p>미로찾기 문제였는데, 처음 간 사람의 경로를 따라가지 않아야 하는 조건이 붙어있었다.
-제일 먼저 떠오른 생각은 그래프로 미로를 표현한 후 BFS로 경로를 탐색하는 것이었는데, 마지막 테스트 셋의 크기가 부담스러웠다.
-메모리 제한 및 시간제한에 분명히 걸릴 것 같아서, (안그래도 파이썬으로 풀고있는데..) 다른 방법을 생각해 보았다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Test set 1 (Visible)
-2 ≤ N ≤ 10.
-
-Test set 2 (Visible)
-2 ≤ N ≤ 1000.
-
-Test set 3 (Hidden)
-For at most 10 cases, 2 ≤ N ≤ 50000.
-For all other cases, 2 ≤ N ≤ 10000.
-
-1 ≤ T ≤ 100.
-Time limit: 15 seconds per test set.
-Memory limit: 1GB.
-</code></pre></div></div>
-
-<p>어떠한 경로든지 겹치지만 않으면 된다고 해서 단순히 처음 간 사람의 경로를 대칭으로 이동하는 방법으로 구현, AC 판정을 받았다.</p>
-
-<h3 id="문제3-cryptopangrams-25점">문제3. Cryptopangrams (25점)</h3>
-<p>알파벳 암호화와 관련된 문제였다. N까지의 소수중 알파벳 갯수만큼 소수를 선택해 작은 순부터 ABCD에 매핑하고,
-이후 그 두 수의 곱을 입력으로 주면 그 입력에서 원래의 문자열을 추출하는 문제였다.
-문자열에는 ABC..Z가 최소 한번은 포함되어 있다.</p>
-
-<p>A B C D가 3 5 7 11이라 하면, CAD라는 문자열은 7<em>3 3</em>11해서 21 33이 주어지는 식이다</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 1 ≤ T ≤ 100.
- Time limit: 20 seconds per test set.
- Memory limit: 1 GB.
- 25 ≤ L ≤ 100.
- The plaintext contains each English alphabet letter at least once.
- 
- Test set 1 (Visible)
- 101 ≤ N ≤ 10000.
- 
- Test set 2 (Hidden)
- 101 ≤ N ≤ 10^100.
-</code></pre></div></div>
-<p>제일 먼저 든 생각은 암호화 된 숫자들에서 제일 작은 숫자를 골라서 소인수 분해를 해보자는 생각.
- 문제는 큰 수에 대한 소인수 분해가 힘들다는것.. 테스트 셋 2를 통과할 가망이 없었다
- 그다음으로 생각한 것은 숫자들이 A<em>B, B</em>C, C*D와 같은 형태로 이루어져 있고 나머지 두 수는 소수이니,
- 두 수의 공약수를 찾으면 되겠다는 생각.
- 공약수야 아무리 큰 수라도 유클리드 호제법을 사용하면 빠르게 찾을 수 있으니, 이걸로 풀면 되겠다는 생각이 들었다.
- 그래서 처음에는 두 수의 공약수를 찾아가면서 마지막까지 찾아내고, 처음과 끝에 나머지 글자들을 붙여주게 구현을 했는데 실패.
- 다시 생각해보니 최초 하나의 공약수만 찾아낸 후 그걸로 나머지 숫자들을 계속 나누어주면 더 쉽게 풀리는 문제였다.</p>
-
-<p>다시 구현해서 제출하니 또 실패. 정답이라고 생각한 아이디어였는데 계속해서 오답처리가 나니 짜증나서 암호화 문장을 제작하는 프로그램을 작성. TC를 몇개 돌려보니 ABABA와 같은 반복적인 문자열이 나올때, 같은 숫자가 연속되고 최대 공약수가 그냥 그 숫자 자체가 되어버리는 경우가 있다는 것을 발견했다.
- 이럴 경우 A~Z가 한번은 나오게 되어있다는 가정을 이용하면, 다른 숫자가 나오는 경우가 반드시 있으므로 이때 최대공약수를 구해서 반대로 값을 메꾸어 나가면 된다. 이를 이용한 코드를 제출하여 AC 판정을 받았다.</p>
-
-<h3 id="문제4-dat-bae-34점">문제4. Dat Bae (34점)</h3>
-<p>N개의 컴퓨터 중 고장난 B 대의 컴퓨터를 찾아내는 문제, F번 만큼 쿼리를 날려 응답을 받을수 있다.
-TEST_STORE 01101 returns 111.
-TEST_STORE 00110 returns 010.
-TEST_STORE 01010 returns 100.
-TEST_STORE 11010 also returns 100.
-0번째 3번째 컴퓨터가 고장났다고 가정했을때의 응답은 위와 같다.</p>
-
-<p>4번은 인터렉션 문제이며 채점 서버에 출력을 날린 후 다시 입력을 받아 그걸 가지고 정답을 찾아내야 한다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Time limit: 20 seconds per test set.
-Memory limit: 1GB.
-1 ≤ T ≤ 100.
-2 ≤ N ≤ 1024.
-1 ≤ B ≤ min(15, N-1).
-
-Test set 1 (Visible)
-F = 10.
-Test set 2 (Hidden)
-F = 5.
-</code></pre></div></div>
-
-<p>작년에 새로 등장한 인터렉션 문제는 뭔가 로컬에서 테스트 하는 방법부터가 번거로운 느낌이라 영 적응이 되지 않는다.
-사실 문제 4번까지 올 시점이 되면 이미 예선은 통과한 시점이라 파이팅이 좀 떨어지기도 한다. (어렵기도 하고…)
-하지만 이번 문제들이 접근만 올바르면 몇 줄 안되는 코드로 풀려버리는 문제들이 많아 흥미로웠고, 마지막까지 도전해보기로 했다.</p>
-
-<p>처음 봤을때 든 생각은 비트마스크를 이용하는 문제인가라는 생각. 
-1,2,3번과 마찬가지로 각각의 테스트 셋을 관통하는 풀이를 찾고 싶었는데 쉽게 접근 방법이 떠오르지 않았다.
-일단 N의 크기가 2^1에서 2^10라는 점에서 테스트 셋 1의 F=10이 관련이 있겠구나 싶었는데, 
-그럼 5번안에는 어떻게 고장난 컴퓨터들을 분별해야 할지 잘 떠오르지 않았다.
-고장난 컴퓨터의 수가 min(2^4-1, N-1)이라는 점을 이용할 수 있을 것 같았는데…
-결국 해당 문제는 풀지 못했다.</p>
-
-<p>나중에 풀이 접근을 보니
-01010…
-00110…
-00001…
-00000…
-00000…
-00000…
-00000…
-00000…
-00000…
-00000…
-와 같이 각 10줄의 쿼리에 2진수 0부터 N-1 까지 날려보내면 출력에서 사라진 숫자를 통해 고장난 컴퓨터의 번호를 알수 있다.</p>
-
-<p>문제는 F=5인 경우인데, 5bit으로 표현할 수 있는 크기가 2^5 = 32 뿐이다.
-이때 중요한 점은 고장난 컴퓨터의 수가 min(2^4-1, N-1)이므로 고장난 최대 컴퓨터의 수는 15를 넘지 못한다.
-이는 5비트 안에 충분히 포함할 수 있는 수이고, 이점을 이용해
-01010…010101…10101
-00110…001100…10011
-00001…000011…01111
-00000…000000…11111
-00000…111111…11111
-0, 1, 2, 3, 4… 16, 17, 18, 19, 20, 21… 27, 28, 29, 30, 31<br />
-을 반복해서 날리면, 한 구간이 통제로 소멸될 일이 없으므로 고장난 번호를 알아낼 수 있다.</p>
-
-<h2 id="마치며">마치며</h2>
-<p>알고리즘을 손에서 놓지 않기 위해 매년 참가 신청을 했고, 예선 통과라는 소기의 목표도 이미 달성했지만, 1라운드도 참가해야겠다.
-부족한 점은 많고 알고리즘은 항상 어렵지만,  아이디어를 통해 문제를 명쾌하게 풀어낼 때의 쾌감이 있다.</p>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/2019/04/09/google-code-jam-2019/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -1080,7 +1080,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-03 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-08 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">1</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -191,6 +191,63 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/git/2017/06/06/git-conflic-solving/">
+        Git Merge 충돌 해결 원인 파악하기
+      </a>
+    </h1>
+
+    <span class="post-date">06 Jun 2017</span>
+     | 
+    
+    <a href="/blog/tags/#github" class="post-tag">Github</a>
+    
+    <a href="/blog/tags/#git" class="post-tag">Git</a>
+    
+    
+
+    <article>
+      <h1 id="발단">발단</h1>
+
+<p>로컬의 프로젝트를 Github로 푸쉬하려는데 문제가 발생했다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(workoutscheduler) My-MacBook-Pro:workoutscheduler mymacpro$ git push origin master
+To https://github.com/MinyoungJung/workoutscheduler_project.git
+! [rejected]        master -&gt; master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/MinyoungJung/workoutscheduler_project.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+</code></pre></div></div>
+<p>메시지를 보니 Github 브랜치 내용이 로컬의 브랜치 내용보다 최신이란다.</p>
+
+<h1 id="해결-방안">해결 방안</h1>
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">git push -f</code>를 통해 강제로 푸쉬한다.<br />
+사실 혼자 로컬에서 작업하는 프로젝트다보니 Github 내용이 더 최신이 된 것 자체가 이상한 상황이고,<br />
+로컬의 코드를 그냥 푸쉬해서 덮어씌워도 아무 문제 없으나 아무래도 찜찜한 것이 사실.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">gitk HEAD @{u}</code> 명령어로 upstream branch와 현재 헤드의 차이를 확인한다.
+<img src="/post_assets/2017-06-06/conflict.png" alt="머지 충돌" />
+master와 origin 사이의 충돌이 생긴 이유가 명확해졌다.<br />
+project setting에서 github page를 생성했더니, 그에 대한 파일이 변경된 것이 로컬에서는 반영되지 않은 것.<br />
+원인을 파악했으니 편안한 맘으로 강제로 푸쉬할 수 있게 되었다.</p>
+  </li>
+</ol>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/git/2017/06/06/git-conflic-solving/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/git/2017/06/06/git-conflic-solving/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -523,65 +580,6 @@ print(sess.run([node1, node2]))
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/">
-        Mac Finder에서 Tag를 이용한 파일 분류, Mac 키보드의 특수문자 입력하기
-      </a>
-    </h1>
-
-    <span class="post-date">01 Jun 2017</span>
-     | 
-    
-    <a href="/blog/tags/#tag" class="post-tag">Tag</a>
-    
-    <a href="/blog/tags/#mac" class="post-tag">Mac</a>
-    
-    
-
-    <article>
-      <h2 id="mac-finder에서-tag를-이용해-파일-분류하기">Mac Finder에서 Tag를 이용해 파일 분류하기</h2>
-<p>Jekyll을 이용해 포스팅을 하려니 포스팅 폴더 접근이 귀찮았다.<br />
-보통 이런 경우 Finder의 즐겨찾기에 작업 폴더를 추가하여 사용하는데, <code class="highlighter-rouge">_posts</code> 폴더의 언더바가 마음에 거슬려 태그를 이용해 정리하기로 했다.</p>
-
-<h3 id="tag-이용방법">Tag 이용방법</h3>
-<ol>
-  <li>Finder를 연다.</li>
-  <li><code class="highlighter-rouge">⌘</code>(커맨드)+<code class="highlighter-rouge">,</code>(콤마)를 눌러 Finder 환경 설정으로 들어간다.</li>
-  <li><code class="highlighter-rouge">태그</code> 탭에서 Tag 이름 및 색상을 수정한다
-<img src="/post_assets/2017-06-01/finder_settings.png" alt="태그 수정" />
-    <ul>
-      <li>위쪽 목록 영역은 사이드바, 아래쪽 즐겨찾기 태그 부분은 Finder에서 파일을 우클릭 했을때 나타나는 즐겨찾기 메뉴</li>
-    </ul>
-  </li>
-  <li>Tag를 이용하여 분류한 파일 
-<img src="/post_assets/2017-06-01/finder_sidebar.png" alt="태그를 이용해 분류" /></li>
-</ol>
-
-<p><br /></p>
-<h2 id="mac-키보드의-특수문자등-입력하기">Mac 키보드의 특수문자(⌘⎋⌥⌃등) 입력하기</h2>
-<p>포스팅을 하다보니 맥 키보드에 존재하는 특수문자를 입력해야 하는 경우가 생긴다.<br />
-한번 설정하면 계속 남아있긴 하지만 설정법 등은 매번 잊어버리고 인터넷에서 다시 찾게되는 경향이 있어 정리했다.</p>
-
-<h3 id="특수문자-추가-방법">특수문자 추가 방법</h3>
-<ol>
-  <li><code class="highlighter-rouge">⌘</code>(커맨드)+<code class="highlighter-rouge">⌃</code>(컨트롤)+<code class="highlighter-rouge">⌴</code>(스페이스)를 눌러 특수문자 입력창을 띄운다.</li>
-  <li>왼쪽 위의 <code class="highlighter-rouge">목록 사용자화</code>를 선택한다.
-<img src="/post_assets/2017-06-01/special character_customize.png" alt="목록 사용자화" /></li>
-  <li>목록에서 <code class="highlighter-rouge">기술 기호</code>를 선택하면 특수문자 입력창에 추가된다.
-<img src="/post_assets/2017-06-01/special_character_setting.png" alt="기술기호 선택" /></li>
-</ol>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/mac%20%EC%82%AC%EC%9A%A9%ED%8C%81/2017/06/01/mac-finder-tagging-special-character/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -650,7 +648,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-03 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-08 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
