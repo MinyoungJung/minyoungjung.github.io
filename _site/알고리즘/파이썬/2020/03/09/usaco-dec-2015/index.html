@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      USACO 2015 December (Bronze) &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+
+  <!-- Adsense -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4842709304550263",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>USACO 2015 December (Bronze) | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="USACO 2015 December (Bronze)" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="USACO 2015 December 1. Fence Painting 입력 크기가 작아서 그냥 집합으로 만들어서 합집합으로 처리했다. with open(&quot;paint.in&quot;, &quot;r&quot;) as f: a, b = map(int, f.readline().strip().split()) c, d = map(int, f.readline().strip().split()) ans = len(set(range(a, b)) | set(range(c, d))) with open(&quot;paint.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Speeding Ticket 마찬가지로 입력크기가 작아서 그냥 리스트에 속도를 넣은 후 전부 탐색했다. r = [] b = [] with open(&quot;speeding.in&quot;, &quot;r&quot;) as f: n, m = map(int, f.readline().strip().split()) for _ in range(n): length, lim = map(int, f.readline().strip().split()) # length, limit r += [lim]*length for _ in range(m): length, lim = map(int, f.readline().strip().split()) # length, speed b += [lim]*length ans = 0 for i in range(100): if r[i] &lt; b[i]: ans = max(b[i]-r[i], ans) with open(&quot;speeding.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Contaminated Milk 각각의 사람이 먹은 우유의 종류별 최소 시간을 저장한 배열을 만든 후, 해당 배열에서 아픈 사람이 아프기 시작한 시점 전에 먹은 우유의 종류를 골라낸 이후, 해당 우유를 몇명이 섭취했는지 최대값을 구하면 된다. sick = [] with open(&quot;badmilk.in&quot;, &quot;r&quot;) as f: n, m, d, s = map(int, f.readline().strip().split()) b = [[200]*m for _ in range(n)] for _ in range(d): p, milk, t = map(int, f.readline().strip().split()) b[p-1][milk-1] = min(b[p-1][milk-1], t) for _ in range(s): p, t = map(int, f.readline().strip().split()) # person, sick_time sick.append([p-1, t]) ans = 0 res = [0]*m for p, t in sick: for i in range(m): if b[p][i] &lt; t: res[i] += 1 for r in range(m): if res[r] == s: cnt = 0 for i in range(n): if b[i][r] != 200: cnt += 1 ans = max(ans, cnt) with open(&quot;badmilk.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
+<meta property="og:description" content="USACO 2015 December 1. Fence Painting 입력 크기가 작아서 그냥 집합으로 만들어서 합집합으로 처리했다. with open(&quot;paint.in&quot;, &quot;r&quot;) as f: a, b = map(int, f.readline().strip().split()) c, d = map(int, f.readline().strip().split()) ans = len(set(range(a, b)) | set(range(c, d))) with open(&quot;paint.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Speeding Ticket 마찬가지로 입력크기가 작아서 그냥 리스트에 속도를 넣은 후 전부 탐색했다. r = [] b = [] with open(&quot;speeding.in&quot;, &quot;r&quot;) as f: n, m = map(int, f.readline().strip().split()) for _ in range(n): length, lim = map(int, f.readline().strip().split()) # length, limit r += [lim]*length for _ in range(m): length, lim = map(int, f.readline().strip().split()) # length, speed b += [lim]*length ans = 0 for i in range(100): if r[i] &lt; b[i]: ans = max(b[i]-r[i], ans) with open(&quot;speeding.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Contaminated Milk 각각의 사람이 먹은 우유의 종류별 최소 시간을 저장한 배열을 만든 후, 해당 배열에서 아픈 사람이 아프기 시작한 시점 전에 먹은 우유의 종류를 골라낸 이후, 해당 우유를 몇명이 섭취했는지 최대값을 구하면 된다. sick = [] with open(&quot;badmilk.in&quot;, &quot;r&quot;) as f: n, m, d, s = map(int, f.readline().strip().split()) b = [[200]*m for _ in range(n)] for _ in range(d): p, milk, t = map(int, f.readline().strip().split()) b[p-1][milk-1] = min(b[p-1][milk-1], t) for _ in range(s): p, t = map(int, f.readline().strip().split()) # person, sick_time sick.append([p-1, t]) ans = 0 res = [0]*m for p, t in sick: for i in range(m): if b[p][i] &lt; t: res[i] += 1 for r in range(m): if res[r] == s: cnt = 0 for i in range(n): if b[i][r] != 200: cnt += 1 ans = max(ans, cnt) with open(&quot;badmilk.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
+<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-09T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"USACO 2015 December (Bronze)","url":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/","dateModified":"2020-03-09T00:00:00+09:00","datePublished":"2020-03-09T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"USACO 2015 December 1. Fence Painting 입력 크기가 작아서 그냥 집합으로 만들어서 합집합으로 처리했다. with open(&quot;paint.in&quot;, &quot;r&quot;) as f: a, b = map(int, f.readline().strip().split()) c, d = map(int, f.readline().strip().split()) ans = len(set(range(a, b)) | set(range(c, d))) with open(&quot;paint.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 2. Speeding Ticket 마찬가지로 입력크기가 작아서 그냥 리스트에 속도를 넣은 후 전부 탐색했다. r = [] b = [] with open(&quot;speeding.in&quot;, &quot;r&quot;) as f: n, m = map(int, f.readline().strip().split()) for _ in range(n): length, lim = map(int, f.readline().strip().split()) # length, limit r += [lim]*length for _ in range(m): length, lim = map(int, f.readline().strip().split()) # length, speed b += [lim]*length ans = 0 for i in range(100): if r[i] &lt; b[i]: ans = max(b[i]-r[i], ans) with open(&quot;speeding.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 3. Contaminated Milk 각각의 사람이 먹은 우유의 종류별 최소 시간을 저장한 배열을 만든 후, 해당 배열에서 아픈 사람이 아프기 시작한 시점 전에 먹은 우유의 종류를 골라낸 이후, 해당 우유를 몇명이 섭취했는지 최대값을 구하면 된다. sick = [] with open(&quot;badmilk.in&quot;, &quot;r&quot;) as f: n, m, d, s = map(int, f.readline().strip().split()) b = [[200]*m for _ in range(n)] for _ in range(d): p, milk, t = map(int, f.readline().strip().split()) b[p-1][milk-1] = min(b[p-1][milk-1], t) for _ in range(s): p, t = map(int, f.readline().strip().split()) # person, sick_time sick.append([p-1, t]) ans = 0 res = [0]*m for p, t in sick: for i in range(m): if b[p][i] &lt; t: res[i] += 1 for r in range(m): if res[r] == s: cnt = 0 for i in range(n): if b[i][r] != 200: cnt += 1 ans = max(ans, cnt) with open(&quot;badmilk.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;)","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">2</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">55</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2020 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">USACO 2015 December (Bronze)</h1>
+  <span class="post-date">09 Mar 2020</span>
+   | 
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+  
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+  
+  
+  <article>
+    <h2 id="usaco-2015-december">USACO 2015 December</h2>
+
+<h3 id="1-fence-painting">1. Fence Painting</h3>
+<p>입력 크기가 작아서 그냥 집합으로 만들어서 합집합으로 처리했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"paint.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)))</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"paint.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-speeding-ticket">2. Speeding Ticket</h3>
+<p>마찬가지로 입력크기가 작아서 그냥 리스트에 속도를 넣은 후 전부 탐색했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"speeding.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">length</span><span class="p">,</span> <span class="n">lim</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="c1"># length, limit
+</span>        <span class="n">r</span> <span class="o">+=</span> <span class="p">[</span><span class="n">lim</span><span class="p">]</span><span class="o">*</span><span class="n">length</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">length</span><span class="p">,</span> <span class="n">lim</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="c1"># length, speed
+</span>        <span class="n">b</span> <span class="o">+=</span> <span class="p">[</span><span class="n">lim</span><span class="p">]</span><span class="o">*</span><span class="n">length</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ans</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"speeding.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-contaminated-milk">3. Contaminated Milk</h3>
+<p>각각의 사람이 먹은 우유의 종류별 최소 시간을 저장한 배열을 만든 후, 해당 배열에서 아픈 사람이 아프기 시작한 시점 전에 먹은 우유의 종류를 골라낸 이후, 해당 우유를 몇명이 섭취했는지 최대값을 구하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">sick</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"badmilk.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">200</span><span class="p">]</span><span class="o">*</span><span class="n">m</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">milk</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">milk</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">milk</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="c1"># person, sick_time
+</span>        <span class="n">sick</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span>
+
+<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sick</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">r</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"badmilk.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/08/usaco-us-open-2015/">
+            USACO 2015 US open (Bronze)
+            <small>08 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/03/usaco-feb-2015/">
+            USACO 2015 February (Bronze)
+            <small>03 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/">
+            USACO 2015 January (Bronze)
+            <small>02 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2020-03-09 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
