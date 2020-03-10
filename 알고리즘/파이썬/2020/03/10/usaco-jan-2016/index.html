@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      USACO 2016 January (Bronze) &middot; Ringsterz Log
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"> </script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true } });
+  </script>
+  
+
+  <!-- Adsense -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4842709304550263",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+  <!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>USACO 2016 January (Bronze) | Ringsterz Log</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="USACO 2016 January (Bronze)" />
+<meta name="author" content="Minyoung Jung" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="USACO 2016 January 1. Promotion Counting 플래티넘으로 올라간 수를 센 후 그 수를 골드 시작수에서 제하고 골드 승급을 세는 방식으로 반복하면 된다. a = [] with open(&quot;promote.in&quot;, &quot;r&quot;) as f: for _ in range(4): a.append(list(map(int, f.readline().strip().split()))) ans = [0]*3 ans[2] = a[3][1] - a[3][0] ans[1] = a[2][1] - (a[2][0] - ans[2]) ans[0] = a[1][1] - (a[1][0] - ans[1]) with open(&quot;promote.out&quot;, &quot;w&quot;) as f: for res in ans: f.write(str(res)+&quot;\n&quot;) 2. Angry Cows 전체 입력의 크기가 크지 않으므로, 그냥 왼쪽과 오른쪽의 연쇄폭발을 전부 시뮬레이션 하면 된다. 연쇄 폭발시 폭발에 삼켜지는 부분은 그냥 갯수만 체크하고, 마지막 폭발이 닫은 부분에서 다음 연쇄폭발이 일어나는 것만 주의하면 된다. a = [] with open(&quot;angry.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = 0 a.sort() for i in range(n): num = 1 exp = 1 l = r = lm = rm = i l_flag = r_flag = True while True: l_cnt = r_cnt = 0 while l-1 &gt;= 0 and a[l-1] &gt;= a[lm] - exp and l_flag: num += 1 l -= 1 l_cnt += 1 while r + 1 &lt; n and a[r+1] &lt;= a[rm] + exp and r_flag: num += 1 r += 1 r_cnt += 1 if l_cnt == 0: l_flag = False if r_cnt == 0: r_flag = False lm = l rm = r if l_cnt or r_cnt: exp += 1 else: break ans = max(num, ans) with open(&quot;angry.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Mowing the Field 2차원 배열을 만들어서 적절한 값으로 초기화 한 후, 이동 경로를 시뮬레이션 하면서 이미 거쳐간 곳을 다시 지나는 경우의 최소값을 찾으면 된다. a = [] b = [[-100]*2200 for _ in range(2200)] with open(&quot;mowing.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): d, m = f.readline().strip().split() a.append((d, int(m))) x = 1100 y = 1100 ans = float(&#39;inf&#39;) t = 0 b[y][x] = 0 for d, l in a: dy = dx = 0 if d == &#39;N&#39;: dy = - 1 elif d == &#39;S&#39;: dy += 1 elif d == &#39;E&#39;: dx = 1 elif d == &#39;W&#39;: dx = -1 for i in range(l): t += 1 y += dy x += dx if b[y][x] != -100: ans = min(t - b[y][x], ans) b[y][x] = t with open(&quot;mowing.out&quot;, &quot;w&quot;) as f: if ans == float(&#39;inf&#39;): f.write(str(&quot;-1\n&quot;)) else: f.write(str(ans)+&quot;\n&quot;)" />
+<meta property="og:description" content="USACO 2016 January 1. Promotion Counting 플래티넘으로 올라간 수를 센 후 그 수를 골드 시작수에서 제하고 골드 승급을 세는 방식으로 반복하면 된다. a = [] with open(&quot;promote.in&quot;, &quot;r&quot;) as f: for _ in range(4): a.append(list(map(int, f.readline().strip().split()))) ans = [0]*3 ans[2] = a[3][1] - a[3][0] ans[1] = a[2][1] - (a[2][0] - ans[2]) ans[0] = a[1][1] - (a[1][0] - ans[1]) with open(&quot;promote.out&quot;, &quot;w&quot;) as f: for res in ans: f.write(str(res)+&quot;\n&quot;) 2. Angry Cows 전체 입력의 크기가 크지 않으므로, 그냥 왼쪽과 오른쪽의 연쇄폭발을 전부 시뮬레이션 하면 된다. 연쇄 폭발시 폭발에 삼켜지는 부분은 그냥 갯수만 체크하고, 마지막 폭발이 닫은 부분에서 다음 연쇄폭발이 일어나는 것만 주의하면 된다. a = [] with open(&quot;angry.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = 0 a.sort() for i in range(n): num = 1 exp = 1 l = r = lm = rm = i l_flag = r_flag = True while True: l_cnt = r_cnt = 0 while l-1 &gt;= 0 and a[l-1] &gt;= a[lm] - exp and l_flag: num += 1 l -= 1 l_cnt += 1 while r + 1 &lt; n and a[r+1] &lt;= a[rm] + exp and r_flag: num += 1 r += 1 r_cnt += 1 if l_cnt == 0: l_flag = False if r_cnt == 0: r_flag = False lm = l rm = r if l_cnt or r_cnt: exp += 1 else: break ans = max(num, ans) with open(&quot;angry.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Mowing the Field 2차원 배열을 만들어서 적절한 값으로 초기화 한 후, 이동 경로를 시뮬레이션 하면서 이미 거쳐간 곳을 다시 지나는 경우의 최소값을 찾으면 된다. a = [] b = [[-100]*2200 for _ in range(2200)] with open(&quot;mowing.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): d, m = f.readline().strip().split() a.append((d, int(m))) x = 1100 y = 1100 ans = float(&#39;inf&#39;) t = 0 b[y][x] = 0 for d, l in a: dy = dx = 0 if d == &#39;N&#39;: dy = - 1 elif d == &#39;S&#39;: dy += 1 elif d == &#39;E&#39;: dx = 1 elif d == &#39;W&#39;: dx = -1 for i in range(l): t += 1 y += dy x += dx if b[y][x] != -100: ans = min(t - b[y][x], ans) b[y][x] = t with open(&quot;mowing.out&quot;, &quot;w&quot;) as f: if ans == float(&#39;inf&#39;): f.write(str(&quot;-1\n&quot;)) else: f.write(str(ans)+&quot;\n&quot;)" />
+<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016/" />
+<meta property="og:site_name" content="Ringsterz Log" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-10T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"USACO 2016 January (Bronze)","url":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016/","dateModified":"2020-03-10T00:00:00+09:00","datePublished":"2020-03-10T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"USACO 2016 January 1. Promotion Counting 플래티넘으로 올라간 수를 센 후 그 수를 골드 시작수에서 제하고 골드 승급을 세는 방식으로 반복하면 된다. a = [] with open(&quot;promote.in&quot;, &quot;r&quot;) as f: for _ in range(4): a.append(list(map(int, f.readline().strip().split()))) ans = [0]*3 ans[2] = a[3][1] - a[3][0] ans[1] = a[2][1] - (a[2][0] - ans[2]) ans[0] = a[1][1] - (a[1][0] - ans[1]) with open(&quot;promote.out&quot;, &quot;w&quot;) as f: for res in ans: f.write(str(res)+&quot;\\n&quot;) 2. Angry Cows 전체 입력의 크기가 크지 않으므로, 그냥 왼쪽과 오른쪽의 연쇄폭발을 전부 시뮬레이션 하면 된다. 연쇄 폭발시 폭발에 삼켜지는 부분은 그냥 갯수만 체크하고, 마지막 폭발이 닫은 부분에서 다음 연쇄폭발이 일어나는 것만 주의하면 된다. a = [] with open(&quot;angry.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = 0 a.sort() for i in range(n): num = 1 exp = 1 l = r = lm = rm = i l_flag = r_flag = True while True: l_cnt = r_cnt = 0 while l-1 &gt;= 0 and a[l-1] &gt;= a[lm] - exp and l_flag: num += 1 l -= 1 l_cnt += 1 while r + 1 &lt; n and a[r+1] &lt;= a[rm] + exp and r_flag: num += 1 r += 1 r_cnt += 1 if l_cnt == 0: l_flag = False if r_cnt == 0: r_flag = False lm = l rm = r if l_cnt or r_cnt: exp += 1 else: break ans = max(num, ans) with open(&quot;angry.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 3. Mowing the Field 2차원 배열을 만들어서 적절한 값으로 초기화 한 후, 이동 경로를 시뮬레이션 하면서 이미 거쳐간 곳을 다시 지나는 경우의 최소값을 찾으면 된다. a = [] b = [[-100]*2200 for _ in range(2200)] with open(&quot;mowing.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): d, m = f.readline().strip().split() a.append((d, int(m))) x = 1100 y = 1100 ans = float(&#39;inf&#39;) t = 0 b[y][x] = 0 for d, l in a: dy = dx = 0 if d == &#39;N&#39;: dy = - 1 elif d == &#39;S&#39;: dy += 1 elif d == &#39;E&#39;: dx = 1 elif d == &#39;W&#39;: dx = -1 for i in range(l): t += 1 y += dy x += dx if b[y][x] != -100: ans = min(t - b[y][x], ans) b[y][x] = t with open(&quot;mowing.out&quot;, &quot;w&quot;) as f: if ans == float(&#39;inf&#39;): f.write(str(&quot;-1\\n&quot;)) else: f.write(str(ans)+&quot;\\n&quot;)","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+      <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
+      <div style="text-align:center;">
+        현재 <strong id="current_date_streak" style="color:#FFC300;">3</strong>일 째 블로깅 중 <br>
+        최고 기록:&nbsp;<strong style="color:white;">55</strong>일
+      </div>
+    <div class="sidebar-personal-info">
+      <div class="sidebar-personal-info-section">
+        <img src="http://www.gravatar.com/avatar/78abf09c8af4042796ff9379143da32f?s=150" title="View on Gravatar" alt="View on Gravatar" style="margin:auto;"/>
+      </div>
+      <div class="sidebar-personal-info-section">
+        <p>원리를 파악하고 만들고 배우는 것을 좋아합니다. 수영과 클라이밍을 즐깁니다.</p>
+      </div>
+      
+      
+      
+      <div class="sidebar-personal-info-section">
+        <p> Contact:
+        
+        
+        
+        <a href="https://github.com/minyoungjung">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        |
+        
+        
+        
+        <a href="minyoungjung84@gmail.com">
+          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
+        
+        
+        
+        </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    
+      
+      
+      
+
+      
+
+      <span class="">
+        <a class="sidebar-nav-item " href="/">
+          Home
+        </a>
+
+        
+      </span>
+
+    
+      
+      
+      
+
+      
+
+      <span class="foldable">
+        <a class="sidebar-nav-item " href="/blog/">
+          Blog
+        </a>
+
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/categories/">
+                Categories
+              </a>
+          
+        
+          
+            
+            
+            
+              <a class="sidebar-nav-item sidebar-nav-item-sub " href="/blog/tags/">
+                Tags
+              </a>
+          
+        
+      </span>
+
+    
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2020 Minyoung Jung.
+    </p>
+  </div>
+
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+
+            <a href="/" title="Home" title="Ringsterz Log">
+              <img class="masthead-logo" src="/public/logo.png"/>
+            </a>
+            Log for everything - Day <div style="display:inline"; id="dynamic_day"></div>
+          </h3>
+        </div>
+      </div>
+
+
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">USACO 2016 January (Bronze)</h1>
+  <span class="post-date">10 Mar 2020</span>
+   | 
+  
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+  
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+  
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+  
+  
+  <article>
+    <h2 id="usaco-2016-january">USACO 2016 January</h2>
+
+<h3 id="1-promotion-counting">1. Promotion Counting</h3>
+<p>플래티넘으로 올라간 수를 센 후 그 수를 골드 시작수에서 제하고 골드 승급을 세는 방식으로 반복하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"promote.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+
+<span class="n">ans</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">ans</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"promote.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-angry-cows">2. Angry Cows</h3>
+<p>전체 입력의 크기가 크지 않으므로, 그냥 왼쪽과 오른쪽의 연쇄폭발을 전부 시뮬레이션 하면 된다. 연쇄 폭발시 폭발에 삼켜지는 부분은 그냥 갯수만 체크하고, 마지막 폭발이 닫은 부분에서 다음 연쇄폭발이 일어나는 것만 주의하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"angry.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">r</span> <span class="o">=</span> <span class="n">lm</span> <span class="o">=</span> <span class="n">rm</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">l_flag</span> <span class="o">=</span> <span class="n">r_flag</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">l_cnt</span> <span class="o">=</span> <span class="n">r_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">lm</span><span class="p">]</span> <span class="o">-</span> <span class="n">exp</span> <span class="ow">and</span> <span class="n">l_flag</span><span class="p">:</span>
+            <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">l</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">l_cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">rm</span><span class="p">]</span> <span class="o">+</span> <span class="n">exp</span> <span class="ow">and</span> <span class="n">r_flag</span><span class="p">:</span>
+            <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">r_cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">l_cnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">l_flag</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">r_cnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">r_flag</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">lm</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="n">rm</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="k">if</span> <span class="n">l_cnt</span> <span class="ow">or</span> <span class="n">r_cnt</span><span class="p">:</span>
+            <span class="n">exp</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">ans</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"angry.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h3 id="3-mowing-the-field">3. Mowing the Field</h3>
+<p>2차원 배열을 만들어서 적절한 값으로 초기화 한 후, 이동 경로를 시뮬레이션 하면서 이미 거쳐간 곳을 다시 지나는 경우의 최소값을 찾으면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">100</span><span class="p">]</span><span class="o">*</span><span class="mi">2200</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2200</span><span class="p">)]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"mowing.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">d</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">)))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1100</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">1100</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="s">'N'</span><span class="p">:</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s">'S'</span><span class="p">:</span>
+        <span class="n">dy</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s">'E'</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s">'W'</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">100</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">],</span> <span class="n">ans</span><span class="p">)</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"mowing.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s">"-1</span><span class="se">\n</span><span class="s">"</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+  </article>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/09/usaco-dec-2015/">
+            USACO 2015 December (Bronze)
+            <small>09 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/08/usaco-us-open-2015/">
+            USACO 2015 US open (Bronze)
+            <small>08 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/03/usaco-feb-2015/">
+            USACO 2015 February (Bronze)
+            <small>03 Mar 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+<div class="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/10/usaco-jan-2016'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//ringsterz.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if (target === toggle) {
+            checkbox.checked = !checkbox.checked;
+            e.preventDefault();
+          } else if (checkbox.checked && !sidebar.contains(target)) {
+            /* click outside the sidebar when sidebar is open */
+            checkbox.checked = false;
+          }
+        }, false);
+      })(document);
+    </script>
+    
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67856795-3', 'auto');
+ga('send', 'pageview');
+    </script>
+    
+  </body>
+  
+  <script id="dsq-count-scr" src="//ringsterz.disqus.com/count.js" async></script>
+  
+
+  <!--Import jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script>
+    // Calculate total_blogging_date_dynamically
+    $(document).ready(function() {
+      var date_str = "2017-05-31 00:00:00 +0900"; // 2017-05-31 00:00:00 +0900
+      var today = new Date()
+      today.setHours(0,0,0,0)
+      var firstday = new Date(date_str.split(' ')[0])
+      firstday.setHours(0,0,0,0)
+      var total_date = ((today-firstday) / 86400000)+1; // calc datediff
+      $("#dynamic_day").text(total_date);
+    });
+
+    // Calculate current_date_streak dynamically
+    $(document).ready(function(){
+      var latest_post_date_str = "2020-03-10 00:00:00 +0900";
+      var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
+      // if latest posting date passed a day then reset to 0
+      if (day_passed > 1) {
+        $("#current_date_streak").text("0");
+      }
+    });
+  </script>
+</html>
