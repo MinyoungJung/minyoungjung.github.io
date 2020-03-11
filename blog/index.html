@@ -72,7 +72,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">3</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">4</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -190,6 +190,114 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/">
+        USACO 2016 February (Bronze)
+      </a>
+    </h1>
+
+    <span class="post-date">11 Mar 2020</span>
+     | 
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+    
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+    
+    
+
+    <article>
+      <h2 id="usaco-2016-february">USACO 2016 February</h2>
+
+<h3 id="1-milk-pails">1. Milk Pails</h3>
+<p>X,Y의 수가 1000이하로 작으므로 M에 들어갈수 있는 조합을 전부 탐색하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"pails.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">//</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">//</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"pails.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h3 id="2-circular-barn">2. Circular Barn</h3>
+<p>입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다.
+실제 리스트를 회전시키지 않고 <code class="highlighter-rouge">a[j%n]</code>의 형태로 인덱스만 탐색하는 방법도 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cbarn.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">cur</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">j</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">cur</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cbarn.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<h3 id="3-load-balancing">3. Load Balancing</h3>
+<p>N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다.
+각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xpos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ypos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"balancing.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">xpos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">ypos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">n</span> <span class="c1"># 한점에 모든 소가 모여있는 경우가 최악의 경우
+</span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xpos</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">ypos</span><span class="p">:</span>
+        <span class="n">xdiv</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">ydiv</span> <span class="o">=</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">d3</span> <span class="o">=</span> <span class="n">d4</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">xpos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xdiv</span> <span class="ow">and</span> <span class="n">ypos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ydiv</span><span class="p">:</span>
+                <span class="n">d1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">xpos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">xdiv</span> <span class="ow">and</span> <span class="n">ypos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ydiv</span><span class="p">:</span>
+                <span class="n">d2</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">xpos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xdiv</span> <span class="ow">and</span> <span class="n">ypos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ydiv</span><span class="p">:</span>
+                <span class="n">d3</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d4</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">,</span> <span class="n">d4</span><span class="p">)</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ans</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"balancing.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -704,179 +812,6 @@ W가 나타나면 O의 개수만큼 W를 증가시키면 W의 갯수가 총 COW�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/">
-        USACO 2015 January (Bronze)
-      </a>
-    </h1>
-
-    <span class="post-date">02 Mar 2020</span>
-     | 
-    
-    <a href="/blog/tags/#python" class="post-tag">Python</a>
-    
-    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
-    
-    <a href="/blog/tags/#ps" class="post-tag">PS</a>
-    
-    
-
-    <article>
-      <h2 id="usaco-2015-january">USACO 2015 January</h2>
-
-<h3 id="1-cow-routing">1. Cow Routing</h3>
-<p>입력에서 A, B가 순서대로 존재하는지 확인하면서 이동가능한 루트가 존재하면 최소 가격과 비교해서 갱신하면 되는 문제</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">cost</span><span class="p">,</span> <span class="n">city_num</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-        <span class="n">cities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
-        <span class="n">flag</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
-                <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">flag</span><span class="p">:</span>
-                <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
-
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">):</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="2-cow-routing-ii">2. Cow Routing II</h3>
-<p>전 문제와 동일하나 이번에는 두개의 루트를 선택해서 이동 가능. 
-단순히 A와 B루트를 덧붙여서 1번 문제와 같은 방식으로 돌리면 TLE가 뜨므로 시간을 줄일 방법을 찾아야 함.
-루트에 A나 B가 존재하면 A까지의 루트, A 다음의 루트, B 이전의 루트로 루트를 구분
-그 이후 A 다음의 루트와 B 이전의 루트의 교집합이 존재하면 A 에서 B로 이동가능하다는 의미이므로 최소값 계산에 이용하면 됨.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
-<span class="n">routes</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">cost</span><span class="p">,</span> <span class="n">city_num</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-        <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
-        <span class="n">routes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
-
-<span class="n">se</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">()]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="c1"># till_a, after_a, till_b,
-</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">s2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">flag</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">routes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
-        <span class="n">s2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
-            <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
-            <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span>
-            <span class="n">s2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">flag</span><span class="p">:</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">costs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">se</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">se</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]):</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">costs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">costs</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">):</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="3-its-all-about-the-base">3. It’s All About the Base</h3>
-<p>뭔가 신박한 알고리즘이 있을지 알고 고민하다가 떠오르는게 없어 정답을 봤는데 전혀 그런거 없다. 
-단순하게 두 숫자를 10진법부터 변환하고 크기가 더 작은 수에 대해 진법을 하나씩 더 올려 계산하며 같은 숫자를 찾으면 된다. python으로 3초 가까운 시간이 걸리는데도 TLE가 뜨지 않는다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"whatbase.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="k">while</span> <span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">15000</span> <span class="ow">and</span> <span class="n">Y</span> <span class="o">&lt;=</span> <span class="mi">15000</span><span class="p">:</span>
-            <span class="n">num_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="n">num_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">Y</span><span class="o">*</span><span class="n">Y</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">Y</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">num_x</span> <span class="o">&lt;</span> <span class="n">num_y</span><span class="p">:</span>
-                <span class="n">X</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">elif</span> <span class="n">num_y</span> <span class="o">&lt;</span> <span class="n">num_x</span><span class="p">:</span>
-                <span class="n">Y</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
-                <span class="k">break</span>
-
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"whatbase.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s">" "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="4-meeting-time">4. Meeting Time</h3>
-
-<p>N이 1~16개 이고 단방향으로 가므로 Bessie와 Elsie에 대해 목적지까지 가는 패스를 전부 계산해서 cost를 저장한 후, 두 패스 중 겹치는 최소값을 찾으면 된다. BFS를 이용해서 경우의 수를 찾고, 해당 값을 set에 저장한 후 교집합의 최소값을 출력하는 방식으로 해결했다.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">_collections</span> <span class="kn">import</span> <span class="n">deque</span>
-<span class="n">b_cost</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="n">e_cost</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="n">path</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"meeting.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
-        <span class="n">path</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">])</span>
-
-<span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-
-<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
-    <span class="n">cur</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">cur</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
-        <span class="n">b_cost</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="n">cur</span><span class="p">]:</span>
-            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cost</span><span class="o">+</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
-
-<span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
-    <span class="n">cur</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">cur</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
-        <span class="n">e_cost</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="n">cur</span><span class="p">]:</span>
-            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cost</span><span class="o">+</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"meeting.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">b_cost</span> <span class="o">&amp;</span> <span class="n">e_cost</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">b_cost</span> <span class="o">&amp;</span> <span class="n">e_cost</span><span class="p">))</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"IMPOSSIBLE</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-</code></pre></div></div>
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -943,7 +878,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-10 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {

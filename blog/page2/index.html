@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">3</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">4</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -191,6 +191,179 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/">
+        USACO 2015 January (Bronze)
+      </a>
+    </h1>
+
+    <span class="post-date">02 Mar 2020</span>
+     | 
+    
+    <a href="/blog/tags/#python" class="post-tag">Python</a>
+    
+    <a href="/blog/tags/#usaco" class="post-tag">USACO</a>
+    
+    <a href="/blog/tags/#ps" class="post-tag">PS</a>
+    
+    
+
+    <article>
+      <h2 id="usaco-2015-january">USACO 2015 January</h2>
+
+<h3 id="1-cow-routing">1. Cow Routing</h3>
+<p>입력에서 A, B가 순서대로 존재하는지 확인하면서 이동가능한 루트가 존재하면 최소 가격과 비교해서 갱신하면 되는 문제</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">cost</span><span class="p">,</span> <span class="n">city_num</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">cities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">flag</span><span class="p">:</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-cow-routing-ii">2. Cow Routing II</h3>
+<p>전 문제와 동일하나 이번에는 두개의 루트를 선택해서 이동 가능. 
+단순히 A와 B루트를 덧붙여서 1번 문제와 같은 방식으로 돌리면 TLE가 뜨므로 시간을 줄일 방법을 찾아야 함.
+루트에 A나 B가 존재하면 A까지의 루트, A 다음의 루트, B 이전의 루트로 루트를 구분
+그 이후 A 다음의 루트와 B 이전의 루트의 교집합이 존재하면 A 에서 B로 이동가능하다는 의미이므로 최소값 계산에 이용하면 됨.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+<span class="n">routes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">cost</span><span class="p">,</span> <span class="n">city_num</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+        <span class="n">routes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+
+<span class="n">se</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">()]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="c1"># till_a, after_a, till_b,
+</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">routes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+        <span class="n">s2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
+            <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+            <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span>
+            <span class="n">s2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">city</span> <span class="o">==</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">costs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">se</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">se</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">se</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]):</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">costs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">costs</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"cowroute.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-its-all-about-the-base">3. It’s All About the Base</h3>
+<p>뭔가 신박한 알고리즘이 있을지 알고 고민하다가 떠오르는게 없어 정답을 봤는데 전혀 그런거 없다. 
+단순하게 두 숫자를 10진법부터 변환하고 크기가 더 작은 수에 대해 진법을 하나씩 더 올려 계산하며 같은 숫자를 찾으면 된다. python으로 3초 가까운 시간이 걸리는데도 TLE가 뜨지 않는다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"whatbase.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">while</span> <span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">15000</span> <span class="ow">and</span> <span class="n">Y</span> <span class="o">&lt;=</span> <span class="mi">15000</span><span class="p">:</span>
+            <span class="n">num_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">X</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">num_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">Y</span><span class="o">*</span><span class="n">Y</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">Y</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">num_x</span> <span class="o">&lt;</span> <span class="n">num_y</span><span class="p">:</span>
+                <span class="n">X</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">num_y</span> <span class="o">&lt;</span> <span class="n">num_x</span><span class="p">:</span>
+                <span class="n">Y</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
+                <span class="k">break</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"whatbase.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s">" "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-meeting-time">4. Meeting Time</h3>
+
+<p>N이 1~16개 이고 단방향으로 가므로 Bessie와 Elsie에 대해 목적지까지 가는 패스를 전부 계산해서 cost를 저장한 후, 두 패스 중 겹치는 최소값을 찾으면 된다. BFS를 이용해서 경우의 수를 찾고, 해당 값을 set에 저장한 후 교집합의 최소값을 출력하는 방식으로 해결했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">_collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">b_cost</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">e_cost</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">path</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"meeting.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+        <span class="n">path</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">])</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">cur</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cur</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">b_cost</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="n">cur</span><span class="p">]:</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cost</span><span class="o">+</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">cur</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cur</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">e_cost</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="n">cur</span><span class="p">]:</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cost</span><span class="o">+</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"meeting.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">b_cost</span> <span class="o">&amp;</span> <span class="n">e_cost</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">b_cost</span> <span class="o">&amp;</span> <span class="n">e_cost</span><span class="p">))</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"IMPOSSIBLE</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/02/usaco-jan-2015/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -820,231 +993,6 @@ output 파일을 제출했던 Code jam 형태가 갑자기 online judge 형태�
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/">
-        Firebase로 동기화되는 Database 사용하기
-      </a>
-    </h1>
-
-    <span class="post-date">24 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    <a href="/blog/tags/#firebase" class="post-tag">Firebase</a>
-    
-    
-
-    <article>
-      <h2 id="firebase-프로젝트-추가">firebase 프로젝트 추가</h2>
-<p><a href="https://console.firebase.google.com">https://console.firebase.google.com</a>에서 프로젝트 추가
-<img src="/post_assets/2017-07-23/add_done.png" alt="프로젝트 추가" /></p>
-
-<h2 id="firebase-안드로이드-추가">firebase 안드로이드 추가</h2>
-<p><img src="/post_assets/2017-07-23/firebase_add.png" alt="안드로이드 추가" /></p>
-
-<h2 id="google-servicesjson-추가">google-services.json 추가</h2>
-<p><code class="highlighter-rouge">google-services.json</code> 파일을 app 영역의 root에 집어넣음. (project 보기)</p>
-
-<h2 id="buildgradle-변경">build.gradle 변경</h2>
-
-<p>build.gradle(project)에 다음 추가</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">classpath</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">google</span><span class="o">-</span><span class="nl">services:</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>build.gradle(app) 마지막줄에 다음 줄 추가</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gms</span><span class="o">.</span><span class="na">google</span><span class="o">-</span><span class="n">services</span><span class="err">'</span>
-</code></pre></div></div>
-
-<p>build.gradle(app)의 dependency에 다음 추가 (database 및 recyclerView 이용을 위한 라이브러리)</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">firebase</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="nl">database:</span><span class="mf">11.0</span><span class="o">.</span><span class="mi">2</span><span class="err">'</span>
-<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">firebaseui</span><span class="o">:</span><span class="n">firebase</span><span class="o">-</span><span class="n">ui</span><span class="o">-</span><span class="nl">database:</span><span class="mf">0.5</span><span class="o">.</span><span class="mi">3</span><span class="err">'</span>
-</code></pre></div></div>
-
-<p>이후 프로젝트 sync</p>
-
-<h2 id="model-추가">Model 추가</h2>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Notice</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">subject</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">Notice</span><span class="o">(){</span>
-
-    <span class="o">};</span>
-
-    <span class="kd">public</span> <span class="nf">Notice</span><span class="o">(</span><span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">subject</span> <span class="o">=</span> <span class="n">subject</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSubject</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">subject</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSubject</span><span class="o">(</span><span class="n">String</span> <span class="n">subject</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">subject</span> <span class="o">=</span> <span class="n">subject</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setContent</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h2 id="recyclerview-item-layout-추가">RecyclerView item layout 추가</h2>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
-    <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
-    <span class="na">android:orientation=</span><span class="s">"horizontal"</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;TextView</span>
-        <span class="na">android:id=</span><span class="s">"@+id/subjectTextView"</span>
-        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
-        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
-        <span class="na">android:layout_margin=</span><span class="s">"@dimen/text_margin"</span>
-        <span class="na">android:textAppearance=</span><span class="s">"?attr/textAppearanceListItem"</span> <span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;TextView</span>
-        <span class="na">android:id=</span><span class="s">"@+id/contentTextView"</span>
-        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
-        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
-        <span class="na">android:layout_margin=</span><span class="s">"@dimen/text_margin"</span>
-        <span class="na">android:textAppearance=</span><span class="s">"?attr/textAppearanceListItem"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/LinearLayout&gt;</span>
-
-</code></pre></div></div>
-
-<h2 id="recyclerview-layout-추가">RecyclerView layout 추가</h2>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;android.support.v7.widget.RecyclerView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
-    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
-    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
-    <span class="na">android:id=</span><span class="s">"@+id/noticelist"</span>
-    <span class="na">android:name=</span><span class="s">"com.ringsterz.picmemo.fragment.ItemFragment"</span>
-    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
-    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
-    <span class="na">android:layout_marginLeft=</span><span class="s">"16dp"</span>
-    <span class="na">android:layout_marginRight=</span><span class="s">"16dp"</span>
-    <span class="na">app:layoutManager=</span><span class="s">"LinearLayoutManager"</span>
-    <span class="na">tools:context=</span><span class="s">"com.ringsterz.picmemo.fragment.NotificationFragment"</span>
-    <span class="na">tools:listitem=</span><span class="s">"@layout/fragment_item"</span> <span class="nt">/&gt;</span>
-</code></pre></div></div>
-
-<h2 id="변수-선언-및-viewholder-정의-프래그먼트나-엑티비티의-inner-class로-추가">변수 선언 및 viewHolder 정의 (프래그먼트나 엑티비티의 inner class로 추가)</h2>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">DatabaseReference</span> <span class="n">mFirebaseDatabaseReference</span><span class="o">;</span>
-<span class="kd">private</span> <span class="n">FirebaseRecyclerAdapter</span><span class="o">&lt;</span><span class="n">Notice</span><span class="o">,</span> <span class="n">MessageViewHolder</span><span class="o">&gt;</span> <span class="n">mFirebaseAdapter</span><span class="o">;</span>
-<span class="kd">private</span> <span class="n">LinearLayoutManager</span> <span class="n">mLayoutManager</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MessageViewHolder</span> <span class="kd">extends</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">ViewHolder</span> <span class="o">{</span>
-    <span class="n">TextView</span> <span class="n">subjectTextView</span><span class="o">;</span>
-    <span class="n">TextView</span> <span class="n">contentTextView</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="nf">MessageViewHolder</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
-    <span class="n">subjectTextView</span> <span class="o">=</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">subjectTextView</span><span class="o">);</span>
-    <span class="n">contentTextView</span> <span class="o">=</span> <span class="n">itemView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">contentTextView</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div></div>
-
-<h2 id="recyclerview와-adapter-설정-및-observer-설정-fragment">RecyclerView와 adapter 설정 및 observer 설정 (Fragment)</h2>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span>
-<span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_item_list</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-
-<span class="c1">// Set the adapter</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="k">instanceof</span> <span class="n">RecyclerView</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="na">getContext</span><span class="o">();</span>
-    <span class="n">recyclerView</span> <span class="o">=</span> <span class="o">(</span><span class="n">RecyclerView</span><span class="o">)</span> <span class="n">view</span><span class="o">;</span>
-    <span class="n">mLayoutManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinearLayoutManager</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
-    <span class="n">recyclerView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="n">mLayoutManager</span><span class="o">);</span>
-
-    <span class="c1">// New child entries</span>
-    <span class="n">mFirebaseDatabaseReference</span> <span class="o">=</span> <span class="n">FirebaseDatabase</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getReference</span><span class="o">();</span>
-    <span class="n">mFirebaseAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FirebaseRecyclerAdapter</span><span class="o">&lt;</span><span class="n">Notice</span><span class="o">,</span>
-        <span class="n">MessageViewHolder</span><span class="o">&gt;(</span>
-        <span class="n">Notice</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_item</span><span class="o">,</span>
-        <span class="n">MessageViewHolder</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="n">mFirebaseDatabaseReference</span><span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="s">"notification"</span><span class="o">))</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">populateViewHolder</span><span class="o">(</span><span class="kd">final</span> <span class="n">MessageViewHolder</span> <span class="n">viewHolder</span><span class="o">,</span>
-                                    <span class="n">Notice</span> <span class="n">notice</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getSubject</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">subjectTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getSubject</span><span class="o">());</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">contentTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">notice</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
-        <span class="o">}</span>
-
-    <span class="o">}</span>
-<span class="o">};</span>
-
-<span class="n">mFirebaseAdapter</span><span class="o">.</span><span class="na">registerAdapterDataObserver</span><span class="o">(</span><span class="k">new</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">AdapterDataObserver</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemRangeInserted</span><span class="o">(</span><span class="kt">int</span> <span class="n">positionStart</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemCount</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onItemRangeInserted</span><span class="o">(</span><span class="n">positionStart</span><span class="o">,</span> <span class="n">itemCount</span><span class="o">);</span>
-        <span class="kt">int</span> <span class="n">noticeCount</span> <span class="o">=</span> <span class="n">mFirebaseAdapter</span><span class="o">.</span><span class="na">getItemCount</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">lastVisiblePosition</span> <span class="o">=</span>
-            <span class="n">mLayoutManager</span><span class="o">.</span><span class="na">findLastCompletelyVisibleItemPosition</span><span class="o">();</span>
-        <span class="c1">// If the recycler view is initially being loaded or the</span>
-        <span class="c1">// user is at the bottom of the list, scroll to the bottom</span>
-        <span class="c1">// of the list to show the newly added message.</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">lastVisiblePosition</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span>
-            <span class="o">(</span><span class="n">positionStart</span> <span class="o">&gt;=</span> <span class="o">(</span><span class="n">noticeCount</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
-                <span class="n">lastVisiblePosition</span> <span class="o">==</span> <span class="o">(</span><span class="n">positionStart</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)))</span> <span class="o">{</span>
-            <span class="n">recyclerView</span><span class="o">.</span><span class="na">scrollToPosition</span><span class="o">(</span><span class="n">positionStart</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>   
-<span class="o">});</span>
-
-<span class="n">recyclerView</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">mFirebaseAdapter</span><span class="o">);</span>
-
-<span class="o">}</span>
-
-<span class="k">return</span> <span class="n">view</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h2 id="rule-설정">Rule 설정</h2>
-<p>인증하지 않고 데이터를 받으려면 Firebase console에서 아래와 같이 읽기 권한을 준다.</p>
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">".read"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="s2">".write"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth != null"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<h2 id="firebase-data-형태">Firebase Data 형태</h2>
-<p><img src="/post_assets/2017-07-24/data.png" alt="Data형태" />
-위와 같이 db 밑에 child명을 주고 임의의 인스턴스 값 하위에 model에서 정의한 값을 넣어주면 된다.</p>
-
-<h2 id="동기화-결과">동기화 결과</h2>
-<p><img src="/post_assets/2017-07-24/result.png" alt="Result" />
-DB에서 값을 바꿀 경우 바로 동기화되어 view에 반영된다.</p>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/24/firebase-database-usage/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -1113,7 +1061,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-10 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-11 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
