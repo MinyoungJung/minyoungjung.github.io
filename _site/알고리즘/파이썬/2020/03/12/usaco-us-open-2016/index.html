@@ -11,7 +11,7 @@
 
   <title>
     
-      USACO 2016 February (Bronze) &middot; Ringsterz Log
+      USACO 2015 US open (Bronze) &middot; Ringsterz Log
     
   </title>
 
@@ -45,20 +45,20 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.6.0 -->
-<title>USACO 2016 February (Bronze) | Ringsterz Log</title>
+<title>USACO 2015 US open (Bronze) | Ringsterz Log</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="USACO 2016 February (Bronze)" />
+<meta property="og:title" content="USACO 2015 US open (Bronze)" />
 <meta name="author" content="Minyoung Jung" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="USACO 2016 February 1. Milk Pails X,Y의 수가 1000이하로 작으므로 M에 들어갈수 있는 조합을 전부 탐색하면 된다. with open(&quot;pails.in&quot;, &quot;r&quot;) as f: x, y, m = map(int, f.readline().strip().split()) ans = 0 for i in range(m//x+1): for j in range(m//y+1): if x*i + y*j &lt;= m: ans = max(ans, x*i + y*j) with open(&quot;pails.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Circular Barn 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
-<meta property="og:description" content="USACO 2016 February 1. Milk Pails X,Y의 수가 1000이하로 작으므로 M에 들어갈수 있는 조합을 전부 탐색하면 된다. with open(&quot;pails.in&quot;, &quot;r&quot;) as f: x, y, m = map(int, f.readline().strip().split()) ans = 0 for i in range(m//x+1): for j in range(m//y+1): if x*i + y*j &lt;= m: ans = max(ans, x*i + y*j) with open(&quot;pails.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Circular Barn 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
-<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/" />
-<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/" />
+<meta name="description" content="USACO 2016 US open (Bronze) 1. Diamond Collector 시작과 끝에 두개의 포인터를 두고 크기 차이가 k 이하면 뒤쪽을 전진, 이상이되면 앞쪽을 전진하는 방법으로 풀었다. a = [] with open(&quot;diamond.in&quot;, &quot;r&quot;) as f: n, k = map(int, f.readline().strip().split()) for _ in range(n): a.append(int(f.readline().strip())) a.sort() f = l = 0 tot = 1 ans = 0 while True: if f == n or l == n-1: break if a[l+1] - a[f] &lt;= k: l += 1 tot += 1 else: f += 1 tot -= 1 ans = max(ans, tot) with open(&quot;diamond.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Bull in a China Shop 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
+<meta property="og:description" content="USACO 2016 US open (Bronze) 1. Diamond Collector 시작과 끝에 두개의 포인터를 두고 크기 차이가 k 이하면 뒤쪽을 전진, 이상이되면 앞쪽을 전진하는 방법으로 풀었다. a = [] with open(&quot;diamond.in&quot;, &quot;r&quot;) as f: n, k = map(int, f.readline().strip().split()) for _ in range(n): a.append(int(f.readline().strip())) a.sort() f = l = 0 tot = 1 ans = 0 while True: if f == n or l == n-1: break if a[l+1] - a[f] &lt;= k: l += 1 tot += 1 else: f += 1 tot -= 1 ans = max(ans, tot) with open(&quot;diamond.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 2. Bull in a China Shop 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\n&quot;)" />
+<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/" />
+<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/" />
 <meta property="og:site_name" content="Ringsterz Log" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-03-11T00:00:00+09:00" />
+<meta property="article:published_time" content="2020-03-12T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"USACO 2016 February (Bronze)","url":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/","dateModified":"2020-03-11T00:00:00+09:00","datePublished":"2020-03-11T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"USACO 2016 February 1. Milk Pails X,Y의 수가 1000이하로 작으므로 M에 들어갈수 있는 조합을 전부 탐색하면 된다. with open(&quot;pails.in&quot;, &quot;r&quot;) as f: x, y, m = map(int, f.readline().strip().split()) ans = 0 for i in range(m//x+1): for j in range(m//y+1): if x*i + y*j &lt;= m: ans = max(ans, x*i + y*j) with open(&quot;pails.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 2. Circular Barn 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;)","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
+{"headline":"USACO 2015 US open (Bronze)","url":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/","dateModified":"2020-03-12T00:00:00+09:00","datePublished":"2020-03-12T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/"},"author":{"@type":"Person","name":"Minyoung Jung"},"description":"USACO 2016 US open (Bronze) 1. Diamond Collector 시작과 끝에 두개의 포인터를 두고 크기 차이가 k 이하면 뒤쪽을 전진, 이상이되면 앞쪽을 전진하는 방법으로 풀었다. a = [] with open(&quot;diamond.in&quot;, &quot;r&quot;) as f: n, k = map(int, f.readline().strip().split()) for _ in range(n): a.append(int(f.readline().strip())) a.sort() f = l = 0 tot = 1 ans = 0 while True: if f == n or l == n-1: break if a[l+1] - a[f] &lt;= k: l += 1 tot += 1 else: f += 1 tot -= 1 ans = max(ans, tot) with open(&quot;diamond.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 2. Bull in a China Shop 입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다. 실제 리스트를 회전시키지 않고 a[j%n]의 형태로 인덱스만 탐색하는 방법도 있다. a = [] with open(&quot;cbarn.in&quot;, &quot;r&quot;) as f: n = int(f.readline().strip()) for _ in range(n): a.append(int(f.readline().strip())) ans = float(&quot;inf&quot;) for i in range(n): cur = 0 for j in range(1, n): cur += a[j]*j ans = min(ans, cur) l = a.pop() a.insert(0, l) with open(&quot;cbarn.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;) 3. Load Balancing N의 값은 작으나 좌표의 값이 크므로 좌표를 일일히 스캔할수는 없다. 각각의 소의 위치를 기준으로 x, y를 가로지르는 펜스를 구성하고 사분면에 해당하는 소의 수를 세는 방식으로 구성하면 100*100개의 조합에 대해서만 각각의 소가 어떤 사분면에 해당하는지 세면 된다. xpos = [] ypos = [] with open(&quot;balancing.in&quot;, &quot;r&quot;) as f: n, b = map(int, f.readline().strip().split()) for _ in range(n): x, y = map(int, f.readline().strip().split()) xpos.append(x) ypos.append(y) ans = n # 한점에 모든 소가 모여있는 경우가 최악의 경우 for x in xpos: for y in ypos: xdiv = x+1 ydiv = y+1 d1 = d2 = d3 = d4 = 0 for i in range(n): if xpos[i] &lt; xdiv and ypos[i] &gt; ydiv: d1 += 1 elif xpos[i] &gt; xdiv and ypos[i] &gt; ydiv: d2 += 1 elif xpos[i] &lt; xdiv and ypos[i] &lt; ydiv: d3 += 1 else: d4 += 1 m = max(d1, d2, d3, d4) ans = min(m, ans) with open(&quot;balancing.out&quot;, &quot;w&quot;) as f: f.write(str(ans)+&quot;\\n&quot;)","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/public/logo.png"},"name":"Minyoung Jung"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -191,8 +191,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">USACO 2016 February (Bronze)</h1>
-  <span class="post-date">11 Mar 2020</span>
+  <h1 class="post-title">USACO 2015 US open (Bronze)</h1>
+  <span class="post-date">12 Mar 2020</span>
    | 
   
     <a href="/blog/tags/#python" class="post-tag">Python</a>
@@ -203,26 +203,38 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   
   
   <article>
-    <h2 id="usaco-2016-february">USACO 2016 February</h2>
+    <h2 id="usaco-2016-us-open-bronze">USACO 2016 US open (Bronze)</h2>
 
-<h3 id="1-milk-pails">1. Milk Pails</h3>
-<p>X,Y의 수가 1000이하로 작으므로 M에 들어갈수 있는 조합을 전부 탐색하면 된다.</p>
+<h3 id="1-diamond-collector">1. Diamond Collector</h3>
+<p>시작과 끝에 두개의 포인터를 두고 크기 차이가 k 이하면 뒤쪽을 전진, 이상이되면 앞쪽을 전진하는 방법으로 풀었다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"pails.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"diamond.in"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
 
+<span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">//</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">//</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">:</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">n</span> <span class="ow">or</span> <span class="n">l</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">tot</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">tot</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">tot</span><span class="p">)</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"pails.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"diamond.out"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
 </code></pre></div></div>
 
-<h3 id="2-circular-barn">2. Circular Barn</h3>
+<h3 id="2-bull-in-a-china-shop">2. Bull in a China Shop</h3>
 <p>입력이 크지 않아서 리스트를 회전시키면서 전부 탐색했다.
 실제 리스트를 회전시키지 않고 <code class="highlighter-rouge">a[j%n]</code>의 형태로 인덱스만 탐색하는 방법도 있다.</p>
 
@@ -292,9 +304,9 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
     
       <li>
         <h3>
-          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/">
-            USACO 2015 US open (Bronze)
-            <small>12 Mar 2020</small>
+          <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/">
+            USACO 2016 February (Bronze)
+            <small>11 Mar 2020</small>
           </a>
         </h3>
       </li>
@@ -326,8 +338,8 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div id="disqus_thread"></div>
   <script>
 var disqus_config = function () {
-  this.page.url = 'http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016/'; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = '/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/11/usaco-feb-2016'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  this.page.url = 'http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016/'; // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = '/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%ED%8C%8C%EC%9D%B4%EC%8D%AC/2020/03/12/usaco-us-open-2016'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 (function() {
   var d = document, s = d.createElement('script');

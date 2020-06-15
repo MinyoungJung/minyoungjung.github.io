@@ -45,7 +45,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 </head>
 
   <!-- Begin Jekyll SEO tag v2.6.0 -->
-<title>Page 5 of 13 for Blog | Ringsterz Log</title>
+<title>Page 5 of 14 for Blog | Ringsterz Log</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Blog" />
 <meta name="author" content="Minyoung Jung" />
@@ -73,7 +73,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
   <div class="sidebar-item">
       <p><span style="font-weight:bolder; font-size:larger;">하루를 정리하는 데일리 로그 </span></p>
       <div style="text-align:center;">
-        현재 <strong id="current_date_streak" style="color:#FFC300;">4</strong>일 째 블로깅 중 <br>
+        현재 <strong id="current_date_streak" style="color:#FFC300;">0</strong>일 째 블로깅 중 <br>
         최고 기록:&nbsp;<strong style="color:white;">55</strong>일
       </div>
     <div class="sidebar-personal-info">
@@ -99,7 +99,7 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
         
         
         
-        <a href="minyoungjung84@gmail.com">
+        <a href="mailto:minyoungjung84@gmail.com">
           <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
         </a>
         
@@ -191,6 +191,118 @@ MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], proces
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/">
+        안드로이드 개발시에만 로그 출력하기
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jul 2017</span>
+     | 
+    
+    <a href="/blog/tags/#android" class="post-tag">Android</a>
+    
+    <a href="/blog/tags/#java" class="post-tag">Java</a>
+    
+    <a href="/blog/tags/#log" class="post-tag">Log</a>
+    
+    
+
+    <article>
+      <h1 id="사용씬">사용씬</h1>
+<p>디버그로 빌드할때만 로그가 출력되고, release로 빌드했을때는 로그가 출력되지 않도록 하려고 한다.</p>
+
+<h1 id="사용-방법">사용 방법</h1>
+<p>Log 클래스의 Wrapper class를 생성한 후, <code class="highlighter-rouge">BuildConfig.BUILD_TYPE</code> 값을 체크하여 로그를 출력한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogUtils</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">LOGGING_ENABLED</span> <span class="o">=</span> <span class="o">!</span><span class="n">BuildConfig</span><span class="o">.</span><span class="na">BUILD_TYPE</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">"release"</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGD</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">DEBUG</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGD</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">DEBUG</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGV</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">VERBOSE</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGV</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Log</span><span class="o">.</span><span class="na">isLoggable</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">Log</span><span class="o">.</span><span class="na">VERBOSE</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGI</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGI</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">LOGGING_ENABLED</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGW</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGW</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGE</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">LOGE</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">tag</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nf">LogUtils</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>참고로 INFO 레벨 미만은 Log.isLoggable을 이용해 로그가 출력 가능한지 확인해줘야 한다.<br />
+디폴트 로그 레벨 출력값은 Info 이상이다.</p>
+
+<h1 id="이스터에그-logwtf">이스터에그? Log.wtf</h1>
+<p>API 문서를 참조하다. 로그레벨 wtf이 있다는 것을 알게되었다.<br />
+“What a Terrible Failure: Report a condition that should never happen.”라고 설명하고 있지만…<br />
+우리는 모두 진실을 알고있다.</p>
+
+
+    <article>
+    <div class="post-more">
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
+      
+      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/15/android-logging-debug-only/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
+    </div>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -409,52 +521,6 @@ Back Stack에 Splash Activity가 남지 않게 하려면 사용하면 된다.</p
     </div>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/">
-        안드로이드 액티비티 전체화면 만들기
-      </a>
-    </h1>
-
-    <span class="post-date">10 Jul 2017</span>
-     | 
-    
-    <a href="/blog/tags/#android" class="post-tag">Android</a>
-    
-    <a href="/blog/tags/#android-studio" class="post-tag">Android Studio</a>
-    
-    <a href="/blog/tags/#java" class="post-tag">Java</a>
-    
-    
-
-    <article>
-      <p>요즘 바빠서 블로깅하기가 힘들다.<br />
-그냥 간단한 것이라도 남기기로 한다.</p>
-
-<h1 id="툴바-및-상태바-숨기기">툴바 및 상태바 숨기기</h1>
-
-<p>아래 코드를 onCreate의 <code class="highlighter-rouge">setContentView</code> 전에 해주면 된다.<br />
-사실 Android Studio에서 자동으로 생성해주는 FullScreenActivity에서도 볼 수 있는 내용이다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">getWindow</span><span class="o">().</span><span class="na">getDecorView</span><span class="o">().</span><span class="na">setSystemUiVisibility</span><span class="o">(</span>
-    <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_STABLE</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_HIDE_NAVIGATION</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_FULLSCREEN</span>
-        <span class="o">|</span> <span class="n">View</span><span class="o">.</span><span class="na">SYSTEM_UI_FLAG_IMMERSIVE_STICKY</span><span class="o">);</span>
-</code></pre></div></div>
-
-
-    <article>
-    <div class="post-more">
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/#disqus_thread"> <i class="fa fa-comments" aria-hidden="true"></i>Comment</a>&nbsp;
-      
-      <a href="/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C/2017/07/10/android-application-fullscreen/"><i class="fa fa-plus-circle" aria-hidden="true"></i>Read more</a>
-    </div>
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -523,7 +589,7 @@ ga('send', 'pageview');
 
     // Calculate current_date_streak dynamically
     $(document).ready(function(){
-      var latest_post_date_str = "2020-03-11 00:00:00 +0900";
+      var latest_post_date_str = "2020-03-12 00:00:00 +0900";
       var day_passed = Math.floor((Date.now() - Date.parse(latest_post_date_str.split(' ')[0])) / 86400000);
       // if latest posting date passed a day then reset to 0
       if (day_passed > 1) {
